@@ -1,0 +1,25 @@
+module Api
+  module V1
+    class BaseController < ApplicationController
+      respond_to :json
+      before_action :default_json
+
+      def current_user
+        user_email = request.headers['auth-email']
+        user_token = request.headers['auth-token']
+        return nil unless user_token
+        User.find_by authentication_token: user_token
+      end
+
+      protected
+
+      def default_json
+        request.format = :json if params[:format].nil?
+      end
+
+      def auth_only!
+        render json: {}, status: 401 unless current_user
+      end
+    end
+  end
+end
