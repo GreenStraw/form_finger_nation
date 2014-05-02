@@ -16,6 +16,7 @@ App::Application.routes.draw do
       end
 
       resources :users, only: [:index, :show, :update]
+      resources :sports
     end
   end
 

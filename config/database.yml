@@ -17,7 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: ffn-rails_development
+  database: ffn-api_development
   pool: 5
 
 
@@ -45,11 +45,11 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: ffn-rails_test
+  database: ffn-api_test
   pool: 5
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: ffn-rails_production
+  database: ffn-api_production
   pool: 5

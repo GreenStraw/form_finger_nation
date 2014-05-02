@@ -8,9 +8,9 @@ module Api
 
       def index
         if current_user.admin?
-          render json: User.all
+          return render json: User.all
         else
-          render json: {}, status: 403
+          return render json: {}, status: 403
         end
       end
 
@@ -25,21 +25,6 @@ module Api
 
       private
 
-      def authenticate_user_from_token!
-        user_email = request.headers['auth-email'].presence
-        user_token = request.headers['auth-token'].presence
-        return render json: {}, status: 401 unless user_email && user_token
-        user       = user_email && User.find_by_email(user_email)
-
-        # Notice how we use Devise.secure_compare to compare the token
-        # in the database with the token given in the params, mitigating
-        # timing attacks.
-        if user && Devise.secure_compare(user.authentication_token, user_token)
-          sign_in user, store: false
-        else
-          return render json: {}, status: 401
-        end
-      end
       def user_params
         params.require(:user).permit(:name, :email, :city, :state, :zip, :password, :password_confirmation, :remember_me, :admin)
       end

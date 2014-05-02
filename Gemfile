@@ -17,7 +17,7 @@ gem 'devise', '3.0.0' # server-side authentication
 gem 'omniauth-facebook'
 gem 'bcrypt-ruby', '~> 3.0' # password encryption
 
-gem 'active_model_serializers', '~> 0.7' # json that conforms to ember-data expectation
+gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
 gem 'rack-cors', :require => 'rack/cors'
 
 group :test do

@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424234307) do
+ActiveRecord::Schema.define(version: 20140501185851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sport_subscriptions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "sport_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sports", force: true do |t|
+    t.string   "name"
+    t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -27,6 +41,9 @@ ActiveRecord::Schema.define(version: 20140424234307) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
