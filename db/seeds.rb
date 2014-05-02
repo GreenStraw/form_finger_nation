@@ -7,3 +7,7 @@ Sport.create([
   { name: 'NFL' },
   { name: 'MLB' }
 ])
+
+SportSubscription.create([
+  { user_id: 1, sport_id: 1}
+])

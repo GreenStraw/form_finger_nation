@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
+  has_many :sport_subscriptions
+  has_many :sports, through: :sport_subscriptions
+
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :admin
   # TODO: hack. This field needs to be part of the ember data model for updates, but

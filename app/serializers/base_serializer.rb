@@ -1,3 +1,3 @@
 class BaseSerializer < ActiveModel::Serializer
-  embed :ids
+  embed :ids, include: true
 end

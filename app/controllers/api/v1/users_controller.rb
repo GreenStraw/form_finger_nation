@@ -17,6 +17,7 @@ module Api
       def show
         user = User.find(params[:id])
         if current_user.admin? || current_user == user
+          puts UserSerializer.new(user).inspect
           return render json: User.find(params[:id])
         else
           return render json: {}, status: 403
@@ -26,7 +27,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :city, :state, :zip, :password, :password_confirmation, :remember_me, :admin)
+        params.require(:user).permit(:name, :email, :city, :state, :zip, :sports, :password, :password_confirmation, :remember_me, :admin)
       end
     end
   end
