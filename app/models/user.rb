@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_many :sport_subscriptions
   has_many :sports, through: :sport_subscriptions
+  has_many :team_subscriptions
+  has_many :teams, through: :team_subscriptions
 
   attr_accessor :current_password, :password_confirmation
 

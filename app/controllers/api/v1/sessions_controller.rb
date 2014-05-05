@@ -32,6 +32,7 @@ module Api
           data[:remember_token] = remember_token
         end
 
+        puts data.inspect
         render json: data, status: 201
       end
 
