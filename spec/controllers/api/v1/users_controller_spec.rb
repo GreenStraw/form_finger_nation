@@ -45,4 +45,115 @@ describe Api::V1::UsersController do
       end
     end
   end
+
+  describe 'PUT update' do
+    context 'Invalid credentials no auth token' do
+      before do
+        user = Fabricate(:user)
+        user.confirm!
+        user.ensure_authentication_token!
+        xhr :put, :update, :id => user.id, :user => {:name => "NoToken NewName"}
+      end
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'Update password' do
+      before do
+        @user = Fabricate(:user)
+        @user.confirm!
+        @user.ensure_authentication_token!
+        request.headers['auth-token'] = @user.authentication_token
+        request.headers['auth-email'] = @user.email
+        xhr :put,
+            :update,
+            :id => @user.id,
+            :user => {:current_password => @user.password,
+                      :password => "abcdefgh",
+                      :password_confirmation => "abcdefgh"}
+      end
+      it 'returns http 201' do
+        response.response_code.should == 200
+      end
+      it 'returns updated user' do
+        up_user = JSON.parse(response.body)['user']
+        expect_user = {
+          'id' => @user.id,
+          'name' => @user.name,
+          'email' => @user.email,
+          'city' => @user.city,
+          'state' => @user.state,
+          'zip' => @user.zip,
+          'admin' => @user.admin,
+          'sports' => @user.sports}
+        up_user.should == expect_user
+      end
+    end
+    context 'Update fields' do
+      before do
+        @user = Fabricate(:user)
+        @user.confirm!
+        @user.ensure_authentication_token!
+        request.headers['auth-token'] = @user.authentication_token
+        request.headers['auth-email'] = @user.email
+        xhr :put,
+            :update,
+            :id => @user.id,
+            :user => {:current_password => @user.password,
+                      :name => "New Name"}
+      end
+      it 'returns http 201' do
+        response.response_code.should == 200
+      end
+      it 'returns updated user' do
+        up_user = JSON.parse(response.body)['user']
+        expect_user = {
+          'id' => @user.id,
+          'name' => "New Name",
+          'email' => @user.email,
+          'city' => @user.city,
+          'state' => @user.state,
+          'zip' => @user.zip,
+          'admin' => @user.admin,
+          'sports' => @user.sports}
+        up_user.should == expect_user
+      end
+    end
+    context 'Invalid credentials wrong auth token' do
+      before do
+        @user = Fabricate(:user)
+        @user.confirm!
+        @user.ensure_authentication_token!
+        request.headers['auth-token'] = 'fake_token'
+        request.headers['auth-email'] = @user.email
+        xhr :put,
+            :update,
+            :id => @user.id,
+            :user => {:current_password => @user.password,
+                      :name => "New Name"}
+      end
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'Invalid Password' do
+      before do
+        @user = Fabricate(:user)
+        @user.confirm!
+        @user.ensure_authentication_token!
+        request.headers['auth-token'] = @user.authentication_token
+        request.headers['auth-email'] = @user.email
+        xhr :put,
+            :update,
+            :id => @user.id,
+            :user => {:current_password => 'wrongPassword',
+                      :passwrod => 'test',
+                      :password_confirmation => 'test',
+                      :name => "New Name"}
+      end
+      it 'returns http 422' do
+        response.response_code.should == 422
+      end
+    end
+  end
 end

@@ -98,10 +98,6 @@ module Api
         password = ::BCrypt::Engine.hash_secret("#{password}#{self.class.pepper}", bcrypt.salt)
         Devise.secure_compare(password, @user.encrypted_password)
       end
-
-      # def clean_up_passwords
-      #   self.password = self.password_confirmation = nil
-      # end
     end
   end
 end
