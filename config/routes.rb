@@ -11,7 +11,7 @@ App::Application.routes.draw do
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
-        put '/users/:id', :to => "registrations#update"
+        # put '/users/:id', :to => "registrations#update"
         post '/users', :to => "registrations#create"
       end
 
