@@ -26,7 +26,7 @@ module App
     # config.i18n.default_locale = :de
     config.action_controller.include_all_helpers = true
 
-    config.middleware.insert_before Warden::Manager, Rack::Cors do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
         resource '*', :headers => :any, :methods => [:get, :post, :options, :put, :delete, :patch]

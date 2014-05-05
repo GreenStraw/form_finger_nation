@@ -1,6 +1,8 @@
 module Api
   module V1
     class UsersController < BaseController
+      include Devise::Models::DatabaseAuthenticatable
+      include ActiveRecord::AttributeAssignment
       respond_to :json
       before_filter :authenticate_user_from_token!
       # before_filter :admin_only!, only: [:index]
@@ -16,10 +18,8 @@ module Api
 
       def show
         user = User.find(params[:id])
-        puts user.inspect
         if current_user.admin? || current_user == user
           us = UserSerializer.new(user);
-          puts us.to_json
           return render json: User.find(params[:id])
         else
           return render json: {}, status: 403
@@ -27,14 +27,13 @@ module Api
       end
 
       def update
-        if current_user.admin?
-          @user = User.find(params[:id])
+        @user = User.find(params[:id])
+        if current_user.admin? || current_user == @user
           update_params = sport_id_list_to_sports_for_update
-          puts update_params.inspect
-          if @user.update!(update_params)
-            return render json: @user
+          if changing_password(update_params)
+            update_with_password(update_params)
           else
-            return render json: { :errors => 'User not updated' }, status: 422
+            update_without_password(update_params)
           end
         else
           return render json: {}, status: 403
@@ -43,21 +42,66 @@ module Api
 
       private
 
+      def changing_password(update_params)
+        update_params[:current_password].present? && update_params[:password].present? && update_params[:password_confirmation].present?
+      end
+
+      def update_without_password(update_params)
+        if @user.update(update_params)
+          return render json: @user
+        else
+          return render json: { :errors => @user.errors }, status: 422
+        end
+      end
+
       def sport_id_list_to_sports_for_update
         update_params = user_params
-        sport_ids = update_params[:sports]
-        sports = []
-        if sport_ids.any?
-          sports = sport_ids.map{|sid| Sport.find_by_id(sid)}.compact.uniq
-          puts sports
+        if update_params[:sports].present?
+          sport_ids = update_params[:sports]
+          sports = []
+          if sport_ids.any?
+            sports = sport_ids.map{|sid| Sport.find_by_id(sid)}.compact.uniq
+          end
+          update_params[:sports] = sports
         end
-        update_params[:sports] = sports
         update_params
       end
 
       def user_params
         params.require(:user).permit(:name, :admin, :email, :city, :state, :zip, :current_password, :password, :password_confirmation, {:sports=>[]})
       end
+
+      def update_with_password(update_params, *options)
+        current_password = update_params.delete(:current_password)
+
+        if update_params[:password].blank?
+          update_params.delete(:password)
+          update_params.delete(:password_confirmation) if update_params[:password_confirmation].blank?
+        end
+
+        if valid_password?(current_password)
+          @user.update_attributes(update_params, *options)
+          clean_up_passwords
+          return render json: @user
+        else
+          @user.assign_attributes(update_params, *options)
+          @user.valid?
+          @user.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+          clean_up_passwords
+          return render json: @user.errors.messages, status: 422
+        end
+      end
+
+      def valid_password?(password)
+        return false if @user.encrypted_password.blank?
+        bcrypt   = ::BCrypt::Password.new(@user.encrypted_password)
+        password = ::BCrypt::Engine.hash_secret("#{password}#{self.class.pepper}", bcrypt.salt)
+        Devise.secure_compare(password, @user.encrypted_password)
+      end
+
+      # def clean_up_passwords
+      #   self.password = self.password_confirmation = nil
+      # end
     end
   end
 end

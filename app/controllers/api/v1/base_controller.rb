@@ -38,25 +38,6 @@ module Api
           return render json: {}, status: 401
         end
       end
-
-      def cors_set_access_control_headers
-        puts 'set access'
-        headers['Access-Control-Allow-Origin'] = '*'
-        headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT'
-        headers['Access-Control-Allow-Headers'] = '*'
-        headers['Access-Control-Max-Age'] = "1728000"
-      end
-
-      def cors_preflight_check
-        puts 'preflight check'
-        if request.method == :options
-          headers['Access-Control-Allow-Origin'] = '*'
-          headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT'
-          headers['Access-Control-Allow-Headers'] = '*'
-          headers['Access-Control-Max-Age'] = '1728000'
-          render :text => '', :content_type => 'text/plain'
-        end
-      end
     end
   end
 end
