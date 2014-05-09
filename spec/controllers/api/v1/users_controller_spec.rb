@@ -85,7 +85,8 @@ describe Api::V1::UsersController do
           'state' => @user.state,
           'zip' => @user.zip,
           'admin' => @user.admin,
-          'sports' => @user.sports}
+          'sports' => @user.sports,
+          'teams'=> @user.teams}
         up_user.should == expect_user
       end
     end
@@ -115,7 +116,8 @@ describe Api::V1::UsersController do
           'state' => @user.state,
           'zip' => @user.zip,
           'admin' => @user.admin,
-          'sports' => @user.sports}
+          'sports' => @user.sports,
+          'teams'=> @user.teams}
         up_user.should == expect_user
       end
     end

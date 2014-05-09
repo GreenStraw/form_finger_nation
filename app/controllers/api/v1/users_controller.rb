@@ -19,7 +19,6 @@ module Api
       def show
         user = User.find(params[:id])
         if current_user.admin? || current_user == user
-          us = UserSerializer.new(user);
           return render json: User.find(params[:id])
         else
           return render json: {}, status: 403
@@ -29,6 +28,7 @@ module Api
       def update
         @user = User.find(params[:id])
         if current_user.admin? || current_user == @user
+          update_params = user_params
           update_params[:sports] = sport_id_list_to_sports_for_update
           update_params[:teams] = team_id_list_to_teams_for_update
           if changing_password(update_params)
@@ -65,7 +65,7 @@ module Api
           end
           sports
         else
-          nil
+          []
         end
       end
 
@@ -75,11 +75,11 @@ module Api
           team_ids = update_params[:teams]
           teams = []
           if team_ids.any?
-            teams = team_ids.map{|sid| team.find_by_id(sid)}.compact.uniq
+            teams = team_ids.map{|sid| Team.find_by_id(sid)}.compact.uniq
           end
           teams
         else
-          nil
+          []
         end
       end
 

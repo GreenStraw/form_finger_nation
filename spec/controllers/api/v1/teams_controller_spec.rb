@@ -68,10 +68,12 @@ describe Api::V1::TeamsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        sp = Team.new
-        Team.should_receive(:new).with(@team).and_return(sp)
-        sp.should_receive(:save).and_return(false)
-        xhr :post, :create, :team => @team
+        sp = Sport.create
+        sp.stub(:id).and_return('1')
+        t = Team.new(sport: sp)
+        Team.should_receive(:new).with(@team).and_return(t)
+        t.should_receive(:save).and_return(false)
+        xhr :post, :create, :team => {"name"=>"test_team", "image_url"=>nil, "sport"=>"1"}
       }
 
       it 'returns http 422' do
@@ -209,7 +211,7 @@ describe Api::V1::TeamsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: Team.id
+        xhr :delete, :destroy, id: team.id
       }
 
       it 'returns http 200' do

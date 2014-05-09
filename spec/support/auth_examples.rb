@@ -6,15 +6,21 @@ end
 
 shared_examples 'auth response' do
   context 'remember me on' do
-    it_behaves_like 'auth response case' do let(:remember) { true } end
+    it_behaves_like 'auth response case' do
+      let(:remember) { true }
+    end
   end
 
   context 'remember me off' do
-    it_behaves_like 'auth response case' do let(:remember) { false } end
+    it_behaves_like 'auth response case' do
+      let(:remember) { false }
+    end
   end
 
   context 'remember me unspecified' do
-    it_behaves_like 'auth response case' do let(:remember) { nil } end
+    it_behaves_like 'auth response case' do
+      let(:remember) { nil }
+    end
   end
 end
 

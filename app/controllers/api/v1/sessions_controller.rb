@@ -20,19 +20,20 @@ module Api
 
         @user.ensure_authentication_token!
 
+        return unconfirmed unless @user.confirmed?
+
         data = {
           user_id: @user.id,
           auth_token: @user.authentication_token,
           auth_email: @user.email,
           user_name: @user.name,
-          user_admin: @user.admin
+          #force boolean to be returned
+          user_admin: @user.admin == true
         }
         if params[:remember]
           @user.remember_me!
           data[:remember_token] = remember_token
         end
-
-        puts data.inspect
         render json: data, status: 201
       end
 
@@ -81,6 +82,10 @@ module Api
 
       def invalid_credentials
         render json: {}, status: 401
+      end
+
+      def unconfirmed
+        render json: {error: 'unconfirmed'}, status: 401
       end
     end
   end

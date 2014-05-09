@@ -28,6 +28,9 @@ module Api
       def update
         if current_user.admin?
           @team = Team.find(params[:id])
+          if params[:team][:sport].nil?
+            params[:team][:sport] = @team.sport_id
+          end
           if @team.update!(team_params)
             return render json: @team
           else
@@ -54,7 +57,8 @@ module Api
       private
 
       def team_params
-        params.require(:team).permit(:name, :image_url, :users)
+        params[:team][:sport_id] = params[:team][:sport]
+        params.require(:team).permit(:name, :image_url, :sport_id)
       end
     end
   end

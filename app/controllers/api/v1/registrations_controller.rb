@@ -26,40 +26,18 @@ module Api
         end
       end
 
-      # def update
-      #   resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-      #   prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
-      #   if resource.update_with_password(account_update_params)
-      #     sign_in resource_name, resource, :bypass => true
-      #     render json: resource, status: 201
-      #     return
-      #   else
-      #     clean_up_passwords resource
-      #     render json: resource, status: 422
-      #   end
-      # end
-
     protected
 
       def configure_permitted_parameters
         devise_parameter_sanitizer.for(:sign_up) do |u|
           u.permit(:name, :admin, :email, :city, :state, :zip, :password, :password_confirmation)
         end
-
-        # devise_parameter_sanitizer.for(:account_update) do |u|
-        #   u.permit(:name, :admin, :email, :city, :state, :zip, :current_password, :password, :password_confirmation)
-        # end
       end
 
       def sign_up_params
         params[:user].delete(:current_password)
-        params.require(:user).permit(:name, :admin, :email, :city, :state, :zip, :password, :password_confirmation)
+        params.require(:user).permit(:name, :admin, :email, :city, :state, :zip, :password, :password_confirmation, {:sports=>[], :teams=>[]})
       end
-
-      # def account_update_params
-      #   params.require(:user).permit(:name, :admin, :email, :city, :state, :zip, :current_password, :password, :password_confirmation)
-      # end
     end
   end
 end
