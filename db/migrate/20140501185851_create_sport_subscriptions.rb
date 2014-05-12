@@ -6,4 +6,6 @@ class CreateSportSubscriptions < ActiveRecord::Migration
       t.timestamps
     end
   end
+  add_index(:sport_subscriptions, :user_id)
+  add_index(:sport_subscriptions, :sport_id)
 end
