@@ -12,6 +12,7 @@ gem 'sass-rails', '~> 4.0'
 gem 'uglifier', '~> 2.1'
 gem 'twitter-bootstrap-rails'
 
+gem 'rolify'
 gem 'devise', '3.0.0' # server-side authentication
                                 # 3.1 removes token auth
 gem 'omniauth-facebook'

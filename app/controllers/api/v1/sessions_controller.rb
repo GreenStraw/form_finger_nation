@@ -27,8 +27,7 @@ module Api
           auth_token: @user.authentication_token,
           auth_email: @user.email,
           user_name: @user.name,
-          #force boolean to be returned
-          user_admin: @user.admin == true
+          user_admin: @user.has_role?(:admin)
         }
         if params[:remember]
           @user.remember_me!

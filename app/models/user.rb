@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -11,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :sports, through: :sport_subscriptions
   has_many :team_subscriptions
   has_many :teams, through: :team_subscriptions
+  has_many :establishments
 
   attr_accessor :current_password, :password_confirmation
 

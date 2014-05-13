@@ -9,7 +9,7 @@ module Api
       # before_filter :auth_only!, except: [:index]
 
       def index
-        if current_user.admin?
+        if current_user.has_role?(:admin)
           return render json: User.all
         else
           return render json: {}, status: 403
@@ -18,7 +18,7 @@ module Api
 
       def show
         user = User.find(params[:id])
-        if current_user.admin? || current_user == user
+        if current_user.has_role?(:admin) || current_user == user
           return render json: User.find(params[:id])
         else
           return render json: {}, status: 403
@@ -27,7 +27,7 @@ module Api
 
       def update
         @user = User.find(params[:id])
-        if current_user.admin? || current_user == @user
+        if current_user.has_role?(:admin) || current_user == @user
           update_params = user_params
           update_params[:sports] = sport_id_list_to_sports_for_update
           update_params[:teams] = team_id_list_to_teams_for_update

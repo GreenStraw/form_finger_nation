@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Api::V1::SportsController do
-  let(:sport) { Fabricate(:sport) }
+describe Api::V1::EstablishmentsController do
+  let(:establishment) { Fabricate(:establishment) }
   let(:user) { Fabricate(:user) }
   before do
-    @sport = Fabricate.attributes_for(:sport)
-    sport
+    @establishment = Fabricate.attributes_for(:establishment)
+    establishment
     user
     user.confirm!
   end
@@ -25,7 +25,7 @@ describe Api::V1::SportsController do
   describe 'GET show' do
     context 'show' do
       before do
-        get :show, id: sport.id
+        get :show, id: establishment.id
       end
 
       it 'returns http 200' do
@@ -41,7 +41,7 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :establishment => @establishment
       }
 
       it 'returns http 403' do
@@ -54,24 +54,24 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :establishment => @establishment
       }
 
       it 'returns http 401' do
         response.response_code.should == 401
       end
     end
-    context 'sport failed to save' do
+    context 'establishment failed to save' do
       before {
         user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        sp = Sport.new
-        Sport.should_receive(:new).with(@sport).and_return(sp)
-        sp.should_receive(:save).and_return(false)
-        xhr :post, :create, :sport => @sport
+        e = Establishment.new(user: user)
+        Establishment.should_receive(:new).and_return(e)
+        e.should_receive(:save).and_return(false)
+        xhr :post, :create, :establishment => establishment.attributes.except("id")
       }
 
       it 'returns http 422' do
@@ -85,7 +85,7 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :establishment => establishment.attributes
       }
 
       it 'returns http 200' do
@@ -97,12 +97,12 @@ describe Api::V1::SportsController do
   describe 'PUT update' do
     context 'current user not admin' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
+        xhr :put, :update, id: establishment.id, establishment: {name: 'another_name'}
       }
 
       it 'returns http 403' do
@@ -115,24 +115,24 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :update, id: sport.id, sport: {name: 'another_name'}
+        xhr :post, :update, id: establishment.id, establishment: {name: 'another_name'}
       }
 
       it 'returns http 401' do
         response.response_code.should == 401
       end
     end
-    context 'sport failed to save' do
+    context 'establishment failed to save' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
-        sport.should_receive(:update!).and_return(false)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
+        Establishment.should_receive(:find).with(establishment.id.to_s).and_return(establishment)
+        establishment.should_receive(:update!).and_return(false)
+        xhr :put, :update, id: establishment.id, establishment: {name: 'another_name'}
       }
 
       it 'returns http 422' do
@@ -141,13 +141,13 @@ describe Api::V1::SportsController do
     end
     context 'everything is good' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
+        xhr :put, :update, id: establishment.id, establishment: {name: 'another_name'}
       }
 
       it 'returns http 200' do
@@ -159,12 +159,12 @@ describe Api::V1::SportsController do
   describe 'DELETE destroy' do
     context 'current user not admin' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: sport.id
+        xhr :delete, :destroy, id: establishment.id
       }
 
       it 'returns http 403' do
@@ -177,24 +177,24 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :destroy, id: sport.id
+        xhr :post, :destroy, id: establishment.id
       }
 
       it 'returns http 401' do
         response.response_code.should == 401
       end
     end
-    context 'sport failed to save' do
+    context 'establishment failed to save' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
-        sport.should_receive(:destroy).and_return(false)
-        xhr :delete, :destroy, id: sport.id
+        Establishment.should_receive(:find).with(establishment.id.to_s).and_return(establishment)
+        establishment.should_receive(:destroy).and_return(false)
+        xhr :delete, :destroy, id: establishment.id
       }
 
       it 'returns http 422' do
@@ -203,13 +203,13 @@ describe Api::V1::SportsController do
     end
     context 'everything is good' do
       before {
-        sport = Fabricate(:sport)
+        establishment = Fabricate(:establishment)
         user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: sport.id
+        xhr :delete, :destroy, id: establishment.id
       }
 
       it 'returns http 200' do

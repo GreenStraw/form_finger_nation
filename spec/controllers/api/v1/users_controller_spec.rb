@@ -84,9 +84,10 @@ describe Api::V1::UsersController do
           'city' => @user.city,
           'state' => @user.state,
           'zip' => @user.zip,
-          'admin' => @user.admin,
+          'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
-          'teams'=> @user.teams}
+          'teams'=> @user.teams,
+          'establishments' => @user.establishments}
         up_user.should == expect_user
       end
     end
@@ -115,9 +116,10 @@ describe Api::V1::UsersController do
           'city' => @user.city,
           'state' => @user.state,
           'zip' => @user.zip,
-          'admin' => @user.admin,
+          'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
-          'teams'=> @user.teams}
+          'teams'=> @user.teams,
+          'establishments' => @user.establishments}
         up_user.should == expect_user
       end
     end

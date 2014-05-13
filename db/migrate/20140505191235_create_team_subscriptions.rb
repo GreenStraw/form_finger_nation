@@ -4,10 +4,10 @@ class CreateTeamSubscriptions < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :team
     end
-  end
 
-  add_index(:sport_subscriptions, :user_id)
-  add_index(:sport_subscriptions, :team_id)
+    add_index(:sport_subscriptions, :user_id)
+    add_index(:sport_subscriptions, :team_id)
+  end
 end
 
 

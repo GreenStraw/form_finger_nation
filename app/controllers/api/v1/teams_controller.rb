@@ -13,7 +13,7 @@ module Api
       end
 
       def create
-        if current_user.admin?
+        if current_user.has_role?(:admin)
           @team = Team.new(team_params)
           if @team.save
             return render json: @team
@@ -26,7 +26,7 @@ module Api
       end
 
       def update
-        if current_user.admin?
+        if current_user.has_role?(:admin)
           @team = Team.find(params[:id])
           if params[:team][:sport].nil?
             params[:team][:sport] = @team.sport_id
@@ -42,7 +42,7 @@ module Api
       end
 
       def destroy
-        if current_user.admin?
+        if current_user.has_role?(:admin)
           @team = Team.find(params[:id])
           if @team.destroy
             return render json: {}, status:200

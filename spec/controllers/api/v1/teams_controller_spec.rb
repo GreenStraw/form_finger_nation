@@ -63,7 +63,7 @@ describe Api::V1::TeamsController do
     end
     context 'team failed to save' do
       before {
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -82,7 +82,7 @@ describe Api::V1::TeamsController do
     end
     context 'everything is good' do
       before {
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -127,7 +127,7 @@ describe Api::V1::TeamsController do
     context 'team failed to save' do
       before {
         team = Fabricate(:team)
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -144,7 +144,7 @@ describe Api::V1::TeamsController do
     context 'everything is good' do
       before {
         team = Fabricate(:team)
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -189,7 +189,7 @@ describe Api::V1::TeamsController do
     context 'team failed to save' do
       before {
         team = Fabricate(:team)
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -206,7 +206,7 @@ describe Api::V1::TeamsController do
     context 'everything is good' do
       before {
         team = Fabricate(:team)
-        user.admin = true
+        user.add_role :admin
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email

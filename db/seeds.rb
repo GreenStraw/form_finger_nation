@@ -1,5 +1,5 @@
 User.create([
-  { email: 'foo@example.com', password: 'foopassword', name: 'foo' },
+  { email: 'test@test.com', password: '123123123', name: 'test' },
   { email: 'bar@example.com', password: 'barpassword', name: 'bar' }
 ])
 
