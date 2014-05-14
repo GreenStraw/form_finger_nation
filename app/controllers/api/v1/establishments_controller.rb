@@ -13,9 +13,10 @@ module Api
       end
 
       def create
-        if current_user.has_role?(:admin)
+        if current_user.has_any_role?(:admin, :establishment_manager)
           @establishment = Establishment.new(establishment_params)
           if @establishment.save
+            current_user.add_role(:manager, @establishment)
             return render json: @establishment
           else
             return render json: { :errors => 'Establishment not created' }, status: 422
@@ -26,8 +27,8 @@ module Api
       end
 
       def update
-        if current_user.has_role?(:admin)
-          @establishment = Establishment.find(params[:id])
+        @establishment = Establishment.find(params[:id])
+        if current_user.has_role?(:admin) || current_user.has_role?(:manager, @establishment)
           if params[:establishment][:user].nil?
             params[:establishment][:user] = @establishment.user_id
           end
@@ -42,8 +43,8 @@ module Api
       end
 
       def destroy
-        if current_user.has_role?(:admin)
-          @establishment = Establishment.find(params[:id])
+        @establishment = Establishment.find(params[:id])
+        if current_user.has_role?(:admin) || current_user.has_role?(:manager, @establishment)
           if @establishment.destroy
             return render json: {}, status:200
           else
@@ -57,7 +58,7 @@ module Api
       private
 
       def establishment_params
-        params.require(:establishment).permit(:name, :image_url, :user_id, :address_id)
+        params.require(:establishment).permit(:name, :image_url, :description, :user_id)
       end
     end
   end

@@ -54,7 +54,7 @@ module Api
       private
 
       def sport_params
-        params.require(:sport).permit(:name, :image_url, {:users=>[],:teams => []})
+        params.require(:sport).permit(:name, :image_url, {:users=>[],:teams=>[]})
       end
     end
   end

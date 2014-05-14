@@ -11,28 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513152230) do
+ActiveRecord::Schema.define(version: 20140513185058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: true do |t|
-    t.string   "street1"
-    t.string   "street2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.integer  "addressable_id"
-    t.string   "addressable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "establishments", force: true do |t|
     t.string  "name"
+    t.string  "description"
     t.string  "image_url"
+    t.string  "street1"
+    t.string  "street2"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
     t.integer "user_id"
   end
+
+  add_index "establishments", ["user_id"], name: "index_establishments_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -107,5 +103,30 @@ ActiveRecord::Schema.define(version: 20140513152230) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "watch_parties", force: true do |t|
+    t.string   "name"
+    t.boolean  "private"
+    t.string   "description"
+    t.datetime "scheduled_for"
+    t.integer  "organizer_id"
+    t.integer  "team_id"
+    t.integer  "sport_id"
+    t.integer  "establishment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "watch_parties", ["organizer_id"], name: "index_watch_parties_on_organizer_id", using: :btree
+  add_index "watch_parties", ["sport_id"], name: "index_watch_parties_on_sport_id", using: :btree
+  add_index "watch_parties", ["team_id"], name: "index_watch_parties_on_team_id", using: :btree
+
+  create_table "watch_party_reservations", force: true do |t|
+    t.integer "attendee_id"
+    t.integer "watch_party_id"
+  end
+
+  add_index "watch_party_reservations", ["attendee_id"], name: "index_watch_party_reservations_on_attendee_id", using: :btree
+  add_index "watch_party_reservations", ["watch_party_id"], name: "index_watch_party_reservations_on_watch_party_id", using: :btree
 
 end

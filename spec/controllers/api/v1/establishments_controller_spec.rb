@@ -41,11 +41,25 @@ describe Api::V1::EstablishmentsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :establishment => @establishment
+        xhr :post, :create, :establishment => establishment.attributes.except('id')
       }
 
       it 'returns http 403' do
         response.response_code.should == 403
+      end
+    end
+    context 'current user not admin but is establishment_manager' do
+      before {
+        user.add_role(:establishment_manager)
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :post, :create, :establishment => establishment.attributes.except('id')
+      }
+
+      it 'returns http 200' do
+        response.response_code.should == 200
       end
     end
     context 'user not authenticated' do
@@ -54,7 +68,7 @@ describe Api::V1::EstablishmentsController do
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :establishment => @establishment
+        xhr :post, :create, :establishment => establishment.attributes.except('id')
       }
 
       it 'returns http 401' do
@@ -107,6 +121,37 @@ describe Api::V1::EstablishmentsController do
 
       it 'returns http 403' do
         response.response_code.should == 403
+      end
+    end
+    context 'current user is manager of another establishment' do
+      before {
+        establishment = Fabricate(:establishment)
+        user.add_role(:establishment_manager)
+        user.add_role(:manager, Fabricate(:establishment))
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :put, :update, id: establishment.id, establishment: {name: 'another_name'}
+      }
+
+      it 'returns http 403' do
+        response.response_code.should == 403
+      end
+    end
+    context 'current user not admin but is manager of the establishment' do
+      before {
+        establishment = Fabricate(:establishment)
+        user.add_role(:manager, establishment)
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :put, :update, id: establishment.id, establishment: {name: 'another_name'}
+      }
+
+      it 'returns http 200' do
+        response.response_code.should == 200
       end
     end
     context 'user not authenticated' do
@@ -169,6 +214,37 @@ describe Api::V1::EstablishmentsController do
 
       it 'returns http 403' do
         response.response_code.should == 403
+      end
+    end
+    context 'current user is manager of another establishment' do
+      before {
+        establishment = Fabricate(:establishment)
+        user.add_role(:establishment_manager)
+        user.add_role(:manager, Fabricate(:establishment))
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :delete, :destroy, id: establishment.id
+      }
+
+      it 'returns http 403' do
+        response.response_code.should == 403
+      end
+    end
+    context 'current user not admin but is the manager of the establishment' do
+      before {
+        establishment = Fabricate(:establishment)
+        user.add_role(:manager, establishment)
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :delete, :destroy, id: establishment.id
+      }
+
+      it 'returns http 200' do
+        response.response_code.should == 200
       end
     end
     context 'user not authenticated' do

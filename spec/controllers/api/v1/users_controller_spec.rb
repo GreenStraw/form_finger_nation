@@ -87,7 +87,8 @@ describe Api::V1::UsersController do
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
-          'establishments' => @user.establishments}
+          'establishments' => @user.establishments,
+          'watch_parties' => @user.watch_parties}
         up_user.should == expect_user
       end
     end
@@ -119,7 +120,8 @@ describe Api::V1::UsersController do
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
-          'establishments' => @user.establishments}
+          'establishments' => @user.establishments,
+          'watch_parties' => @user.watch_parties}
         up_user.should == expect_user
       end
     end
