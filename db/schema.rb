@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513185058) do
+ActiveRecord::Schema.define(version: 20140514222455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,39 @@ ActiveRecord::Schema.define(version: 20140513185058) do
   end
 
   add_index "establishments", ["user_id"], name: "index_establishments_on_user_id", using: :btree
+
+  create_table "parties", force: true do |t|
+    t.string   "name"
+    t.boolean  "private"
+    t.string   "description"
+    t.datetime "scheduled_for"
+    t.integer  "organizer_id"
+    t.integer  "team_id"
+    t.integer  "sport_id"
+    t.integer  "establishment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "parties", ["organizer_id"], name: "index_parties_on_organizer_id", using: :btree
+  add_index "parties", ["sport_id"], name: "index_parties_on_sport_id", using: :btree
+  add_index "parties", ["team_id"], name: "index_parties_on_team_id", using: :btree
+
+  create_table "party_invitations", force: true do |t|
+    t.integer "user_id"
+    t.integer "party_id"
+  end
+
+  add_index "party_invitations", ["party_id"], name: "index_party_invitations_on_party_id", using: :btree
+  add_index "party_invitations", ["user_id"], name: "index_party_invitations_on_user_id", using: :btree
+
+  create_table "party_reservations", force: true do |t|
+    t.integer "user_id"
+    t.integer "party_id"
+  end
+
+  add_index "party_reservations", ["party_id"], name: "index_party_reservations_on_party_id", using: :btree
+  add_index "party_reservations", ["user_id"], name: "index_party_reservations_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -103,30 +136,5 @@ ActiveRecord::Schema.define(version: 20140513185058) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
-
-  create_table "watch_parties", force: true do |t|
-    t.string   "name"
-    t.boolean  "private"
-    t.string   "description"
-    t.datetime "scheduled_for"
-    t.integer  "organizer_id"
-    t.integer  "team_id"
-    t.integer  "sport_id"
-    t.integer  "establishment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "watch_parties", ["organizer_id"], name: "index_watch_parties_on_organizer_id", using: :btree
-  add_index "watch_parties", ["sport_id"], name: "index_watch_parties_on_sport_id", using: :btree
-  add_index "watch_parties", ["team_id"], name: "index_watch_parties_on_team_id", using: :btree
-
-  create_table "watch_party_reservations", force: true do |t|
-    t.integer "attendee_id"
-    t.integer "watch_party_id"
-  end
-
-  add_index "watch_party_reservations", ["attendee_id"], name: "index_watch_party_reservations_on_attendee_id", using: :btree
-  add_index "watch_party_reservations", ["watch_party_id"], name: "index_watch_party_reservations_on_watch_party_id", using: :btree
 
 end

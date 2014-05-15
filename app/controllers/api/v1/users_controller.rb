@@ -18,6 +18,8 @@ module Api
 
       def show
         user = User.find(params[:id])
+        ser = UserSerializer.new(user)
+        puts ser.to_json
         if current_user.has_role?(:admin) || current_user == user
           return render json: User.find(params[:id])
         else

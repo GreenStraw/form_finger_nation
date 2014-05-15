@@ -1,6 +1,6 @@
-class CreateWatchParties < ActiveRecord::Migration
+class CreateParties < ActiveRecord::Migration
   def change
-    create_table :watch_parties do |t|
+    create_table :parties do |t|
       t.string :name
       t.boolean :private
       t.string :description
@@ -12,8 +12,8 @@ class CreateWatchParties < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index(:watch_parties, :team_id)
-    add_index(:watch_parties, :sport_id)
-    add_index(:watch_parties, :organizer_id)
+    add_index(:parties, :team_id)
+    add_index(:parties, :sport_id)
+    add_index(:parties, :organizer_id)
   end
 end

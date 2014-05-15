@@ -1,4 +1,4 @@
-Fabricator(:watch_party) do
+Fabricator(:party) do
   name "test watch party"
   description 'The first one!'
   scheduled_for (Time.now + 2.days)

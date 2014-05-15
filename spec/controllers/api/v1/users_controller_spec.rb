@@ -88,7 +88,9 @@ describe Api::V1::UsersController do
           'sports' => @user.sports,
           'teams'=> @user.teams,
           'establishments' => @user.establishments,
-          'watch_parties' => @user.watch_parties}
+          'parties' => @user.parties,
+          'reservations' => @user.reservations,
+          'invitations' => @user.invitations}
         up_user.should == expect_user
       end
     end
@@ -121,7 +123,9 @@ describe Api::V1::UsersController do
           'sports' => @user.sports,
           'teams'=> @user.teams,
           'establishments' => @user.establishments,
-          'watch_parties' => @user.watch_parties}
+          'parties' => @user.parties,
+          'reservations' => @user.reservations,
+          'invitations' => @user.invitations}
         up_user.should == expect_user
       end
     end

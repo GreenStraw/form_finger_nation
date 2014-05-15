@@ -13,9 +13,11 @@ class User < ActiveRecord::Base
   has_many :team_subscriptions
   has_many :teams, through: :team_subscriptions
   has_many :establishments
-  has_many :watch_party_reservations
-  has_many :watch_parties, through: :watch_party_reservations, foreign_key: 'attendee_ids'
-  has_many :watch_parties, foreign_key: 'organizer_id'
+  has_many :party_reservations
+  has_many :reservations, through: :party_reservations, source: :party
+  has_many :party_invitations
+  has_many :invitations, through: :party_invitations, source: :party
+  has_many :parties, foreign_key: 'organizer_id'
 
   attr_accessor :current_password, :password_confirmation
 

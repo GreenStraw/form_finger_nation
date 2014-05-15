@@ -19,7 +19,7 @@ App::Application.routes.draw do
       resources :sports
       resources :teams
       resources :establishments
-      resources :watch_parties
+      resources :parties
     end
   end
 
