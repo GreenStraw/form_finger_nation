@@ -31,6 +31,7 @@ module Api
           update_params = user_params
           update_params[:sports] = sport_id_list_to_sports_for_update
           update_params[:teams] = team_id_list_to_teams_for_update
+          update_params[:reservations] = reservation_id_list_to_reservations_for_update
           if changing_password(update_params)
             update_with_password(update_params)
           else
@@ -83,8 +84,22 @@ module Api
         end
       end
 
+      def reservation_id_list_to_reservations_for_update
+        update_params = user_params
+        if update_params[:reservations].present?
+          reservation_ids = update_params[:reservations]
+          reservations = []
+          if reservation_ids.any?
+            reservations = reservation_ids.map{|sid| Party.find_by_id(sid)}.compact.uniq
+          end
+          reservations
+        else
+          []
+        end
+      end
+
       def user_params
-        params.require(:user).permit(:name, :email, :city, :state, :zip, :current_password, :password, :password_confirmation, {:sports=>[], :teams=>[]})
+        params.require(:user).permit(:name, :email, :city, :state, :zip, :current_password, :password, :password_confirmation, {:sports=>[], :teams=>[], :establishments=>[], :reservations=>[]})
       end
 
       def update_with_password(update_params, *options)
