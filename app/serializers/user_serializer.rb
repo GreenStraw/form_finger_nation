@@ -6,7 +6,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :establishments, key: :establishments, root: :establishments#, include: true
   has_many :reservations, key: :reservations, root: :reservations#, include: true
   has_many :invitations, key: :invitations, root: :invitations#, include: true
-  has_many :parties, key: :parties, root: :parties
+  has_many :parties, key: :parties, root: :parties, include: true
 
   def admin
     object.has_role?(:admin)

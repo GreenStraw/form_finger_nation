@@ -28,10 +28,12 @@ module Api
       def update
         if current_user.has_role?(:admin)
           @team = Team.find(params[:id])
-          if params[:team][:sport].nil?
-            params[:team][:sport] = @team.sport_id
+          update_params = team_params
+          update_params[:users] = user_id_list_to_users_for_update
+          if update_params[:sport_id].nil?
+            update_params[:sport_id] = @team.sport_id
           end
-          if @team.update!(team_params)
+          if @team.update!(update_params)
             return render json: @team
           else
             return render json: { :errors => 'Team not updated' }, status: 422
@@ -56,9 +58,23 @@ module Api
 
       private
 
+      def user_id_list_to_users_for_update
+        update_params = team_params
+        if update_params[:users].present?
+          user_ids = update_params[:users]
+          users = []
+          if user_ids.any?
+            users = user_ids.map{|sid| User.find_by_id(sid)}.compact.uniq
+          end
+          users
+        else
+          []
+        end
+      end
+
       def team_params
         params[:team][:sport_id] = params[:team][:sport]
-        params.require(:team).permit(:name, :image_url, :sport_id)
+        params.require(:team).permit(:name, :image_url, :sport_id, {:users=>[]})
       end
     end
   end
