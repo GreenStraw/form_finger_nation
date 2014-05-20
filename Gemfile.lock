@@ -63,6 +63,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
     formatador (0.2.4)
+    geocoder (1.2.1)
     guard (2.6.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -233,6 +234,7 @@ DEPENDENCIES
   database_cleaner (~> 1.0)
   devise (= 3.0.0)
   fabrication (~> 2.6)
+  geocoder
   guard-rspec (~> 3.0)
   guard-spork (~> 1.5)
   jquery-rails (~> 3.0)

@@ -14,7 +14,9 @@ module Api
 
       def create
         if current_user.has_any_role?(:admin, :establishment_manager)
-          @establishment = Establishment.new(establishment_params)
+          create_params = establishment_params
+          create_params[:user] = user_id_to_user
+          @establishment = Establishment.new(create_params)
           if @establishment.save
             current_user.add_role(:manager, @establishment)
             return render json: @establishment
@@ -29,10 +31,12 @@ module Api
       def update
         @establishment = Establishment.find(params[:id])
         if current_user.has_role?(:admin) || current_user.has_role?(:manager, @establishment)
-          if params[:establishment][:user].nil?
-            params[:establishment][:user] = @establishment.user_id
+          update_params = establishment_params
+          if update_params[:user].nil?
+            update_params[:user] = @establishment.user_id
           end
-          if @establishment.update!(establishment_params)
+          update_params[:user] = user_id_to_user
+          if @establishment.update!(update_params)
             return render json: @establishment
           else
             return render json: { :errors => 'Establishment not updated' }, status: 422
@@ -57,8 +61,22 @@ module Api
 
       private
 
+      def user_id_to_user
+        update_params = establishment_params
+        if update_params[:user].present?
+          user_id = update_params[:user]
+          User.find_by_id(user_id)
+        else
+          nil
+        end
+      end
+
+      def find_lat_long
+
+      end
+
       def establishment_params
-        params.require(:establishment).permit(:name, :image_url, :description, :user_id)
+        params.require(:establishment).permit(:name, :image_url, :description, :user, :street1, :street2, :city, :state, :zip, :latitude, :longitude)
       end
     end
   end

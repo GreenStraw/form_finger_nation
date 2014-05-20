@@ -21,6 +21,8 @@ gem 'bcrypt-ruby', '~> 3.0' # password encryption
 gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'geocoder'
+
 group :test do
   gem 'rspec-rails', '~> 2.13' # test framework
   gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests

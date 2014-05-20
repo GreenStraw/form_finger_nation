@@ -1,7 +1,7 @@
 Fabricator(:party) do
   name "test watch party"
   description 'The first one!'
-  scheduled_for (Time.now + 2.days)
+  scheduled_for DateTime.now+2.days
   organizer { Fabricate(:user) }
   establishment { Fabricate(:establishment) }
   team { Fabricate(:team) }
