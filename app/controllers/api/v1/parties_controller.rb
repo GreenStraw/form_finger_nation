@@ -8,8 +8,8 @@ module Api
         search = params[:query] if params[:query]
         address = params[:address] if params[:address]
         radius = params[:radius] if params[:radius]
-        from_date = params[:fromDate] if params[:fromDate]
-        to_date = params[:toDate] if params[:toDate]
+        from_date = params[:fromDate].to_date if params[:fromDate]
+        to_date = params[:toDate].to_date if params[:toDate]
         results = if address.present?
           search_parties(search, address, radius, from_date, to_date)
         else
