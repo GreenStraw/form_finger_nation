@@ -5,7 +5,7 @@ class Party < ActiveRecord::Base
   belongs_to :organizer, class_name: 'User', foreign_key: 'organizer_id'
   belongs_to :team
   belongs_to :sport
-  belongs_to :establishment
+  belongs_to :venue
 
   attr_accessor :scheduled_date, :scheduled_time
 end

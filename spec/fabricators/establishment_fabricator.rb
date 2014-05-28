@@ -1,7 +1,7 @@
-Fabricator(:establishment) do
+Fabricator(:venue) do
   name "test_bar"
   image_url nil
-  description "it's an established establishment"
+  description "it's an established venue"
   street1 '123 Some Street'
   street2 'St. 200'
   city 'Anytown'

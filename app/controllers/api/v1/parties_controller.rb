@@ -61,27 +61,27 @@ module Api
       private
 
       def search_parties(search, address, radius, from_date, to_date)
-        bar_ids = establishments_by_address_and_radius(address, radius)
+        bar_ids = venues_by_address_and_radius(address, radius)
 
         parties_by_date = Party.where(scheduled_for: from_date.beginning_of_day..to_date.end_of_day)
-        parties_in_area = parties_by_date.where(establishment_id: bar_ids)
+        parties_in_area = parties_by_date.where(venue_id: bar_ids)
         results = parties_in_area.where("name ilike '%#{search}%'")
         teams = Team.where("name ilike '%#{search}%'")
         if teams.any?
           results += parties_in_area.where("team_id in (#{teams.map(&:id).join(',')})")
         end
-        establishments = Establishment.where("name ilike '%#{search}%'")
-        if establishments.any?
-          results += parties_in_area.where("establishment_id in (#{establishments.map(&:id).join(',')})")
+        venues = Venue.where("name ilike '%#{search}%'")
+        if venues.any?
+          results += parties_in_area.where("venue_id in (#{venues.map(&:id).join(',')})")
         end
         results.to_a.compact.uniq
       end
 
-      def establishments_by_address_and_radius(address, radius)
+      def venues_by_address_and_radius(address, radius)
         results = nil
         add = address
         rad = radius || 10
-        results = Establishment.near(add, rad)
+        results = Venue.near(add, rad)
         results.map(&:id) || []
       end
 
@@ -104,14 +104,14 @@ module Api
         params[:party][:organizer_id] = params[:party][:organizer]
         params[:party][:team_id] = params[:party][:team]
         params[:party][:sport_id] = params[:party][:sport]
-        params[:party][:establishment_id] = params[:party][:establishment]
+        params[:party][:venue_id] = params[:party][:venue]
         params[:party][:attendee_ids] = params[:party][:attendees]
         params[:party][:scheduled_for] = build_scheduled_time(params[:party][:scheduled_date], params[:party][:scheduled_time])
-        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :establishment_id, :team_id, :sport_id, { :attendee_ids=>[] })
+        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, { :attendee_ids=>[] })
       end
 
       def party_params
-        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :establishment_id, :team_id, :sport_id, { :attendee_ids=>[] })
+        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, { :attendee_ids=>[] })
       end
     end
   end

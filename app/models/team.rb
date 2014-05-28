@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
-  has_many :team_subscriptions
-  has_many :users, through: :team_subscriptions
+  has_many :user_team_subscriptions
+  has_many :users, through: :user_team_subscriptions
   belongs_to :sport
-  has_one :address, as: :addressable
+  belongs_to :admin, class_name: 'User', foreign_key: 'admin_id'
 end

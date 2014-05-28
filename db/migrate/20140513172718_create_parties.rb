@@ -8,7 +8,7 @@ class CreateParties < ActiveRecord::Migration
       t.belongs_to :organizer, class_name: 'User'
       t.belongs_to :team
       t.belongs_to :sport
-      t.belongs_to :establishment
+      t.belongs_to :venue
       t.timestamps
     end
 

@@ -20,49 +20,49 @@ describe Api::V1::PartiesController do
 
   describe "search_parties(search, address, radius)" do
     before(:all) do
-      @e1 = Establishment.create(name: 'Bar 1', zip: '78728')
-      @e2 = Establishment.create(name: 'Bar 2', zip: '79424')
+      @e1 = Venue.create(name: 'Bar 1', zip: '78728')
+      @e2 = Venue.create(name: 'Bar 2', zip: '79424')
       @t = Team.create(name: 'Team 1')
-      @p1 = Party.create(establishment: @e1, name: 'Party 1', team: @t, scheduled_for: DateTime.now)
-      @p2 = Party.create(establishment: @e2, name: 'Party 2', team: @t, scheduled_for: DateTime.now + 8.days)
+      @p1 = Party.create(venue: @e1, name: 'Party 1', team: @t, scheduled_for: DateTime.now)
+      @p2 = Party.create(venue: @e2, name: 'Party 2', team: @t, scheduled_for: DateTime.now + 8.days)
     end
-    it "should call establishments_by_address_and_radius" do
-      subject.should_receive(:establishments_by_address_and_radius).with('78728', 15).and_return(@e1);
+    it "should call venues_by_address_and_radius" do
+      subject.should_receive(:venues_by_address_and_radius).with('78728', 15).and_return(@e1);
       subject.send(:search_parties, '', '78728', 15, Date.today, Date.today + 7.days)
     end
 
     it "should return parties in the area if there are any" do
-      subject.should_receive(:establishments_by_address_and_radius).with('78728', 15).and_return(@e1);
+      subject.should_receive(:venues_by_address_and_radius).with('78728', 15).and_return(@e1);
       subject.send(:search_parties, '', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
     end
 
     it "should not find parties in the area if there are none" do
-      subject.should_receive(:establishments_by_address_and_radius).with('77777', 15).and_return([]);
+      subject.should_receive(:venues_by_address_and_radius).with('77777', 15).and_return([]);
       subject.send(:search_parties, '', '77777', 15, Date.today, Date.today + 7.days).should == []
     end
 
     it "should find parties by party name in area" do
-      subject.should_receive(:establishments_by_address_and_radius).with('78728', 15).and_return(@e1);
+      subject.should_receive(:venues_by_address_and_radius).with('78728', 15).and_return(@e1);
       subject.send(:search_parties, 'Party 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
     end
 
     it "should find parties by team name in area" do
-      subject.should_receive(:establishments_by_address_and_radius).with('78728', 15).and_return(@e1);
+      subject.should_receive(:venues_by_address_and_radius).with('78728', 15).and_return(@e1);
       subject.send(:search_parties, 'Team 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
     end
 
-    it "should find parties by establishment name in area" do
-      subject.should_receive(:establishments_by_address_and_radius).with('78728', 15).and_return(@e1);
+    it "should find parties by venue name in area" do
+      subject.should_receive(:venues_by_address_and_radius).with('78728', 15).and_return(@e1);
       subject.send(:search_parties, 'Bar 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
     end
 
     it "should find no parties if outside of date range" do
-      subject.should_receive(:establishments_by_address_and_radius).with('79424', 15).and_return(@e2);
+      subject.should_receive(:venues_by_address_and_radius).with('79424', 15).and_return(@e2);
       subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 7.days).should == []
     end
 
     it "should find  parties if inside of date range" do
-      subject.should_receive(:establishments_by_address_and_radius).with('79424', 15).and_return(@e2);
+      subject.should_receive(:venues_by_address_and_radius).with('79424', 15).and_return(@e2);
       subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 8.days).should == [@p2]
     end
   end

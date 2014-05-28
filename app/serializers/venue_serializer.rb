@@ -1,4 +1,4 @@
-class EstablishmentSerializer < ActiveModel::Serializer
+class VenueSerializer < ActiveModel::Serializer
   embed :ids
   attributes :id, :name, :image_url, :description, :street1, :street2, :city, :state, :zip, :latitude, :longitude
   has_many :parties

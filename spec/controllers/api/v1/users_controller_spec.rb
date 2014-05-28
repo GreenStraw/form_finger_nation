@@ -87,7 +87,7 @@ describe Api::V1::UsersController do
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
-          'establishments' => @user.establishments,
+          'venues' => @user.venues,
           'parties' => @user.parties,
           'reservations' => @user.reservations,
           'invitations' => @user.invitations}
@@ -122,7 +122,7 @@ describe Api::V1::UsersController do
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
-          'establishments' => @user.establishments,
+          'venues' => @user.venues,
           'parties' => @user.parties,
           'reservations' => @user.reservations,
           'invitations' => @user.invitations}

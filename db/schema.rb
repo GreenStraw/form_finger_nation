@@ -11,26 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519145505) do
+ActiveRecord::Schema.define(version: 20140522142248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "establishments", force: true do |t|
-    t.string  "name"
-    t.string  "description"
-    t.string  "image_url"
-    t.string  "street1"
-    t.string  "street2"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.integer "user_id"
-    t.float   "latitude"
-    t.float   "longitude"
-  end
-
-  add_index "establishments", ["user_id"], name: "index_establishments_on_user_id", using: :btree
 
   create_table "parties", force: true do |t|
     t.string   "name"
@@ -40,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140519145505) do
     t.integer  "organizer_id"
     t.integer  "team_id"
     t.integer  "sport_id"
-    t.integer  "establishment_id"
+    t.integer  "venue_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,23 +60,11 @@ ActiveRecord::Schema.define(version: 20140519145505) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "sport_subscriptions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "sport_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "sports", force: true do |t|
     t.string   "name"
     t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "team_subscriptions", force: true do |t|
-    t.integer "user_id"
-    t.integer "team_id"
   end
 
   create_table "teams", force: true do |t|
@@ -101,6 +73,26 @@ ActiveRecord::Schema.define(version: 20140519145505) do
     t.integer  "sport_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "admin_id"
+  end
+
+  add_index "teams", ["admin_id"], name: "index_teams_on_admin_id", using: :btree
+
+  create_table "user_sport_subscriptions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "sport_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_team_subscriptions", force: true do |t|
+    t.integer "user_id"
+    t.integer "team_id"
   end
 
   create_table "users", force: true do |t|
@@ -138,5 +130,41 @@ ActiveRecord::Schema.define(version: 20140519145505) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "venue_sport_subscriptions", force: true do |t|
+    t.integer  "venue_id"
+    t.integer  "sport_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "venue_sport_subscriptions", ["sport_id"], name: "index_venue_sport_subscriptions_on_sport_id", using: :btree
+  add_index "venue_sport_subscriptions", ["venue_id"], name: "index_venue_sport_subscriptions_on_venue_id", using: :btree
+
+  create_table "venue_team_subscriptions", force: true do |t|
+    t.integer  "venue_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "venue_team_subscriptions", ["team_id"], name: "index_venue_team_subscriptions_on_team_id", using: :btree
+  add_index "venue_team_subscriptions", ["venue_id"], name: "index_venue_team_subscriptions_on_venue_id", using: :btree
+
+  create_table "venues", force: true do |t|
+    t.string  "name"
+    t.string  "description"
+    t.string  "image_url"
+    t.string  "street1"
+    t.string  "street2"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.integer "user_id"
+    t.float   "latitude"
+    t.float   "longitude"
+  end
+
+  add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
 end

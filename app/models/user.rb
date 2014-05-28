@@ -8,11 +8,11 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
-  has_many :sport_subscriptions
-  has_many :sports, through: :sport_subscriptions
-  has_many :team_subscriptions
-  has_many :teams, through: :team_subscriptions
-  has_many :establishments
+  has_many :user_sport_subscriptions
+  has_many :sports, through: :user_sport_subscriptions
+  has_many :user_team_subscriptions
+  has_many :teams, through: :user_team_subscriptions
+  has_many :venues
   has_many :party_reservations
   has_many :reservations, through: :party_reservations, source: :party
   has_many :party_invitations
