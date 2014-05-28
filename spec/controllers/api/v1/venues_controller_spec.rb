@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Api::V1::VenuesController do
   let(:venue) { Fabricate(:venue) }
   let(:user) { Fabricate(:user) }
-  before do
+  before(:each) do
+    Venue.any_instance.stub(:geocode).and_return([1,1])
     @venue = Fabricate.attributes_for(:venue)
     venue
     user

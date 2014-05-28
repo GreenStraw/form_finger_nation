@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Api::V1::PartiesController do
   let(:party) { Fabricate(:party) }
   let(:user) { Fabricate(:user) }
-  before do
+  before(:each) do
+    Venue.any_instance.stub(:geocode).and_return([1,1])
     party
     user
     user.confirm!
@@ -19,7 +20,7 @@ describe Api::V1::PartiesController do
   end
 
   describe "search_parties(search, address, radius)" do
-    before(:all) do
+    before(:each) do
       @e1 = Venue.create(name: 'Bar 1', zip: '78728')
       @e2 = Venue.create(name: 'Bar 2', zip: '79424')
       @t = Team.create(name: 'Team 1')
