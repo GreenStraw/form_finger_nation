@@ -15,8 +15,12 @@ App::Application.routes.draw do
       end
 
       resources :users, only: [:index, :show, :update]
-      resources :sports
-      resources :teams
+      resources :sports do
+        put 'subscribe'
+      end
+      resources :teams do
+        put 'subscribe'
+      end
       resources :venues
       resources :parties
     end

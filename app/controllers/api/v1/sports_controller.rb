@@ -25,11 +25,22 @@ module Api
         end
       end
 
+      def subscribe
+        @sport = Sport.find(params[:sport_id])
+        update_params = subscribe_params
+        update_params[:users] = user_id_list_to_users_for_update(update_params)
+        if @sport.update!(update_params)
+          return render json: @sport
+        else
+          return render json: { :errors => 'Sport not updated' }, status: 422
+        end
+      end
+
       def update
         if current_user.has_role?(:admin)
           @sport = Sport.find(params[:id])
           update_params = sport_params
-          update_params[:users] = user_id_list_to_users_for_update
+          update_params[:users] = user_id_list_to_users_for_update(update_params)
           if @sport.update!(update_params)
             return render json: @sport
           else
@@ -55,8 +66,8 @@ module Api
 
       private
 
-      def user_id_list_to_users_for_update
-        update_params = sport_params
+      def user_id_list_to_users_for_update(param_list)
+        update_params = param_list
         if update_params[:users].present?
           user_ids = update_params[:users]
           users = []
@@ -67,6 +78,10 @@ module Api
         else
           []
         end
+      end
+
+      def subscribe_params
+        params.permit({:users => []})
       end
 
       def sport_params

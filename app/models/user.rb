@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :party_invitations
   has_many :invitations, through: :party_invitations, source: :party
   has_many :parties, foreign_key: 'organizer_id'
+  has_many :team_host_endorsements
+  has_many :endorsing_teams, through: :team_host_endorsements, source: :team
+  has_one :employer, class_name: 'Team', foreign_key: 'admin_id'
 
   attr_accessor :current_password, :password_confirmation
 

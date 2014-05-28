@@ -90,7 +90,9 @@ describe Api::V1::UsersController do
           'venues' => @user.venues,
           'parties' => @user.parties,
           'reservations' => @user.reservations,
-          'invitations' => @user.invitations}
+          'invitations' => @user.invitations,
+          'employer' => @user.employer,
+          'endorsing_teams' => @user.endorsing_teams}
         up_user.should == expect_user
       end
     end
@@ -125,7 +127,9 @@ describe Api::V1::UsersController do
           'venues' => @user.venues,
           'parties' => @user.parties,
           'reservations' => @user.reservations,
-          'invitations' => @user.invitations}
+          'invitations' => @user.invitations,
+          'employer' => @user.employer,
+          'endorsing_teams' => @user.endorsing_teams}
         up_user.should == expect_user
       end
     end

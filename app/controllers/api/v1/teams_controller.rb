@@ -25,11 +25,22 @@ module Api
         end
       end
 
+      def subscribe
+        @team = Team.find(params[:team_id])
+        update_params = subscribe_params
+        update_params[:fans] = fan_id_list_to_fans_for_update(update_params)
+        if @team.update!(update_params)
+          return render json: @team
+        else
+          return render json: { :errors => 'Team not updated' }, status: 422
+        end
+      end
+
       def update
-        if current_user.has_role?(:admin)
-          @team = Team.find(params[:id])
+        @team = Team.find(params[:id])
+        if current_user.has_role?(:admin) || current_user == @team.admin
           update_params = team_params
-          update_params[:users] = user_id_list_to_users_for_update
+          update_params[:fans] = fan_id_list_to_fans_for_update(update_params)
           if update_params[:sport_id].nil?
             update_params[:sport_id] = @team.sport_id
           end
@@ -58,23 +69,27 @@ module Api
 
       private
 
-      def user_id_list_to_users_for_update
-        update_params = team_params
-        if update_params[:users].present?
-          user_ids = update_params[:users]
-          users = []
+      def fan_id_list_to_fans_for_update(param_list)
+        update_params = param_list
+        if update_params[:fans].present?
+          user_ids = update_params[:fans]
+          fans = []
           if user_ids.any?
-            users = user_ids.map{|sid| User.find_by_id(sid)}.compact.uniq
+            fans = user_ids.map{|sid| User.find_by_id(sid)}.compact.uniq
           end
-          users
+          fans
         else
           []
         end
       end
 
+      def subscribe_params
+        params.permit({:fans => []})
+      end
+
       def team_params
         params[:team][:sport_id] = params[:team][:sport]
-        params.require(:team).permit(:name, :image_url, :sport_id, {:users=>[]})
+        params.require(:team).permit(:name, :image_url, :sport_id, :admin_id, {:fans=>[]})
       end
     end
   end
