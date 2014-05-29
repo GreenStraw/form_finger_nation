@@ -28,6 +28,7 @@ group :test do
   gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests
   gem 'guard-rspec', '~> 3.0' # watch app files and auto-re-run tests
   gem 'guard-spork', '~> 1.5' # spork integration
+  gem 'launchy'
   gem 'database_cleaner', '~> 1.0' # cleanup database in tests
   gem 'fabrication', '~> 2.6' # model stubber
   gem 'shoulda', '~> 3.3' # model spec tester

@@ -9,20 +9,11 @@ module Api
       # before_filter :auth_only!, except: [:index]
 
       def index
-        if current_user.has_role?(:admin)
-          return render json: User.all
-        else
-          return render json: {}, status: 403
-        end
+        return render json: User.all
       end
 
       def show
-        user = User.find(params[:id])
-        if current_user.has_role?(:admin) || current_user == user
-          return render json: User.find(params[:id])
-        else
-          return render json: {}, status: 403
-        end
+        return render json: User.find(params[:id])
       end
 
       def update

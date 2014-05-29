@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522160313) do
+ActiveRecord::Schema.define(version: 20140529130141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: true do |t|
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
+  end
 
   create_table "parties", force: true do |t|
     t.string   "name"
@@ -100,10 +114,18 @@ ActiveRecord::Schema.define(version: 20140522160313) do
     t.datetime "updated_at"
   end
 
+  add_index "user_sport_subscriptions", ["sport_id"], name: "index_user_sport_subscriptions_on_sport_id", using: :btree
+  add_index "user_sport_subscriptions", ["user_id"], name: "index_user_sport_subscriptions_on_user_id", using: :btree
+
   create_table "user_team_subscriptions", force: true do |t|
-    t.integer "user_id"
-    t.integer "team_id"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "user_team_subscriptions", ["team_id"], name: "index_user_team_subscriptions_on_team_id", using: :btree
+  add_index "user_team_subscriptions", ["user_id"], name: "index_user_team_subscriptions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -6,6 +6,7 @@ class PartySerializer < ActiveModel::Serializer
   has_one :team, key: :team, root: :team#, include: true
   has_one :sport, key: :sport, root: :sport#, include: true
   has_one :venue, key: :venue, root: :venue#, include: true
+  has_one :address, key: :address, root: :address, include: true
 
   def scheduled_date
     object.scheduled_for.to_date

@@ -23,6 +23,7 @@ App::Application.routes.draw do
       end
       resources :venues
       resources :parties
+      resources :addresses, only: [:create, :show]
     end
   end
 

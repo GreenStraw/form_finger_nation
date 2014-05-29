@@ -76,7 +76,7 @@ module Api
       end
 
       def venue_params
-        params.require(:venue).permit(:name, :image_url, :description, :user, :street1, :street2, :city, :state, :zip, :latitude, :longitude)
+        params.require(:venue).permit(:name, :image_url, :description, :user, :street1, :street2, :city, :state, :zip, :latitude, :longitude, :address)
       end
     end
   end
