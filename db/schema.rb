@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530135230) do
+ActiveRecord::Schema.define(version: 20140530202732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140530135230) do
     t.integer  "venue_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "verified"
   end
 
   add_index "parties", ["organizer_id"], name: "index_parties_on_organizer_id", using: :btree
@@ -79,6 +80,13 @@ ActiveRecord::Schema.define(version: 20140530135230) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "sport_subscriptions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "sport_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sports", force: true do |t|
     t.string   "name"
     t.string   "image_url"
@@ -111,16 +119,6 @@ ActiveRecord::Schema.define(version: 20140530135230) do
   end
 
   add_index "teams", ["admin_id"], name: "index_teams_on_admin_id", using: :btree
-
-  create_table "user_sport_subscriptions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "sport_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_sport_subscriptions", ["sport_id"], name: "index_user_sport_subscriptions_on_sport_id", using: :btree
-  add_index "user_sport_subscriptions", ["user_id"], name: "index_user_sport_subscriptions_on_user_id", using: :btree
 
   create_table "user_team_subscriptions", force: true do |t|
     t.integer  "user_id"
