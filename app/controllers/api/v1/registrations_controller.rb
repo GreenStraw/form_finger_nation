@@ -30,13 +30,13 @@ module Api
 
       def configure_permitted_parameters
         devise_parameter_sanitizer.for(:sign_up) do |u|
-          u.permit(:name, :admin, :email, :city, :state, :zip, :password, :password_confirmation)
+          u.permit(:name, :email, :city, :state, :zip, :password, :password_confirmation)
         end
       end
 
       def sign_up_params
         params[:user].delete(:current_password)
-        params.require(:user).permit(:name, :admin, :email, :city, :state, :zip, :password, :password_confirmation, {:sports=>[], :teams=>[]})
+        params.require(:user).permit(:name, :email, :city, :state, :zip, :password, :password_confirmation, {:sports=>[], :teams=>[]})
       end
     end
   end

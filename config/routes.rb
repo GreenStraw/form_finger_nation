@@ -24,6 +24,16 @@ App::Application.routes.draw do
       resources :venues
       resources :parties
       resources :addresses, only: [:create, :show]
+      resources :party_invitations, only: [:index, :show] do
+        member do
+          get 'claim_by_email'
+          get 'claim_by_user'
+        end
+        collection do
+          post 'bulk_create_from_user'
+          post 'bulk_create_from_email'
+        end
+      end
     end
   end
 

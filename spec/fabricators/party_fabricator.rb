@@ -7,5 +7,6 @@ Fabricator(:party) do
   venue { Fabricate(:venue) }
   team { Fabricate(:team) }
   sport { Fabricate(:sport) }
+  address { Fabricate(:address) }
   attendees(count: 2) { |attrs, i| Fabricate(:user, name: 'attendee #{i}') }
 end

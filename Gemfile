@@ -23,6 +23,8 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'geocoder'
 
+gem "letter_opener", :group => :development
+
 group :test do
   gem 'rspec-rails', '~> 2.13' # test framework
   gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests
@@ -31,6 +33,9 @@ group :test do
   gem 'launchy'
   gem 'database_cleaner', '~> 1.0' # cleanup database in tests
   gem 'fabrication', '~> 2.6' # model stubber
+  gem 'email_spec',                 '~> 1.5.0'
+  gem 'simplecov',                  '~> 0.7.1', require: false
+  gem "codeclimate-test-reporter", require: false
   gem 'shoulda', '~> 3.3' # model spec tester
   gem 'rb-inotify', require: false  # Linux file notification
   gem 'rb-fsevent', require: false  # OSX file notification

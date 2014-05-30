@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529130141) do
+ActiveRecord::Schema.define(version: 20140530135230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(version: 20140529130141) do
   create_table "party_invitations", force: true do |t|
     t.integer "user_id"
     t.integer "party_id"
+    t.string  "unregistered_invitee_email"
+    t.integer "inviter_id"
+    t.string  "uuid"
+    t.boolean "claimed",                    default: false
   end
 
   add_index "party_invitations", ["party_id"], name: "index_party_invitations_on_party_id", using: :btree
@@ -58,6 +62,7 @@ ActiveRecord::Schema.define(version: 20140529130141) do
   create_table "party_reservations", force: true do |t|
     t.integer "user_id"
     t.integer "party_id"
+    t.string  "unregistered_rsvp_email"
   end
 
   add_index "party_reservations", ["party_id"], name: "index_party_reservations_on_party_id", using: :btree
@@ -187,14 +192,7 @@ ActiveRecord::Schema.define(version: 20140529130141) do
     t.string  "name"
     t.string  "description"
     t.string  "image_url"
-    t.string  "street1"
-    t.string  "street2"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
     t.integer "user_id"
-    t.float   "latitude"
-    t.float   "longitude"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
