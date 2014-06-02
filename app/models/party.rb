@@ -21,7 +21,6 @@ class Party < ActiveRecord::Base
 
   def send_notification_when_verified
     if self.verified_changed? && self.verified
-      puts self.inspect
       PartyVerificationMailer.watch_party_host_verification_email(self).deliver
     end
   end
