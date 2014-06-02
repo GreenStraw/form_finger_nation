@@ -25,6 +25,8 @@ gem 'geocoder'
 
 gem "letter_opener", :group => :development
 
+gem "figaro" #allows for easy setup of env variables.
+
 group :test do
   gem 'rspec-rails', '~> 2.13' # test framework
   gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests
