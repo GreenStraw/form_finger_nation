@@ -1,6 +1,6 @@
 class PartySerializer < ActiveModel::Serializer
   embed :ids
-  attributes :id, :name, :description, :scheduled_for, :scheduled_date, :scheduled_time, :private
+  attributes :id, :name, :description, :scheduled_for, :scheduled_date, :scheduled_time, :private, :verified
   has_many :unregistered_attendees, key: :unregistered_attendees, root: :unregistered_attendees
   has_many :attendees, key: :attendees, root: :attendees
   has_one :organizer, key: :organizer, root: :organizer#, include: true

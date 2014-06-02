@@ -114,7 +114,7 @@ module Api
       end
 
       def party_params
-        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address_attributes, { :attendee_ids=>[] })
+        params.require(:party).permit(:name, :description, :private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address_attributes, { :attendee_ids=>[] })
       end
     end
   end

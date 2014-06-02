@@ -1,0 +1,13 @@
+<h2>Your party at <% @party.venue.name %> has Been Verified by the Venue</h2>
+
+<p>
+  Party Details:
+  <%= @party.name %><br>
+  Team: <%= @party.team.name %><br>
+  When: <%= @party.scheduled_for %><br><br>
+  Where:<br>
+    <%= @party.venue.address.street1 %>, <%= @party.venue.address.street2 %><br>
+    <%= @party.venue.address.city %>, <%= @party.venue.address.state %> <%= @party.venue.address.zip %><br>
+</p>
+
+
