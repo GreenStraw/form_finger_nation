@@ -4,10 +4,10 @@ Team.all.map(&:destroy)
 Venue.all.map(&:destroy)
 
 User.create([
-  { email: 'admin@test.com', password: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger' },
-  { email: 'team_admin@test.com', password: '123123123', username: 'putdownthatpickle', first_name: 'Rocky', last_name: 'Rococo'},
-  { email: 'venue_manager@test.com', password: '123123123', username: 'rspoilsport', first_name: 'Ralph', last_name: 'Spoilsport'},
-  { email: 'user@test.com', password: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets'}
+  { email: 'admin@test.com', password: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') },
+  { email: 'team_admin@test.com', password: '123123123', username: 'putdownthatpickle', first_name: 'Rocky', last_name: 'Rococo', address: Address.create(city: 'Oklahoma City', state: 'OK', zip: '73105')},
+  { email: 'venue_manager@test.com', password: '123123123', username: 'rspoilsport', first_name: 'Ralph', last_name: 'Spoilsport', address: Address.create(city: 'Austin', state: 'TX', zip: '78726')},
+  { email: 'user@test.com', password: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}
 ])
 
 User.all.each do |user|
