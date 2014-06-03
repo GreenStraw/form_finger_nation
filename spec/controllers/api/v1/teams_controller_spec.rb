@@ -97,7 +97,7 @@ describe Api::V1::TeamsController do
   end
 
   describe 'PUT update' do
-    context 'current user not admin' do
+    context 'current user not admin or team admin' do
       before {
         team = Fabricate(:team)
         user.ensure_authentication_token!
@@ -145,6 +145,22 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :admin
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = user.authentication_token
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :put, :update, id: team.id, team: {name: 'another_name'}
+      }
+
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
+    end
+
+    context 'everything is good - user has team_admin role' do
+      before {
+        team = Fabricate(:team)
+        user.add_role :team_admin, team
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email

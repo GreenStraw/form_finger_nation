@@ -90,7 +90,7 @@ module Api
       end
 
       def user_params
-        params.require(:user).permit(:name, :email, :city, :state, :zip, :current_password, :password, :password_confirmation, {:sports=>[], :teams=>[], :venues=>[], :reservations=>[], :endorsing_teams=>[]})
+        params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sports=>[], :teams=>[], :venues=>[], :reservations=>[], :endorsing_teams=>[]})
       end
 
       def update_with_password(update_params, *options)

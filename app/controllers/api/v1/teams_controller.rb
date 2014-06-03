@@ -38,7 +38,7 @@ module Api
 
       def update
         @team = Team.find(params[:id])
-        if current_user.has_role?(:admin) || current_user == @team.admin
+        if current_user.has_role?(:admin) || current_user.has_role?(:team_admin, @team)
           update_params = team_params
           update_params[:fans] = fan_id_list_to_fans_for_update(update_params)
           if update_params[:sport_id].nil?
@@ -89,7 +89,7 @@ module Api
 
       def team_params
         params[:team][:sport_id] = params[:team][:sport]
-        params.require(:team).permit(:name, :image_url, :sport_id, :admin_id, {:fans=>[]})
+        params.require(:team).permit(:name, :image_url, :sport_id, {:fans=>[]})
       end
     end
   end

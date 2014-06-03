@@ -67,11 +67,8 @@ describe Api::V1::UsersController do
         up_user = JSON.parse(response.body)['user']
         expect_user = {
           'id' => @user.id,
-          'name' => @user.name,
+          'username' => @user.username,
           'email' => @user.email,
-          'city' => @user.city,
-          'state' => @user.state,
-          'zip' => @user.zip,
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
@@ -79,7 +76,10 @@ describe Api::V1::UsersController do
           'parties' => @user.parties,
           'reservations' => @user.reservations,
           'invitations' => @user.invitations,
-          'employer' => @user.employer,
+          'employer' => nil,
+          'first_name' => nil,
+          'last_name' => nil,
+          'address' => nil,
           'endorsing_teams' => @user.endorsing_teams}
         up_user.should == expect_user
       end
@@ -95,7 +95,7 @@ describe Api::V1::UsersController do
             :update,
             :id => @user.id,
             :user => {:current_password => @user.password,
-                      :name => "New Name"}
+                      :username => "NewName"}
       end
       it 'returns http 201' do
         response.response_code.should == 200
@@ -104,11 +104,8 @@ describe Api::V1::UsersController do
         up_user = JSON.parse(response.body)['user']
         expect_user = {
           'id' => @user.id,
-          'name' => "New Name",
+          'username' => "NewName",
           'email' => @user.email,
-          'city' => @user.city,
-          'state' => @user.state,
-          'zip' => @user.zip,
           'admin' => @user.has_role?(:admin),
           'sports' => @user.sports,
           'teams'=> @user.teams,
@@ -116,7 +113,10 @@ describe Api::V1::UsersController do
           'parties' => @user.parties,
           'reservations' => @user.reservations,
           'invitations' => @user.invitations,
-          'employer' => @user.employer,
+          'employer' => nil,
+          'first_name' => nil,
+          'last_name' => nil,
+          'address' => nil,
           'endorsing_teams' => @user.endorsing_teams}
         up_user.should == expect_user
       end
@@ -132,7 +132,7 @@ describe Api::V1::UsersController do
             :update,
             :id => @user.id,
             :user => {:current_password => @user.password,
-                      :name => "New Name"}
+                      :username => "NewName"}
       end
       it 'returns http 401' do
         response.response_code.should == 401
@@ -151,7 +151,7 @@ describe Api::V1::UsersController do
             :user => {:current_password => 'wrongPassword',
                       :passwrod => 'test',
                       :password_confirmation => 'test',
-                      :name => "New Name"}
+                      :username => "NewName"}
       end
       it 'returns http 422' do
         response.response_code.should == 422

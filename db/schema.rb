@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140602152930) do
+ActiveRecord::Schema.define(version: 20140603121749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,23 @@ ActiveRecord::Schema.define(version: 20140602152930) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
+
+  create_table "endorsements", force: true do |t|
+    t.integer "endorsable_id"
+    t.string  "endorsable_type"
+    t.integer "endorser_id"
+    t.string  "endorser_type"
+  end
+
+  add_index "endorsements", ["endorsable_id", "endorsable_type"], name: "index_endorsements_on_endorsable_id_and_endorsable_type", using: :btree
+  add_index "endorsements", ["endorser_id", "endorser_type"], name: "index_endorsements_on_endorser_id_and_endorser_type", using: :btree
 
   create_table "favorites", force: true do |t|
     t.integer "favoritable_id"
@@ -37,9 +49,13 @@ ActiveRecord::Schema.define(version: 20140602152930) do
     t.string  "favoriter_type"
   end
 
+  add_index "favorites", ["favoritable_id", "favoritable_type"], name: "index_favorites_on_favoritable_id_and_favoritable_type", using: :btree
+  add_index "favorites", ["favoriter_id", "favoriter_type"], name: "index_favorites_on_favoriter_id_and_favoriter_type", using: :btree
+
   create_table "parties", force: true do |t|
     t.string   "name"
-    t.boolean  "private"
+    t.boolean  "private",       default: false
+    t.boolean  "verified",      default: false
     t.string   "description"
     t.datetime "scheduled_for"
     t.integer  "organizer_id"
@@ -48,7 +64,6 @@ ActiveRecord::Schema.define(version: 20140602152930) do
     t.integer  "venue_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "verified",      default: false
   end
 
   add_index "parties", ["organizer_id"], name: "index_parties_on_organizer_id", using: :btree
@@ -56,21 +71,22 @@ ActiveRecord::Schema.define(version: 20140602152930) do
   add_index "parties", ["team_id"], name: "index_parties_on_team_id", using: :btree
 
   create_table "party_invitations", force: true do |t|
+    t.string  "unregistered_invitee_email"
+    t.string  "uuid"
+    t.integer "inviter_id"
+    t.boolean "claimed",                    default: false
     t.integer "user_id"
     t.integer "party_id"
-    t.string  "unregistered_invitee_email"
-    t.integer "inviter_id"
-    t.string  "uuid"
-    t.boolean "claimed",                    default: false
   end
 
+  add_index "party_invitations", ["inviter_id"], name: "index_party_invitations_on_inviter_id", using: :btree
   add_index "party_invitations", ["party_id"], name: "index_party_invitations_on_party_id", using: :btree
   add_index "party_invitations", ["user_id"], name: "index_party_invitations_on_user_id", using: :btree
 
   create_table "party_reservations", force: true do |t|
+    t.string  "unregistered_rsvp_email"
     t.integer "user_id"
     t.integer "party_id"
-    t.string  "unregistered_rsvp_email"
   end
 
   add_index "party_reservations", ["party_id"], name: "index_party_reservations_on_party_id", using: :btree
@@ -94,51 +110,13 @@ ActiveRecord::Schema.define(version: 20140602152930) do
     t.datetime "updated_at"
   end
 
-  create_table "team_host_endorsements", force: true do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "team_host_endorsements", ["team_id"], name: "index_team_host_endorsements_on_team_id", using: :btree
-  add_index "team_host_endorsements", ["user_id"], name: "index_team_host_endorsements_on_user_id", using: :btree
-
   create_table "teams", force: true do |t|
     t.string   "name"
     t.string   "image_url"
     t.integer  "sport_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "street1"
-    t.string   "street2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.integer  "admin_id"
   end
-
-  add_index "teams", ["admin_id"], name: "index_teams_on_admin_id", using: :btree
-
-  create_table "user_sport_subscriptions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "sport_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_sport_subscriptions", ["sport_id"], name: "index_user_sport_subscriptions_on_sport_id", using: :btree
-  add_index "user_sport_subscriptions", ["user_id"], name: "index_user_sport_subscriptions_on_user_id", using: :btree
-
-  create_table "user_team_subscriptions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_team_subscriptions", ["team_id"], name: "index_user_team_subscriptions_on_team_id", using: :btree
-  add_index "user_team_subscriptions", ["user_id"], name: "index_user_team_subscriptions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -157,12 +135,11 @@ ActiveRecord::Schema.define(version: 20140602152930) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "username"
     t.string   "provider"
     t.string   "uid"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -175,26 +152,6 @@ ActiveRecord::Schema.define(version: 20140602152930) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
-
-  create_table "venue_sport_subscriptions", force: true do |t|
-    t.integer  "venue_id"
-    t.integer  "sport_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "venue_sport_subscriptions", ["sport_id"], name: "index_venue_sport_subscriptions_on_sport_id", using: :btree
-  add_index "venue_sport_subscriptions", ["venue_id"], name: "index_venue_sport_subscriptions_on_venue_id", using: :btree
-
-  create_table "venue_team_subscriptions", force: true do |t|
-    t.integer  "venue_id"
-    t.integer  "team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "venue_team_subscriptions", ["team_id"], name: "index_venue_team_subscriptions_on_team_id", using: :btree
-  add_index "venue_team_subscriptions", ["venue_id"], name: "index_venue_team_subscriptions_on_venue_id", using: :btree
 
   create_table "venues", force: true do |t|
     t.string  "name"

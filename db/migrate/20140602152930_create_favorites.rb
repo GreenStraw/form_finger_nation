@@ -4,5 +4,8 @@ class CreateFavorites < ActiveRecord::Migration
       t.references :favoritable, polymorphic: true
       t.references :favoriter, polymorphic: true
     end
+
+    add_index :favorites, [:favoritable_id, :favoritable_type]
+    add_index :favorites, [:favoriter_id, :favoriter_type]
   end
 end

@@ -7,7 +7,11 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :zip
+      t.float :latitude
+      t.float :longitude
       t.timestamps
     end
+
+    add_index :addresses, [:addressable_id, :addressable_type]
   end
 end

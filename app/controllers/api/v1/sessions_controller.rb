@@ -26,7 +26,7 @@ module Api
           user_id: @user.id,
           auth_token: @user.authentication_token,
           auth_email: @user.email,
-          user_name: @user.name,
+          user_name: @user.username,
           user_admin: @user.has_role?(:admin)
         }
         if params[:remember]

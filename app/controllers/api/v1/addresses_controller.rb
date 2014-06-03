@@ -1,6 +1,7 @@
 module Api
   module V1
     class AddressesController < BaseController
+      before_filter :authenticate_user_from_token!, except: [:create]
 
       def show
         return render json: Address.find(params[:id])

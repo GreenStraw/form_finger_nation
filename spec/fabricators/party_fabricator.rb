@@ -8,5 +8,5 @@ Fabricator(:party) do
   team { Fabricate(:team) }
   sport { Fabricate(:sport) }
   address { Fabricate(:address) }
-  attendees(count: 2) { |attrs, i| Fabricate(:user, name: 'attendee #{i}') }
+  attendees(count: 2) { |attrs, i| Fabricate(:user, username: 'attendee #{i}') }
 end

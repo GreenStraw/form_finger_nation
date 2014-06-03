@@ -11,15 +11,15 @@ class User < ActiveRecord::Base
   has_many :favorites, as: :favoriter, dependent: :destroy
   has_many :sports, through: :favorites, source: :favoritable, source_type: "Sport"
   has_many :teams, through: :favorites, source: :favoritable, source_type: "Team"
+  has_many :endorsements, as: :endorsable
+  has_many :endorsing_teams, through: :endorsements, source: :endorser, source_type: "Team"
   has_many :venues
+  has_one :address, as: :addressable, dependent: :destroy
   has_many :party_reservations
   has_many :reservations, through: :party_reservations, source: :party
   has_many :party_invitations
   has_many :invitations, through: :party_invitations, source: :party
   has_many :parties, foreign_key: 'organizer_id'
-  has_many :team_host_endorsements
-  has_many :endorsing_teams, through: :team_host_endorsements, source: :team
-  has_one :employer, class_name: 'Team', foreign_key: 'admin_id'
 
   attr_accessor :current_password, :password_confirmation
 
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
       user = User.where(:provider => auth.provider, :uid => auth.uid).first
 
       unless user
-        user = User.create(:name => auth.info.name,
+        user = User.create(:username => auth.info.name,
                         :provider => auth.provider,
                         :uid => auth.uid,
                         :email => auth.info.email,
