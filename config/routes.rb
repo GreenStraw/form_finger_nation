@@ -29,7 +29,7 @@ App::Application.routes.draw do
       resources :parties
       resources :packages
       resources :comments, only: [:create, :update]
-      resources :addresses, only: [:create, :show]
+      resources :addresses, only: [:create, :show, :update]
       resources :party_invitations, only: [:index, :show] do
         member do
           get 'claim_by_email'

@@ -23,6 +23,9 @@ module Api
           update_params[:sports] = sport_id_list_to_sports_for_update
           update_params[:teams] = team_id_list_to_teams_for_update
           update_params[:reservations] = reservation_id_list_to_reservations_for_update
+          if user_params[:address]
+            update_params[:address] = Address.find_by_id(user_params[:address])
+          end
           if changing_password(update_params)
             update_with_password(update_params)
           else
