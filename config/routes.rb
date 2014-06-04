@@ -13,7 +13,7 @@ App::Application.routes.draw do
         delete '/sign_out' => 'sessions#destroy'
         post '/users', :to => "registrations#create"
       end
-      
+
       resources :users, only: [:index, :show, :update] do
         collection do
           get 'search_users'
@@ -28,6 +28,7 @@ App::Application.routes.draw do
       resources :venues
       resources :parties
       resources :packages
+      resources :comments, only: [:create, :update]
       resources :addresses, only: [:create, :show]
       resources :party_invitations, only: [:index, :show] do
         member do

@@ -195,25 +195,20 @@ describe Api::V1::PartiesController do
       it 'returns http 403' do
         response.response_code.should == 403
       end
-    end
-    context 'current user not admin but is manager of the watch party' do
-      before {
-        party = Fabricate(:party)
-        user.add_role(:manager, party)
-        user.ensure_authentication_token!
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        @party = Fabricate.attributes_for(:party)
-        @party[:scheduled_date] = Date.new(2014, 01, 01)
-        @party[:scheduled_time] = '10:00 pm'
-        @party[:name] = 'another_name'
-        xhr :post, :create, :party => @party
-        xhr :put, :update, id: party.id, party: @party
-      }
+      context 'current user not admin but is manager of the watch party' do
+        before {
+          party = Fabricate(:party)
+          user.add_role(:manager, party)
+          user.ensure_authentication_token!
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :put, :update, id: party.id, party: {scheduled_date: Date.new(2014, 01, 01), scheduled_time: '10:00 pm'}
+        }
 
-      it 'returns http 200' do
-        response.response_code.should == 200
+        it 'returns http 200' do
+          response.response_code.should == 200
+        end
       end
     end
     context 'user not authenticated' do

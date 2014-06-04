@@ -13,11 +13,13 @@ gem 'uglifier', '~> 2.1'
 gem 'twitter-bootstrap-rails'
 
 gem 'rolify'
+gem 'cancan'
 gem 'devise', '3.0.0' # server-side authentication
                                 # 3.1 removes token auth
 gem 'omniauth-facebook'
 gem 'bcrypt-ruby', '~> 3.0' # password encryption
 
+gem 'awesome_nested_set', '~>3.0.0.rc5'
 gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
 gem 'rack-cors', :require => 'rack/cors'
 
@@ -26,6 +28,7 @@ gem 'geocoder'
 gem "letter_opener", :group => :development
 
 gem "figaro" #allows for easy setup of env variables.
+gem 'acts_as_commentable_with_threading'
 
 group :test do
   gem 'rspec-rails', '~> 2.13' # test framework
