@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603121749) do
+ActiveRecord::Schema.define(version: 20140603184725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 20140603121749) do
 
   add_index "favorites", ["favoritable_id", "favoritable_type"], name: "index_favorites_on_favoritable_id_and_favoritable_type", using: :btree
   add_index "favorites", ["favoriter_id", "favoriter_type"], name: "index_favorites_on_favoriter_id_and_favoriter_type", using: :btree
+
+  create_table "packages", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "image_url"
+    t.decimal  "price"
+    t.boolean  "active"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "venue_id"
+  end
 
   create_table "parties", force: true do |t|
     t.string   "name"
@@ -158,6 +169,8 @@ ActiveRecord::Schema.define(version: 20140603121749) do
     t.string  "description"
     t.string  "image_url"
     t.integer "user_id"
+    t.string  "venue_type",   default: "Venue"
+    t.integer "franchise_id"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
