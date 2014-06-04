@@ -13,8 +13,12 @@ App::Application.routes.draw do
         delete '/sign_out' => 'sessions#destroy'
         post '/users', :to => "registrations#create"
       end
-
-      resources :users, only: [:index, :show, :update]
+      
+      resources :users, only: [:index, :show, :update] do
+        collection do
+          get 'search_users'
+        end
+      end
       resources :sports do
         put 'subscribe'
       end
