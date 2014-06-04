@@ -51,7 +51,7 @@ module Api
       private
 
       def are_fans_of(team_id)
-        Favorite.where('favoritable_id = ? and favoriter_type = ?', team_id, "User").map(&:favoriter_id)
+        Favorite.where('favoritable_id = ? and favoriter_type = ? and favoritable_type = ?', team_id, "User", "Team").map(&:favoriter_id)
       end
 
       def have_name_like(username)
