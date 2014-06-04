@@ -55,7 +55,7 @@ module Api
       end
 
       def have_name_like(username)
-        User.where("username ilike '%#{username}%'").map(&:id)
+        User.where("username ilike ?", "%#{username}%").map(&:id)
       end
 
       def users_in_the_area(search_location, radius)
