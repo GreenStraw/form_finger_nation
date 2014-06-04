@@ -33,7 +33,40 @@ module Api
         end
       end
 
+      def search_users
+        username = params[:username] if params[:username]
+        search_location = params[:search_location] if params[:search_location]
+        radius = params[:radius] if params[:radius]
+        team_id = params[:team_id] if params[:team_id]
+        search_results = users_in_the_area(search_location, radius)
+        if username
+          search_results = search_results & have_name_like(username)
+        end
+        if team_id
+          search_results = search_results & are_fans_of(team_id)
+        end
+        return render json: search_results
+      end
+
       private
+
+      def are_fans_of(team_id)
+        Favorite.where('favoritable_id = ? and favoriter_type = ?', team_id, "User").map(&:favoriter_id)
+      end
+
+      def have_name_like(username)
+        User.where("username ilike '%#{username}%'").map(&:id)
+      end
+
+      def users_in_the_area(search_location, radius)
+        loc = search_location
+        rad = radius || 20
+        addresses = Address.near(loc, rad).to_a
+        if addresses.any?
+          user_ids =  addresses.select{|a| a.addressable_type=='User'}.to_a.map(&:addressable_id)
+        end
+        return user_ids || []
+      end
 
       def changing_password(update_params)
         update_params[:current_password].present? && update_params[:password].present? && update_params[:password_confirmation].present?
