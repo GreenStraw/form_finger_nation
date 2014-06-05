@@ -42,9 +42,6 @@ group :test do
   gem 'simplecov',                  '~> 0.7.1', require: false
   gem "codeclimate-test-reporter", require: false
   gem 'shoulda', '~> 3.3' # model spec tester
-  gem 'rb-inotify', require: false  # Linux file notification
-  gem 'rb-fsevent', require: false  # OSX file notification
-  gem 'rb-fchange', require: false  # Windows file notification
 end
 
 group :development, :test do

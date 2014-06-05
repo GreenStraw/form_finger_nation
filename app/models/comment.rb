@@ -23,26 +23,20 @@ class Comment < ActiveRecord::Base
       :body         => comment
   end
 
+  def self.find_comments_by_commenter(commenter)
+    Comment.where(:commenter_id => commenter.id, :commenter_type => commenter.class).order('created_at DESC')
+  end
+
+  def self.find_comments_for_commentable(commentable)
+    Comment.where(:commentable_type => commentable.class, :commentable_id => commentable.id).order('created_at DESC')
+  end
+
+  def self.find_commentable(commentable_type, commentable_id)
+    commentable_type.constantize.find_by_id(commentable_id)
+  end
+
   #helper method to check if a comment has children
   def has_children?
     self.children.any?
-  end
-
-  # Helper class method to lookup all comments assigned
-  # to all commentable types for a given commenter.
-  scope :find_comments_by_commenter, lambda { |commenter|
-    where(:commenter_id => commenter.id, :commenter_type => commtner.type).order('created_at DESC')
-  }
-
-  # Helper class method to look up all comments for
-  # commentable class name and commentable id.
-  scope :find_comments_for_commentable, lambda { |commentable_str, commentable_id|
-    where(:commentable_type => commentable_str.to_s, :commentable_id => commentable_id).order('created_at DESC')
-  }
-
-  # Helper class method to look up a commentable object
-  # given the commentable class name and id
-  def self.find_commentable(commentable_str, commentable_id)
-    commentable_str.constantize.find(commentable_id)
   end
 end
