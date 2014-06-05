@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
+  has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
   has_many :sports, through: :favorites, source: :favoritable, source_type: "Sport"
   has_many :teams, through: :favorites, source: :favoritable, source_type: "Team"
@@ -22,6 +23,11 @@ class User < ActiveRecord::Base
   has_many :parties, foreign_key: 'organizer_id'
 
   attr_accessor :current_password, :password_confirmation
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  delegate :can?, :cannot?, to: :ability
 
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :admin

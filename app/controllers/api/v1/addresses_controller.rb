@@ -17,6 +17,15 @@ module Api
         end
       end
 
+      def update
+        @address = Address.find(params[:id])
+        if @address.update!(address_params)
+          return render json: @address
+        else
+          return render json: { :errors => 'Address not updated' }, status: 422
+        end
+      end
+
       private
 
       def address_params

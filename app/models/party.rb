@@ -1,4 +1,6 @@
 class Party < ActiveRecord::Base
+  acts_as_commentable
+
   after_update :send_notification_when_verified
 
   has_many :party_reservations

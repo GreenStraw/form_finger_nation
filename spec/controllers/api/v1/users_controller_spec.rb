@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Api::V1::UsersController do
   let(:user) { Fabricate(:user) }
   before do
+    Address.any_instance.stub(:geocode).and_return([1,1])
     user
     user.confirm!
   end
