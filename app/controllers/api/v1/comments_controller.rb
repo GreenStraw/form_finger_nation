@@ -4,6 +4,14 @@ module Api
       before_filter :authenticate_user_from_token!
       respond_to :json
 
+      def index
+        return render json: Comment.all
+      end
+
+      def show
+        return render json: Comment.find(params[:id])
+      end
+
       def create
         @comment_hash = params[:comment]
         if params[:comment][:parent_id].present?
@@ -17,9 +25,9 @@ module Api
             if @parent
               @comment.move_to_child_of(@parent)
             end
-            return render json: @obj, status: 201
+            return render json: @comment, status: 201
           else
-            return render json: @obj, status: 422
+            return render json: @comment, status: 422
           end
         end
         return render json: {}, status: 403
