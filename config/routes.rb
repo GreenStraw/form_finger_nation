@@ -28,7 +28,7 @@ App::Application.routes.draw do
       resources :venues
       resources :parties
       resources :packages
-      resources :comments, only: [:create, :update]
+      resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:create, :show, :update]
       resources :party_invitations, only: [:index, :show] do
         member do
