@@ -1,7 +1,7 @@
 module Api
   module V1
     class PartiesController < BaseController
-      before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
+      before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :rsvp, :unrsvp]
       respond_to :json
 
       def index
@@ -53,6 +53,32 @@ module Api
           else
             return render json: { :errors => 'Watch Party not deleted' }, status: 422
           end
+        else
+          return render json: {}, status: 403
+        end
+      end
+
+      def rsvp
+        @party = Party.find(params[:id])
+        @user = User.find(rsvp_params[:user_id])
+        if current_user == @user
+          if !@party.attendees.include?(current_user)
+            @party.attendees << current_user
+          end
+          return render json: @party
+        else
+          return render json: {}, status: 403
+        end
+      end
+
+      def unrsvp
+        @party = Party.find(params[:id])
+        @user = User.find(rsvp_params[:user_id])
+        if current_user == @user
+          if @party.attendees.include?(current_user)
+            @party.attendees.delete(current_user)
+          end
+          return render json: @party
         else
           return render json: {}, status: 403
         end
@@ -111,6 +137,10 @@ module Api
         params[:party][:attendee_ids] = params[:party][:attendees]
         params[:party][:scheduled_for] = build_scheduled_time(params[:party][:scheduled_date], params[:party][:scheduled_time])
         params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address_attributes, { :attendee_ids=>[] })
+      end
+
+      def rsvp_params
+        params.permit(:user_id)
       end
 
       def party_params

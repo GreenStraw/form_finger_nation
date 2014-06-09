@@ -359,4 +359,147 @@ describe Api::V1::PartiesController do
       end
     end
   end
+  describe "PUT rsvp" do
+    context 'user not authenticated' do
+      before {
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = 'fake_authentication_token'
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :put, :rsvp, id: party.id, user_id: user.id
+      }
+
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'user authenticated' do
+      context 'current_user does not equal passed in user' do
+        before {
+          party = Fabricate(:party)
+          other_user = Fabricate(:user)
+          user.ensure_authentication_token!
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :put, :rsvp, id: party.id, user_id: other_user.id
+        }
+
+        it 'returns http 403' do
+          response.response_code.should == 403
+        end
+      end
+      context 'current_user equals passed in user' do
+        context 'party attendees does not include user' do
+          before {
+            party = Fabricate(:party)
+            party.attendees.clear
+            party.attendees.should_not include(user)
+            user.ensure_authentication_token!
+            request.headers['auth-token'] = user.authentication_token
+            request.headers['auth-email'] = user.email
+            subject.stub(:current_user).and_return(user)
+            xhr :put, :rsvp, id: party.id, user_id: user.id
+          }
+
+          it 'should add the attendee to party' do
+            assigns(:party).attendees.should include(user)
+          end
+
+          it 'returns http 200' do
+            response.response_code.should == 200
+          end
+        end
+        context 'party attendees does include user' do
+          before {
+            party = Fabricate(:party, attendees: [user])
+            party.attendees.clear
+            party.attendees.should_not_receive(:<<)
+            user.ensure_authentication_token!
+            request.headers['auth-token'] = user.authentication_token
+            request.headers['auth-email'] = user.email
+            subject.stub(:current_user).and_return(user)
+            xhr :put, :rsvp, id: party.id, user_id: user.id
+          }
+
+          it 'returns http 200' do
+            response.response_code.should == 200
+          end
+        end
+      end
+    end
+  end
+
+  describe "PUT unrsvp" do
+    context 'user not authenticated' do
+      before {
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = 'fake_authentication_token'
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :put, :unrsvp, id: party.id, user_id: user.id
+      }
+
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'user authenticated' do
+      context 'current_user does not equal passed in user' do
+        before {
+          party = Fabricate(:party)
+          other_user = Fabricate(:user)
+          user.ensure_authentication_token!
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :put, :unrsvp, id: party.id, user_id: other_user.id
+        }
+
+        it 'returns http 403' do
+          response.response_code.should == 403
+        end
+      end
+      context 'current_user equals passed in user' do
+        context 'party attendees include user' do
+          before {
+            party = Fabricate(:party)
+            party.attendees.clear
+            party.attendees << user
+            party.attendees.should include(user)
+            user.ensure_authentication_token!
+            request.headers['auth-token'] = user.authentication_token
+            request.headers['auth-email'] = user.email
+            subject.stub(:current_user).and_return(user)
+            xhr :put, :unrsvp, id: party.id, user_id: user.id
+          }
+
+          it 'should add the attendee to party' do
+            assigns(:party).attendees.should_not include(user)
+          end
+
+          it 'returns http 200' do
+            response.response_code.should == 200
+          end
+        end
+        context 'party attendees does not include user' do
+          before {
+            party = Fabricate(:party, attendees: [user])
+            party.attendees.clear
+            party.attendees << user
+            party.attendees.should_not_receive(:delete)
+            user.ensure_authentication_token!
+            request.headers['auth-token'] = user.authentication_token
+            request.headers['auth-email'] = user.email
+            subject.stub(:current_user).and_return(user)
+            xhr :put, :unrsvp, id: party.id, user_id: user.id
+          }
+
+          it 'returns http 200' do
+            response.response_code.should == 200
+          end
+        end
+      end
+    end
+  end
 end
