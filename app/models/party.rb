@@ -19,6 +19,10 @@ class Party < ActiveRecord::Base
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
 
+  def isPrivate
+    return private?
+  end
+
   private
 
   def send_notification_when_verified

@@ -64,17 +64,19 @@ module Api
       end
 
       def bulk_create_from_user
-        users = params[:users]
-        inviter_id = params[:inviter]
+        user_ids = params[:user_ids].split(',')
+        inviter_id = params[:inviter_id]
         party_id = params[:party_id]
         invitations = []
-        users.each do |user|
-          @invitation = PartyInvitation.new(user_id: user,
-                                            inviter_id: inviter_id,
-                                            party_id: party_id)
-          if @invitation.save!
-            invitations << @invitation
-            PartyInvitationMailer.member_private_watch_party_invitation_email(@invitation).deliver
+        user_ids.each do |user_id|
+          if PartyInvitation.where(user_id: user_id, party_id: party_id).empty?
+            @invitation = PartyInvitation.new(user_id: user_id,
+                                              inviter_id: inviter_id,
+                                              party_id: party_id)
+            if @invitation.save!
+              invitations << @invitation
+              PartyInvitationMailer.member_watch_party_invitation_email(@invitation).deliver
+            end
           end
         end
         return render json: invitations
@@ -82,17 +84,19 @@ module Api
 
       def bulk_create_from_email
         email_addresses = params[:email_addresses]
-        inviter_id = params[:inviter]
+        inviter_id = params[:inviter_id]
         party_id = params[:party_id]
         split_emails = email_addresses.split(',')
         invitations = []
         split_emails.each do |email|
-          @invitation = PartyInvitation.new(unregistered_invitee_email: email,
-                                            inviter_id: inviter_id,
-                                            party_id: party_id)
-          if @invitation.save!
-            invitations << @invitation
-            PartyInvitationMailer.non_member_private_watch_party_invitation_email(@invitation).deliver
+          if PartyInvitation.where(unregistered_invitee_email: email, party_id: party_id).empty?
+            @invitation = PartyInvitation.new(unregistered_invitee_email: email,
+                                              inviter_id: inviter_id,
+                                              party_id: party_id)
+            if @invitation.save!
+              invitations << @invitation
+              PartyInvitationMailer.non_member_private_watch_party_invitation_email(@invitation).deliver
+            end
           end
         end
         return render json: invitations
