@@ -26,7 +26,12 @@ App::Application.routes.draw do
         put 'subscribe'
       end
       resources :venues
-      resources :parties
+      resources :parties do
+        member do
+          put 'rsvp'
+          put 'unrsvp'
+        end
+      end
       resources :packages
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:create, :show, :update]
