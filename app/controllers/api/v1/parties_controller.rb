@@ -110,11 +110,11 @@ module Api
         params[:party][:venue_id] = params[:party][:venue]
         params[:party][:attendee_ids] = params[:party][:attendees]
         params[:party][:scheduled_for] = build_scheduled_time(params[:party][:scheduled_date], params[:party][:scheduled_time])
-        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address_attributes, { :attendee_ids=>[] })
+        params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[] })
       end
 
       def party_params
-        params.require(:party).permit(:name, :description, :private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address_attributes, { :attendee_ids=>[] })
+        params.require(:party).permit(:name, :description, :private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[] })
       end
     end
   end
