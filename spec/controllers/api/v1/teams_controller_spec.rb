@@ -235,4 +235,144 @@ describe Api::V1::TeamsController do
       end
     end
   end
+
+  describe "PUT add_host" do
+    context 'user not authenticated' do
+      before {
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = 'fake_authentication_token'
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :post, :add_host, id: team.id, user_id: user.id
+      }
+
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'user authenticated' do
+      context 'current user does not have team admin role for team' do
+        before {
+          user.ensure_authentication_token!
+          user.roles.clear
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :post, :add_host, id: team.id, user_id: user.id
+        }
+
+        it 'returns http 403' do
+          response.response_code.should == 403
+        end
+      end
+      context 'current user does have team admin role for team' do
+        before {
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :post, :add_host, id: team.id, user_id: user.id
+        }
+
+        it 'returns http 200' do
+          response.response_code.should == 200
+        end
+      end
+      context 'team already includes user as a host' do
+        it 'should not call <<' do
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          team.endorsed_hosts = [user]
+          team.should_not_receive(:<<)
+          xhr :post, :add_host, id: team.id, user_id: user.id
+        end
+      end
+      context 'team does not include user as a host' do
+        it 'should add user to endorsed_hosts' do
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          team.endorsed_hosts.should_not include(user)
+          xhr :post, :add_host, id: team.id, user_id: user.id
+          assigns(:team).endorsed_hosts.should include(user)
+        end
+      end
+    end
+  end
+
+  describe "PUT remove_host" do
+    context 'user not authenticated' do
+      before {
+        user.ensure_authentication_token!
+        request.headers['auth-token'] = 'fake_authentication_token'
+        request.headers['auth-email'] = user.email
+        subject.stub(:current_user).and_return(user)
+        xhr :post, :remove_host, id: team.id, user_id: user.id
+      }
+
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'user authenticated' do
+      context 'current user does not have team admin role for team' do
+        before {
+          user.ensure_authentication_token!
+          user.roles.clear
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :post, :remove_host, id: team.id, user_id: user.id
+        }
+
+        it 'returns http 403' do
+          response.response_code.should == 403
+        end
+      end
+      context 'current user does have team admin role for team' do
+        before {
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          xhr :post, :remove_host, id: team.id, user_id: user.id
+        }
+
+        it 'returns http 200' do
+          response.response_code.should == 200
+        end
+      end
+      context 'team already includes user as a host' do
+        it 'should remove the user' do
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          team.endorsed_hosts = [user]
+          team.endorsed_hosts.should include(user)
+          xhr :post, :remove_host, id: team.id, user_id: user.id
+          assigns(:team).endorsed_hosts.should_not include(user)
+        end
+      end
+      context 'team does not include user as a host' do
+        it 'should not call delete' do
+          user.ensure_authentication_token!
+          user.add_role(:team_admin, team)
+          request.headers['auth-token'] = user.authentication_token
+          request.headers['auth-email'] = user.email
+          subject.stub(:current_user).and_return(user)
+          team.endorsed_hosts.should_not_receive(:delete)
+          xhr :post, :remove_host, id: team.id, user_id: user.id
+        end
+      end
+    end
+  end
 end
