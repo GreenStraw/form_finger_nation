@@ -3,5 +3,4 @@ Fabricator(:venue) do
   image_url nil
   description "it's an established venue"
   address {Fabricate(:address)}
-  user { Fabricate(:user) }
 end

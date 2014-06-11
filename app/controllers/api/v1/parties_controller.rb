@@ -23,12 +23,12 @@ module Api
       end
 
       def create
-        @party = Party.new(update_params)
+        @party = Party.new(party_params)
         if @party.save
           current_user.add_role(:manager, @party)
           return render json: @party
         else
-          return render json: { :errors => 'Watch Party not created' }, status: 422
+          return render json: { :errors => @party.errors.full_messages }, status: 422
         end
       end
 
@@ -38,7 +38,7 @@ module Api
           if @party.update!(update_params)
             return render json: @party
           else
-            return render json: { :errors => 'Watch Party not updated' }, status: 422
+            return render json: { :errors => @party.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -51,7 +51,7 @@ module Api
           if @party.destroy
             return render json: {}, status:200
           else
-            return render json: { :errors => 'Watch Party not deleted' }, status: 422
+            return render json: { :errors => @party.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -130,11 +130,6 @@ module Api
       end
 
       def update_params
-        params[:party][:organizer_id] = params[:party][:organizer]
-        params[:party][:team_id] = params[:party][:team]
-        params[:party][:sport_id] = params[:party][:sport]
-        params[:party][:venue_id] = params[:party][:venue]
-        params[:party][:attendee_ids] = params[:party][:attendees]
         params[:party][:scheduled_for] = build_scheduled_time(params[:party][:scheduled_date], params[:party][:scheduled_time])
         params.require(:party).permit(:name, :description, :private, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[] })
       end

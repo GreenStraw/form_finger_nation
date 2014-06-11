@@ -20,7 +20,7 @@ module Api
           if @package.save
             return render json: @package
           else
-            return render json: { :errors => 'Package not created' }, status: 422
+            return render json: { :errors => @package.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -35,7 +35,7 @@ module Api
           if @package.update!(package_params)
             return render json: @package
           else
-            return render json: { :errors => 'package not updated' }, status: 422
+            return render json: { :errors => @package.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -50,7 +50,7 @@ module Api
           if @package.destroy
             return render json: {}, status:200
           else
-            return render json: { :errors => 'Package not deleted' }, status: 422
+            return render json: { :errors => @package.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
