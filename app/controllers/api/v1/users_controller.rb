@@ -25,7 +25,7 @@ module Api
             update_without_password(user_params)
           end
         else
-          return render json: {}, status: 403
+          return render json: { :errors => @user.errors.full_messages }, status: 403
         end
       end
 
