@@ -18,33 +18,46 @@ module Api
           if @sport.save
             return render json: @sport
           else
-            return render json: { :errors => 'Sport not created' }, status: 422
+            return render json: { :errors => @sport.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
         end
       end
 
-      def subscribe
+      def subscribe_user
         @sport = Sport.find(params[:sport_id])
-        update_params = subscribe_params
-        update_params[:users] = user_id_list_to_users_for_update(update_params)
-        if @sport.update!(update_params)
+        @user = User.find(params[:fan_id])
+        if current_user == @user
+          if !@sport.fans.include?(@user)
+            @sport.fans << @user
+          end
           return render json: @sport
         else
-          return render json: { :errors => 'Sport not updated' }, status: 422
+          return render json: { :errors => @sport.errors.full_messages }, status: 422
+        end
+      end
+
+      def unsubscribe_user
+        @sport = Sport.find(params[:sport_id])
+        @user = User.find(params[:fan_id])
+        if current_user == @user
+          if @sport.fans.include?(@user)
+            @sport.fans.delete(@user)
+          end
+          return render json: @sport
+        else
+          return render json: { :errors => @sport.errors.full_messages }, status: 422
         end
       end
 
       def update
         if current_user.has_role?(:admin)
           @sport = Sport.find(params[:id])
-          update_params = sport_params
-          update_params[:users] = user_id_list_to_users_for_update(update_params)
-          if @sport.update!(update_params)
+          if @sport.update!(sport_params)
             return render json: @sport
           else
-            return render json: { :errors => 'Sport not updated' }, status: 422
+            return render json: { :errors => @sport.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -57,7 +70,7 @@ module Api
           if @sport.destroy
             return render json: {}, status:200
           else
-            return render json: { :errors => 'Sport not deleted' }, status: 422
+            return render json: { :errors => @sport.errors.full_messages }, status: 422
           end
         else
           return render json: {}, status: 403
@@ -66,26 +79,12 @@ module Api
 
       private
 
-      def user_id_list_to_users_for_update(param_list)
-        update_params = param_list
-        if update_params[:users].present?
-          user_ids = update_params[:users]
-          users = []
-          if user_ids.any?
-            users = user_ids.map{|sid| User.find_by_id(sid)}.compact.uniq
-          end
-          users
-        else
-          []
-        end
-      end
-
       def subscribe_params
-        params.permit({:users => []})
+        params.permit(:fan_id)
       end
 
       def sport_params
-        params.require(:sport).permit(:name, :image_url, {:users=>[],:teams=>[]})
+        params.require(:sport).permit(:name, :image_url, {:fan_ids=>[],:team_ids=>[]})
       end
     end
   end

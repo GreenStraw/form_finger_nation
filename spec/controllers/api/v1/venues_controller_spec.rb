@@ -83,7 +83,7 @@ describe Api::V1::VenuesController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        e = Venue.new(user: user)
+        e = Venue.new(name: 'another name')
         Venue.should_receive(:new).and_return(e)
         e.should_receive(:save).and_return(false)
         xhr :post, :create, :venue => venue.attributes.except("id")

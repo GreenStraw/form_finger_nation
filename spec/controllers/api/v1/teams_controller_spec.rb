@@ -73,7 +73,7 @@ describe Api::V1::TeamsController do
         t = Team.new(sport: sp)
         Team.should_receive(:new).with(@team).and_return(t)
         t.should_receive(:save).and_return(false)
-        xhr :post, :create, :team => {"name"=>"test_team", "image_url"=>nil, "sport"=>"1"}
+        xhr :post, :create, :team => {"name"=>"test_team", "image_url"=>nil, "sport_id"=>"1"}
       }
 
       it 'returns http 422' do

@@ -1,15 +1,15 @@
 class PartySerializer < ActiveModel::Serializer
   embed :ids
   attributes :id, :name, :description, :scheduled_for, :scheduled_date, :scheduled_time, :private, :verified
-  has_many :unregistered_attendees, key: :unregistered_attendees, root: :unregistered_attendees
-  has_many :attendees, key: :attendees, root: :attendees
-  has_many :comments, key: :comments, root: :comments
-  has_many :party_invitations, key: :invitations, root: :invitations
-  has_one :organizer, key: :organizer, root: :organizer#, include: true
-  has_one :team, key: :team, root: :team, include: true
-  has_one :sport, key: :sport, root: :sport, include: true
-  has_one :venue, key: :venue, root: :venue, include: true
-  has_one :address, key: :address, root: :address, include: true
+  has_many :party_invitations, key: :invitation_ids, root: :invitation_ids
+  has_many :unregistered_attendees, key: :unregistered_attendee_ids, root: :unregistered_attendee_ids
+  has_many :attendees, key: :attendee_ids, root: :attendee_ids
+  has_many :comments, key: :comment_ids, root: :comment_ids
+  has_one :organizer, key: :organizer_id, root: :organizer_id#, include: true
+  has_one :team, key: :team_id, root: :team_id#, include: true
+  has_one :sport, key: :sport_id, root: :sport_id#, include: true
+  has_one :venue, key: :venue_id, root: :venue_id
+  has_one :address, key: :address_id, root: :address_id
 
   def scheduled_date
     object.scheduled_for.to_date

@@ -19,20 +19,13 @@ module Api
       def update
         @user = User.find(params[:id])
         if current_user.has_role?(:admin) || current_user == @user
-          update_params = user_params
-          update_params[:sports] = sport_id_list_to_sports_for_update
-          update_params[:teams] = team_id_list_to_teams_for_update
-          update_params[:reservations] = reservation_id_list_to_reservations_for_update
-          if user_params[:address]
-            update_params[:address] = Address.find_by_id(user_params[:address])
-          end
-          if changing_password(update_params)
-            update_with_password(update_params)
+          if changing_password(user_params)
+            update_with_password(user_params)
           else
-            update_without_password(update_params)
+            update_without_password(user_params)
           end
         else
-          return render json: {}, status: 403
+          return render json: { :errors => @user.errors.full_messages }, status: 403
         end
       end
 
@@ -83,50 +76,8 @@ module Api
         end
       end
 
-      def sport_id_list_to_sports_for_update
-        update_params = user_params
-        if update_params[:sports].present?
-          sport_ids = update_params[:sports]
-          sports = []
-          if sport_ids.any?
-            sports = sport_ids.map{|sid| Sport.find_by_id(sid)}.compact.uniq
-          end
-          sports
-        else
-          []
-        end
-      end
-
-      def team_id_list_to_teams_for_update
-        update_params = user_params
-        if update_params[:teams].present?
-          team_ids = update_params[:teams]
-          teams = []
-          if team_ids.any?
-            teams = team_ids.map{|sid| Team.find_by_id(sid)}.compact.uniq
-          end
-          teams
-        else
-          []
-        end
-      end
-
-      def reservation_id_list_to_reservations_for_update
-        update_params = user_params
-        if update_params[:reservations].present?
-          reservation_ids = update_params[:reservations]
-          reservations = []
-          if reservation_ids.any?
-            reservations = reservation_ids.map{|sid| Party.find_by_id(sid)}.compact.uniq
-          end
-          reservations
-        else
-          []
-        end
-      end
-
       def user_params
-        params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sports=>[], :teams=>[], :venues=>[], :reservations=>[], :endorsing_teams=>[]})
+        params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]})
       end
 
       def update_with_password(update_params, *options)

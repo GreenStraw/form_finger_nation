@@ -13,7 +13,7 @@ module Api
         if @address.save
           return render json: @address
         else
-          return render json: { :errors => 'Address not created' }, status: 422
+          return render json: { :errors => @address.errors.full_messages }, status: 422
         end
       end
 
@@ -22,7 +22,7 @@ module Api
         if @address.update!(address_params)
           return render json: @address
         else
-          return render json: { :errors => 'Address not updated' }, status: 422
+          return render json: { :errors => @address.errors.full_messages }, status: 422
         end
       end
 

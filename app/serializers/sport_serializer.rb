@@ -1,6 +1,7 @@
 class SportSerializer < ActiveModel::Serializer
   embed :ids
   attributes :id, :name, :image_url
-  has_many :teams, key: :teams, root: :teams#, include: true
-  has_many :users, key: :users, root: :users#, include: true
+  has_many :fans, key: :fan_ids, root: :fan_ids
+  has_many :venue_fans, key: :venue_fan_ids, root: :venue_fan_ids
+  has_many :teams, key: :team_ids, root: :team_ids#, include: true
 end

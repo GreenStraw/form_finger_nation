@@ -68,20 +68,20 @@ describe Api::V1::UsersController do
         up_user = JSON.parse(response.body)['user']
         expect_user = {
           'id' => @user.id,
-          'username' => @user.username,
+          'username' => nil,
           'email' => @user.email,
           'admin' => @user.has_role?(:admin),
-          'sports' => @user.sports,
-          'teams'=> @user.teams,
-          'venues' => @user.venues,
-          'parties' => @user.parties,
-          'reservations' => @user.reservations,
-          'invitations' => @user.invitations,
-          'employers' => [],
+          'favorite_sport_ids' => @user.sports,
+          'favorite_team_ids'=> @user.teams,
+          'party_ids' => @user.parties,
+          'reservation_ids' => @user.reservations,
+          'invitation_ids' => @user.invitations,
+          'employer_ids' => [],
           'first_name' => nil,
           'last_name' => nil,
-          'address' => nil,
-          'endorsing_teams' => @user.endorsing_teams}
+          'address_id' => nil,
+          'endorsing_team_ids' => @user.endorsing_teams,
+          'managed_venue_ids' => []}
         up_user.should == expect_user
       end
     end
@@ -108,17 +108,17 @@ describe Api::V1::UsersController do
           'username' => "NewName",
           'email' => @user.email,
           'admin' => @user.has_role?(:admin),
-          'sports' => @user.sports,
-          'teams'=> @user.teams,
-          'venues' => @user.venues,
-          'parties' => @user.parties,
-          'reservations' => @user.reservations,
-          'invitations' => @user.invitations,
-          'employers' => [],
+          'favorite_sport_ids' => @user.sports,
+          'favorite_team_ids'=> @user.teams,
+          'party_ids' => @user.parties,
+          'reservation_ids' => @user.reservations,
+          'invitation_ids' => @user.invitations,
+          'employer_ids' => [],
           'first_name' => nil,
           'last_name' => nil,
-          'address' => nil,
-          'endorsing_teams' => @user.endorsing_teams}
+          'address_id' => nil,
+          'endorsing_team_ids' => @user.endorsing_teams,
+          'managed_venue_ids' => []}
         up_user.should == expect_user
       end
     end
