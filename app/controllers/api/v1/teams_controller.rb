@@ -1,7 +1,7 @@
 module Api
   module V1
     class TeamsController < BaseController
-      before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
+      before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
       respond_to :json
 
       def index
@@ -62,6 +62,32 @@ module Api
           else
             return render json: { :errors => 'Team not deleted' }, status: 422
           end
+        else
+          return render json: {}, status: 403
+        end
+      end
+
+      def add_host
+        @team = Team.find(params[:id])
+        @user = User.find(params[:user_id])
+        if current_user.has_role?(:team_admin, @team)
+          if !@team.endorsed_hosts.include?(@user)
+            @team.endorsed_hosts << @user
+          end
+          return render json: @team
+        else
+          return render json: {}, status: 403
+        end
+      end
+
+      def remove_host
+        @team = Team.find(params[:id])
+        @user = User.find(params[:user_id])
+        if current_user.has_role?(:team_admin, @team)
+          if @team.endorsed_hosts.include?(@user)
+            @team.endorsed_hosts.delete(@user)
+          end
+          return render json: @team
         else
           return render json: {}, status: 403
         end

@@ -24,6 +24,10 @@ App::Application.routes.draw do
       end
       resources :teams do
         put 'subscribe'
+        member do
+          put 'add_host'
+          put 'remove_host'
+        end
       end
       resources :venues
       resources :parties do
