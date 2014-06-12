@@ -4,6 +4,7 @@ class PartySerializer < ActiveModel::Serializer
   has_many :unregistered_attendees, key: :unregistered_attendees, root: :unregistered_attendees
   has_many :attendees, key: :attendees, root: :attendees
   has_many :comments, key: :comments, root: :comments
+  has_many :party_invitations, key: :invitations, root: :invitations
   has_one :organizer, key: :organizer, root: :organizer#, include: true
   has_one :team, key: :team, root: :team, include: true
   has_one :sport, key: :sport, root: :sport, include: true

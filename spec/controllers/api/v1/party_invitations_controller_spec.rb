@@ -117,15 +117,18 @@ describe Api::V1::PartyInvitationsController do
       request.headers['auth-email'] = user.email
       PartyInvitation.should_not_receive(:new)
       PartyInvitationMailer.should_not_receive(:member_private_watch_party_invitation_email)
-      xhr :post, :bulk_create_from_user, :users => [], :inviter => 999, :party_id => 998
+      xhr :post, :bulk_create_from_user, :user_ids => "", :inviter_id => 999, :party_id => 998
     end
-    it "should create an invitation for a user passed in" do
+    it "should create an invitation for users passed in" do
       user.ensure_authentication_token!
+      user2 = Fabricate(:user)
+      user3 = Fabricate(:user)
       request.headers['auth-token'] = user.authentication_token
       request.headers['auth-email'] = user.email
-      PartyInvitation.should_receive(:new).with(user_id: user.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
-      member_party_invitation.should_receive(:save!).once
-      xhr :post, :bulk_create_from_user, :users => [user.id], :inviter => 999, :party_id => 998
+      PartyInvitation.should_receive(:new).with(user_id: user2.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
+      PartyInvitation.should_receive(:new).with(user_id: user3.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
+      member_party_invitation.should_receive(:save!).twice
+      xhr :post, :bulk_create_from_user, :user_ids => "#{user2.id},#{user3.id}", :inviter_id => 999, :party_id => 998
     end
     it "should call member_private_watch_party_invitation_email when save completes" do
       user.ensure_authentication_token!
@@ -133,7 +136,7 @@ describe Api::V1::PartyInvitationsController do
       request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(user_id: user.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
       ActionMailer::Base.deliveries = []
-      xhr :post, :bulk_create_from_user, :users => [user.id], :inviter => 999, :party_id => 998
+      xhr :post, :bulk_create_from_user, :user_ids => user.id.to_s, :inviter_id => 999, :party_id => 998
       ActionMailer::Base.deliveries.count.should == 1
     end
   end
@@ -145,7 +148,7 @@ describe Api::V1::PartyInvitationsController do
       request.headers['auth-email'] = user.email
       PartyInvitation.should_not_receive(:new)
       PartyInvitationMailer.should_not_receive(:non_member_private_watch_party_invitation_email)
-      xhr :post, :bulk_create_from_email, :email_addresses => "", :inviter => 999, :party_id => 998
+      xhr :post, :bulk_create_from_email, :email_addresses => "", :inviter_id => 999, :party_id => 998
     end
     it "should create an invitation for a user passed in" do
       user.ensure_authentication_token!
@@ -153,7 +156,7 @@ describe Api::V1::PartyInvitationsController do
       request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(unregistered_invitee_email: 'test@test.com', inviter_id: "999", party_id: "998").and_return(non_member_party_invitation)
       non_member_party_invitation.should_receive(:save!).once
-      xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter => 999, :party_id => 998
+      xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter_id => 999, :party_id => 998
     end
     it "should call member_private_watch_party_invitation_email when save completes" do
       user.ensure_authentication_token!
@@ -161,7 +164,7 @@ describe Api::V1::PartyInvitationsController do
       request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(unregistered_invitee_email: 'test@test.com', inviter_id: "999", party_id: "998").and_return(non_member_party_invitation)
       ActionMailer::Base.deliveries = []
-      xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter => 999, :party_id => 998
+      xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter_id => 999, :party_id => 998
       ActionMailer::Base.deliveries.count.should == 1
     end
   end
