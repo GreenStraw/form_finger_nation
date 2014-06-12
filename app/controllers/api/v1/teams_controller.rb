@@ -110,8 +110,7 @@ module Api
       end
 
       def team_params
-        params[:team][:sport_id] = params[:team][:sport]
-        params.require(:team).permit(:name, :image_url, :sport_id, {:fan_ids=>[]})
+        params.require(:team).permit(:name, :information, :image_url, :sport_id, :address, {:fan_ids=>[]})
       end
     end
   end
