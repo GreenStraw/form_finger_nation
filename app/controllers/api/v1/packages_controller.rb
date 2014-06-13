@@ -16,7 +16,7 @@ module Api
         @package = Package.new(package_params)
         venue = Venue.find_by_id(@package.venue_id)
         if current_user.has_role?(:admin) || (venue.present? &&
-                                              current_user.has_role?(:venue_manager, venue))
+                                              current_user.has_role?(:manager, venue))
           if @package.save
             return render json: @package
           else
@@ -31,7 +31,7 @@ module Api
         @package = Package.find(params[:id])
         venue = @package.venue
         if current_user.has_role?(:admin) || (venue.present? &&
-                                              current_user.has_role?(:venue_manager, venue))
+                                              current_user.has_role?(:manager, venue))
           if @package.update!(package_params)
             return render json: @package
           else
@@ -46,7 +46,7 @@ module Api
         @package = Package.find(params[:id])
         venue = @package.venue
         if current_user.has_role?(:admin) || (venue.present? &&
-                                              current_user.has_role?(:venue_manager, venue))
+                                              current_user.has_role?(:manager, venue))
           if @package.destroy
             return render json: {}, status:200
           else

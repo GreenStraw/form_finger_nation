@@ -51,7 +51,7 @@ describe Api::V1::PackagesController do
     context 'package failed to save' do
       before {
         user.ensure_authentication_token!
-        user.add_role(:venue_manager, package.venue)
+        user.add_role(:manager, package.venue)
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -67,11 +67,11 @@ describe Api::V1::PackagesController do
     context 'everything is good' do
       before {
         user.ensure_authentication_token!
-        user.add_role(:venue_manager, package.venue)
+        user.add_role(:manager, package.venue)
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :package => package.attributes
+        xhr :post, :create, :package => {name: 'test', description: 'desc', price: 5.00, venue_id: package.venue.id}
       }
 
       it 'returns http 200' do
@@ -96,7 +96,7 @@ describe Api::V1::PackagesController do
     end
     context 'current user is manager of another venue' do
       before {
-        user.add_role(:venue_manager, Fabricate(:venue))
+        user.add_role(:manager, Fabricate(:venue))
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -110,7 +110,7 @@ describe Api::V1::PackagesController do
     end
     context 'current user not admin but is manager of the packages venue' do
       before {
-        user.add_role(:venue_manager, package.venue)
+        user.add_role(:manager, package.venue)
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -191,7 +191,7 @@ describe Api::V1::PackagesController do
     end
     context 'current user is manager of another venue' do
       before {
-        user.add_role(:venue_manager, Fabricate(:venue))
+        user.add_role(:manager, Fabricate(:venue))
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
@@ -205,7 +205,7 @@ describe Api::V1::PackagesController do
     end
     context 'current user not admin but is the manager of the venue' do
       before {
-        user.add_role(:venue_manager, package.venue)
+        user.add_role(:manager, package.venue)
         user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
