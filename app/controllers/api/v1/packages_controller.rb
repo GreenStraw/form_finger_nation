@@ -60,7 +60,7 @@ module Api
       private
 
       def package_params
-        params.require(:package).permit(:name, :description, :image_url, :price, :active, :start_date, :end_date, :venue_id)
+        params.require(:package).permit(:name, :description, :image_url, :price, :active, :start_date, :end_date, :venue_id, {:party_ids=>[]})
       end
     end
   end
