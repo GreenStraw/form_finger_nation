@@ -7,7 +7,7 @@ module Api
         if successfully_sent?(resource)
           return render json: {}, status: 200
         else
-          return render json: {}, status: 422
+          return render json: { :errors => resource.errors.full_messages }, status: 422
         end
       end
 
@@ -16,7 +16,7 @@ module Api
         if resource.errors.empty?
           return render json: {}, status: 200
         else
-          return render json: {}, status: 422
+          return render json: { :errors => resource.errors.full_messages }, status: 422
         end
       end
     end

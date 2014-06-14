@@ -3,5 +3,4 @@ Fabricator(:user) do
   password 'foobarbaz'
   sports []
   teams []
-  venues []
 end

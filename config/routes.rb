@@ -20,10 +20,16 @@ App::Application.routes.draw do
         end
       end
       resources :sports do
-        put 'subscribe'
+        put 'subscribe_user'
+        put 'unsubscribe_user'
       end
       resources :teams do
-        put 'subscribe'
+        put 'subscribe_user'
+        put 'unsubscribe_user'
+        member do
+          put 'add_host'
+          put 'remove_host'
+        end
       end
       resources :venues
       resources :parties do

@@ -1,28 +1,39 @@
 class UserSerializer < ActiveModel::Serializer
   embed :ids
   attributes :id, :username, :first_name, :last_name, :email, :admin
-  has_many :sports, key: :sports, root: :sports#, include: true
-  has_many :teams, key: :teams, root: :teams#, include: true
-  has_many :venues, key: :venues, root: :venues#, include: true
-  has_many :reservations, key: :reservations, root: :reservations#, include: true
-  has_many :invitations, key: :invitations, root: :invitations#, include: true
-  has_many :parties, key: :parties, root: :parties#, include: true
-  has_many :endorsing_teams, key: :endorsing_teams, root: :endorsing_teams
-  has_one :employer, key: :employer, root: :employer
-  has_one :address, key: :address, root: :address, include: true
+  has_many :sports, key: :favorite_sport_ids, root: :favorite_sport_ids#, include: true
+  has_many :teams, key: :favorite_team_ids, root: :favorite_team_ids#, include: true
+  has_many :managed_venues, key: :managed_venue_ids, root: :managed_venue_ids
+  has_many :reservations, key: :reservation_ids, root: :reservation_ids#, include: true
+  has_many :invitations, key: :invitation_ids, root: :invitation_ids#, include: true
+  has_many :parties, key: :party_ids, root: :party_ids#, include: true
+  has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids
+  has_many :employers, key: :employer_ids, root: :employer_ids
+  has_one :address, key: :address_id, root: :address_id
 
   def admin
     object.has_role?(:admin)
   end
 
-  def employer
-    team = nil
+  def employers
+    teams = []
     if object.has_role?(:team_admin, :any)
-      role = object.roles.where(:name => 'team_admin', :resource_type=>'Team').first
-      if role
-        team = Team.find(role.resource_id)
+      roles = object.roles.where(:name => 'team_admin', :resource_type=>'Team')
+      roles.each do |role|
+        teams << Team.find(role.resource_id)
       end
     end
-    team
+    teams
+  end
+
+  def managed_venues
+    venues = []
+    if object.has_role?(:manager, :any)
+      roles = object.roles.where(:name => 'manager', :resource_type=>'Venue')
+      roles.each do |role|
+        venues << Venue.find(role.resource_id)
+      end
+    end
+    venues
   end
 end

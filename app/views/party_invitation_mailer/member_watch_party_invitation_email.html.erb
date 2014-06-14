@@ -1,0 +1,14 @@
+<h2>You have been invited to a watch party on Foam Finger Nation by <%= @inviter.username %></h2>
+
+<p>
+  <%= @party.name %><br>
+  Team: <%= @party.team.name %><br>
+  When: <%= @party.scheduled_for %><br>
+  Where:<br>
+    <%= @party_address.street1 %> <%= @party_address.street2 %><br>
+    <%= @party_address.city %>, <%= @party_address.state %> <%= @party_address.zip %><br>
+</p>
+
+<p>Visit the link below to RSVP to this watch party</p>
+
+<%= @url %>
