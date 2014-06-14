@@ -187,8 +187,6 @@ ActiveRecord::Schema.define(version: 20140604165052) do
     t.string  "description"
     t.string  "image_url"
     t.integer "user_id"
-    t.string  "venue_type",   default: "Venue"
-    t.integer "franchise_id"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
