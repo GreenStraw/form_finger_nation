@@ -5,6 +5,7 @@ class VenueSerializer < ActiveModel::Serializer
   has_many :favorite_sports, key: :favorite_sport_ids, root: :favorite_sport_ids
   has_many :parties, key: :party_ids, root: :party_ids
   has_many :managers, key: :manager_ids, root: :manager_ids
+  has_many :packages, key: :package_ids, root: :package_ids
   has_one :address, key: :address_id, root: :address_id
 
   def managers

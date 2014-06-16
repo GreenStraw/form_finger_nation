@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611233153) do
+ActiveRecord::Schema.define(version: 20140613170635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20140611233153) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "venue_id"
+    t.boolean  "is_public",   default: false
   end
 
   create_table "parties", force: true do |t|
@@ -111,6 +112,11 @@ ActiveRecord::Schema.define(version: 20140611233153) do
   add_index "party_invitations", ["inviter_id"], name: "index_party_invitations_on_inviter_id", using: :btree
   add_index "party_invitations", ["party_id"], name: "index_party_invitations_on_party_id", using: :btree
   add_index "party_invitations", ["user_id"], name: "index_party_invitations_on_user_id", using: :btree
+
+  create_table "party_packages", force: true do |t|
+    t.integer "party_id"
+    t.integer "package_id"
+  end
 
   create_table "party_reservations", force: true do |t|
     t.string  "unregistered_rsvp_email"

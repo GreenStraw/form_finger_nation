@@ -55,7 +55,7 @@ module Api
       private
 
       def venue_params
-        params.require(:venue).permit(:name, :image_url, :description, :address, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[]})
+        params.require(:venue).permit(:name, :image_url, :description, :address, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[], :package_ids=>[]})
       end
     end
   end
