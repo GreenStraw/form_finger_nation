@@ -30,6 +30,8 @@ gem "letter_opener", :group => :development
 gem "figaro" #allows for easy setup of env variables.
 gem 'acts_as_commentable_with_threading'
 
+gem 'stripe'
+
 group :test do
   gem 'rspec-rails', '~> 2.13' # test framework
   gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests
@@ -42,6 +44,7 @@ group :test do
   gem 'simplecov',                  '~> 0.7.1', require: false
   gem "codeclimate-test-reporter", require: false
   gem 'shoulda', '~> 3.3' # model spec tester
+  gem 'stripe-ruby-mock', '~> 1.10.1.7'
 end
 
 group :development, :test do
