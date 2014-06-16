@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613170635) do
+ActiveRecord::Schema.define(version: 20140616134613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,19 @@ ActiveRecord::Schema.define(version: 20140613170635) do
     t.text     "information"
   end
 
+  create_table "user_purchased_packages", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "package_id"
+    t.integer  "party_id"
+    t.string   "charge_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_purchased_packages", ["package_id"], name: "index_user_purchased_packages_on_package_id", using: :btree
+  add_index "user_purchased_packages", ["party_id"], name: "index_user_purchased_packages_on_party_id", using: :btree
+  add_index "user_purchased_packages", ["user_id"], name: "index_user_purchased_packages_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -176,6 +189,7 @@ ActiveRecord::Schema.define(version: 20140613170635) do
     t.string   "username"
     t.string   "provider"
     t.string   "uid"
+    t.string   "customer_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -194,6 +208,8 @@ ActiveRecord::Schema.define(version: 20140613170635) do
     t.string  "description"
     t.string  "image_url"
     t.integer "user_id"
+    t.string  "venue_type",   default: "Venue"
+    t.integer "franchise_id"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
