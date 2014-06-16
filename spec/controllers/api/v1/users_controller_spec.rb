@@ -81,7 +81,8 @@ describe Api::V1::UsersController do
           'last_name' => nil,
           'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
-          'managed_venue_ids' => []}
+          'managed_venue_ids' => [],
+          'purchased_packages' => []}
         up_user.should == expect_user
       end
     end
@@ -118,7 +119,8 @@ describe Api::V1::UsersController do
           'last_name' => nil,
           'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
-          'managed_venue_ids' => []}
+          'managed_venue_ids' => [],
+          'purchased_packages' => []}
         up_user.should == expect_user
       end
     end

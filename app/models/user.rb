@@ -14,12 +14,14 @@ class User < ActiveRecord::Base
   has_many :teams, through: :favorites, source: :favoritable, source_type: "Team"
   has_many :endorsements, as: :endorsable
   has_many :endorsing_teams, through: :endorsements, source: :endorser, source_type: "Team"
-  has_one :address, as: :addressable, dependent: :destroy
   has_many :party_reservations
   has_many :reservations, through: :party_reservations, source: :party
   has_many :party_invitations
   has_many :invitations, through: :party_invitations, source: :party
   has_many :parties, foreign_key: 'organizer_id'
+  has_many :user_purchased_packages
+  has_many :packages, through: :user_purchased_packages
+  has_one :address, as: :addressable, dependent: :destroy
 
   attr_accessor :current_password, :password_confirmation
 

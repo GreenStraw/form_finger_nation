@@ -39,6 +39,7 @@ App::Application.routes.draw do
         end
       end
       resources :packages
+      resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:create, :show, :update]
       resources :party_invitations, only: [:index, :show] do

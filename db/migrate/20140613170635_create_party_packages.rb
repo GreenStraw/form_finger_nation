@@ -1,4 +1,4 @@
-class AddPartyPackages < ActiveRecord::Migration
+class CreatePartyPackages < ActiveRecord::Migration
   def change
     create_table :party_packages do |t|
       t.belongs_to :party

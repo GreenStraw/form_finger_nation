@@ -9,6 +9,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :parties, key: :party_ids, root: :party_ids#, include: true
   has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids
   has_many :employers, key: :employer_ids, root: :employer_ids
+  has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages
   has_one :address, key: :address_id, root: :address_id
 
   def admin
