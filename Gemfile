@@ -1,57 +1,106 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0' # or 1.9.3
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.1.1'
 
-gem 'rails', '~> 4.0'
-gem 'pg', '~> 0.14'
-gem 'unicorn', '~> 4.6'
+# Use pg as the database for Active Record
+gem 'pg'
 
-gem 'jquery-rails', '~> 3.0'
-gem 'coffee-rails', '~> 4.0'
-gem 'sass-rails', '~> 4.0'
-gem 'uglifier', '~> 2.1'
-gem 'twitter-bootstrap-rails'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.2'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
 
+gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
+
+# pick enumerable or rolify for user roles
 gem 'rolify'
-gem 'cancan'
-gem 'devise', '3.0.0' # server-side authentication
-                                # 3.1 removes token auth
+gem 'enumerize', '0.6.1' # an issue in 0.7.0 causes app error when enumerized state is blank and scope and predicates flags are passed
+# we use the custom code for datatable in app/assets/javascripts/third_party
+
 gem 'omniauth-facebook'
 gem 'bcrypt-ruby', '~> 3.0' # password encryption
 
 gem 'awesome_nested_set', '~>3.0.0.rc5'
-gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'geocoder'
-
-gem "letter_opener", :group => :development
-
-gem "figaro" #allows for easy setup of env variables.
 gem 'acts_as_commentable_with_threading'
-
 gem 'stripe'
 
-group :test do
-  gem 'rspec-rails', '~> 2.13' # test framework
-  gem 'spork', '>= 1.0.0rc3', '< 2.0' # speedier tests
+# Use unicorn as the app server
+gem 'unicorn'
+# whenever for managing cron jobs
+gem 'whenever',                 '~> 0.9.0'
+# dotenv for managing app environment confirugation
+gem 'dotenv-rails',             '~> 0.9.0'
+# new relic for app and server monitoring
+gem 'newrelic_rpm'
+# excpetion notification for problem notification
+gem 'exception_notification',   '~> 4.0.1'
+#letter opener 
+gem 'letter_opener', group: :development
+
+# =========================================================
+gem 'devise',                   '~>3.2'
+gem 'milia',                    '~> 1.0.0'
+gem 'cancancan',                github: 'bryanrite/cancancan', branch: 'master'
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'therubyracer'
+gem 'less-rails'
+# =========================================================
+
+gem 'recaptcha', require: 'recaptcha/rails'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'will_paginate'
+
+group :development, :test do
+  gem 'annotate',                 '>= 2.5.0'
+  gem 'awesome_print'
+  gem "capybara"
+  gem "capybara-webkit"
+  gem "codeclimate-test-reporter" , require: false
+  gem 'cucumber-rails'            , require: false
+  gem 'database_cleaner',         '~> 1.1.1'
+  gem 'email_spec',               '~> 1.5.0'
+  gem 'fabrication', '~> 2.6' # model stubber
   gem 'guard-rspec', '~> 3.0' # watch app files and auto-re-run tests
   gem 'guard-spork', '~> 1.5' # spork integration
   gem 'launchy'
-  gem 'database_cleaner', '~> 1.0' # cleanup database in tests
-  gem 'fabrication', '~> 2.6' # model stubber
-  gem 'email_spec',                 '~> 1.5.0'
-  gem 'simplecov',                  '~> 0.7.1', require: false
-  gem "codeclimate-test-reporter", require: false
+  gem "qunit-rails"
+  gem 'railroady',                '~> 1.1.0'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'shoulda', '~> 3.3' # model spec tester
+  gem 'simplecov',                '~> 0.7.1', require: false
+  gem 'spork'
   gem 'stripe-ruby-mock', '~> 1.10.1.7'
+  gem 'timecop',                  '~> 0.6.2.2'
 end
 
-group :development, :test do
-  gem "qunit-rails"
+
+# Use Capistrano for deployment
+group :development do
+  gem 'capistrano',             '~> 3.1.0'
+  gem 'capistrano-rails',       '~> 1.1.1'
+  gem 'capistrano-bundler',     '~> 1.1.2'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-maintenance', github: "capistrano/maintenance", require: false
 end
 
 group :production do
   gem 'rails_12factor', '~> 0.0' # tweaks for heroku
-  gem 'newrelic_rpm', '~> 3.5' # prevent heroku from idling
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
 end

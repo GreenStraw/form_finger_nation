@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>FFN</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= meta_description %>">
+    <meta name="author" content="<%= meta_author %>">
+    <meta name="Keywords" content="<%= meta_keywords %>">
 
-<%= yield %>
+    <title>BaseApp - <%= @org_name %></title>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <%= render 'layouts/nav_main' %>
 
-</body>
+    <%= render 'layouts/flash' %>
+
+    <% if current_page?(root_path) %>
+      <% if content_for?(:jumbotron) %>
+        <div class="jumbotron">
+          <div class="container">
+            <%= yield :jumbotron %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <div class="container">
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </div>
+
+
+
+
+    <div class="wat-cf" id="wrapper">
+      
+      <div id="main">
+      </div>
+      <div id="sidebar">
+        <%= yield :sidebar %>
+      </div>
+    </div>
+
+  </body>
 </html>

@@ -8,6 +8,29 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require dataTables/jquery.dataTables.bootstrap3
+ *= require bootstrap_and_overrides
  *= require_self
  *= require_tree .
  */
+
+ /* Move down content because we have a fixed navbar that is 50px tall */
+ body {
+   padding-top: 50px;
+   padding-bottom: 20px;
+ }
+
+ /* Override Rail's default error calls with Bootstrap 3 */
+ .field_with_errors {
+   @extend .has-error;
+ }
+
+ div.alert{
+   margin: 10px;
+ }
+ form div.alert{
+   margin:0px;
+ }
+ div.alert h2 {
+   margin-top: 5px;
+ }

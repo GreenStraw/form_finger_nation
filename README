@@ -1,0 +1,47 @@
+== README
+
+this is a boilerplate for rails app with multi-tenancy
+
+  Rails 4.0.4
+  Milia 
+  Devise
+  CanCan
+  
+  Bootstrap3
+  jQuery datatables
+  handlebars js templates
+  
+  rSpec
+  Cucumber
+  
+  Capistrano3
+  
+  
+* System dependencies
+  - nothing terribly special
+
+* Configuration
+  - uses dotenv gem and looks for a .env.[Rails.env] file (see .env.example)
+    - create a .env.development file for development environment values
+    - create a .env.test file for test environment values
+  
+* Database creation
+  - define a database.yml - Gemfile is set for postgresql - change this as you will
+  - rake db:create; rake db:migrate
+
+* How to run the test suite
+  - rspec spec
+  - cucumber features
+
+* Services (job queues, cache servers, search engines, etc.)
+  - none yet
+  
+* Deployment instructions
+  - Capistrano 3 configured
+  - define your env in config/deploy/staging and config/deploy/production respectively
+  - cap [env] deploy
+  
+  - for subsequent deploys utilizes maintenance pages
+  cap [stage] maintenance:enable REASON="software maintenance" UNTIL="6pm Central Time"
+  cap [stage] deploy
+  cap [stage] maintenance:disable

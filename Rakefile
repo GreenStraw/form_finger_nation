@@ -3,4 +3,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-App::Application.load_tasks
+require 'dotenv/tasks'
+
+Baseapp::Application.load_tasks

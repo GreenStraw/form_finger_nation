@@ -1,0 +1,20 @@
+<h2>Resend confirmation instructions</h2>
+
+<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :class => "form login" }) do |f| %>
+
+  <%= devise_error_messages! %>
+
+  <div class="input-group">
+    <span class="input-group-addon">U</span>
+    <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address' %>
+  </div>
+  </br>
+  
+  <div class="input-group">
+    <button class="btn btn-primary" type="submit">Resend</button>
+  </div>
+  </br>
+
+<% end %>
+
+<%= render "devise/shared/links" %>

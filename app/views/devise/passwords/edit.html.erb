@@ -1,0 +1,28 @@
+<h2>Reset password</h2>
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => 'put', :class => "form login" }) do |f| %>
+
+  <%= devise_error_messages! %>
+
+  <%= f.hidden_field :reset_password_token %>
+  
+  <div class="input-group">
+    <span class="input-group-addon">P</span>
+    <%= f.password_field :password, :class => "form-control", :placeholder =>'Password', :autofocus => true %>
+  </div>
+  </br>
+  
+  <div class="input-group">
+    <span class="input-group-addon">P</span>
+    <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password Confirmation' %>
+  </div>
+  </br>
+  
+  <div class="input-group">
+    <button class="btn btn-primary" type="submit">Change Password</button>
+  </div>
+  </br>
+
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>

@@ -1,13 +1,18 @@
 class User < ActiveRecord::Base
   rolify
+  extend Enumerize
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable, :omniauthable, :omniauth_providers => [:facebook]
-
-  validates :email, presence: true
-
+          :token_authenticatable, :omniauthable, :omniauth_providers => [:facebook]
+  
+  acts_as_universal_and_determines_account
+  
+  # Role-based access control
+  enumerize :role, in: [:client, :staff, :admin], default: :staff, scope: true, predicates: true
+  
   has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
   has_many :sports, through: :favorites, source: :favoritable, source_type: "Sport"
@@ -22,20 +27,17 @@ class User < ActiveRecord::Base
   has_many :user_purchased_packages
   has_many :packages, through: :user_purchased_packages
   has_one :address, as: :addressable, dependent: :destroy
-
-  attr_accessor :current_password, :password_confirmation
-
+  
+  
+  def full_name
+    [first_name, last_name].join(' ')
+  end
+  
   def ability
     @ability ||= Ability.new(self)
   end
   delegate :can?, :cannot?, to: :ability
-
-  # Setup accessible (or protected) attributes for your model
-  #attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :admin
-  # TODO: hack. This field needs to be part of the ember data model for updates, but
-  # we generally don't want it for controller actions
-  # attr_accessible :title, :body
-
+  
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     if auth.respond_to?(:info)
       user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -53,5 +55,5 @@ class User < ActiveRecord::Base
       return nil
     end
   end
-
+  
 end
