@@ -6,8 +6,6 @@ module Api
       before_action :configure_permitted_parameters
 
       def create
-        puts 'PARAMS'
-        puts params.inspect
         # TODO: fixme
         # This is needed to get rid of the mass security error on this field.
         # It is a part of the ember data model, but I'm not sure how to remove
@@ -32,7 +30,6 @@ module Api
     protected
 
       def configure_permitted_parameters
-        puts 'TEST'
         devise_parameter_sanitizer.for(:sign_up) do |u|
           u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :address)
         end

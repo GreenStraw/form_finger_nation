@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Api::V1::SessionsController do
   let(:user) { Fabricate(:user) }
 
-  before { user.ensure_authentication_token! }
+  before {
+    create_new_tenant
+    user.ensure_authentication_token! }
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]

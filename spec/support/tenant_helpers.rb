@@ -10,7 +10,6 @@ module TenantHelpers
   end
 
   def create_new_tenant
-    # tenant = FactoryGirl.create(:test_tenant)
     tenant = Fabricate(:test_tenant)
     set_current_tenant tenant
     tenant

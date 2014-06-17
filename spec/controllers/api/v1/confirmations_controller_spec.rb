@@ -10,8 +10,8 @@ describe Api::V1::ConfirmationsController do
   describe "GET show" do
     context "confirmation_token not given" do
       before {get :show, :confirmation_token => nil}
-      it 'should redirect to confirmation_error page' do
-       subject.should redirect_to("/confirmation_error")
+      it 'should return 422' do
+       response.response_code.should == 422
       end
     end
 
@@ -19,15 +19,22 @@ describe Api::V1::ConfirmationsController do
       context "confirmation token is invalid" do
         before {@user = Fabricate(:user)}
         before {get :show, :confirmation_token => 'something wrong'}
-        it "should redirect to confirmation_error page" do
-          subject.should redirect_to("/confirmation_error")
+        it "should return 422" do
+          response.response_code.should == 422
         end
       end
       context "confirmation token valid" do
         before {@user = Fabricate(:user)}
-        before {get :show, :confirmation_token => @user.confirmation_token}
-        it "should redirect to sign-in page" do
-          subject.should redirect_to("/sign-in")
+        before {
+          u = @user
+          u.confirmed_at = DateTime.now
+          u.confirmation_token = nil
+          User.should_receive(:confirm_by_token).with(@user.confirmation_token).and_return(u)
+          get :show, :confirmation_token => @user.confirmation_token
+        }
+
+        it "should return 200" do
+          response.response_code.should == 200
         end
       end
     end

@@ -5,6 +5,9 @@ describe Comment do
   it { should validate_presence_of :commenter }
 
   before(:each) do
+    tenant = Fabricate(:test_tenant)
+    Thread.current[:tenant_id] = tenant
+    Tenant.set_current_tenant tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     @user = Fabricate(:user)
     @party = Fabricate(:party)
