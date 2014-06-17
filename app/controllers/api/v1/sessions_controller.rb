@@ -19,7 +19,7 @@ module Api
         return invalid_credentials unless @user
         @user.ensure_authentication_token!
 
-        return unconfirmed unless @user.confirmed?
+        # return unconfirmed unless @user.confirmed?
 
         data = {
           user_id: @user.id,

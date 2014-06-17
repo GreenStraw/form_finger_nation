@@ -5,10 +5,8 @@ describe Api::V1::PartiesController do
   let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
-    Address.any_instance.stub(:geocode).and_return([1,1])
     party
     user
-    user.confirm!
   end
 
   describe "build_scheduled_time" do

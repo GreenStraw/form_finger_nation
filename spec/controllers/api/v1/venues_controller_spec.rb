@@ -5,11 +5,9 @@ describe Api::V1::VenuesController do
   let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
-    Address.any_instance.stub(:geocode).and_return([1,1])
     @venue = Fabricate.attributes_for(:venue)
     venue
     user
-    user.confirm!
   end
 
   describe 'GET index' do

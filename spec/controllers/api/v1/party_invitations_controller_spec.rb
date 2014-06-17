@@ -6,11 +6,9 @@ describe Api::V1::PartyInvitationsController do
   let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
-    Address.any_instance.stub(:geocode).and_return([1,1])
     member_party_invitation
     non_member_party_invitation
     user
-    user.confirm!
   end
 
   describe "claim_by_email" do

@@ -8,7 +8,6 @@ describe Api::V1::TeamsController do
     @team = Fabricate.attributes_for(:team)
     team
     user
-    user.confirm!
   end
 
   describe 'GET index' do

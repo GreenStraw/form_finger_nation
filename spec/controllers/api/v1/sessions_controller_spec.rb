@@ -26,7 +26,6 @@ describe Api::V1::SessionsController do
 
     context 'normal email + password auth' do
       before {
-        user.confirm!
         post :create, email: user.email, password: user.password
       }
 
@@ -40,22 +39,21 @@ describe Api::V1::SessionsController do
       end
     end
 
-    context 'not confirmed' do
-      before { post :create, email: user.email, password: user.password }
-      subject { JSON.parse response.body }
+    # context 'not confirmed' do
+    #   before { post :create, email: user.email, password: user.password }
+    #   subject { JSON.parse response.body }
 
-      it { should include 'error' => 'unconfirmed'}
-      it { should_not include 'auth_token' }
+    #   it { should include 'error' => 'unconfirmed'}
+    #   it { should_not include 'auth_token' }
 
-      it 'returns http 401' do
-        response.response_code.should == 401
-      end
-    end
+    #   it 'returns http 401' do
+    #     response.response_code.should == 401
+    #   end
+    # end
 
     context 'remember token auth' do
       it_behaves_like 'auth response' do
         let(:params) do
-          user.confirm!
           user.remember_me!
           data = User.serialize_into_cookie(user)
           token = "#{data.first.first}-#{data.last}"
