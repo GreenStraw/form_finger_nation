@@ -37,7 +37,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # add first and last name
       t.string :first_name
       t.string :last_name
-      
+
+      #authentication token
+      t.string :authentication_token
+
       t.timestamps
     end
 

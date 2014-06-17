@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::ConfirmationsController do
   before(:each) do
+    create_new_tenant
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]
   end
   let(:user) { Fabricate(:user) }

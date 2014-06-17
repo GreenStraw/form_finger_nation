@@ -4,6 +4,7 @@ describe Api::V1::PartiesController do
   let(:party) { Fabricate(:party) }
   let(:user) { Fabricate(:user) }
   before(:each) do
+    create_new_tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     party
     user

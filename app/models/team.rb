@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  resourcify
+
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"
   has_many :venue_fans, through: :favorites, source: :favoriter, source_type: "Venue"

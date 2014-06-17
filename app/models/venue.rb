@@ -1,4 +1,6 @@
 class Venue < ActiveRecord::Base
+  resourcify
+
   has_many :comments, as: :commenter
   has_many :parties
   has_many :favorites, as: :favoriter, dependent: :destroy

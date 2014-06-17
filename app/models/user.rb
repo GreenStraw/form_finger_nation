@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   rolify
-  extend Enumerize
+  # extend Enumerize
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   acts_as_universal_and_determines_account
 
   # Role-based access control
-  enumerize :role, in: [:client, :staff, :admin], default: :staff, scope: true, predicates: true
+  # enumerize :role, in: [:client, :staff, :admin], default: :staff, scope: true, predicates: true
 
   has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :packages, through: :user_purchased_packages
   has_one :address, as: :addressable, dependent: :destroy
 
+  attr_accessor :current_password, :password_confirmatio
 
   def full_name
     [first_name, last_name].join(' ')
@@ -54,5 +55,20 @@ class User < ActiveRecord::Base
       return nil
     end
   end
+
+  def ensure_authentication_token!
+    reset_authentication_token! if authentication_token.blank?
+  end
+
+  def reset_authentication_token!
+    reset_authentication_token
+    self.save
+  end
+
+  def reset_authentication_token
+    self.authentication_token = Devise.friendly_token
+  end
+
+  private
 
 end

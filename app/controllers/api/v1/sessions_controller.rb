@@ -1,8 +1,8 @@
 module Api
   module V1
     class SessionsController < Devise::SessionsController
-
-      after_action :set_csrf_headers, only: [:create, :destroy]
+      skip_before_action :verify_authenticity_token
+      skip_before_filter :authenticate_user_from_token!, only: [:create]
 
       def create
         unless (params[:email] && params[:password]) || (params[:remember_token]) || (params[:auth_token])
@@ -17,7 +17,6 @@ module Api
           user_from_credentials
         end
         return invalid_credentials unless @user
-
         @user.ensure_authentication_token!
 
         return unconfirmed unless @user.confirmed?
@@ -46,13 +45,6 @@ module Api
         @user.forget_me!
 
         render json: { user_id: @user.id }, status: 200
-      end
-
-      def set_csrf_headers
-        if request.xhr?
-          response.headers['X-CSRF-Token'] = "#{form_authenticity_token}"
-          response.headers['X-CSRF-Param'] = "#{request_forgery_protection_token}"
-        end
       end
 
       private

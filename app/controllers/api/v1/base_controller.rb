@@ -1,10 +1,9 @@
 module Api
   module V1
     class BaseController < ApplicationController
+      skip_before_action :verify_authenticity_token
+      before_action :default_json, :validate_token
       respond_to :json
-      # before_filter :cors_preflight_check
-      # after_filter :cors_set_access_control_headers
-      before_action :default_json
 
       def current_user
         user_email = request.headers['auth-email']
@@ -13,7 +12,12 @@ module Api
         User.find_by authentication_token: user_token
       end
 
-      protected
+      private
+
+
+      def validate_token
+        render json: ["Access Denied"], status: 403 unless request.headers['api-token'] == Tenant.current_tenant.api_token
+      end
 
       def default_json
         request.format = :json if params[:format].nil?
@@ -21,22 +25,6 @@ module Api
 
       def auth_only!
         render json: {}, status: 401 unless current_user
-      end
-
-      def authenticate_user_from_token!
-        user_email = request.headers['auth-email'].presence
-        user_token = request.headers['auth-token'].presence
-        return render json: {}, status: 401 unless user_email && user_token
-        user       = user_email && User.find_by_email(user_email)
-
-        # Notice how we use Devise.secure_compare to compare the token
-        # in the database with the token given in the params, mitigating
-        # timing attacks.
-        if user && Devise.secure_compare(user.authentication_token, user_token)
-          sign_in user, store: false
-        else
-          return render json: {}, status: 401
-        end
       end
     end
   end

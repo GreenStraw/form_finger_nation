@@ -9,6 +9,6 @@ class TeamSerializer < ActiveModel::Serializer
   has_one :address, key: :address_id, root: :address_id
 
   def admins
-    User.with_role(:team_admin, object)
+    User.with_role(:team_admin, object) || []
   end
 end

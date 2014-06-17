@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  
+
   before do
     user_params = {
       :first_name => "FirstName",
@@ -13,24 +13,24 @@ describe User do
     @user = User.new(user_params)
   end
 
-  describe "user role" do
-    it "defaults to staff" do
-      @user.valid?
-      expect(@user.role).to eq('staff')
-    end
-    it "may be assigned client role" do
-      @user.role = :client
-      expect(@user.role).to eq('client')
-    end
-    it "may be assigned admin role" do
-      @user.role = :admin
-      expect(@user.role).to eq('admin')
-    end
-    it "may not be assigned nonexistent role" do
-      @user.role = :test_role
-      @user.should_not be_valid
-    end
-  end
+  # describe "user role" do
+  #   it "defaults to staff" do
+  #     @user.valid?
+  #     expect(@user.role).to eq('staff')
+  #   end
+  #   it "may be assigned client role" do
+  #     @user.role = :client
+  #     expect(@user.role).to eq('client')
+  #   end
+  #   it "may be assigned admin role" do
+  #     @user.role = :admin
+  #     expect(@user.role).to eq('admin')
+  #   end
+  #   it "may not be assigned nonexistent role" do
+  #     @user.role = :test_role
+  #     @user.should_not be_valid
+  #   end
+  # end
 
   describe "when email is not present" do
     it 'should not be valid' do
@@ -66,10 +66,10 @@ describe User do
 
   describe "full_name" do
     it "should contatenate first and last name" do
-      @user.full_name.should == "FirstName LastName" 
+      @user.full_name.should == "FirstName LastName"
     end
   end
-  
+
 end
 
 # == Schema Information

@@ -20,7 +20,7 @@ module Api
         @obj = @comment_hash[:commentable_type].constantize.find(@comment_hash[:commentable_id])
         @commenter = @comment_hash[:commenter_type].constantize.find(@comment_hash[:commenter_id])
         @comment = Comment.build_from(@obj, @commenter, @comment_hash[:body])
-        if @commenter == current_user || current_user.can?(:comment_as, @commenter)
+        if @commenter == current_user || current_user.has_role?(:manager, @commenter)
           if @comment.save
             if @parent
               @comment.move_to_child_of(@parent)
@@ -35,7 +35,7 @@ module Api
 
       def update
         @comment = Comment.find(params[:id])
-        if @comment.commenter == current_user || current_user.can?(:comment_as, @comment.commenter)
+        if @comment.commenter == current_user || current_user.has_role?(:manager, @comment.commenter)
           if @comment.update!(comment_params)
             return render json: @obj, status: 200
           else

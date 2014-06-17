@@ -2,18 +2,16 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  
+
   before_action :set_current_tenant
-  
-  before_filter :authenticate_user_from_token!
-  
+
   force_ssl if: :ssl_configured?
   def ssl_configured?
     # force all requests to use ssl if in produciton environment
-    # Rails.env.production? 
+    # Rails.env.production?
     false
   end
-  
+
   ##    milia defines a default max_tenants, invalid_tenant exception handling
   ##    but you can override these if you wish to handle directly
   rescue_from ::Milia::Control::MaxTenantExceeded, :with => :max_tenants
@@ -26,7 +24,7 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
-  # later this actions will read from a subdomain value 
+  # later this actions will read from a subdomain value
   # and load the appropriate tenant record
   def set_current_tenant
     @current_tenant = Tenant.first or raise "run db:seed to create first tenant record"
@@ -37,7 +35,7 @@ class ApplicationController < ActionController::Base
   def callback_authenticate_tenant
     @org_name = ( Tenant.current_tenant.nil?  ?
       "BaseApp"   :
-      Tenant.current_tenant.name 
+      Tenant.current_tenant.name
     )
     # set_environment or whatever else you need for each valid session
   end
@@ -45,14 +43,13 @@ class ApplicationController < ActionController::Base
   def authenticate_user_from_token!
     user_email = request.headers['auth-email'].presence
     user_token = request.headers['auth-token'].presence
-    return unless user_email && user_token
+    return render json: {}, status: 401 unless user_email && user_token
     user       = user_email && User.find_by_email(user_email)
 
-    # Notice how we use Devise.secure_compare to compare the token
-    # in the database with the token given in the params, mitigating
-    # timing attacks.
     if user && Devise.secure_compare(user.authentication_token, user_token)
       sign_in user, store: false
+    else
+      return render json: {}, status: 401
     end
   end
 

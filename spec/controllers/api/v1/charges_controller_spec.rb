@@ -8,6 +8,7 @@ describe Api::V1::ChargesController do
   before { StripeMock.start }
   after { StripeMock.stop }
   before(:each) do
+    create_new_tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     party
     package

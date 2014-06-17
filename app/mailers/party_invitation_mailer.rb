@@ -7,7 +7,7 @@ class PartyInvitationMailer < ActionMailer::Base
     @uuid = invitation.uuid
     @party = invitation.party
     @party_address = @party.address
-    @url = "#{ENV['SMTP_DEFAULT_URL']}/party_invitations/non_member_rsvp/#{@uuid}"
+    @url = "#{ENV['WEB_APP_URL']}/party_invitations/non_member_rsvp/#{@uuid}"
     mail(to: @to, subject: 'You have been invited to a watch party on Foam Finger Nation!')
   end
 
@@ -22,7 +22,7 @@ class PartyInvitationMailer < ActionMailer::Base
     else
       @party_address = @party.venue.address
     end
-    @url = "#{ENV['SMTP_DEFAULT_URL']}/party_invitations/member_rsvp/#{@uuid}"
+    @url = "#{ENV['WEB_APP_URL']}/party_invitations/member_rsvp/#{@uuid}"
     mail(to: @to, subject: 'You have been invited to a watch party on Foam Finger Nation!')
   end
 end
