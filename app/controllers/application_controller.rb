@@ -45,10 +45,7 @@ class ApplicationController < ActionController::Base
     user_token = request.headers['auth-token'].presence
     return render json: {}, status: 401 unless user_email && user_token
     user       = user_email && User.find_by_email(user_email)
-
-    if user && Devise.secure_compare(user.authentication_token, user_token)
-      sign_in user, store: false
-    else
+    unless user.present? && Devise.secure_compare(user.authentication_token, user_token)
       return render json: {}, status: 401
     end
   end
