@@ -5,10 +5,8 @@ describe Api::V1::SportsController do
   let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
-    @sport = Fabricate.attributes_for(:sport)
     sport
     user
-    user.confirm!
   end
 
   describe 'GET index' do
@@ -42,7 +40,7 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
 
       it 'returns http 403' do
@@ -55,7 +53,7 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
 
       it 'returns http 401' do
@@ -70,9 +68,9 @@ describe Api::V1::SportsController do
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         sp = Sport.new
-        Sport.should_receive(:new).with(@sport).and_return(sp)
+        Sport.should_receive(:new).with({"name"=>sport.name, "image_url"=>nil}).and_return(sp)
         sp.should_receive(:save).and_return(false)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
 
       it 'returns http 422' do
@@ -86,7 +84,7 @@ describe Api::V1::SportsController do
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => @sport
+        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
 
       it 'returns http 200' do

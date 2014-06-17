@@ -28,6 +28,9 @@ Spork.prefork do
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
   RSpec.configure do |config|
+    config.before(:each) do
+      Address.any_instance.stub(:geocode).and_return([1,1])
+    end
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

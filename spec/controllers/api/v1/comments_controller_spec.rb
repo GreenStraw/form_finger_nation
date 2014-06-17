@@ -7,12 +7,10 @@ describe Api::V1::CommentsController do
   let(:comment) { Fabricate(:party_comment, commenter: user) }
   before(:each) do
     create_new_tenant
-    Address.any_instance.stub(:geocode).and_return([1,1])
     party
     venue
     comment
     user
-    user.confirm!
   end
 
   describe "GET index" do

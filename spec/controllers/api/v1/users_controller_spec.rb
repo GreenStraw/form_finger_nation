@@ -4,9 +4,7 @@ describe Api::V1::UsersController do
   let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
-    Address.any_instance.stub(:geocode).and_return([1,1])
     user
-    user.confirm!
   end
 
   describe 'GET show' do
@@ -40,7 +38,6 @@ describe Api::V1::UsersController do
     context 'Invalid credentials no auth token' do
       before do
         user = Fabricate(:user)
-        user.confirm!
         user.ensure_authentication_token!
         xhr :put, :update, :id => user.id, :user => {:name => "NoToken NewName"}
       end
@@ -51,7 +48,6 @@ describe Api::V1::UsersController do
     context 'Update password' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         @user.ensure_authentication_token!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
@@ -92,7 +88,6 @@ describe Api::V1::UsersController do
     context 'Update fields' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         @user.ensure_authentication_token!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
@@ -132,7 +127,6 @@ describe Api::V1::UsersController do
     context 'Invalid credentials wrong auth token' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         @user.ensure_authentication_token!
         request.headers['auth-token'] = 'fake_token'
         request.headers['auth-email'] = @user.email
@@ -149,7 +143,6 @@ describe Api::V1::UsersController do
     context 'Invalid Password' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         @user.ensure_authentication_token!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email

@@ -30,10 +30,6 @@ User.create([
   { email: 'user@test.com', password: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}
 ])
 
-User.all.each do |user|
-  user.confirm!
-end
-
 Sport.create([
   { name: 'NFL' },
   { name: 'MLB' },
@@ -41,9 +37,9 @@ Sport.create([
 ])
 
 Team.create([
-  { name: 'FC Dallas', sport: Sport.find_by_name('MLS')},
-  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS')},
-  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL')}
+  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), address: Address.create(street1: '123 Some Street', city: 'Austin', state: 'TX', zip: '78726')},
+  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), address: Address.create(street1: '321 Another Street', city: 'Austin', state: 'TX', zip: '78728')},
+  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')}
 ])
 
 Venue.create([
