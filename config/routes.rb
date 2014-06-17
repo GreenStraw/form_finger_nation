@@ -11,18 +11,18 @@ Baseapp::Application.routes.draw do
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
     post  '/login'  => 'milia/sessions#create',  as: 'user_session'
     get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
-    
+
     # joining
     get   '/join' => 'milia/registrations#new',    as: 'new_user_registration'
     post  '/join' => 'milia/registrations#create', as: 'user_registration'
-    
+
     scope '/account' do
       # password reset
       get   '/password'        => 'milia/passwords#new',    as: 'new_user_password'
       put   '/password'        => 'milia/passwords#update', as: 'user_password'
       post  '/password'        => 'milia/passwords#create'
       get   '/password/change' => 'milia/passwords#edit',   as: 'edit_user_password'
-      
+
       # confirmation
       get   '/confirm'        => 'milia/confirmations#show',   as: 'user_confirmation'
       get   '/confirm/resend' => 'milia/confirmations#new',    as: 'new_user_confirmation'
@@ -33,7 +33,7 @@ Baseapp::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'registrations', omniauth_callbacks: 'api/v1/omniauth_callbacks', confirmations: 'confirmations'}, :skip => [:registrations], :path_prefix => 'api/v1'
+      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'registrations', confirmations: 'confirmations'}, :skip => [:registrations], :path_prefix => 'api/v1'
 
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'
