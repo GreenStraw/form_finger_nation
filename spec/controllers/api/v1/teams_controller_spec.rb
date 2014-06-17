@@ -4,6 +4,7 @@ describe Api::V1::TeamsController do
   let(:team) { Fabricate(:team) }
   let(:user) { Fabricate(:user) }
   before do
+    create_new_tenant
     @team = Fabricate.attributes_for(:team)
     team
     user

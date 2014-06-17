@@ -1,14 +1,13 @@
 class Tenant < ActiveRecord::Base
-  
+
   acts_as_universal_and_determines_tenant
-  has_many :members, dependent: :destroy
-  
+
   def self.create_new_tenant(tenant_params, user_params, coupon_params)
     tenant = Tenant.new(:name => tenant_params[:name])
     if new_signups_permitted?(coupon_params)
       tenant.save    # create the tenant
-    else 
-      raise ::Milia::Control::MaxTenantExceeded, "Sorry, new accounts not permitted at this time" 
+    else
+      raise ::Milia::Control::MaxTenantExceeded, "Sorry, new accounts not permitted at this time"
     end
     return tenant
   end
@@ -35,5 +34,5 @@ class Tenant < ActiveRecord::Base
       #  StartupJob.queue_startup( tenant, user, other )
       # any special seeding required for a new organizational tenant
     end
-   
+
 end

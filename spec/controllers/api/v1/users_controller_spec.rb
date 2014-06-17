@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Api::V1::UsersController do
   let(:user) { Fabricate(:user) }
   before do
+    create_new_tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     user
     user.confirm!
@@ -82,7 +83,9 @@ describe Api::V1::UsersController do
           'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
           'managed_venue_ids' => [],
-          'purchased_packages' => []}
+          'purchased_packages' => [],
+          'first_name' => 'Test',
+          'last_name' => 'User'}
         up_user.should == expect_user
       end
     end
@@ -120,7 +123,9 @@ describe Api::V1::UsersController do
           'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
           'managed_venue_ids' => [],
-          'purchased_packages' => []}
+          'purchased_packages' => [],
+          'first_name' => 'Test',
+          'last_name' => 'User'}
         up_user.should == expect_user
       end
     end

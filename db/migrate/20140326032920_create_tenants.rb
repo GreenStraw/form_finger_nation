@@ -3,6 +3,7 @@ class CreateTenants < ActiveRecord::Migration
     create_table :tenants do |t|
       t.references :tenant, index: true
       t.string :name
+      t.string :api_token
 
       t.timestamps
     end

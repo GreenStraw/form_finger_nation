@@ -4,6 +4,7 @@ describe Api::V1::SportsController do
   let(:sport) { Fabricate(:sport) }
   let(:user) { Fabricate(:user) }
   before do
+    create_new_tenant
     @sport = Fabricate.attributes_for(:sport)
     sport
     user

@@ -6,6 +6,7 @@ describe Api::V1::CommentsController do
   let(:venue) { Fabricate(:venue) }
   let(:comment) { Fabricate(:party_comment, commenter: user) }
   before(:each) do
+    create_new_tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     party
     venue
@@ -198,6 +199,7 @@ describe Api::V1::CommentsController do
             comment.commenter_type = "Venue"
             comment.commenter_id = venue.id
             user.ensure_authentication_token!
+            user.roles.clear
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             Comment.should_receive(:find).with(comment.id.to_s).and_return(comment)

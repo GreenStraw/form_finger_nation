@@ -5,6 +5,7 @@ describe Api::V1::PartyInvitationsController do
   let(:non_member_party_invitation) { Fabricate(:non_member_party_invitation) }
   let(:user) { Fabricate(:user) }
   before(:each) do
+    create_new_tenant
     Address.any_instance.stub(:geocode).and_return([1,1])
     member_party_invitation
     non_member_party_invitation

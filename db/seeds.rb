@@ -4,12 +4,24 @@
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#   Mayor.create(name: 'Emanuel', city: cities.first
 
 User.all.map(&:destroy)
 Sport.all.map(&:destroy)
 Team.all.map(&:destroy)
 Venue.all.map(&:destroy)
+
+t = nil
+if Tenant.first.nil?
+  t = Tenant.create!({
+   :name => 'Believe Me Film',
+   :api_token => 'SPEAKFRIENDANDENTER'
+  })
+else
+  t = Tenant.first
+end
+
+Tenant.set_current_tenant(t)
 
 User.create([
   { email: 'admin@test.com', password: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') },
