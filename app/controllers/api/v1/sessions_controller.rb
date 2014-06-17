@@ -15,8 +15,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       user_from_credentials
     end
     return invalid_credentials unless @user
-    @user.ensure_authentication_token!
-
+    @user.ensure_authentication_token
     # return unconfirmed unless @user.confirmed?
 
     data = {

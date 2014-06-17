@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Api::V1::CommentsController do
+  render_views
+  
   let(:user) { Fabricate(:user) }
   let(:party) { Fabricate(:party) }
   let(:venue) { Fabricate(:venue) }
@@ -11,12 +13,13 @@ describe Api::V1::CommentsController do
     venue
     comment
     user
+    user.confirm!
   end
 
   describe "GET index" do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -30,7 +33,7 @@ describe Api::V1::CommentsController do
 
     context 'user authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -46,7 +49,7 @@ describe Api::V1::CommentsController do
   describe "GET show" do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -60,7 +63,7 @@ describe Api::V1::CommentsController do
 
     context 'user authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -80,7 +83,7 @@ describe Api::V1::CommentsController do
         comment.commentable_id = party.id
         comment.commenter_type = "User"
         comment.commenter_id = user.id
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -98,7 +101,7 @@ describe Api::V1::CommentsController do
           comment.commentable_id = party.id
           comment.commenter_type = "User"
           comment.commenter_id = user.id
-          user.ensure_authentication_token!
+         
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
           subject.stub(:current_user).and_return(user)
@@ -116,7 +119,7 @@ describe Api::V1::CommentsController do
             comment.commentable_id = party.id
             comment.commenter_type = "Venue"
             comment.commenter_id = venue.id
-            user.ensure_authentication_token!
+           
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             subject.stub(:current_user).and_return(user)
@@ -133,7 +136,7 @@ describe Api::V1::CommentsController do
             comment.commentable_id = party.id
             comment.commenter_type = "Venue"
             comment.commenter_id = venue.id
-            user.ensure_authentication_token!
+           
             user.add_role(:manager, venue)
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
@@ -156,7 +159,7 @@ describe Api::V1::CommentsController do
         comment.commentable_id = party.id
         comment.commenter_type = "User"
         comment.commenter_id = user.id
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         Comment.should_not_receive(:find)
@@ -176,7 +179,7 @@ describe Api::V1::CommentsController do
           comment.commentable_id = party.id
           comment.commenter_type = "User"
           comment.commenter_id = user.id
-          user.ensure_authentication_token!
+         
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
           Comment.should_receive(:find).with(comment.id.to_s).and_return(comment)
@@ -196,7 +199,6 @@ describe Api::V1::CommentsController do
             comment.commentable_id = party.id
             comment.commenter_type = "Venue"
             comment.commenter_id = venue.id
-            user.ensure_authentication_token!
             user.roles.clear
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
@@ -216,7 +218,7 @@ describe Api::V1::CommentsController do
             comment.commentable_id = party.id
             comment.commenter_type = "Venue"
             comment.commenter_id = venue.id
-            user.ensure_authentication_token!
+           
             user.add_role(:manager, venue)
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email

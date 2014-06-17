@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe Api::V1::PartiesController do
+  render_views
+  
   let(:party) { Fabricate(:party) }
   let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
     party
     user
+    user.confirm!
   end
 
   describe "build_scheduled_time" do
@@ -116,7 +119,7 @@ describe Api::V1::PartiesController do
   describe 'POST create' do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -129,7 +132,7 @@ describe Api::V1::PartiesController do
     end
     context 'party failed to save' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -148,7 +151,7 @@ describe Api::V1::PartiesController do
     end
     context 'everything is good' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -168,7 +171,7 @@ describe Api::V1::PartiesController do
     context 'current user not admin' do
       before {
         party = Fabricate(:party)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -184,7 +187,7 @@ describe Api::V1::PartiesController do
         party = Fabricate(:party)
         user.add_role(:party_manager)
         user.add_role(:manager, Fabricate(:party))
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -198,7 +201,7 @@ describe Api::V1::PartiesController do
         before {
           party = Fabricate(:party)
           user.add_role(:manager, party)
-          user.ensure_authentication_token!
+         
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
           subject.stub(:current_user).and_return(user)
@@ -212,7 +215,7 @@ describe Api::V1::PartiesController do
     end
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -227,7 +230,7 @@ describe Api::V1::PartiesController do
       before {
         party = Fabricate(:party)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -249,7 +252,7 @@ describe Api::V1::PartiesController do
       before {
         party = Fabricate(:party)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -270,7 +273,7 @@ describe Api::V1::PartiesController do
     context 'current user not admin' do
       before {
         party = Fabricate(:party)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -286,7 +289,7 @@ describe Api::V1::PartiesController do
         party = Fabricate(:party)
         user.add_role(:party_manager)
         user.add_role(:manager, Fabricate(:party))
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -301,7 +304,7 @@ describe Api::V1::PartiesController do
       before {
         party = Fabricate(:party)
         user.add_role(:manager, party)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -314,7 +317,7 @@ describe Api::V1::PartiesController do
     end
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -329,7 +332,7 @@ describe Api::V1::PartiesController do
       before {
         party = Fabricate(:party)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -346,7 +349,7 @@ describe Api::V1::PartiesController do
       before {
         party = Fabricate(:party)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -361,7 +364,7 @@ describe Api::V1::PartiesController do
   describe "PUT rsvp" do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -377,7 +380,7 @@ describe Api::V1::PartiesController do
         before {
           party = Fabricate(:party)
           other_user = Fabricate(:user)
-          user.ensure_authentication_token!
+         
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
           subject.stub(:current_user).and_return(user)
@@ -394,7 +397,7 @@ describe Api::V1::PartiesController do
             party = Fabricate(:party)
             party.attendees.clear
             party.attendees.should_not include(user)
-            user.ensure_authentication_token!
+           
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             subject.stub(:current_user).and_return(user)
@@ -414,7 +417,7 @@ describe Api::V1::PartiesController do
             party = Fabricate(:party, attendees: [user])
             party.attendees.clear
             party.attendees.should_not_receive(:<<)
-            user.ensure_authentication_token!
+           
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             subject.stub(:current_user).and_return(user)
@@ -432,7 +435,7 @@ describe Api::V1::PartiesController do
   describe "PUT unrsvp" do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -448,7 +451,7 @@ describe Api::V1::PartiesController do
         before {
           party = Fabricate(:party)
           other_user = Fabricate(:user)
-          user.ensure_authentication_token!
+         
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
           subject.stub(:current_user).and_return(user)
@@ -466,7 +469,7 @@ describe Api::V1::PartiesController do
             party.attendees.clear
             party.attendees << user
             party.attendees.should include(user)
-            user.ensure_authentication_token!
+           
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             subject.stub(:current_user).and_return(user)
@@ -487,7 +490,7 @@ describe Api::V1::PartiesController do
             party.attendees.clear
             party.attendees << user
             party.attendees.should_not_receive(:delete)
-            user.ensure_authentication_token!
+           
             request.headers['auth-token'] = user.authentication_token
             request.headers['auth-email'] = user.email
             subject.stub(:current_user).and_return(user)

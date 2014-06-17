@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Api::V1::VenuesController do
+  render_views
+  
   let(:venue) { Fabricate(:venue) }
   let(:user) { Fabricate(:user) }
   before(:each) do
@@ -8,6 +10,7 @@ describe Api::V1::VenuesController do
     @venue = Fabricate.attributes_for(:venue)
     venue
     user
+    user.confirm!
   end
 
   describe 'GET index' do
@@ -37,7 +40,6 @@ describe Api::V1::VenuesController do
   describe 'POST create' do
     context 'current user not admin' do
       before {
-        user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -51,7 +53,6 @@ describe Api::V1::VenuesController do
     context 'current user not admin but is venue_manager' do
       before {
         user.add_role(:venue_manager)
-        user.ensure_authentication_token!
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -64,7 +65,7 @@ describe Api::V1::VenuesController do
     end
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -78,7 +79,7 @@ describe Api::V1::VenuesController do
     context 'venue failed to save' do
       before {
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -95,7 +96,7 @@ describe Api::V1::VenuesController do
     context 'everything is good' do
       before {
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -112,7 +113,7 @@ describe Api::V1::VenuesController do
     context 'current user not admin' do
       before {
         venue = Fabricate(:venue)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -128,7 +129,7 @@ describe Api::V1::VenuesController do
         venue = Fabricate(:venue)
         user.add_role(:venue_manager)
         user.add_role(:manager, Fabricate(:venue))
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -143,7 +144,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role(:manager, venue)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -156,7 +157,7 @@ describe Api::V1::VenuesController do
     end
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -171,7 +172,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -188,7 +189,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -205,7 +206,7 @@ describe Api::V1::VenuesController do
     context 'current user not admin' do
       before {
         venue = Fabricate(:venue)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -221,7 +222,7 @@ describe Api::V1::VenuesController do
         venue = Fabricate(:venue)
         user.add_role(:venue_manager)
         user.add_role(:manager, Fabricate(:venue))
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -236,7 +237,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role(:manager, venue)
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -249,7 +250,7 @@ describe Api::V1::VenuesController do
     end
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -264,7 +265,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -281,7 +282,7 @@ describe Api::V1::VenuesController do
       before {
         venue = Fabricate(:venue)
         user.add_role :admin
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)

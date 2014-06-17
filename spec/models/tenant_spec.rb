@@ -24,7 +24,7 @@ describe Tenant do
   
   describe 'self.new_signups_permitted?' do
     it 'returns true' do
-      Tenant.new_signups_permitted?({}).should be_true
+      Tenant.new_signups_permitted?({}).should be_truthy
     end
   end
   

@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
+  render_views
+  
   let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
     user
+    user.confirm!
   end
 
   describe 'GET show' do
@@ -22,7 +25,7 @@ describe Api::V1::UsersController do
 
     context 'authorized' do
       before do
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
         get :show, id: user.id
@@ -38,7 +41,7 @@ describe Api::V1::UsersController do
     context 'Invalid credentials no auth token' do
       before do
         user = Fabricate(:user)
-        user.ensure_authentication_token!
+        user.confirm!
         xhr :put, :update, :id => user.id, :user => {:name => "NoToken NewName"}
       end
       it 'returns http 401' do
@@ -48,7 +51,7 @@ describe Api::V1::UsersController do
     context 'Update password' do
       before do
         @user = Fabricate(:user)
-        @user.ensure_authentication_token!
+        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
         xhr :put,
@@ -88,7 +91,7 @@ describe Api::V1::UsersController do
     context 'Update fields' do
       before do
         @user = Fabricate(:user)
-        @user.ensure_authentication_token!
+        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
         xhr :put,
@@ -127,7 +130,7 @@ describe Api::V1::UsersController do
     context 'Invalid credentials wrong auth token' do
       before do
         @user = Fabricate(:user)
-        @user.ensure_authentication_token!
+        @user.confirm!
         request.headers['auth-token'] = 'fake_token'
         request.headers['auth-email'] = @user.email
         xhr :put,
@@ -143,7 +146,7 @@ describe Api::V1::UsersController do
     context 'Invalid Password' do
       before do
         @user = Fabricate(:user)
-        @user.ensure_authentication_token!
+        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
         xhr :put,

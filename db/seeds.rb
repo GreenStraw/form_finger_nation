@@ -11,16 +11,10 @@ Sport.all.map(&:destroy)
 Team.all.map(&:destroy)
 Venue.all.map(&:destroy)
 
-t = nil
-if Tenant.first.nil?
-  t = Tenant.create!({
-   :name => 'Believe Me Film',
-   :api_token => 'SPEAKFRIENDANDENTER'
-  })
-else
-  t = Tenant.first
-end
-
+t = Tenant.first_or_create({
+ :name => 'FoamFingerNation',
+ :api_token => 'SPEAKFRIENDANDENTER'
+})
 Tenant.set_current_tenant(t)
 
 User.create([

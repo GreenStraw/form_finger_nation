@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'stripe_mock'
 
 describe Api::V1::ChargesController do
+  render_views
+  
   let(:user) { Fabricate(:user) }
   let(:package) { Fabricate(:package) }
   let(:party) { Fabricate(:party) }
@@ -12,6 +14,7 @@ describe Api::V1::ChargesController do
     party
     package
     user
+    user.confirm!
     @single_package_purchase = {user_id: user.id, amount: 500.00, purchases: [
                                 {package_id: package.id, party_id: party.id}
                                 ]}
@@ -59,7 +62,7 @@ describe Api::V1::ChargesController do
 
   describe "build_user_purchased_packages(user, purchases)" do
     before {
-      user.ensure_authentication_token!
+     
       @purchases = [{package_id: package.id, party_id: party.id}, {package_id: '5', party_id: '6'}]
     }
     it "should call UserPurchasedPackage for each purchase" do
@@ -72,7 +75,7 @@ describe Api::V1::ChargesController do
   describe "POST create" do
     context 'user not authenticated' do
       before {
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -85,7 +88,7 @@ describe Api::V1::ChargesController do
     end
     context 'user is authorized' do
       before(:each) do
-        user.ensure_authentication_token!
+       
         request.headers['auth-token'] = user.authentication_token
         request.headers['auth-email'] = user.email
       end

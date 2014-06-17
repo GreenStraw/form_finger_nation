@@ -27,10 +27,9 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, 
+  @user = Fabricate(:user,
     email: @visitor[:email], 
     password: @visitor[:password], 
-    password_confirmation: @visitor[:password]
   )
 end
 
@@ -107,13 +106,13 @@ end
 
 Given /^the following user records$/ do |table|
   table.hashes.each do |hash|  
-    FactoryGirl.create(:user, nil)
+    Fabricate(:user, nil)
   end
 end
 
 Given /^the following tenant records$/ do |table|
   table.hashes.each do |hash|  
-    tenant = FactoryGirl.create(:tenant)
+    tenant = Fabricate(:tenant)
     Thread.current[:tenant_id] = tenant
   end
 end

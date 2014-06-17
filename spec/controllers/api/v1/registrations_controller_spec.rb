@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Api::V1::RegistrationsController do
+  render_views
+  
   before(:each) do
     create_new_tenant
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]

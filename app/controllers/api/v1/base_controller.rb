@@ -1,7 +1,10 @@
 class Api::V1::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :default_json, :validate_token
+
+  # token validation per tenant should be implemented
+  # before_action :validate_token 
   respond_to :json
+
   # before_filter :cors_preflight_check
   # after_filter :cors_set_access_control_headers
 
@@ -14,13 +17,8 @@ class Api::V1::BaseController < ApplicationController
 
   private
 
-
   def validate_token
     render json: ["Access Denied"], status: 403 unless request.headers['api-token'] == Tenant.current_tenant.api_token
-  end
-
-  def default_json
-    request.format = :json if params[:format].nil?
   end
 
   def auth_only!

@@ -31,9 +31,9 @@ Baseapp::Application.routes.draw do
     end
   end
 
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'registrations', confirmations: 'confirmations'}, :skip => [:registrations], :path_prefix => 'api/v1'
+      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
 
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'

@@ -34,6 +34,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean    :skip_confirm_change_password, :default => false
       t.references :tenant
 
+      ## Token authenticatable
+      t.string :authentication_token
+      
       # add first and last name
       t.string :first_name
       t.string :last_name

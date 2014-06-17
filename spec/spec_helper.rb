@@ -73,6 +73,9 @@ Spork.prefork do
     end
     config.before(:each) do
       DatabaseCleaner.start
+      
+      tenant = Fabricate(:test_tenant)
+      Tenant.set_current_tenant tenant
     end
     config.after(:each) do
       DatabaseCleaner.clean

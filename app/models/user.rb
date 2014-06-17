@@ -1,16 +1,22 @@
 class User < ActiveRecord::Base
+  include TokenAuthenticatable
+  extend Enumerize
   rolify
-  # extend Enumerize
+
+  attr_accessor :current_password
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
+  devise  :database_authenticatable,
+          :registerable,
+          :confirmable,
+          :recoverable,
+          :rememberable,
+          :trackable,
+          :lockable,
+          :validatable
+                 
   acts_as_universal_and_determines_account
-
-  # Role-based access control
-  # enumerize :role, in: [:client, :staff, :admin], default: :staff, scope: true, predicates: true
 
   has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
@@ -54,19 +60,6 @@ class User < ActiveRecord::Base
     else
       return nil
     end
-  end
-
-  def ensure_authentication_token!
-    reset_authentication_token! if authentication_token.blank?
-  end
-
-  def reset_authentication_token!
-    reset_authentication_token
-    self.save
-  end
-
-  def reset_authentication_token
-    self.authentication_token = Devise.friendly_token
   end
 
   private

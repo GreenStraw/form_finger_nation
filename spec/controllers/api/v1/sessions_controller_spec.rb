@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController do
+  render_views
+  
   let(:user) { Fabricate(:user) }
 
-  before {
-    create_new_tenant
-    user.ensure_authentication_token! }
+  before { }
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]

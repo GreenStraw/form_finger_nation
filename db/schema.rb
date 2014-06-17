@@ -215,9 +215,9 @@ ActiveRecord::Schema.define(version: 20140616134613) do
     t.datetime "locked_at"
     t.boolean  "skip_confirm_change_password", default: false
     t.integer  "tenant_id"
+    t.string   "authentication_token"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role"
