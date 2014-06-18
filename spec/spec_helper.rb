@@ -39,6 +39,13 @@ Spork.prefork do
     # config.mock_with :flexmock
     # config.mock_with :rr
 
+    # rspec-rails 3 will no longer automatically infer an example group's spec type
+    # from the file location. You can explicitly opt-in to this feature using this
+    config.infer_spec_type_from_file_location!
+
+    # deprecation messages will raise errors
+    config.raise_errors_for_deprecations!
+
     # Run specs in random order to surface order dependencies. If you find an
     # order dependency and want to debug it, you can fix the order by providing
     # the seed, which is printed after each run.
