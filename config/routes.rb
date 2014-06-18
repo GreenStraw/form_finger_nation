@@ -33,15 +33,15 @@ Baseapp::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
+      devise_for :users, controllers: { sessions: 'api/v1/sessions', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
 
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
-        post '/users', :to => "registrations#create"
+        # post '/users', :to => "registrations#create"
       end
 
-      resources :users, only: [:index, :show, :update] do
+      resources :users, only: [:index, :show, :update, :create] do
         collection do
           get 'search_users'
         end

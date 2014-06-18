@@ -19,8 +19,7 @@ class Api::V1::ChargesController < Api::V1::BaseController
 
     if @user.customer_id.blank?
       customer = Stripe::Customer.create(
-        :email => @user.email,
-        :card  => charge_params[:stripeToken]
+        :email => @user.email
       )
       @user.update_attribute(:customer_id, customer["id"])
     else
@@ -28,10 +27,11 @@ class Api::V1::ChargesController < Api::V1::BaseController
     end
 
     charge = Stripe::Charge.create(
-      :customer    => customer["id"],
-      :amount      => @amount,
-      :description => 'Foam Finger Nation',
-      :currency    => 'usd'
+      :customer     => customer["id"],
+      :card         => charge_params[:stripeToken],
+      :amount       => @amount,
+      :description  => 'Foam Finger Nation',
+      :currency     => 'usd'
     )
 
     @purchased_packages.each do |purchased_package|
@@ -41,7 +41,7 @@ class Api::V1::ChargesController < Api::V1::BaseController
 
     return render json: {}
 
-  rescue Stripe::CardError, Stripe::ApiError => e
+  rescue Stripe::CardError => e
     return render json: { :errors => [@e.message] }, status: 422
   end
 

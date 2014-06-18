@@ -2,14 +2,16 @@ require 'spec_helper'
 
 describe Api::V1::PackagesController do
   render_views
-  
+
   let(:package) { Fabricate(:package) }
   let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
     package
     user
-    user.confirm!
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
   describe 'GET index' do
@@ -39,9 +41,8 @@ describe Api::V1::PackagesController do
   describe 'POST create' do
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :package => package.attributes.except('id')
       }
@@ -52,10 +53,8 @@ describe Api::V1::PackagesController do
     end
     context 'package failed to save' do
       before {
-       
+
         user.add_role(:manager, package.venue)
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         Package.should_receive(:new).and_return(package)
         package.should_receive(:save).and_return(false)
@@ -68,10 +67,8 @@ describe Api::V1::PackagesController do
     end
     context 'everything is good' do
       before {
-       
+
         user.add_role(:manager, package.venue)
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :package => {name: 'test', description: 'desc', price: 5.00, venue_id: package.venue.id}
       }
@@ -85,9 +82,7 @@ describe Api::V1::PackagesController do
   describe 'PUT update' do
     context 'current user not admin or venue manager' do
       before {
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: package.id, package: {name: 'another_name'}
       }
@@ -99,9 +94,7 @@ describe Api::V1::PackagesController do
     context 'current user is manager of another venue' do
       before {
         user.add_role(:manager, Fabricate(:venue))
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: package.id, package: {name: 'another_name'}
       }
@@ -113,9 +106,7 @@ describe Api::V1::PackagesController do
     context 'current user not admin but is manager of the packages venue' do
       before {
         user.add_role(:manager, package.venue)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         @package = Fabricate.attributes_for(:package)
         @package[:name] = 'another_name'
@@ -129,7 +120,7 @@ describe Api::V1::PackagesController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -143,9 +134,7 @@ describe Api::V1::PackagesController do
     context 'package failed to save' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         Package.should_receive(:find).with(package.id.to_s).and_return(package)
         package.should_receive(:update!).and_return(false)
@@ -162,9 +151,7 @@ describe Api::V1::PackagesController do
     context 'everything is good' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         @package = Fabricate.attributes_for(:package)
         @package[:name] = 'another_name'
@@ -180,9 +167,7 @@ describe Api::V1::PackagesController do
   describe 'DELETE destroy' do
     context 'current user not admin' do
       before {
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: package.id
       }
@@ -194,9 +179,7 @@ describe Api::V1::PackagesController do
     context 'current user is manager of another venue' do
       before {
         user.add_role(:manager, Fabricate(:venue))
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: package.id
       }
@@ -208,9 +191,7 @@ describe Api::V1::PackagesController do
     context 'current user not admin but is the manager of the venue' do
       before {
         user.add_role(:manager, package.venue)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: package.id
       }
@@ -221,7 +202,7 @@ describe Api::V1::PackagesController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -235,9 +216,7 @@ describe Api::V1::PackagesController do
     context 'package failed to delete' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         Package.should_receive(:find).with(package.id.to_s).and_return(package)
         package.should_receive(:destroy).and_return(false)
@@ -252,9 +231,7 @@ describe Api::V1::PackagesController do
       before {
         package = Fabricate(:package)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
+
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: package.id
       }

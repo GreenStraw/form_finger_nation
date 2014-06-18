@@ -2,14 +2,16 @@ require 'spec_helper'
 
 describe Api::V1::SportsController do
   render_views
-  
+
   let(:sport) { Fabricate(:sport) }
   let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
     sport
     user
-    user.confirm!
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
   describe 'GET index' do
@@ -39,9 +41,6 @@ describe Api::V1::SportsController do
   describe 'POST create' do
     context 'current user not admin' do
       before {
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
@@ -52,9 +51,8 @@ describe Api::V1::SportsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
@@ -66,9 +64,6 @@ describe Api::V1::SportsController do
     context 'sport failed to save' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         sp = Sport.new
         Sport.should_receive(:new).with({"name"=>sport.name, "image_url"=>nil}).and_return(sp)
@@ -83,9 +78,6 @@ describe Api::V1::SportsController do
     context 'everything is good' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :sport => {name: sport.name, image_url: nil}
       }
@@ -100,9 +92,6 @@ describe Api::V1::SportsController do
     context 'current user not admin' do
       before {
         sport = Fabricate(:sport)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
       }
@@ -113,7 +102,7 @@ describe Api::V1::SportsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -128,9 +117,6 @@ describe Api::V1::SportsController do
       before {
         sport = Fabricate(:sport)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
         sport.should_receive(:update!).and_return(false)
@@ -145,9 +131,6 @@ describe Api::V1::SportsController do
       before {
         sport = Fabricate(:sport)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
       }
@@ -162,9 +145,6 @@ describe Api::V1::SportsController do
     context 'current user not admin' do
       before {
         sport = Fabricate(:sport)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: sport.id
       }
@@ -175,7 +155,7 @@ describe Api::V1::SportsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -190,9 +170,6 @@ describe Api::V1::SportsController do
       before {
         sport = Fabricate(:sport)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
         sport.should_receive(:destroy).and_return(false)
@@ -207,9 +184,6 @@ describe Api::V1::SportsController do
       before {
         sport = Fabricate(:sport)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: sport.id
       }

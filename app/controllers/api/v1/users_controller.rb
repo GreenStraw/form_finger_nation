@@ -1,9 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
   include Devise::Models::DatabaseAuthenticatable
   include ActiveRecord::AttributeAssignment
-  before_filter :authenticate_user_from_token!
-  # before_filter :admin_only!, only: [:index]
-  # before_filter :auth_only!, except: [:index]
+  before_filter :authenticate_user_from_token!, except: [:create]
 
   def index
     return render json: User.all
@@ -11,6 +9,19 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def show
     return render json: User.find(params[:id])
+  end
+
+  def create
+    generated_password = Devise.friendly_token.first(8)
+    params[:user][:password] = generated_password
+    @user = User.new(user_params)
+    @user.build_address(user_params[:address_attributes])
+    if @user.save!
+      RegistrationMailer.welcome_email(@user).deliver
+      return render json: @user
+    else
+      return render json: { :errors => @user.errors.full_messages }, status: 422
+    end
   end
 
   def update
@@ -74,7 +85,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]})
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
   def update_with_password(update_params, *options)
@@ -86,6 +97,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     if valid_password?(current_password)
+      update_params[:confirmed_at] = DateTime.now
       @user.update_attributes(update_params, *options)
       clean_up_passwords
       return render json: @user
