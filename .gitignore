@@ -24,3 +24,5 @@
 #Ignore generated code coverage report
 /coverage/*
 
+#Ignore .rspec so that each dev can use their own settings
+.rspec
