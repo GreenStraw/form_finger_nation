@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::TeamsController do
   render_views
-  
+
   let(:team) { Fabricate(:team) }
   let(:user) { Fabricate(:user) }
   before do
@@ -10,7 +10,9 @@ describe Api::V1::TeamsController do
     @team = Fabricate.attributes_for(:team)
     team
     user
-    user.confirm!
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
   describe 'GET index' do
@@ -40,9 +42,6 @@ describe Api::V1::TeamsController do
   describe 'POST create' do
     context 'current user not admin' do
       before {
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :team => @team
       }
@@ -53,9 +52,8 @@ describe Api::V1::TeamsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :team => @team
       }
@@ -67,9 +65,6 @@ describe Api::V1::TeamsController do
     context 'team failed to save' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         sp = Sport.create
         sp.stub(:id).and_return('1')
@@ -86,9 +81,6 @@ describe Api::V1::TeamsController do
     context 'everything is good' do
       before {
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :team => @team
       }
@@ -103,9 +95,6 @@ describe Api::V1::TeamsController do
     context 'current user not admin or team admin' do
       before {
         team = Fabricate(:team)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: team.id, team: {name: 'another_name'}
       }
@@ -116,7 +105,7 @@ describe Api::V1::TeamsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -131,9 +120,6 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         Team.should_receive(:find).with(team.id.to_s).and_return(team)
         team.should_receive(:update!).and_return(false)
@@ -148,9 +134,6 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: team.id, team: {name: 'another_name'}
       }
@@ -164,9 +147,6 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :team_admin, team
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :put, :update, id: team.id, team: {name: 'another_name'}
       }
@@ -181,9 +161,6 @@ describe Api::V1::TeamsController do
     context 'current user not admin' do
       before {
         team = Fabricate(:team)
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: team.id
       }
@@ -194,7 +171,7 @@ describe Api::V1::TeamsController do
     end
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -209,9 +186,6 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         Team.should_receive(:find).with(team.id.to_s).and_return(team)
         team.should_receive(:destroy).and_return(false)
@@ -226,9 +200,6 @@ describe Api::V1::TeamsController do
       before {
         team = Fabricate(:team)
         user.add_role :admin
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :delete, :destroy, id: team.id
       }
@@ -242,7 +213,7 @@ describe Api::V1::TeamsController do
   describe "PUT add_host" do
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -256,7 +227,7 @@ describe Api::V1::TeamsController do
     context 'user authenticated' do
       context 'current user does not have team admin role for team' do
         before {
-         
+
           user.roles.clear
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -270,7 +241,7 @@ describe Api::V1::TeamsController do
       end
       context 'current user does have team admin role for team' do
         before {
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -284,7 +255,7 @@ describe Api::V1::TeamsController do
       end
       context 'team already includes user as a host' do
         it 'should not call <<' do
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -296,7 +267,7 @@ describe Api::V1::TeamsController do
       end
       context 'team does not include user as a host' do
         it 'should add user to endorsed_hosts' do
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -312,7 +283,7 @@ describe Api::V1::TeamsController do
   describe "PUT remove_host" do
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
         request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
@@ -326,7 +297,7 @@ describe Api::V1::TeamsController do
     context 'user authenticated' do
       context 'current user does not have team admin role for team' do
         before {
-         
+
           user.roles.clear
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -340,7 +311,7 @@ describe Api::V1::TeamsController do
       end
       context 'current user does have team admin role for team' do
         before {
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -354,7 +325,7 @@ describe Api::V1::TeamsController do
       end
       context 'team already includes user as a host' do
         it 'should remove the user' do
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email
@@ -367,7 +338,7 @@ describe Api::V1::TeamsController do
       end
       context 'team does not include user as a host' do
         it 'should not call delete' do
-         
+
           user.add_role(:team_admin, team)
           request.headers['auth-token'] = user.authentication_token
           request.headers['auth-email'] = user.email

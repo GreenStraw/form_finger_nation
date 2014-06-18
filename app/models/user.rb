@@ -8,14 +8,12 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise  :database_authenticatable,
-          :registerable,
-          :confirmable,
           :recoverable,
           :rememberable,
           :trackable,
           :lockable,
           :validatable
-                 
+
   acts_as_universal_and_determines_account
 
   has_many :comments, as: :commenter
@@ -33,7 +31,11 @@ class User < ActiveRecord::Base
   has_many :packages, through: :user_purchased_packages
   has_one :address, as: :addressable, dependent: :destroy
 
-  attr_accessor :current_password, :password_confirmatio
+  accepts_nested_attributes_for :address
+
+  def confirm!
+    self.update_attribute(:confirmed_at, DateTime.now)
+  end
 
   def full_name
     [first_name, last_name].join(' ')

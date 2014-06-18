@@ -46,7 +46,7 @@ gem 'dotenv-rails',             '~> 0.9.0'
 gem 'newrelic_rpm'
 # excpetion notification for problem notification
 gem 'exception_notification',   '~> 4.0.1'
-#letter opener 
+#letter opener
 gem 'letter_opener', group: :development
 
 # =========================================================

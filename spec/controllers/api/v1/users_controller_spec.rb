@@ -2,19 +2,20 @@ require 'spec_helper'
 
 describe Api::V1::UsersController do
   render_views
-  
+
   let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
     user
-    user.confirm!
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
   describe 'GET show' do
     context 'wrong token' do
       before {
         request.headers['auth-token'] = 'fake_token'
-        request.headers['auth-email'] = user.email
         get :show, id: user.id
       }
 
@@ -25,9 +26,6 @@ describe Api::V1::UsersController do
 
     context 'authorized' do
       before do
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
         get :show, id: user.id
       end
 
@@ -37,11 +35,44 @@ describe Api::V1::UsersController do
     end
   end
 
+  describe 'POST create' do
+    context 'user failed to be created' do
+      before {
+        Devise.should_receive(:friendly_token).and_return('12345678')
+        new_user = User.new({:email=> 'test@test.com', :password=> '12345678'})
+        User.should_receive(:new).with({"email"=> new_user.email, "password"=> new_user.password}).and_return(new_user)
+        new_user.should_receive(:save!).and_return(false)
+        xhr :post, :create, :user => {email: 'test@test.com'}
+      }
+
+      it 'returns 422' do
+        response.response_code.should == 422
+      end
+    end
+
+    context 'user is created' do
+      before {
+        Devise.should_receive(:friendly_token).and_return('12345678')
+        new_user = User.new({email: 'test@test.com', password: '12345678'})
+        User.should_receive(:new).with({"email"=> new_user.email, "password"=> new_user.password}).and_return(new_user)
+        new_user.should_receive(:save!).and_return(true)
+        email = RegistrationMailer.welcome_email(new_user)
+        RegistrationMailer.should_receive(:welcome_email).with(new_user).and_return(email)
+        email.should_receive(:deliver).once
+        xhr :post, :create, :user => {email: 'test@test.com'}
+      }
+
+      it 'returns 200' do
+        response.response_code.should == 200
+      end
+    end
+  end
+
   describe 'PUT update' do
     context 'Invalid credentials no auth token' do
       before do
         user = Fabricate(:user)
-        user.confirm!
+        request.headers['auth-token'] = nil
         xhr :put, :update, :id => user.id, :user => {:name => "NoToken NewName"}
       end
       it 'returns http 401' do
@@ -51,9 +82,9 @@ describe Api::V1::UsersController do
     context 'Update password' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
+        request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
         xhr :put,
             :update,
             :id => @user.id,
@@ -84,16 +115,17 @@ describe Api::V1::UsersController do
           'managed_venue_ids' => [],
           'purchased_packages' => [],
           'first_name' => 'Test',
-          'last_name' => 'User'}
+          'last_name' => 'User',
+          'confirmed'=>true}
         up_user.should == expect_user
       end
     end
     context 'Update fields' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
+        request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
         xhr :put,
             :update,
             :id => @user.id,
@@ -123,16 +155,17 @@ describe Api::V1::UsersController do
           'managed_venue_ids' => [],
           'purchased_packages' => [],
           'first_name' => 'Test',
-          'last_name' => 'User'}
+          'last_name' => 'User',
+          'confirmed'=>true}
         up_user.should == expect_user
       end
     end
     context 'Invalid credentials wrong auth token' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         request.headers['auth-token'] = 'fake_token'
         request.headers['auth-email'] = @user.email
+        request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
         xhr :put,
             :update,
             :id => @user.id,
@@ -146,9 +179,9 @@ describe Api::V1::UsersController do
     context 'Invalid Password' do
       before do
         @user = Fabricate(:user)
-        @user.confirm!
         request.headers['auth-token'] = @user.authentication_token
         request.headers['auth-email'] = @user.email
+        request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
         xhr :put,
             :update,
             :id => @user.id,

@@ -3,7 +3,7 @@ require 'stripe_mock'
 
 describe Api::V1::ChargesController do
   render_views
-  
+
   let(:user) { Fabricate(:user) }
   let(:package) { Fabricate(:package) }
   let(:party) { Fabricate(:party) }
@@ -14,8 +14,10 @@ describe Api::V1::ChargesController do
     party
     package
     user
-    user.confirm!
-    @single_package_purchase = {user_id: user.id, amount: 500.00, purchases: [
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
+    @single_package_purchase = {user_id: user.id, stripeToken: 'something', amount: 500.00, purchases: [
                                 {package_id: package.id, party_id: party.id}
                                 ]}
     @single_package_purchase_low_amount = {user_id: user.id, amount: 50.00, purchases: [
@@ -31,7 +33,6 @@ describe Api::V1::ChargesController do
               "delinquent"=> false,
               "discount"=> nil,
               "account_balance"=> 0,
-              "cards"=> {"object"=>"list","count"=>0,"url"=>"/v1/customers/test_cus_1/cards","data"=>[]},
               "subscriptions"=> {"object"=>"list","count"=>0,"url"=>"/v1/customers/test_cus_1/subscriptions","data"=>[]},
               "default_card"=> nil,
               "card"=> nil
@@ -62,7 +63,7 @@ describe Api::V1::ChargesController do
 
   describe "build_user_purchased_packages(user, purchases)" do
     before {
-     
+
       @purchases = [{package_id: package.id, party_id: party.id}, {package_id: '5', party_id: '6'}]
     }
     it "should call UserPurchasedPackage for each purchase" do
@@ -75,9 +76,8 @@ describe Api::V1::ChargesController do
   describe "POST create" do
     context 'user not authenticated' do
       before {
-       
+
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
         subject.stub(:current_user).and_return(user)
         xhr :post, :create, :charge => @single_package_purchase
       }
@@ -87,11 +87,6 @@ describe Api::V1::ChargesController do
       end
     end
     context 'user is authorized' do
-      before(:each) do
-       
-        request.headers['auth-token'] = user.authentication_token
-        request.headers['auth-email'] = user.email
-      end
       context 'user is not current_user' do
         before {
           another_user = Fabricate(:user)
@@ -141,6 +136,7 @@ describe Api::V1::ChargesController do
             subject.stub(:current_user).and_return(user)
             User.should_receive(:find_by_id).with(user.id.to_s).and_return(user)
             Stripe::Charge.should_receive(:create).with(customer: "test_cus_1",
+                                                        card: 'something',
                                                         amount: "500.0",
                                                         description: 'Foam Finger Nation',
                                                         currency: 'usd').and_return(@stripe_charge)

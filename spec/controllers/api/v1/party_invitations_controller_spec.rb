@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::PartyInvitationsController do
   render_views
-  
+
   let(:member_party_invitation) { Fabricate(:member_party_invitation) }
   let(:non_member_party_invitation) { Fabricate(:non_member_party_invitation) }
   let(:user) { Fabricate(:user) }
@@ -11,7 +11,9 @@ describe Api::V1::PartyInvitationsController do
     member_party_invitation
     non_member_party_invitation
     user
-    user.confirm!
+    request.headers['auth-token'] = user.authentication_token
+    request.headers['auth-email'] = user.email
+    request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
   describe "claim_by_email" do
@@ -114,28 +116,20 @@ describe Api::V1::PartyInvitationsController do
 
   describe "bulk_create_from_user" do
     it "should not create any invitations if users are not sent" do
-     
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_not_receive(:new)
       PartyInvitationMailer.should_not_receive(:member_private_watch_party_invitation_email)
       xhr :post, :bulk_create_from_user, :user_ids => "", :inviter_id => 999, :party_id => 998
     end
     it "should create an invitation for users passed in" do
-     
+
       user2 = Fabricate(:user)
       user3 = Fabricate(:user)
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(user_id: user2.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
       PartyInvitation.should_receive(:new).with(user_id: user3.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
       member_party_invitation.should_receive(:save!).twice
       xhr :post, :bulk_create_from_user, :user_ids => "#{user2.id},#{user3.id}", :inviter_id => 999, :party_id => 998
     end
     it "should call member_private_watch_party_invitation_email when save completes" do
-     
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(user_id: user.id.to_s, inviter_id: "999", party_id: "998").and_return(member_party_invitation)
       ActionMailer::Base.deliveries = []
       xhr :post, :bulk_create_from_user, :user_ids => user.id.to_s, :inviter_id => 999, :party_id => 998
@@ -145,25 +139,16 @@ describe Api::V1::PartyInvitationsController do
 
   describe "bulk_create_from_email" do
     it "should not create any invitations if emails are not sent" do
-     
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_not_receive(:new)
       PartyInvitationMailer.should_not_receive(:non_member_private_watch_party_invitation_email)
       xhr :post, :bulk_create_from_email, :email_addresses => "", :inviter_id => 999, :party_id => 998
     end
     it "should create an invitation for a user passed in" do
-     
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(unregistered_invitee_email: 'test@test.com', inviter_id: "999", party_id: "998").and_return(non_member_party_invitation)
       non_member_party_invitation.should_receive(:save!).once
       xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter_id => 999, :party_id => 998
     end
     it "should call member_private_watch_party_invitation_email when save completes" do
-     
-      request.headers['auth-token'] = user.authentication_token
-      request.headers['auth-email'] = user.email
       PartyInvitation.should_receive(:new).with(unregistered_invitee_email: 'test@test.com', inviter_id: "999", party_id: "998").and_return(non_member_party_invitation)
       ActionMailer::Base.deliveries = []
       xhr :post, :bulk_create_from_email, :email_addresses => 'test@test.com', :inviter_id => 999, :party_id => 998
