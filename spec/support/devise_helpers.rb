@@ -6,9 +6,10 @@ module DeviseHelpers
       controller.stub :current_user => nil
     else
       @current_user = user = Fabricate(:user)
-      sign_in user
-      request.env['warden'].stub :authenticate! => user
-      controller.stub :current_user => user
+      @current_user.add_role role
+      sign_in @current_user
+      request.env['warden'].stub :authenticate! => @current_user
+      controller.stub :current_user => @current_user
     end
   end
 

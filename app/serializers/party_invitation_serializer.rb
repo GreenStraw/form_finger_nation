@@ -8,4 +8,5 @@ class PartyInvitationSerializer < ActiveModel::Serializer
   def registered
     user.present?
   end
+  
 end
