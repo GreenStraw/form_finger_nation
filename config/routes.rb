@@ -38,7 +38,6 @@ Baseapp::Application.routes.draw do
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
-        # post '/users', :to => "registrations#create"
       end
 
       resources :users, only: [:index, :show, :update, :create] do
@@ -60,6 +59,7 @@ Baseapp::Application.routes.draw do
       end
       resources :venues
       resources :parties do
+        post 'invite', on: :collection
         member do
           put 'rsvp'
           put 'unrsvp'
@@ -69,16 +69,7 @@ Baseapp::Application.routes.draw do
       resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:create, :show, :update]
-      resources :party_invitations, only: [:index, :show] do
-        member do
-          get 'claim_by_email'
-          get 'claim_by_user'
-        end
-        collection do
-          post 'bulk_create_from_user'
-          post 'bulk_create_from_email'
-        end
-      end
+      resources :party_invitations, only: [:index, :show]
     end
   end
 
