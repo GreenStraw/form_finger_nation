@@ -2,7 +2,6 @@ class PartyInvitationMailer < ActionMailer::Base
   default from: 'test@ffn.com'
 
   def invitation_email(invitation)
-    puts invitation.inspect
     @to = invitation.email
     @inviter = invitation.inviter
     @uuid = invitation.uuid
@@ -14,7 +13,6 @@ class PartyInvitationMailer < ActionMailer::Base
       @party_address = @party.venue.address
     end
     @url = "#{ENV['WEB_APP_URL']}/party_invitations/member_rsvp/#{@uuid}"
-    puts @to
     mail(to: @to, subject: 'You have been invited to a watch party on Foam Finger Nation!')
   end
 end
