@@ -2,7 +2,7 @@ class CreateParties < ActiveRecord::Migration
   def change
     create_table :parties do |t|
       t.string :name
-      t.boolean :private, default: false
+      t.boolean :is_private, default: false
       t.boolean :verified, default: false
       t.string :description
       t.datetime :scheduled_for

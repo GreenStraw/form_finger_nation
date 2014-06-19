@@ -78,6 +78,7 @@ group :development, :test do
   gem "qunit-rails"
   gem 'railroady',                '~> 1.1.0'
   gem 'rspec-rails'
+  gem 'rspec-mocks'
   gem 'selenium-webdriver'
   gem 'shoulda', '~> 3.3' # model spec tester
   gem 'simplecov',                '~> 0.7.1', require: false

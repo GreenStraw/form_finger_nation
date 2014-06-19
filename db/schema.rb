@@ -76,15 +76,15 @@ ActiveRecord::Schema.define(version: 20140616134613) do
     t.string   "image_url"
     t.decimal  "price"
     t.boolean  "active"
+    t.boolean  "is_public",   default: false
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "venue_id"
-    t.boolean  "is_public",   default: false
   end
 
   create_table "parties", force: true do |t|
     t.string   "name"
-    t.boolean  "private",       default: false
+    t.boolean  "is_private",    default: false
     t.boolean  "verified",      default: false
     t.string   "description"
     t.datetime "scheduled_for"
@@ -101,10 +101,10 @@ ActiveRecord::Schema.define(version: 20140616134613) do
   add_index "parties", ["team_id"], name: "index_parties_on_team_id", using: :btree
 
   create_table "party_invitations", force: true do |t|
-    t.string  "unregistered_invitee_email"
+    t.string  "email"
     t.string  "uuid"
+    t.string  "status",     default: "pending"
     t.integer "inviter_id"
-    t.boolean "claimed",                    default: false
     t.integer "user_id"
     t.integer "party_id"
   end
@@ -158,10 +158,10 @@ ActiveRecord::Schema.define(version: 20140616134613) do
   create_table "teams", force: true do |t|
     t.string   "name"
     t.string   "image_url"
+    t.text     "information"
     t.integer  "sport_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "information"
   end
 
   create_table "tenants", force: true do |t|
@@ -218,13 +218,13 @@ ActiveRecord::Schema.define(version: 20140616134613) do
     t.string   "authentication_token"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "role"
     t.string   "username"
     t.string   "provider"
     t.string   "uid"
     t.string   "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -15,7 +15,7 @@ class Party < ActiveRecord::Base
   belongs_to :sport
   belongs_to :venue
 
-  attr_accessor :scheduled_date, :scheduled_time
+  attr_accessor :user_ids, :emails
 
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)

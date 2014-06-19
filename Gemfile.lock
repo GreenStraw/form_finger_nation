@@ -429,6 +429,7 @@ DEPENDENCIES
   rails_12factor (~> 0.0)
   recaptcha
   rolify
+  rspec-mocks
   rspec-rails
   sass-rails (~> 4.0.2)
   sdoc

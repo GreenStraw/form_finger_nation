@@ -1,27 +1,16 @@
 require 'spec_helper'
 
 describe Api::V1::PartiesController do
-  render_views
-
-  let(:party) { Fabricate(:party) }
-  let(:user) { Fabricate(:user) }
   before(:each) do
     create_new_tenant
-    party
-    user
-    request.headers['auth-token'] = user.authentication_token
-    request.headers['auth-email'] = user.email
+    login(:admin)
+    @party = Fabricate(:party)
+    request.headers['auth-token'] = @current_user.authentication_token
+    request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
-  describe "build_scheduled_time" do
-    it "should build the correct Time" do
-      date = Date.new(2014, 10, 1)
-      time = '10:00 pm'
-      result = DateTime.new(2014, 10, 1, 22, 0, 0)
-      subject.send(:build_scheduled_time, date, time).should == result
-    end
-  end
+  let(:valid_attributes) { Fabricate.attributes_for(:party) }
 
   describe "search_parties(search, address, radius)" do
     before(:each) do
@@ -30,8 +19,8 @@ describe Api::V1::PartiesController do
       @e1 = Venue.create(name: 'Bar 1', address: Fabricate(:address))
       @e2 = Venue.create(name: 'Bar 2', address: Fabricate(:address))
       @t = Team.create(name: 'Team 1')
-      @p1 = Party.create(venue: @e1, name: 'Party 1', team: @t, scheduled_for: DateTime.now + 1.day, private: false)
-      @p2 = Party.create(venue: @e2, name: 'Party 2', team: @t, scheduled_for: DateTime.now + 8.days, private: false)
+      @p1 = Party.create(venue: @e1, name: 'Party 1', team: @t, scheduled_for: DateTime.now + 1.day, is_private: false)
+      @p2 = Party.create(venue: @e2, name: 'Party 2', team: @t, scheduled_for: DateTime.now + 8.days, is_private: false)
     end
     it "should call venue_ids_by_address_and_radius" do
       subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
@@ -75,7 +64,7 @@ describe Api::V1::PartiesController do
 
     it "should not include private parties" do
       subject.should_receive(:venue_ids_by_address_and_radius).with('79424', 15).and_return([@e2.id]);
-      @p2.update_attribute(:private, true)
+      @p2.update_attribute(:is_private, true)
       subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 9.days).should == []
     end
   end
@@ -93,7 +82,7 @@ describe Api::V1::PartiesController do
   describe 'GET index' do
     context 'index' do
       before do
-        get :index
+        get :index, format: :json
       end
 
       it "should not call search_parties" do
@@ -101,7 +90,7 @@ describe Api::V1::PartiesController do
       end
 
       it 'returns http 200' do
-        response.response_code.should == 200
+        response.response_code.should eq(200)
       end
     end
   end
@@ -109,229 +98,97 @@ describe Api::V1::PartiesController do
   describe 'GET show' do
     context 'show' do
       before do
-        get :show, id: party.id
+        get :show, id: @party.id, format: :json
       end
 
       it 'returns http 200' do
-        response.response_code.should == 200
+        response.response_code.should eq(200)
       end
     end
   end
 
-  describe 'POST create' do
-    context 'user not authenticated' do
-      before {
-        request.headers['auth-token'] = 'fake_authentication_token'
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :party => party.attributes.except('id')
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+  describe "POST create" do
+    describe "with valid params" do
+      before(:each) do
+        post :create, :party => valid_attributes, :format => :json
+      end
+      it "assigns a newly created party as @party" do
+        assigns(:party).should be_a(Party)
+      end
+      it "creates a new Party" do
+        assigns(:party).should be_persisted
+      end
+      it "responds with status 201" do
+        expect(response.status).to eq(201)
+      end
+      it "responds with json" do
+        expect(JSON.parse(response.body)).to have_key('party')
       end
     end
-    context 'party failed to save' do
-      before {
-        subject.stub(:current_user).and_return(user)
-        e = Party.new
-        Party.should_receive(:new).and_return(e)
-        e.should_receive(:save).and_return(false)
-        @party = Fabricate.attributes_for(:party)
-        @party[:scheduled_date] = Date.new(2014, 01, 01)
-        @party[:scheduled_time] = '10:00 pm'
-        xhr :post, :create, :party => @party
-      }
 
-      it 'returns http 422' do
-        response.response_code.should == 422
+    describe "with invalid params" do
+      before(:each) do
+        Party.any_instance.should_receive(:valid?).and_return(false)
+        post :create, :party => { "venue_id" => "" }, :format => :json
       end
-    end
-    context 'everything is good' do
-      before {
-        subject.stub(:current_user).and_return(user)
-        @party = Fabricate.attributes_for(:party)
-        @party[:scheduled_date] = Date.new(2014, 01, 01)
-        @party[:scheduled_time] = '10:00 pm'
-        xhr :post, :create, :party => @party
-      }
-
-      it 'returns http 200' do
-        response.response_code.should == 200
+      it "assigns a newly created but unsaved activity as @party" do
+        assigns(:party).should be_a_new(Party)
+      end
+      it "dos not persist the party" do
+        assigns(:party).should_not be_persisted
+      end
+      it "responds with status 201" do
+        expect(response.status).to eq(201)
       end
     end
   end
 
-  describe 'PUT update' do
-    context 'current user not admin' do
-      before {
-        party = Fabricate(:party)
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: party.id, party: {name: 'another_name'}
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
+  describe "PUT update" do
+    describe "with valid params" do
+      before(:each) do
+        # Party.any_instance.should_receive(:update)
+        put :update, :id => @party.to_param, :party => valid_attributes, :format => :json
+      end
+      it "assigns the requested activity as @party" do
+        assigns(:party).should eq(@party)
+      end
+      it "responds with status 204" do
+        expect(response.status).to eq(204)
+      end
+      it "responds with json" do
+        # expect(JSON.parse(response.body)).to have_key('party')
+        response.body.should == ''
       end
     end
-    context 'current user is manager of another party' do
-      before {
-        party = Fabricate(:party)
-        user.add_role(:party_manager)
-        user.add_role(:manager, Fabricate(:party))
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: party.id, party: {name: 'another_name'}
-      }
 
-      it 'returns http 403' do
-        response.response_code.should == 403
+    describe "with invalid params" do
+      before(:each) do
+        Party.should_receive(:find).and_return(@party)
+        @party.should_receive(:valid?).and_return(false)
+        @party.errors.add(:base, "some generic error")
+        put :update, :id => @party.id, :party => { "venue_id" => "" }, :format => :json
       end
-      context 'current user not admin but is manager of the watch party' do
-        before {
-          party = Fabricate(:party)
-          user.add_role(:manager, party)
-          request.headers['auth-token'] = user.authentication_token
-          request.headers['auth-email'] = user.email
-          subject.stub(:current_user).and_return(user)
-          xhr :put, :update, id: party.id, party: {scheduled_date: Date.new(2014, 01, 01), scheduled_time: '10:00 pm'}
-        }
-
-        it 'returns http 200' do
-          response.response_code.should == 200
-        end
+      it "assigns the activity as @party" do
+        assigns(:party).should eq(@party)
       end
-    end
-    context 'user not authenticated' do
-      before {
-        request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :update, id: party.id, party: {name: 'another_name'}
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
-      end
-    end
-    context 'party failed to save' do
-      before {
-        party = Fabricate(:party)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        Party.should_receive(:find).with(party.id.to_s).and_return(party)
-        party.should_receive(:update!).and_return(false)
-        @party = Fabricate.attributes_for(:party)
-        @party[:scheduled_date] = Date.new(2014, 01, 01)
-        @party[:scheduled_time] = '10:00 pm'
-        @party[:name] = 'another_name'
-        xhr :post, :create, :party => @party
-        xhr :put, :update, id: party.id, party: @party
-      }
-
-      it 'returns http 422' do
-        response.response_code.should == 422
-      end
-    end
-    context 'everything is good' do
-      before {
-        party = Fabricate(:party)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        @party = Fabricate.attributes_for(:party)
-        @party[:scheduled_date] = Date.new(2014, 01, 01)
-        @party[:scheduled_time] = '10:00 pm'
-        @party[:name] = 'another_name'
-        xhr :post, :create, :party => @party
-        xhr :put, :update, id: party.id, party: @party
-      }
-
-      it 'returns http 200' do
-        response.response_code.should == 200
+      it "should return the error as json" do
+        response.body.should eq("{\"errors\":{\"base\":[\"some generic error\"]}}")
       end
     end
   end
-  describe 'DELETE destroy' do
-    context 'current user not admin' do
-      before {
-        party = Fabricate(:party)
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: party.id
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
-      end
-    end
-    context 'current user is manager of another party' do
-      before {
-        party = Fabricate(:party)
-        user.add_role(:party_manager)
-        user.add_role(:manager, Fabricate(:party))
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: party.id
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
-      end
-    end
-    context 'current user not admin but is the manager of the party' do
-      before {
-        party = Fabricate(:party)
-        user.add_role(:manager, party)
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: party.id
-      }
-
-      it 'returns http 200' do
-        response.response_code.should == 200
-      end
-    end
-    context 'user not authenticated' do
-      before {
-        request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :destroy, id: party.id
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
-      end
-    end
-    context 'party failed to save' do
-      before {
-        party = Fabricate(:party)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        Party.should_receive(:find).with(party.id.to_s).and_return(party)
-        party.should_receive(:destroy).and_return(false)
-        xhr :delete, :destroy, id: party.id
-      }
-
-      it 'returns http 422' do
-        response.response_code.should == 422
-      end
-    end
-    context 'everything is good' do
-      before {
-        party = Fabricate(:party)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: party.id
-      }
-
-      it 'returns http 200' do
-        response.response_code.should == 200
-      end
+  describe "DELETE destroy" do
+    it "destroys the requested activity" do
+      expect {
+        delete :destroy, :id => @party.id, :format => :json
+      }.to change(Party, :count).by(-1)
     end
   end
+
   describe "PUT rsvp" do
     context 'user not authenticated' do
       before {
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :rsvp, id: party.id, user_id: user.id
+        xhr :put, :rsvp, id: @party.id, user_id: @current_user.id
       }
 
       it 'returns http 401' do
@@ -343,10 +200,6 @@ describe Api::V1::PartiesController do
         before {
           party = Fabricate(:party)
           other_user = Fabricate(:user)
-
-          request.headers['auth-token'] = user.authentication_token
-          request.headers['auth-email'] = user.email
-          subject.stub(:current_user).and_return(user)
           xhr :put, :rsvp, id: party.id, user_id: other_user.id
         }
 
@@ -359,15 +212,12 @@ describe Api::V1::PartiesController do
           before {
             party = Fabricate(:party)
             party.attendees.clear
-            party.attendees.should_not include(user)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :rsvp, id: party.id, user_id: user.id
+            party.attendees.should_not include(@current_user)
+            xhr :put, :rsvp, id: party.id, user_id: @current_user.id
           }
 
           it 'should add the attendee to party' do
-            assigns(:party).attendees.should include(user)
+            assigns(:party).attendees.should include(@current_user)
           end
 
           it 'returns http 200' do
@@ -376,13 +226,10 @@ describe Api::V1::PartiesController do
         end
         context 'party attendees does include user' do
           before {
-            party = Fabricate(:party, attendees: [user])
+            party = Fabricate(:party)
             party.attendees.clear
             party.attendees.should_not_receive(:<<)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :rsvp, id: party.id, user_id: user.id
+            xhr :put, :rsvp, id: party.id, user_id: @current_user.id
           }
 
           it 'returns http 200' do
@@ -397,9 +244,7 @@ describe Api::V1::PartiesController do
     context 'user not authenticated' do
       before {
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :unrsvp, id: party.id, user_id: user.id
+        xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
       }
 
       it 'returns http 401' do
@@ -409,12 +254,8 @@ describe Api::V1::PartiesController do
     context 'user authenticated' do
       context 'current_user does not equal passed in user' do
         before {
-          party = Fabricate(:party)
           other_user = Fabricate(:user)
-          request.headers['auth-token'] = user.authentication_token
-          request.headers['auth-email'] = user.email
-          subject.stub(:current_user).and_return(user)
-          xhr :put, :unrsvp, id: party.id, user_id: other_user.id
+          xhr :put, :unrsvp, id: @party.id, user_id: other_user.id
         }
 
         it 'returns http 403' do
@@ -424,18 +265,14 @@ describe Api::V1::PartiesController do
       context 'current_user equals passed in user' do
         context 'party attendees include user' do
           before {
-            party = Fabricate(:party)
-            party.attendees.clear
-            party.attendees << user
-            party.attendees.should include(user)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :unrsvp, id: party.id, user_id: user.id
+            @party.attendees.clear
+            @party.attendees << @current_user
+            @party.attendees.should include(@current_user)
+            xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
           }
 
           it 'should add the attendee to party' do
-            assigns(:party).attendees.should_not include(user)
+            assigns(:party).attendees.should_not include(@current_user)
           end
 
           it 'returns http 200' do
@@ -444,14 +281,9 @@ describe Api::V1::PartiesController do
         end
         context 'party attendees does not include user' do
           before {
-            party = Fabricate(:party, attendees: [user])
-            party.attendees.clear
-            party.attendees << user
-            party.attendees.should_not_receive(:delete)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :unrsvp, id: party.id, user_id: user.id
+            @party.attendees.clear
+            @party.attendees.should_not_receive(:delete)
+            xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
           }
 
           it 'returns http 200' do
@@ -459,6 +291,20 @@ describe Api::V1::PartiesController do
           end
         end
       end
+    end
+  end
+
+  describe "invite" do
+    before(:each) do
+      @party.update_attribute(:organizer, @current_user)
+      Party.should_receive(:find).and_return(@party)
+      post :invite, :party => {user_ids:[1],emails:['test2@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
+    end
+    it "responds with status 201" do
+      expect(response.status).to eq(201)
+    end
+    it "responds with json" do
+      expect(JSON.parse(response.body)).to have_key('party')
     end
   end
 end
