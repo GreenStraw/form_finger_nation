@@ -7,8 +7,10 @@ class PartyInvitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :party
 
+  PENDING = 'pending'
+  ACCEPTED = 'accepted'
+
   def send_invitation
-    puts self.inspect
     PartyInvitationMailer.invitation_email(self).deliver
   end
 

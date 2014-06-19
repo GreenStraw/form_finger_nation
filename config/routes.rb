@@ -69,7 +69,9 @@ Baseapp::Application.routes.draw do
       resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:create, :show, :update]
-      resources :party_invitations, only: [:index, :show]
+      resources :party_invitations, only: [:index, :show] do
+        put 'accept', on: :member
+      end
     end
   end
 
