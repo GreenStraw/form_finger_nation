@@ -5,6 +5,7 @@ describe Api::V1::PartyInvitationsController do
 
   before(:each) do
     create_new_tenant
+    login(:admin)
     @member_party_invitation = Fabricate(:member_party_invitation)
     @party_invitation = Fabricate(:party_invitation)
     request.headers['auth-token'] = @current_user.authentication_token
