@@ -5,5 +5,5 @@ Fabricator(:comment) do
 end
 
 Fabricator(:party_comment, from: :comment) do
-  commentable_type 'Party'
+  commentable { Fabricate(:party) }
 end

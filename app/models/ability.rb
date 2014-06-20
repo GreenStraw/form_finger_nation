@@ -10,7 +10,6 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :create, Comment
       can :create, Party
     end
 
@@ -23,7 +22,7 @@ class Ability
     end
 
     can :manage, Comment do |comment|
-      user.id == comment.commenter_id || user.has_role?(:manager, comment.commenter)
+      (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
     end
 
     # Define abilities for the passed in user here. For example:
