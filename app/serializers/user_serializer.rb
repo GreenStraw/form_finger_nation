@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   embed :ids
-  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed
+  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :address
   has_many :sports, key: :favorite_sport_ids, root: :favorite_sport_ids#, include: true
   has_many :teams, key: :favorite_team_ids, root: :favorite_team_ids#, include: true
   has_many :managed_venues, key: :managed_venue_ids, root: :managed_venue_ids
@@ -10,7 +10,10 @@ class UserSerializer < ActiveModel::Serializer
   has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids
   has_many :employers, key: :employer_ids, root: :employer_ids
   has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages
-  has_one :address, key: :address_id, root: :address_id
+
+  def address
+    object.address
+  end
 
   def confirmed
     object.confirmed_at.present?

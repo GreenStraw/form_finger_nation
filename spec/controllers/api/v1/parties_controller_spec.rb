@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::PartiesController do
-  before(:each) do
+  before do
     create_new_tenant
     login(:admin)
     @party = Fabricate(:party)
@@ -79,19 +79,15 @@ describe Api::V1::PartiesController do
     end
   end
 
-  describe 'GET index' do
-    context 'index' do
-      before do
-        get :index, format: :json
-      end
-
-      it "should not call search_parties" do
-        subject.should_not_receive(:search_parties)
-      end
-
-      it 'returns http 200' do
-        response.response_code.should eq(200)
-      end
+  describe "GET index" do
+    before(:each) do
+      get :index, :format => :json
+    end
+    it "returns https status 200" do
+      response.status.should eq(200)
+    end
+    it "assigns all parties as @parties" do
+      assigns(:parties).should_not be_nil
     end
   end
 
@@ -128,8 +124,7 @@ describe Api::V1::PartiesController do
 
     describe "with invalid params" do
       before(:each) do
-        Party.any_instance.should_receive(:valid?).and_return(false)
-        post :create, :party => { "venue_id" => "" }, :format => :json
+        post :create, :party => { "name" => "" }, :format => :json
       end
       it "assigns a newly created but unsaved activity as @party" do
         assigns(:party).should be_a_new(Party)
@@ -137,8 +132,8 @@ describe Api::V1::PartiesController do
       it "dos not persist the party" do
         assigns(:party).should_not be_persisted
       end
-      it "responds with status 201" do
-        expect(response.status).to eq(201)
+      it "responds with status 422" do
+        expect(response.status).to eq(422)
       end
     end
   end

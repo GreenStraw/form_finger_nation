@@ -15,7 +15,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     generated_password = Devise.friendly_token.first(8)
     params[:user][:password] = generated_password
     @user = User.new(user_params)
-    @user.build_address(user_params[:address_attributes])
     if @user.save!
       RegistrationMailer.welcome_email(@user).deliver
       return render json: @user

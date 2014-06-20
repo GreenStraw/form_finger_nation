@@ -8,10 +8,17 @@ class Ability
 
     if user.has_role?(:admin)
       can :manage, :all
+    else
+      can :read, :all
+      can :create, Party
     end
 
     can :manage, Party do |party|
       user.id == party.organizer_id || user.has_role?(:manager, party)
+    end
+
+    can :manage, Team do |team|
+      user.has_role?(:team_admin, team)
     end
 
     # Define abilities for the passed in user here. For example:

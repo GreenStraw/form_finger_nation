@@ -8,7 +8,6 @@ class PartyInvitation < ActiveRecord::Base
   belongs_to :party
 
   def send_invitation
-    puts self.inspect
     PartyInvitationMailer.invitation_email(self).deliver
   end
 

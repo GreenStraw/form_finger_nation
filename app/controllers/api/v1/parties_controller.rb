@@ -1,19 +1,9 @@
 class Api::V1::PartiesController < Api::V1::BaseController
-  load_and_authorize_resource
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :rsvp, :unrsvp]
+  load_and_authorize_resource
 
   def index
-    search = params[:query] if params[:query]
-    address = params[:address] if params[:address]
-    radius = params[:radius] if params[:radius]
-    from_date = params[:fromDate].to_date if params[:fromDate]
-    to_date = params[:toDate].to_date if params[:toDate]
-    results = if address.present?
-      search_parties(search, address, radius, from_date, to_date)
-    else
-      Party.all
-    end
-    return render json: results
+    respond_with @parties=Party.all
   end
 
   def show
@@ -33,6 +23,16 @@ class Api::V1::PartiesController < Api::V1::BaseController
   def destroy
     @party.destroy
     respond_with @party, :location=>api_v1_parties_path
+  end
+
+  def search
+    search = params[:query] if params[:query]
+    address = params[:address] if params[:address]
+    radius = params[:radius] if params[:radius]
+    from_date = params[:fromDate].to_date if params[:fromDate]
+    to_date = params[:toDate].to_date if params[:toDate]
+    @results = search_parties(search, address, radius, from_date, to_date)
+    render json: @results, status: 200
   end
 
   def rsvp
@@ -121,7 +121,7 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   def party_params
-    params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[], :package_ids=>[] })
+    params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[], :package_ids=>[] }, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
 end

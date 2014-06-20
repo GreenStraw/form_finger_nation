@@ -63,7 +63,4 @@ class User < ActiveRecord::Base
       return nil
     end
   end
-
-  private
-
 end
