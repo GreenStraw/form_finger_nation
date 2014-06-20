@@ -13,15 +13,6 @@ class Comment < ActiveRecord::Base
   # NOTE: Comments belong to a commenter
   belongs_to :commenter, polymorphic: true
 
-  def self.build_comment(params)
-    commentable = params[:commentable_type].constantize.find(params[:commentable_id])
-    commenter = params[:commenter_type].constantize.find(params[:commenter_id])
-    if commentable.present? && commenter.present? && params[:body].present?
-      @comment = Comment.build_from(commentable, commenter, params[:body])
-    end
-    @comment || nil
-  end
-
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
@@ -42,10 +33,5 @@ class Comment < ActiveRecord::Base
 
   def self.find_commentable(commentable_type, commentable_id)
     commentable_type.constantize.find_by_id(commentable_id)
-  end
-
-  #helper method to check if a comment has children
-  def has_children?
-    self.children.any?
   end
 end

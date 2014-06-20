@@ -11,14 +11,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def create
-    @comment = Comment.build_comment(comment_params)
-    if comment_params[:parent_id].present?
-      @parent = Comment.find_by_id(comment_params[:parent_id])
-    end
     @comment.save
-    if @parent
-      @comment.move_to_child_of(@parent)
-    end
     respond_with @comment, :location=>api_v1_comments_path
   end
 
