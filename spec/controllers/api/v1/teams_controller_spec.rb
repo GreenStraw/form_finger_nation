@@ -24,8 +24,8 @@ describe Api::V1::TeamsController do
         response.response_code.should == 200
       end
       it "assigns all parties as @teams" do
-      assigns(:teams).should_not be_nil
-    end
+        assigns(:teams).should_not be_nil
+      end
     end
   end
 

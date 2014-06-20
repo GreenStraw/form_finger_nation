@@ -1,12 +1,13 @@
 class Api::V1::CommentsController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!
+  load_and_authorize_resource
 
   def index
-    return render json: Comment.all
+    respond_with @comments=Comment.all
   end
 
   def show
-    return render json: Comment.find(params[:id])
+    respond_with @comment
   end
 
   def create
@@ -31,15 +32,8 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    if @comment.commenter == current_user || current_user.has_role?(:manager, @comment.commenter)
-      if @comment.update!(comment_params)
-        return render json: @obj, status: 200
-      else
-        return render json: @obj, status: 422
-      end
-    end
-    return render json: {}, status: 403
+    @comment.update(comment_params)
+    respond_with @comment, :location=>api_v1_comments_path
   end
 
   private

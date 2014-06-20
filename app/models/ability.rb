@@ -10,6 +10,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
+      can :create, Comment
       can :create, Party
     end
 
@@ -19,6 +20,10 @@ class Ability
 
     can :manage, Team do |team|
       user.has_role?(:team_admin, team)
+    end
+
+    can :manage, Comment do |comment|
+      user.id == comment.commenter_id || user.has_role?(:manager, comment.commenter)
     end
 
     # Define abilities for the passed in user here. For example:
