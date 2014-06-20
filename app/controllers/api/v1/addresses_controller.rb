@@ -1,27 +1,23 @@
 class Api::V1::AddressesController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, except: [:create]
+  load_and_authorize_resource
+
+  def index
+    respond_with @addresses=Address.all
+  end
 
   def show
-    return render json: Address.find(params[:id])
+    respond_with @address
   end
 
   def create
-    create_params = address_params
-    @address = Address.new(create_params)
-    if @address.save
-      return render json: @address
-    else
-      return render json: { :errors => @address.errors.full_messages }, status: 422
-    end
+    @address.save
+    respond_with @address, :location=>api_v1_addresses_path
   end
 
   def update
-    @address = Address.find(params[:id])
-    if @address.update!(address_params)
-      return render json: @address
-    else
-      return render json: { :errors => @address.errors.full_messages }, status: 422
-    end
+    @address.update(address_params)
+    respond_with @address, :location=>api_v1_addresses_path
   end
 
   private

@@ -21,6 +21,10 @@ class Ability
       user.has_role?(:team_admin, team)
     end
 
+    can :manage, Comment do |comment|
+      (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
+    end
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

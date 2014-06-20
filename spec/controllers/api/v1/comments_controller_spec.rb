@@ -3,26 +3,23 @@ require 'spec_helper'
 describe Api::V1::CommentsController do
   render_views
 
-  let(:user) { Fabricate(:user) }
-  let(:party) { Fabricate(:party) }
-  let(:venue) { Fabricate(:venue) }
-  let(:comment) { Fabricate(:party_comment, commenter: user) }
   before(:each) do
     create_new_tenant
-    party
-    venue
-    comment
-    user
-    request.headers['auth-token'] = user.authentication_token
-    request.headers['auth-email'] = user.email
+    login(:user)
+    @comment = Fabricate(:party_comment, commenter: @current_user)
+    request.headers['auth-token'] = @current_user.authentication_token
+    request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
+
+  let(:party) { Fabricate(:party) }
+  let(:venue) { Fabricate(:venue) }
+  let(:valid_attributes) { Fabricate.attributes_for(:comment) }
 
   describe "GET index" do
     context 'user not authenticated' do
       before {
         request.headers['auth-token'] = 'fake_authentication_token'
-        subject.stub(:current_user).and_return(user)
         xhr :get, :index
       }
 
@@ -33,7 +30,6 @@ describe Api::V1::CommentsController do
 
     context 'user authenticated' do
       before {
-        subject.stub(:current_user).and_return(user)
         xhr :get, :index
       }
 
@@ -46,11 +42,8 @@ describe Api::V1::CommentsController do
   describe "GET show" do
     context 'user not authenticated' do
       before {
-
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :get, :show, :id => comment.id
+        xhr :get, :show, :id => @comment.id
       }
 
       it 'returns http 401' do
@@ -60,8 +53,7 @@ describe Api::V1::CommentsController do
 
     context 'user authenticated' do
       before {
-        subject.stub(:current_user).and_return(user)
-        xhr :get, :show, :id => comment.id
+        xhr :get, :show, :id => @comment.id
       }
 
       it 'returns http 200' do
@@ -73,15 +65,13 @@ describe Api::V1::CommentsController do
   describe "POST create" do
     context 'user not authenticated' do
       before {
-        comment.commentable_type = 'Party'
-        comment.commentable_id = party.id
-        comment.commenter_type = "User"
-        comment.commenter_id = user.id
+        @comment.commentable_type = 'Party'
+        @comment.commentable_id = party.id
+        @comment.commenter_type = "User"
+        @comment.commenter_id = @current_user.id
 
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :comment => comment.attributes.except('id')
+        xhr :post, :create, :comment => @comment.attributes.except('id')
       }
 
       it 'returns http 401' do
@@ -91,15 +81,11 @@ describe Api::V1::CommentsController do
     context 'user is authenticated' do
       context 'commenter is the current_user' do
         before {
-          comment.commentable_type = 'Party'
-          comment.commentable_id = party.id
-          comment.commenter_type = "User"
-          comment.commenter_id = user.id
-
-          request.headers['auth-token'] = user.authentication_token
-          request.headers['auth-email'] = user.email
-          subject.stub(:current_user).and_return(user)
-          xhr :post, :create, :comment => comment.attributes.except('id')
+          @comment.commentable_type = 'Party'
+          @comment.commentable_id = party.id
+          @comment.commenter_type = "User"
+          @comment.commenter_id = @current_user.id
+          xhr :post, :create, :comment => @comment.attributes.except('id', 'created_at', 'updated_at')
         }
 
         it 'returns http 201' do
@@ -109,33 +95,28 @@ describe Api::V1::CommentsController do
       context 'commenter is not a user' do
         context 'current user is not able to comment as commenter' do
           before {
-            comment.commentable_type = 'Party'
-            comment.commentable_id = party.id
-            comment.commenter_type = "Venue"
-            comment.commenter_id = venue.id
+            @current_user.roles.clear
+            @comment.commentable_type = 'Party'
+            @comment.commentable_id = party.id
+            @comment.commenter_type = "Venue"
+            @comment.commenter_id = venue.id
 
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :post, :create, :comment => comment.attributes.except('id')
           }
 
-          it 'returns http 403' do
-            response.response_code.should == 403
+          it 'access denied' do
+            expect{
+              xhr :post, :create, :comment => @comment.attributes.except('id', 'created_at', 'updated_at')
+            }.to raise_error(CanCan::AccessDenied)
           end
         end
         context 'current user can comment as commenter' do
           before {
-            comment.commentable_type = 'Party'
-            comment.commentable_id = party.id
-            comment.commenter_type = "Venue"
-            comment.commenter_id = venue.id
-
-            user.add_role(:manager, venue)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            subject.stub(:current_user).and_return(user)
-            xhr :post, :create, :comment => comment.attributes.except('id')
+            @comment.commentable_type = 'Party'
+            @comment.commentable_id = party.id
+            @comment.commenter_type = "Venue"
+            @comment.commenter_id = venue.id
+            @current_user.add_role(:manager, venue)
+            xhr :post, :create, :comment => @comment.attributes.except('id', 'created_at', 'updated_at')
           }
 
           it 'returns http 201' do
@@ -149,16 +130,14 @@ describe Api::V1::CommentsController do
   describe "PUT update" do
     context 'user not authenticated' do
       before {
-        comment.commentable_type = 'Party'
-        comment.commentable_id = party.id
-        comment.commenter_type = "User"
-        comment.commenter_id = user.id
+        @comment.commentable_type = 'Party'
+        @comment.commentable_id = party.id
+        @comment.commenter_type = "User"
+        @comment.commenter_id = @current_user.id
 
         request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
         Comment.should_not_receive(:find)
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: comment.id, :comment => {body: 'Different Body'}
+        xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}
       }
 
       it 'returns http 401' do
@@ -169,60 +148,50 @@ describe Api::V1::CommentsController do
     context 'user is authenticated' do
       context 'commenter is the current_user' do
         before {
-          comment.commentable_type = 'Party'
-          comment.commentable_id = party.id
-          comment.commenter_type = "User"
-          comment.commenter_id = user.id
-
-          request.headers['auth-token'] = user.authentication_token
-          request.headers['auth-email'] = user.email
-          Comment.should_receive(:find).with(comment.id.to_s).and_return(comment)
-          subject.stub(:current_user).and_return(user)
-          xhr :put, :update, id: comment.id, :comment => {body: 'Different Body'}
+          @comment.commentable_type = 'Party'
+          @comment.commentable_id = party.id
+          @comment.commenter_type = "User"
+          @comment.commenter_id = @current_user.id
+          Comment.should_receive(:find).with(@comment.id.to_s).and_return(@comment)
+          xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}
         }
 
-        it 'returns http 200' do
-          response.response_code.should == 200
+        it 'returns http 204' do
+          response.response_code.should == 204
         end
       end
 
       context 'commenter is not a user' do
         context 'current user is not able to comment as commenter' do
           before {
-            comment.commentable_type = 'Party'
-            comment.commentable_id = party.id
-            comment.commenter_type = "Venue"
-            comment.commenter_id = venue.id
-            user.roles.clear
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            Comment.should_receive(:find).with(comment.id.to_s).and_return(comment)
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :update, id: comment.id, :comment => {body: 'Different Body'}
+            @comment.commentable_type = 'Party'
+            @comment.commentable_id = party.id
+            @comment.commenter_type = "Venue"
+            @comment.commenter_id = venue.id
+            @current_user.roles.clear
+            Comment.should_receive(:find).with(@comment.id.to_s).and_return(@comment)
           }
 
-          it 'returns http 403' do
-            response.response_code.should == 403
+          it 'returns error' do
+            expect{
+              xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}
+            }.to raise_error(CanCan::AccessDenied)
           end
         end
 
         context 'current user can comment as commenter' do
           before {
-            comment.commentable_type = 'Party'
-            comment.commentable_id = party.id
-            comment.commenter_type = "Venue"
-            comment.commenter_id = venue.id
-
-            user.add_role(:manager, venue)
-            request.headers['auth-token'] = user.authentication_token
-            request.headers['auth-email'] = user.email
-            Comment.should_receive(:find).with(comment.id.to_s).and_return(comment)
-            subject.stub(:current_user).and_return(user)
-            xhr :put, :update, id: comment.id, :comment => {body: 'Different Body'}
+            @comment.commentable_type = 'Party'
+            @comment.commentable_id = party.id
+            @comment.commenter_type = "Venue"
+            @comment.commenter_id = venue.id
+            @current_user.add_role(:manager, venue)
+            Comment.should_receive(:find).with(@comment.id.to_s).and_return(@comment)
+            xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}
           }
 
-          it 'returns http 200' do
-            response.response_code.should == 200
+          it 'returns http 204' do
+            response.response_code.should == 204
           end
         end
       end
