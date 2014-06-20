@@ -15,27 +15,6 @@ describe Comment do
                           commentable_id: @party.id, commentable_type: 'Party')
   end
 
-  describe "self.build_comment(params)" do
-    context "commentable, commenter, and body present" do
-      it "calls Comment.build_from" do
-        Party.should_receive(:find).and_return(@party)
-        User.should_receive(:find).and_return(@user)
-        Comment.should_receive(:build_from).with(@party, @user, 'test')
-        Comment.build_comment({commenter_id: @user.id, commenter_type: 'User',
-                          commentable_id: @party.id, commentable_type: 'Party', body: 'test'})
-      end
-    end
-    context "body not present" do
-      it "calls Comment.build_from" do
-        Party.should_receive(:find).and_return(@party)
-        User.should_receive(:find).and_return(@user)
-        Comment.should_not_receive(:build_from)
-        Comment.build_comment({commenter_id: @user.id, commenter_type: 'User',
-                          commentable_id: @party.id, commentable_type: 'Party'})
-      end
-    end
-  end
-
   describe "self.find_comments_by_commenter(commenter)" do
     it "should return comments created by the specified commenter" do
       Comment.find_comments_by_commenter(@user).should == [@comment]
