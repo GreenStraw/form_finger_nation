@@ -69,15 +69,3 @@ describe Comment do
     end
   end
 end
-
-  # def self.find_comments_by_commenter(commenter)
-  #   Comment.where(:commenter_id => commenter.id, :commenter_type => commenter.class).order('created_at DESC')
-  # end
-
-  # def self.find_comments_for_commentable(commentable)
-  #   Comment.where(:commentable_type => commentable.class, :commentable_id => commentable.id).order('created_at DESC')
-  # end
-
-  # def self.find_commentable(commentable_type, commentable_id)
-  #   commentable_type.constantize.find(commentable_id)
-  # end
