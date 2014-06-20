@@ -314,8 +314,8 @@ describe Api::V1::PartiesController do
       end
       it "passes the correct invitees to PartyInvitation.create_invitations" do
         u = User.create(email: 'test2@test.com')
-        PartyInvitation.should_receive(:create_invitations).with([[1,@current_user.email], [u.id, 'test2@test.com'], [nil, 'test3@test.com']] ,@current_user.id, @party.id).and_return([Fabricate(:party_invitation)])
-        post :invite, :party => {user_ids:[1],emails:['test2@test.com','test3@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
+        PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@current_user.id, @party.id).and_return([Fabricate(:party_invitation)])
+        post :invite, :party => {emails:['test2@test.com','test3@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
       end
     end
   end

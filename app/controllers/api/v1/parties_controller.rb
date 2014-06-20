@@ -62,17 +62,12 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   def invite
-    user_ids = invite_params[:user_ids]
     emails = invite_params[:emails]
     inviter_id = invite_params[:inviter_id]
     party_id = invite_params[:party_id]
     party = Party.find(invite_params[:party_id])
     if current_user.id == inviter_id && current_user.id == party.organizer_id
-      invitees = invitees(user_ids, emails)
-      invitations = PartyInvitation.create_invitations(invitees, inviter_id, party_id)
-      invitations.each do |invitation|
-        invitation.send_invitation
-      end
+      invitations = PartyInvitation.send_invitations(emails, inviter_id, party_id)
       return render json: party, status: 201
     else
       return render json: {}, status: 403
@@ -80,16 +75,6 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   private
-
-  def invitees(user_ids, emails)
-    invitees = User.where(id: user_ids).map{|u| [u.id, u.email]}
-    invitees += User.where(email: emails).map{|u| [u.id, u.email]}
-    invitee_emails = invitees.map{|i| i[1]}
-    emails.reject{|e| invitee_emails.include?(e)}.each do |email|
-      invitees << [nil,email]
-    end
-    invitees
-  end
 
   def search_parties(search, address, radius, from_date, to_date)
     bar_ids = venue_ids_by_address_and_radius(address, radius)
