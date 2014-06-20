@@ -1,5 +1,7 @@
 class Party < ActiveRecord::Base
   acts_as_commentable
+  validates :name, presence: true
+  validates :scheduled_for, presence: true
 
   after_update :send_notification_when_verified
 
@@ -14,6 +16,8 @@ class Party < ActiveRecord::Base
   belongs_to :team
   belongs_to :sport
   belongs_to :venue
+
+  accepts_nested_attributes_for :address
 
   attr_accessor :user_ids, :emails
 

@@ -1,25 +1,28 @@
 class Api::V1::TeamsController < Api::V1::BaseController
+  load_and_authorize_resource
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
 
   def index
-    return render json: Team.all
+    respond_with @teams = Team.all
   end
 
   def show
-    return render json: Team.find(params[:id])
+    respond_with @team
   end
 
   def create
-    if current_user.has_role?(:admin)
-      @team = Team.new(team_params)
-      if @team.save
-        return render json: @team
-      else
-        return render json: { :errors => @team.errors.full_messages }, status: 422
-      end
-    else
-      return render json: {}, status: 403
-    end
+    @team.save
+    respond_with @team, :location=>api_v1_teams_path
+  end
+
+  def update
+    @team.update(team_params)
+    respond_with @team, :location=>api_v1_teams_path
+  end
+
+  def destroy
+    @team.destroy
+    respond_with @team, :location=>api_v1_teams_path
   end
 
   def subscribe_user
@@ -45,32 +48,6 @@ class Api::V1::TeamsController < Api::V1::BaseController
       return render json: @team
     else
       return render json: { :errors => @team.errors.full_messages }, status: 422
-    end
-  end
-
-  def update
-    @team = Team.find(params[:id])
-    if current_user.has_role?(:admin) || current_user.has_role?(:team_admin, @team)
-      if @team.update!(team_params)
-        return render json: @team
-      else
-        return render json: { :errors => @team.errors.full_messages }, status: 422
-      end
-    else
-      return render json: {}, status: 403
-    end
-  end
-
-  def destroy
-    if current_user.has_role?(:admin)
-      @team = Team.find(params[:id])
-      if @team.destroy
-        return render json: {}, status:200
-      else
-        return render json: { :errors => @team.errors.full_messages }, status: 422
-      end
-    else
-      return render json: {}, status: 403
     end
   end
 
@@ -107,7 +84,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
   end
 
   def team_params
-    params.require(:team).permit(:name, :information, :image_url, :sport_id, :address, {:fan_ids=>[]})
+    params.require(:team).permit(:name, :information, :image_url, :sport_id, :address, {:fan_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
 end

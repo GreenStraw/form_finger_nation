@@ -110,13 +110,13 @@ describe Api::V1::UsersController do
           'employer_ids' => [],
           'first_name' => nil,
           'last_name' => nil,
-          'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
           'managed_venue_ids' => [],
           'purchased_packages' => [],
           'first_name' => 'Test',
           'last_name' => 'User',
-          'confirmed'=>true}
+          'confirmed'=>true,
+          'address'=>nil}
         up_user.should == expect_user
       end
     end
@@ -150,13 +150,13 @@ describe Api::V1::UsersController do
           'employer_ids' => [],
           'first_name' => nil,
           'last_name' => nil,
-          'address_id' => nil,
           'endorsing_team_ids' => @user.endorsing_teams,
           'managed_venue_ids' => [],
           'purchased_packages' => [],
           'first_name' => 'Test',
           'last_name' => 'User',
-          'confirmed'=>true}
+          'confirmed'=>true,
+          'address'=>nil}
         up_user.should == expect_user
       end
     end

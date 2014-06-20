@@ -1,6 +1,6 @@
 class Api::V1::VenuesController < Api::V1::BaseController
   load_and_authorize_resource
-  
+
   def index
     respond_with @venues
   end
@@ -27,7 +27,7 @@ class Api::V1::VenuesController < Api::V1::BaseController
   private
 
   def venue_params
-    params.require(:venue).permit(:name, :image_url, :description, :address, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[], :package_ids=>[]})
+    params.require(:venue).permit(:name, :image_url, :description, :address, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[], :package_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
 end

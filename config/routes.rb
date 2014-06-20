@@ -59,7 +59,10 @@ Baseapp::Application.routes.draw do
       end
       resources :venues
       resources :parties do
-        post 'invite', on: :collection
+        collection do
+          get 'search'
+          post 'invite'
+        end
         member do
           put 'rsvp'
           put 'unrsvp'
