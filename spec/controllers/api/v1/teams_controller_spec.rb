@@ -121,84 +121,82 @@ describe Api::V1::TeamsController do
     end
   end
 
-  describe "PUT add_host" do
-    context 'user not authenticated' do
-      before {
-        request.headers['auth-token'] = 'fake_authentication_token'
-        xhr :post, :add_host, id: @team.id, user_id: @current_user.id
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+  describe "PUT subscribe user" do
+    context "user not fan" do
+      it "adds user to team fans" do
+        expect {
+          put :subscribe_user, team_id: @team.id, fan_id: @current_user.id, format: :json
+        }.to change(@team.fans, :count).by(1)
       end
     end
-    context 'user authenticated' do
-      context 'current user does have team admin role for team' do
-        before {
-          @current_user.add_role(:team_admin, @team)
-          xhr :post, :add_host, id: @team.id, user_id: @current_user.id
-        }
+    context "user already fan" do
+      before {
+        @team.fans = [@current_user]
+      }
+      it "does not add user" do
+        expect {
+          put :subscribe_user, team_id: @team.id, fan_id: @current_user.id, format: :json
+        }.to change(@team.fans, :count).by(0)
+      end
+    end
+  end
 
-        it 'returns http 200' do
-          response.response_code.should == 200
-        end
+  describe "PUT unsubscribe user" do
+    context "user is fan" do
+      before {
+        @team.fans = [@current_user]
+      }
+      it "removes user from team fans" do
+        expect {
+          put :unsubscribe_user, team_id: @team.id, fan_id: @current_user.id, format: :json
+        }.to change(@team.fans, :count).by(-1)
       end
-      context 'team already includes user as a host' do
-        it 'should not call <<' do
-          @current_user.add_role(:team_admin, @team)
-          @team.endorsed_hosts = [@current_user]
-          @team.should_not_receive(:<<)
-          xhr :post, :add_host, id: @team.id, user_id: @current_user.id
-        end
+    end
+    context "user not fan" do
+      it "does not remove user" do
+        expect {
+          put :unsubscribe_user, team_id: @team.id, fan_id: @current_user.id, format: :json
+        }.to change(@team.fans, :count).by(0)
       end
-      context 'team does not include user as a host' do
-        it 'should add user to endorsed_hosts' do
-          @current_user.add_role(:team_admin, @team)
-          @team.endorsed_hosts.should_not include(@current_user)
-          xhr :post, :add_host, id: @team.id, user_id: @current_user.id
-          assigns(:team).endorsed_hosts.should include(@current_user)
-        end
+    end
+  end
+
+  describe "PUT add_host" do
+    context "user not host" do
+      it "adds user to team hosts" do
+        expect {
+          put :add_host, id: @team.id, host_id: @current_user.id, format: :json
+        }.to change(@team.hosts, :count).by(1)
+      end
+    end
+    context "user already host" do
+      before {
+        @team.hosts = [@current_user]
+      }
+      it "does not add user" do
+        expect {
+          put :add_host, id: @team.id, host_id: @current_user.id, format: :json
+        }.to change(@team.hosts, :count).by(0)
       end
     end
   end
 
   describe "PUT remove_host" do
-    context 'user not authenticated' do
+    context "user is host" do
       before {
-        request.headers['auth-token'] = 'fake_authentication_token'
-        xhr :post, :remove_host, id: @team.id, user_id: @current_user.id
+        @team.hosts = [@current_user]
       }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+      it "removes user from team hosts" do
+        expect {
+          put :remove_host, id: @team.id, host_id: @current_user.id, format: :json
+        }.to change(@team.hosts, :count).by(-1)
       end
     end
-    context 'user authenticated' do
-      context 'current user does have team admin role for team' do
-        before {
-          @current_user.add_role(:team_admin, @team)
-          xhr :post, :remove_host, id: @team.id, user_id: @current_user.id
-        }
-
-        it 'returns http 200' do
-          response.response_code.should == 200
-        end
-      end
-      context 'team already includes user as a host' do
-        it 'should remove the user' do
-          @current_user.add_role(:team_admin, @team)
-          @team.endorsed_hosts = [@current_user]
-          @team.endorsed_hosts.should include(@current_user)
-          xhr :post, :remove_host, id: @team.id, user_id: @current_user.id
-          assigns(:team).endorsed_hosts.should_not include(@current_user)
-        end
-      end
-      context 'team does not include user as a host' do
-        it 'should not call delete' do
-          @current_user.add_role(:team_admin, @team)
-          @team.endorsed_hosts.should_not_receive(:delete)
-          xhr :post, :remove_host, id: @team.id, user_id: @current_user.id
-        end
+    context "user not host" do
+      it "does not remove user" do
+        expect {
+          put :remove_host, id: @team.id, host_id: @current_user.id, format: :json
+        }.to change(@team.hosts, :count).by(0)
       end
     end
   end
