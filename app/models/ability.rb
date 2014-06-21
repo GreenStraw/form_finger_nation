@@ -28,5 +28,13 @@ class Ability
     can :manage, Package do |package|
       user.has_role?(:manager, package.venue)
     end
+
+    can :add_host, Team do |team|
+      user.has_role?(:team_admin, team)
+    end
+
+    can :remove_host, Team do |team|
+      user.has_role?(:team_admin, team)
+    end
   end
 end

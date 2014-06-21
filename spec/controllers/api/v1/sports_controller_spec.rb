@@ -3,193 +3,163 @@ require 'spec_helper'
 describe Api::V1::SportsController do
   render_views
 
-  let(:sport) { Fabricate(:sport) }
-  let(:user) { Fabricate(:user) }
   before do
     create_new_tenant
-    sport
-    user
-    request.headers['auth-token'] = user.authentication_token
-    request.headers['auth-email'] = user.email
+    login(:admin)
+    @sport = Fabricate(:sport)
+
+    request.headers['auth-token'] = @current_user.authentication_token
+    request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
-  describe 'GET index' do
-    context 'index' do
-      before do
-        get :index
-      end
+  let(:valid_attributes) { Fabricate.attributes_for(:sport) }
 
-      it 'returns http 200' do
-        response.response_code.should == 200
-      end
+  describe "GET index" do
+    before(:each) do
+      get :index, format: :json
+    end
+    it "returns https status 200" do
+      response.status.should eq(200)
+    end
+    it "assigns all sports as @sports" do
+      assigns(:sports).should_not be_nil
     end
   end
 
-  describe 'GET show' do
-    context 'show' do
-      before do
-        get :show, id: sport.id
-      end
-
-      it 'returns http 200' do
-        response.response_code.should == 200
-      end
+  describe "GET show" do
+    it "assigns the requested activity as @sport" do
+      get :show, :id => @sport.to_param, format: :json
+      assigns(:sport).should eq(@sport)
     end
   end
 
-  describe 'POST create' do
-    context 'current user not admin' do
-      before {
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
-      end
-    end
-    context 'user not authenticated' do
-      before {
-
+  describe "POST create" do
+    describe "with invalid authentication" do
+      before(:each) do
         request.headers['auth-token'] = 'fake_authentication_token'
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+        post :create, :sport => valid_attributes, format: :json
+      end
+      it "returns http status 401" do
+        response.status.should eq(401)
       end
     end
-    context 'sport failed to save' do
-      before {
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        sp = Sport.new
-        Sport.should_receive(:new).with({"name"=>sport.name, "image_url"=>nil}).and_return(sp)
-        sp.should_receive(:save).and_return(false)
-        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
-      }
-
-      it 'returns http 422' do
-        response.response_code.should == 422
+    describe "with valid params" do
+      before(:each) do
+        post :create, :sport => valid_attributes, format: :json
+      end
+      it "assigns a newly created sport as @sport" do
+        assigns(:sport).should be_a(Sport)
+      end
+      it "creates a new Sport" do
+        assigns(:sport).should be_persisted
+      end
+      it "responds with status 201" do
+        expect(response.status).to eq(201)
+      end
+      it "responds with json" do
+        expect(JSON.parse(response.body)).to have_key('sport')
       end
     end
-    context 'everything is good' do
-      before {
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :create, :sport => {name: sport.name, image_url: nil}
-      }
 
-      it 'returns http 200' do
-        response.response_code.should == 200
+    describe "with invalid params" do
+      before(:each) do
+        Sport.any_instance.should_receive(:valid?).and_return(false)
+        post :create, :sport => { "user_id" => "" }, format: :json
       end
-    end
-  end
-
-  describe 'PUT update' do
-    context 'current user not admin' do
-      before {
-        sport = Fabricate(:sport)
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
+      it "assigns a newly created but unsaved activity as @sport" do
+        assigns(:sport).should be_a_new(Sport)
       end
-    end
-    context 'user not authenticated' do
-      before {
-
-        request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :update, id: sport.id, sport: {name: 'another_name'}
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+      it "dos not persist the sport" do
+        assigns(:sport).should_not be_persisted
       end
-    end
-    context 'sport failed to save' do
-      before {
-        sport = Fabricate(:sport)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
-        sport.should_receive(:update!).and_return(false)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
-      }
-
-      it 'returns http 422' do
-        response.response_code.should == 422
-      end
-    end
-    context 'everything is good' do
-      before {
-        sport = Fabricate(:sport)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        xhr :put, :update, id: sport.id, sport: {name: 'another_name'}
-      }
-
-      it 'returns http 200' do
-        response.response_code.should == 200
+      it "responds with status 201" do
+        expect(response.status).to eq(201)
       end
     end
   end
 
-  describe 'DELETE destroy' do
-    context 'current user not admin' do
-      before {
-        sport = Fabricate(:sport)
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: sport.id
-      }
-
-      it 'returns http 403' do
-        response.response_code.should == 403
+  describe "PUT update" do
+    describe "with valid params" do
+      before(:each) do
+        Sport.any_instance.should_receive(:update)
+        put :update, :id => @sport.to_param, :sport => valid_attributes, format: :json
+      end
+      it "assigns the requested activity as @sport" do
+        assigns(:sport).should eq(@sport)
+      end
+      it "responds with status 204" do
+        expect(response.status).to eq(204)
+      end
+      it "responds with json" do
+        # expect(JSON.parse(response.body)).to have_key('sport')
+        response.body.should == ''
       end
     end
-    context 'user not authenticated' do
-      before {
 
-        request.headers['auth-token'] = 'fake_authentication_token'
-        request.headers['auth-email'] = user.email
-        subject.stub(:current_user).and_return(user)
-        xhr :post, :destroy, id: sport.id
-      }
-
-      it 'returns http 401' do
-        response.response_code.should == 401
+    describe "with invalid params" do
+      before(:each) do
+        Sport.should_receive(:find).and_return(@sport)
+        @sport.should_receive(:valid?).and_return(false)
+        @sport.errors.add(:base, "some generic error")
+        put :update, :id => @sport.to_param, :sport => { "name" => "" }, format: :json
+      end
+      it "assigns the activity as @sport" do
+        assigns(:sport).should eq(@sport)
+      end
+      it "responds with status 422" do
+        expect(response.status).to eq(422)
+      end
+      it "should return the error as json" do
+        response.body.should eq("{\"errors\":{\"base\":[\"some generic error\"]}}")
       end
     end
-    context 'sport failed to save' do
-      before {
-        sport = Fabricate(:sport)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        Sport.should_receive(:find).with(sport.id.to_s).and_return(sport)
-        sport.should_receive(:destroy).and_return(false)
-        xhr :delete, :destroy, id: sport.id
-      }
+  end
 
-      it 'returns http 422' do
-        response.response_code.should == 422
+  describe "DELETE destroy" do
+    it "destroys the requested activity" do
+      expect {
+        delete :destroy, :id => @sport.to_param, format: :json
+      }.to change(Sport, :count).by(-1)
+    end
+  end
+
+  describe "PUT subscribe user" do
+    context "user not fan" do
+      it "adds user to sport fans" do
+        expect {
+          put :subscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+        }.to change(@sport.fans, :count).by(1)
       end
     end
-    context 'everything is good' do
+    context "user already fan" do
       before {
-        sport = Fabricate(:sport)
-        user.add_role :admin
-        subject.stub(:current_user).and_return(user)
-        xhr :delete, :destroy, id: sport.id
+        @sport.fans = [@current_user]
       }
+      it "does not add user" do
+        expect {
+          put :subscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+        }.to change(@sport.fans, :count).by(0)
+      end
+    end
+  end
 
-      it 'returns http 200' do
-        response.response_code.should == 200
+  describe "PUT unsubscribe user" do
+    context "user is fan" do
+      before {
+        @sport.fans = [@current_user]
+      }
+      it "removes user from sport fans" do
+        expect {
+          put :unsubscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+        }.to change(@sport.fans, :count).by(-1)
+      end
+    end
+    context "user not fan" do
+      it "does not remove user" do
+        expect {
+          put :unsubscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+        }.to change(@sport.fans, :count).by(0)
       end
     end
   end
