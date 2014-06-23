@@ -5,9 +5,6 @@ class Api::V1::BaseController < ApplicationController
   before_action :validate_token
   respond_to :json
 
-  # before_filter :cors_preflight_check
-  # after_filter :cors_set_access_control_headers
-
   def current_user
     user_email = request.headers['auth-email']
     user_token = request.headers['auth-token']

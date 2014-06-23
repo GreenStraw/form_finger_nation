@@ -38,40 +38,29 @@ class Api::V1::PartiesController < Api::V1::BaseController
   def rsvp
     @party = Party.find(params[:id])
     @user = User.find(rsvp_params[:user_id])
-    if current_user == @user
-      if !@party.attendees.include?(current_user)
-        @party.attendees << current_user
-      end
-      return render json: @party
-    else
-      return render json: {}, status: 403
+    if !@party.attendees.include?(@user)
+      @party.attendees << @user
     end
+    respond_with @party, :location=>api_v1_teams_path
   end
 
   def unrsvp
     @party = Party.find(params[:id])
     @user = User.find(rsvp_params[:user_id])
-    if current_user == @user
-      if @party.attendees.include?(current_user)
-        @party.attendees.delete(current_user)
-      end
-      return render json: @party
-    else
-      return render json: {}, status: 403
+    if @party.attendees.include?(current_user)
+      @party.attendees.delete(current_user)
     end
+    respond_with @party, :location=>api_v1_teams_path
   end
 
   def invite
     emails = invite_params[:emails]
     inviter_id = invite_params[:inviter_id]
     party_id = invite_params[:party_id]
-    party = Party.find(invite_params[:party_id])
-    if current_user.id == inviter_id && current_user.id == party.organizer_id
-      invitations = PartyInvitation.send_invitations(emails, inviter_id, party_id)
-      return render json: party, status: 201
-    else
-      return render json: {}, status: 403
-    end
+    @party = Party.find(invite_params[:party_id])
+    PartyInvitation.send_invitations(emails, inviter_id, party_id)
+
+    respond_with @party, :location=>api_v1_teams_path
   end
 
   private

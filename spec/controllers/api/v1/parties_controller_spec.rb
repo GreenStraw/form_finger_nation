@@ -191,45 +191,30 @@ describe Api::V1::PartiesController do
       end
     end
     context 'user authenticated' do
-      context 'current_user does not equal passed in user' do
+      context 'party attendees does not include user' do
         before {
-          party = Fabricate(:party)
-          other_user = Fabricate(:user)
-          xhr :put, :rsvp, id: party.id, user_id: other_user.id
+          @party.attendees.clear
+          @party.attendees.should_not include(@current_user)
+          xhr :put, :rsvp, id: @party.id, user_id: @current_user.id
         }
 
-        it 'returns http 403' do
-          response.response_code.should == 403
+        it 'should add the attendee to party' do
+          assigns(:party).attendees.should include(@current_user)
+        end
+
+        it 'returns http 204' do
+          response.response_code.should == 204
         end
       end
-      context 'current_user equals passed in user' do
-        context 'party attendees does not include user' do
-          before {
-            party = Fabricate(:party)
-            party.attendees.clear
-            party.attendees.should_not include(@current_user)
-            xhr :put, :rsvp, id: party.id, user_id: @current_user.id
-          }
+      context 'party attendees does include user' do
+        before {
+          @party.attendees.clear
+          @party.attendees.should_not_receive(:<<)
+          xhr :put, :rsvp, id: @party.id, user_id: @current_user.id
+        }
 
-          it 'should add the attendee to party' do
-            assigns(:party).attendees.should include(@current_user)
-          end
-
-          it 'returns http 200' do
-            response.response_code.should == 200
-          end
-        end
-        context 'party attendees does include user' do
-          before {
-            party = Fabricate(:party)
-            party.attendees.clear
-            party.attendees.should_not_receive(:<<)
-            xhr :put, :rsvp, id: party.id, user_id: @current_user.id
-          }
-
-          it 'returns http 200' do
-            response.response_code.should == 200
-          end
+        it 'returns http 204' do
+          response.response_code.should == 204
         end
       end
     end
@@ -247,43 +232,31 @@ describe Api::V1::PartiesController do
       end
     end
     context 'user authenticated' do
-      context 'current_user does not equal passed in user' do
+      context 'party attendees include user' do
         before {
-          other_user = Fabricate(:user)
-          xhr :put, :unrsvp, id: @party.id, user_id: other_user.id
+          @party.attendees.clear
+          @party.attendees << @current_user
+          @party.attendees.should include(@current_user)
+          xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
         }
 
-        it 'returns http 403' do
-          response.response_code.should == 403
+        it 'should add the attendee to party' do
+          assigns(:party).attendees.should_not include(@current_user)
+        end
+
+        it 'returns http 204' do
+          response.response_code.should == 204
         end
       end
-      context 'current_user equals passed in user' do
-        context 'party attendees include user' do
-          before {
-            @party.attendees.clear
-            @party.attendees << @current_user
-            @party.attendees.should include(@current_user)
-            xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
-          }
+      context 'party attendees does not include user' do
+        before {
+          @party.attendees.clear
+          @party.attendees.should_not_receive(:delete)
+          xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
+        }
 
-          it 'should add the attendee to party' do
-            assigns(:party).attendees.should_not include(@current_user)
-          end
-
-          it 'returns http 200' do
-            response.response_code.should == 200
-          end
-        end
-        context 'party attendees does not include user' do
-          before {
-            @party.attendees.clear
-            @party.attendees.should_not_receive(:delete)
-            xhr :put, :unrsvp, id: @party.id, user_id: @current_user.id
-          }
-
-          it 'returns http 200' do
-            response.response_code.should == 200
-          end
+        it 'returns http 204' do
+          response.response_code.should == 204
         end
       end
     end
@@ -309,7 +282,7 @@ describe Api::V1::PartiesController do
       end
       it "passes the correct invitees to PartyInvitation.create_invitations" do
         u = User.create(email: 'test2@test.com')
-        PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@current_user.id, @party.id).and_return([Fabricate(:party_invitation)])
+        PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@current_user.id, @party.id)
         post :invite, :party => {emails:['test2@test.com','test3@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
       end
     end

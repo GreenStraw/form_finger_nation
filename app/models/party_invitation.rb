@@ -16,7 +16,6 @@ class PartyInvitation < ActiveRecord::Base
 
   def self.send_invitations(emails, inviter_id, party_id)
     invitations = []
-
     #remove emails that already have an invitation for this party
     existing_invitation_emails = PartyInvitation.where(email: emails, party_id: party_id).map(&:email)
     emails = emails.reject{|e| existing_invitation_emails.include?(e)}
@@ -29,7 +28,6 @@ class PartyInvitation < ActiveRecord::Base
                                           party_id: party_id)
       invitation.send_invitation
     end
-    invitations
   end
 
   private
