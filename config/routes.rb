@@ -5,7 +5,7 @@ Baseapp::Application.routes.draw do
   root :to => "home#index"
 
   # Authentication
-  devise_for :users, skip: [:sessions, :passwords, :confirmations, :registrations]
+  devise_for :users, skip: [:sessions, :passwords, :confirmations]
   as :user do
     # session handling
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'

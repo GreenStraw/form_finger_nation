@@ -4,24 +4,21 @@ require 'stripe_mock'
 describe Api::V1::ChargesController do
   render_views
 
-  let(:user) { Fabricate(:user) }
-  let(:package) { Fabricate(:package) }
-  let(:party) { Fabricate(:party) }
   before { StripeMock.start }
   after { StripeMock.stop }
   before(:each) do
     create_new_tenant
-    party
-    package
-    user
-    request.headers['auth-token'] = user.authentication_token
-    request.headers['auth-email'] = user.email
+    login(:admin)
+    @package = Fabricate(:package)
+    @party = Fabricate(:party)
+    request.headers['auth-token'] = @current_user.authentication_token
+    request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
-    @single_package_purchase = {user_id: user.id, stripeToken: 'something', amount: 500.00, purchases: [
-                                {package_id: package.id, party_id: party.id}
+    @single_package_purchase = {user_id: @current_user.id, stripeToken: 'something', amount: 500.00, purchases: [
+                                {package_id: @package.id, party_id: @party.id}
                                 ]}
-    @single_package_purchase_low_amount = {user_id: user.id, amount: 50.00, purchases: [
-                                {package_id: package.id, party_id: party.id}
+    @single_package_purchase_low_amount = {user_id: @current_user.id, amount: 50.00, purchases: [
+                                {package_id: @package.id, party_id: @party.id}
                                 ]}
     @stripe_customer = {
               "id"=> "test_cus_1",
@@ -63,22 +60,19 @@ describe Api::V1::ChargesController do
 
   describe "build_user_purchased_packages(user, purchases)" do
     before {
-
-      @purchases = [{package_id: package.id, party_id: party.id}, {package_id: '5', party_id: '6'}]
+      @purchases = [{package_id: @package.id, party_id: @party.id}, {package_id: '5', party_id: '6'}]
     }
     it "should call UserPurchasedPackage for each purchase" do
-      UserPurchasedPackage.should_receive(:new).with(:user_id=>user.id, :package_id=>@purchases.first[:package_id], :party_id=>@purchases.first[:party_id])
-      UserPurchasedPackage.should_receive(:new).with(:user_id=>user.id, :package_id=>'5', :party_id=>'6')
-      subject.send(:build_user_purchased_packages, user, @purchases)
+      UserPurchasedPackage.should_receive(:new).with(:user_id=>@current_user.id, :package_id=>@purchases.first[:package_id], :party_id=>@purchases.first[:party_id])
+      UserPurchasedPackage.should_receive(:new).with(:user_id=>@current_user.id, :package_id=>'5', :party_id=>'6')
+      subject.send(:build_user_purchased_packages, @current_user, @purchases)
     end
   end
 
   describe "POST create" do
     context 'user not authenticated' do
       before {
-
         request.headers['auth-token'] = 'fake_authentication_token'
-        subject.stub(:current_user).and_return(user)
         xhr :post, :create, :charge => @single_package_purchase
       }
 
@@ -100,7 +94,6 @@ describe Api::V1::ChargesController do
       end
       context 'amount is less than 1 dollar' do
         before {
-          subject.stub(:current_user).and_return(user)
           xhr :post, :create, :charge => @single_package_purchase_low_amount
         }
 
@@ -110,8 +103,7 @@ describe Api::V1::ChargesController do
       end
       context 'purchases are empty' do
         before {
-          subject.stub(:current_user).and_return(user)
-          xhr :post, :create, :charge => {user_id: user.id, amount: 50, purchases: []}
+          xhr :post, :create, :charge => {user_id: @current_user.id, amount: 50, purchases: []}
         }
 
         it 'should not call build_user_package_purchases' do
@@ -124,17 +116,15 @@ describe Api::V1::ChargesController do
       context 'user, amount, purchases ok' do
         context 'user customer_id is empty' do
           it "calls Stripe::Customer.create and creates the user's customer_id" do
-            subject.stub(:current_user).and_return(user)
-            User.should_receive(:find_by_id).with(user.id.to_s).and_return(user)
-            user.update_attribute(:customer_id, nil)
+            User.should_receive(:find_by_id).with(@current_user.id.to_s).and_return(@current_user)
+            @current_user.update_attribute(:customer_id, nil)
             Stripe::Customer.should_receive(:create).and_return(@stripe_customer)
-            user.should_receive(:update_attribute).with(:customer_id, "test_cus_1")
+            @current_user.should_receive(:update_attribute).with(:customer_id, "test_cus_1")
             xhr :post, :create, :charge => @single_package_purchase
           end
 
           it "calls Stripe::Charge.create with the correct stuff" do
-            subject.stub(:current_user).and_return(user)
-            User.should_receive(:find_by_id).with(user.id.to_s).and_return(user)
+            User.should_receive(:find_by_id).with(@current_user.id.to_s).and_return(@current_user)
             Stripe::Charge.should_receive(:create).with(customer: "test_cus_1",
                                                         card: 'something',
                                                         amount: "500.0",
@@ -145,8 +135,7 @@ describe Api::V1::ChargesController do
         end
         context 'user customer_id exists' do
           it 'should call Stripe::Customer.retrieve' do
-            subject.stub(:current_user).and_return(user)
-            user.update_attribute(:customer_id, "test_cus_1")
+            @current_user.update_attribute(:customer_id, "test_cus_1")
             Stripe::Customer.should_receive(:retrieve).with("test_cus_1").and_return(@stripe_customer)
             xhr :post, :create, :charge => @single_package_purchase
           end

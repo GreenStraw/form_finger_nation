@@ -2,13 +2,14 @@ class Api::V1::UsersController < Api::V1::BaseController
   include Devise::Models::DatabaseAuthenticatable
   include ActiveRecord::AttributeAssignment
   before_filter :authenticate_user_from_token!, except: [:create]
+  load_and_authorize_resource except: [:create]
 
   def index
-    return render json: User.all
+    respond_with @user=User.all
   end
 
   def show
-    return render json: User.find(params[:id])
+    respond_with @user
   end
 
   def create
@@ -16,7 +17,11 @@ class Api::V1::UsersController < Api::V1::BaseController
     params[:user][:password] = generated_password
     @user = User.new(user_params)
     if @user.save!
-      RegistrationMailer.welcome_email(@user).deliver
+      if @user.uid.present? && @user.provider == 'facebook'
+        RegistrationMailer.facebook_welcome_email(@user).deliver
+      else
+        RegistrationMailer.welcome_email(@user).deliver
+      end
       return render json: @user
     else
       return render json: { :errors => @user.errors.full_messages }, status: 422
@@ -24,15 +29,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
-    @user = User.find(params[:id])
-    if current_user.has_role?(:admin) || current_user == @user
-      if changing_password(user_params)
-        update_with_password(user_params)
-      else
-        update_without_password(user_params)
-      end
+    if changing_password(user_params)
+      update_with_password(user_params)
     else
-      return render json: { :errors => @user.errors.full_messages }, status: 403
+      update_without_password(user_params)
     end
   end
 
@@ -84,7 +84,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :uid, :provider, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
   def update_with_password(update_params, *options)
