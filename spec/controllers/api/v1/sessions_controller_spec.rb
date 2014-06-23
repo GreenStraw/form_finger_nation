@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Api::V1::SessionsController do
   render_views
-  
-  let(:user) { Fabricate(:user) }
 
   before { }
 
   before(:each) do
+    login(:admin)
+    @fb_user = Fabricate(:user, uid: '123', provider: 'facebook')
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]
   end
 
@@ -19,14 +19,14 @@ describe Api::V1::SessionsController do
     end
 
     context 'wrong credentials' do
-      before { post :create, email: user.email, password: '' }
+      before { post :create, email: @current_user.email, password: '' }
 
       it_behaves_like 'http code', 401
     end
 
     context 'normal email + password auth' do
       before {
-        post :create, email: user.email, password: user.password
+        post :create, email: @current_user.email, password: @current_user.password
       }
 
       subject { JSON.parse response.body }
@@ -39,25 +39,12 @@ describe Api::V1::SessionsController do
       end
     end
 
-    # context 'not confirmed' do
-    #   before { post :create, email: user.email, password: user.password }
-    #   subject { JSON.parse response.body }
-
-    #   it { should include 'error' => 'unconfirmed'}
-    #   it { should_not include 'auth_token' }
-
-    #   it 'returns http 401' do
-    #     response.response_code.should == 401
-    #   end
-    # end
-
-    context 'remember token auth' do
+    context 'facebook auth' do
       it_behaves_like 'auth response' do
         let(:params) do
-          user.remember_me!
-          data = User.serialize_into_cookie(user)
-          token = "#{data.first.first}-#{data.last}"
-          { remember_token: token }
+          {
+            email: @fb_user.email, uid: @fb_user.uid, provider: @fb_user.provider
+          }
         end
       end
     end
@@ -77,7 +64,7 @@ describe Api::V1::SessionsController do
     end
 
     context 'normal auth token param' do
-      before { delete :destroy, auth_token: user.authentication_token }
+      before { delete :destroy, auth_token: @current_user.authentication_token }
       subject { JSON.parse response.body }
 
       it { should include 'user_id' }

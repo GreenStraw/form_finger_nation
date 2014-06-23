@@ -46,21 +46,7 @@ class User < ActiveRecord::Base
   end
   delegate :can?, :cannot?, to: :ability
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    if auth.respond_to?(:info)
-      user = User.where(:provider => auth.provider, :uid => auth.uid).first
-
-      unless user
-        user = User.create(:username => auth.info.name,
-                        :provider => auth.provider,
-                        :uid => auth.uid,
-                        :email => auth.info.email,
-                        :password => Devise.friendly_token[0,20]
-        )
-      end
-      user
-    else
-      return nil
-    end
+  def self.find_for_facebook(provider, uid)
+    user = User.where(:provider => provider, :uid => uid).first
   end
 end

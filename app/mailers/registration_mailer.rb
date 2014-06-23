@@ -7,4 +7,10 @@ class RegistrationMailer < ActionMailer::Base
     @url = "#{ENV['WEB_APP_URL']}/login"
     mail(to: @to, subject: 'Welcome to Foam Finger Nation!')
   end
+
+  def facebook_welcome_email(user)
+    @to = user.email
+    @url = "#{ENV['WEB_APP_URL']}/login"
+    mail(to: @to, subject: 'Welcome to Foam Finger Nation!')
+  end
 end

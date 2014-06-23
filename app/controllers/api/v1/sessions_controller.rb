@@ -3,14 +3,12 @@ class Api::V1::SessionsController < Devise::SessionsController
   skip_before_filter :authenticate_user_from_token!, only: [:create]
 
   def create
-    unless (params[:email] && params[:password]) || (params[:remember_token]) || (params[:auth_token])
+    unless (params[:email] && params[:password]) || (params[:email] && params[:uid] && params[:provider])
       return missing_params
     end
 
-    @user = if params[:remember_token]
-      user_from_remember_token
-    elsif params[:auth_token]
-      user_from_remember_token
+    @user = if (params[:email] && params[:uid] && params[:provider])
+      user_from_facebook
     else
       user_from_credentials
     end
@@ -22,7 +20,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       user_id: @user.id,
       auth_token: @user.authentication_token,
       auth_email: @user.email,
-      user_name: @user.username,
+      user_name: "#{@user.first_name} #{@user.last_name}",
       user_admin: @user.has_role?(:admin)
     }
     if params[:remember]
@@ -45,6 +43,13 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   private
+
+  def user_from_facebook
+    user = User.find_for_facebook(params[:provider], params[:uid])
+    if user && user.email == params[:email]
+      user
+    end
+  end
 
   def remember_token
     data = User.serialize_into_cookie @user
