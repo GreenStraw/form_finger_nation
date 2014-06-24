@@ -67,6 +67,13 @@ class Api::V1::UsersController < Api::V1::BaseController
     return render json: search_results
   end
 
+  def reset_password
+    generated_password = Devise.friendly_token.first(8)
+    @user.update_attributes({password: generated_password, confirmed_at: nil})
+    @user.send_password_reset
+    respond_with @user, :location=>api_v1_users_path
+  end
+
   private
 
   def are_fans_of(team_id)

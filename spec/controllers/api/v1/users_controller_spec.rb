@@ -231,4 +231,23 @@ describe Api::V1::UsersController do
       end
     end
   end
+
+  describe "PUT reset_password" do
+    context "reset" do
+      before {
+        @current_password = @current_user.password
+        User.should_receive(:find).and_return(@current_user)
+        @current_user.should_receive(:send_password_reset).once
+        xhr :put,
+            :reset_password,
+            :id => @current_user.id
+      }
+      it "should set password" do
+        assigns(:user).password.should_not eq(@current_password)
+      end
+      it "should set confirmed false" do
+        assigns(:user).confirmed_at.should be_nil
+      end
+    end
+  end
 end

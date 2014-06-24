@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  def send_password_reset
+    PasswordMailer.password_reset_email(self).deliver
+  end
+
   def confirm!
     self.update_attribute(:confirmed_at, DateTime.now)
   end
