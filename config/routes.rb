@@ -47,6 +47,7 @@ Baseapp::Application.routes.draw do
         member do
           put 'follow_user'
           put 'unfollow_user'
+          put 'reset_password'
         end
       end
       resources :sports do
