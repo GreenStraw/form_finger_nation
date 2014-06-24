@@ -108,8 +108,8 @@ describe Api::V1::UsersController do
                       :password => "abcdefgh",
                       :password_confirmation => "abcdefgh"}
       end
-      it 'returns http 201' do
-        response.response_code.should == 200
+      it 'returns http 204' do
+        response.response_code.should == 204
       end
       it 'returns updated user' do
         up_user = JSON.parse(response.body)['user']
@@ -132,7 +132,9 @@ describe Api::V1::UsersController do
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address'=>nil}
+          'address'=>nil,
+          'follower_ids'=>[],
+          'followee_ids'=>[]}
         up_user.should == expect_user
       end
     end
@@ -141,11 +143,10 @@ describe Api::V1::UsersController do
         xhr :put,
             :update,
             :id => @current_user.id,
-            :user => {:current_password => @current_user.password,
-                      :username => "NewName"}
+            :user => {:username => "NewName"}
       end
-      it 'returns http 201' do
-        response.response_code.should == 200
+      it 'returns http 204' do
+        response.response_code.should == 204
       end
       it 'returns updated user' do
         up_user = JSON.parse(response.body)['user']
@@ -168,8 +169,38 @@ describe Api::V1::UsersController do
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address'=>nil}
+          'address'=>nil,
+          'follower_ids'=>[],
+          'followee_ids'=>[]}
         up_user.should == expect_user
+      end
+    end
+    context "set followees" do
+      before do
+        xhr :put,
+            :update,
+            :id => @current_user.id,
+            :user => {:followee_ids => [1]}
+      end
+      it "adds the follower" do
+        assigns(:user).followees.count.should == 1
+      end
+      it 'returns http 204' do
+        response.response_code.should == 204
+      end
+    end
+    context "remove followees" do
+      before do
+        xhr :put,
+            :update,
+            :id => @current_user.id,
+            :user => {:followee_ids => []}
+      end
+      it "adds the follower" do
+        assigns(:user).followees.count.should == 0
+      end
+      it 'returns http 204' do
+        response.response_code.should == 204
       end
     end
     context 'Invalid credentials wrong auth token' do
@@ -192,9 +223,8 @@ describe Api::V1::UsersController do
             :update,
             :id => @current_user.id,
             :user => {:current_password => 'wrongPassword',
-                      :passwrod => 'test',
-                      :password_confirmation => 'test',
-                      :username => "NewName"}
+                      :password => 'test',
+                      :password_confirmation => 'test'}
       end
       it 'returns http 422' do
         response.response_code.should == 422

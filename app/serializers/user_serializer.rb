@@ -10,6 +10,8 @@ class UserSerializer < ActiveModel::Serializer
   has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids
   has_many :employers, key: :employer_ids, root: :employer_ids
   has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages
+  has_many :followees, key: :followee_ids, root: :followee_ids
+  has_many :followers, key: :follower_ids, root: :follower_ids
 
   def address
     object.address

@@ -29,11 +29,27 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
-    if changing_password(user_params)
-      update_with_password(user_params)
+    if changing_password
+      update_with_password
     else
-      update_without_password(user_params)
+      update_without_password
     end
+  end
+
+  def follow_user
+    @followee = User.find(params[:user_id])
+    if !@user.followees.include?(@followee)
+      @user.followees << @followee
+    end
+    respond_with @user, :location=>api_v1_users_path
+  end
+
+  def unfollow_user
+    @followee = User.find(params[:user_id])
+    if @user.followees.include?(@followee)
+      @user.followees.delete(@followee)
+    end
+    respond_with @user, :location=>api_v1_users_path
   end
 
   def search_users
@@ -71,37 +87,37 @@ class Api::V1::UsersController < Api::V1::BaseController
     return user_ids || []
   end
 
-  def changing_password(update_params)
-    update_params[:current_password].present? && update_params[:password].present? && update_params[:password_confirmation].present?
+  def changing_password
+    user_params[:current_password].present? && user_params[:password].present? && user_params[:password_confirmation].present?
   end
 
-  def update_without_password(update_params)
-    if @user.update(update_params)
-      return render json: @user
+  def update_without_password
+    if @user.update(user_params)
+      return render json: @user, status: 204
     else
       return render json: { :errors => @user.errors }, status: 422
     end
   end
 
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :uid, :provider, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :current_password, :password, :password_confirmation, :uid, :provider, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[], :follower_ids=>[], :followee_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
-  def update_with_password(update_params, *options)
-    current_password = update_params.delete(:current_password)
+  def update_with_password(*options)
+    current_password = user_params.delete(:current_password)
 
-    if update_params[:password].blank?
-      update_params.delete(:password)
-      update_params.delete(:password_confirmation) if update_params[:password_confirmation].blank?
+    if user_params[:password].blank?
+      user_params.delete(:password)
+      user_params.delete(:password_confirmation) if user_params[:password_confirmation].blank?
     end
 
     if valid_password?(current_password)
-      update_params[:confirmed_at] = DateTime.now
-      @user.update_attributes(update_params, *options)
+      user_params[:confirmed_at] = DateTime.now
+      @user.update_attributes(user_params, *options)
       clean_up_passwords
-      return render json: @user
+      return render json: @user, status: 204
     else
-      @user.assign_attributes(update_params, *options)
+      @user.assign_attributes(user_params, *options)
       @user.valid?
       @user.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
       clean_up_passwords

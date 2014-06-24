@@ -119,11 +119,12 @@ ActiveRecord::Schema.define(version: 20140616134613) do
   end
 
   create_table "party_reservations", force: true do |t|
-    t.string  "unregistered_rsvp_email"
+    t.string  "email"
     t.integer "user_id"
     t.integer "party_id"
   end
 
+  add_index "party_reservations", ["email"], name: "index_party_reservations_on_email", using: :btree
   add_index "party_reservations", ["party_id"], name: "index_party_reservations_on_party_id", using: :btree
   add_index "party_reservations", ["user_id"], name: "index_party_reservations_on_user_id", using: :btree
 
