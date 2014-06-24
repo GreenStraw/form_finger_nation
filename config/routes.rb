@@ -50,6 +50,7 @@ Baseapp::Application.routes.draw do
           put 'reset_password'
         end
       end
+      resources :endorsement_requests, only: [:index, :show, :update, :create]
       resources :sports do
         put 'subscribe_user'
         put 'unsubscribe_user'
