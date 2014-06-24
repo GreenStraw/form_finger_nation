@@ -1,6 +1,6 @@
 class PartyInvitation < ActiveRecord::Base
   before_validation :create_uuid, on: :create
-  validates_presence_of :uuid
+  validates_presence_of :uuid, :email
   validates_uniqueness_of :uuid
 
   belongs_to :inviter, class_name: 'User', foreign_key: 'inviter_id'

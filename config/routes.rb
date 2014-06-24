@@ -44,6 +44,10 @@ Baseapp::Application.routes.draw do
         collection do
           get 'search_users'
         end
+        member do
+          put 'follow_user'
+          put 'unfollow_user'
+        end
       end
       resources :sports do
         put 'subscribe_user'
