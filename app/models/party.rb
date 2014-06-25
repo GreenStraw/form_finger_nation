@@ -21,6 +21,20 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
+  def self.send_host_fourty_eight_hour_notifications
+    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (Time.now+2.days).beginning_of_day, (Time.now+2.days).end_of_day)
+    parties.each do |party|
+      PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
+    end
+  end
+
+  def self.send_venue_manager_fourty_eight_hour_notifications
+    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (Time.now+2.days).beginning_of_day, (Time.now+2.days).end_of_day)
+    parties.each do |party|
+      PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
+    end
+  end
+
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
