@@ -1,5 +1,4 @@
 class PartyInvitationMailer < ActionMailer::Base
-  default from: 'test@ffn.com'
 
   def invitation_email(invitation)
     @to = invitation.email

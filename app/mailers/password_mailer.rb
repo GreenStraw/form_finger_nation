@@ -1,5 +1,4 @@
 class PasswordMailer < ActionMailer::Base
-  default from: 'test@ffn.com'
 
   def password_reset_email(user)
     @to = user.email

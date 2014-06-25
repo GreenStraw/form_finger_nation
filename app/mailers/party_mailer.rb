@@ -1,5 +1,10 @@
 class PartyMailer < ActionMailer::Base
-  default from: 'test@ffn.com'
+
+  def watch_party_verified_email(party)
+    @to = party.organizer.email
+    @party = party
+    mail(to: @to, subject: 'Your watch party has been verified by the venue!')
+  end
 
   def host_fourty_eight_hour_notification_email(party)
     @party = party
