@@ -17,6 +17,7 @@
 
 # Ignore dotenv files
 /.env*
+!/.env.test
 
 # Ignore config yml files
 /config/*.yml

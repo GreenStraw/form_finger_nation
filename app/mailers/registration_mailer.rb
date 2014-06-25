@@ -1,5 +1,4 @@
 class RegistrationMailer < ActionMailer::Base
-  default from: 'test@ffn.com'
 
   def welcome_email(user)
     @to = user.email
