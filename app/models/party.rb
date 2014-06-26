@@ -22,33 +22,36 @@ class Party < ActiveRecord::Base
   attr_accessor :user_ids, :emails
 
   def self.send_host_fourty_eight_hour_notifications
-    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (Time.now+2.days).beginning_of_day, (Time.now+2.days).end_of_day)
+    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+2.days).beginning_of_day, (DateTime.now+2.days).end_of_day)
     parties.each do |party|
       PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
     end
   end
 
   def self.send_venue_manager_fourty_eight_hour_notifications
-    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (Time.now+2.days).beginning_of_day, (Time.now+2.days).end_of_day)
+    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+2.days).beginning_of_day, (DateTime.now+2.days).end_of_day)
     parties.each do |party|
       PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
     end
   end
 
-  def unregistered_attendees
-    party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
+  def self.send_attendee_three_day_notifications
+    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+3.days).beginning_of_day, (DateTime.now+3.days).end_of_day)
+    parties.each do |party|
+      party.party_reservations.each do |reservation|
+        PartyMailer.attendee_three_day_notification_email(reservation).deliver
+      end
+    end
   end
-
-  def isPrivate
-    return private?
-  end
-
-  private
 
   def send_notification_when_verified
-    if self.verified_changed? && self.verified
-      PartyVerificationMailer.watch_party_host_verification_email(self).deliver
+    if self.verified_changed? && self.verified?
+      PartyMailer.watch_party_verified_email(self).deliver
     end
+  end
+
+  def unregistered_attendees
+    party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
 
 end

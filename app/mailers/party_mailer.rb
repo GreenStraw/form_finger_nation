@@ -29,4 +29,18 @@ class PartyMailer < ActionMailer::Base
       mail(to: @to, subject: 'A Watch Party is scheduled at your venue in two days.')
     end
   end
+
+  def attendee_three_day_notification_email(reservation)
+    @reservation = reservation
+    @party = @reservation.party
+    @to = @reservation.email
+    @party_address = nil
+    if @party.is_private
+      @party_address = @party.address
+    else
+      @party_address = @party.venue.address
+    end
+    @url = "#{ENV['WEB_APP_URL']}/parties/#{@party.id}"
+    mail(to: @to, subject: 'You have a Watch Party coming up.')
+  end
 end
