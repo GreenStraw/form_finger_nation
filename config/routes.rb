@@ -74,6 +74,11 @@ Baseapp::Application.routes.draw do
           put 'unrsvp'
         end
       end
+      resources :vouchers, only: [:show, :create] do
+        member do
+          put 'redeem'
+        end
+      end
       resources :packages
       resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]

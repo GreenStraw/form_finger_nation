@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624195533) do
+ActiveRecord::Schema.define(version: 20140626141545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,5 +254,11 @@ ActiveRecord::Schema.define(version: 20140624195533) do
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
+
+  create_table "vouchers", force: true do |t|
+    t.boolean "redeemed",   default: false
+    t.integer "user_id"
+    t.integer "package_id"
+  end
 
 end

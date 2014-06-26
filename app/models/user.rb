@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   has_many :parties, foreign_key: 'organizer_id'
   has_many :user_purchased_packages
   has_many :packages, through: :user_purchased_packages
+  has_many :vouchers
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
