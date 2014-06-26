@@ -12,6 +12,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages
   has_many :followees, key: :followee_ids, root: :followee_ids
   has_many :followers, key: :follower_ids, root: :follower_ids
+  has_many :vouchers, key: :voucher_ids, root: :voucher_ids
 
   def address
     object.address

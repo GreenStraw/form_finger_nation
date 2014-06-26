@@ -134,7 +134,8 @@ describe Api::V1::UsersController do
           'confirmed'=>true,
           'address'=>nil,
           'follower_ids'=>[],
-          'followee_ids'=>[]}
+          'followee_ids'=>[],
+          'voucher_ids'=>[]}
         up_user.should == expect_user
       end
     end
@@ -171,7 +172,8 @@ describe Api::V1::UsersController do
           'confirmed'=>true,
           'address'=>nil,
           'follower_ids'=>[],
-          'followee_ids'=>[]}
+          'followee_ids'=>[],
+          'voucher_ids'=>[]}
         up_user.should == expect_user
       end
     end

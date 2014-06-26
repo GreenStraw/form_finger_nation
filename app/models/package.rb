@@ -3,5 +3,6 @@ class Package < ActiveRecord::Base
 
   has_many :party_packages
   has_many :parties, through: :party_packages
+  has_many :vouchers
   belongs_to :venue
 end
