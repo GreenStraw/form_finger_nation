@@ -51,12 +51,6 @@ describe User do
     end
   end
 
-  describe "send_password_reset" do
-    it "sends an email" do
-      expect { @user.send_password_reset }.to change { ActionMailer::Base.deliveries.count }.by(1)
-    end
-  end
-
 end
 
 # == Schema Information

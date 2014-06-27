@@ -46,9 +46,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :customer_id
 
-      #authentication token
-      t.string :authentication_token
-
       t.timestamps
     end
 

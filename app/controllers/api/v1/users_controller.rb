@@ -12,22 +12,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     respond_with @user
   end
 
-  def create
-    generated_password = Devise.friendly_token.first(8)
-    params[:user][:password] = generated_password
-    @user = User.new(user_params)
-    if @user.save!
-      if @user.uid.present? && @user.provider == 'facebook'
-        RegistrationMailer.facebook_welcome_email(@user).deliver
-      else
-        RegistrationMailer.welcome_email(@user).deliver
-      end
-      return render json: @user
-    else
-      return render json: { :errors => @user.errors.full_messages }, status: 422
-    end
-  end
-
   def update
     if changing_password
       update_with_password
@@ -67,14 +51,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     return render json: search_results
   end
 
-  def reset_password
-    generated_password = Devise.friendly_token.first(8)
-    @user.update_attributes({password: generated_password, confirmed_at: nil})
-    @user.send_password_reset
-    respond_with @user, :location=>api_v1_users_path
-  end
-
   private
+
+
 
   def are_fans_of(team_id)
     Favorite.where('favoritable_id = ? and favoriter_type = ? and favoritable_type = ?', team_id, "User", "Team").map(&:favoriter_id)
@@ -119,7 +98,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     if valid_password?(current_password)
-      user_params[:confirmed_at] = DateTime.now
       @user.update_attributes(user_params, *options)
       clean_up_passwords
       return render json: @user, status: 204

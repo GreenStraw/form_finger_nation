@@ -5,7 +5,7 @@ Baseapp::Application.routes.draw do
   root :to => "home#index"
 
   # Authentication
-  devise_for :users, skip: [:sessions, :passwords, :confirmations]
+  devise_for :users, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
   as :user do
     # session handling
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
@@ -13,8 +13,8 @@ Baseapp::Application.routes.draw do
     get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
 
     # joining
-    get   '/join' => 'milia/registrations#new',    as: 'new_user_registration'
-    post  '/join' => 'milia/registrations#create', as: 'user_registration'
+    # get   '/join' => 'milia/registrations#new',    as: 'new_user_registration'
+    # post  '/join' => 'milia/registrations#create', as: 'user_registration'
 
     scope '/account' do
       # password reset
@@ -33,21 +33,21 @@ Baseapp::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      devise_for :users, controllers: { sessions: 'api/v1/sessions', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
+      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'api/v1/registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
 
       devise_scope :api_v1_user do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
+        post '/users' => 'registrations#create'
       end
 
-      resources :users, only: [:index, :show, :update, :create] do
+      resources :users, only: [:index, :show, :update] do
         collection do
           get 'search_users'
         end
         member do
           put 'follow_user'
           put 'unfollow_user'
-          put 'reset_password'
         end
       end
       resources :endorsement_requests, only: [:index, :show, :update, :create]
