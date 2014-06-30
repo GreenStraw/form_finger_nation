@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   extend Enumerize
   rolify
 
+  validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
+  validates_presence_of :username, :email
+
   attr_accessor :current_password
 
   # Include default devise modules. Others available are:
@@ -12,7 +15,8 @@ class User < ActiveRecord::Base
           :rememberable,
           :trackable,
           :lockable,
-          :validatable
+          :validatable,
+          :registerable
 
   acts_as_universal_and_determines_account
 
@@ -35,10 +39,6 @@ class User < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
-
-  def send_password_reset
-    PasswordMailer.password_reset_email(self).deliver
-  end
 
   def confirm!
     self.update_attribute(:confirmed_at, DateTime.now)
