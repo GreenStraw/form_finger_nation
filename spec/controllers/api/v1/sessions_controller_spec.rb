@@ -5,9 +5,9 @@ describe Api::V1::SessionsController do
 
   before { }
 
-  before(:each) do
+  before do
+    create_new_tenant
     login(:admin)
-    @fb_user = Fabricate(:user, uid: '123', provider: 'facebook')
     @request.env["devise.mapping"] = Devise.mappings[:api_v1_user]
   end
 
@@ -36,13 +36,25 @@ describe Api::V1::SessionsController do
         response.response_code.should == 201
       end
     end
+    context 'access_token' do
+      context 'user found' do
+        before do
+          User.should_receive(:first_user_by_facebook_access_token).with('test').and_return(@current_user)
+          post :create, access_token: 'test', format: :json
+        end
 
-    context 'facebook auth' do
-      it_behaves_like 'auth response' do
-        let(:params) do
-          {
-            email: @fb_user.email, uid: @fb_user.uid, provider: @fb_user.provider
-          }
+        it 'returns http 201' do
+          response.response_code.should eq(201)
+        end
+      end
+      context 'user not found' do
+        before do
+          User.should_receive(:first_user_by_facebook_access_token).with('test').and_return(nil)
+          post :create, access_token: 'test', format: :json
+        end
+
+        it 'returns http 422' do
+          response.response_code.should eq(401)
         end
       end
     end

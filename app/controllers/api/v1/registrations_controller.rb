@@ -1,10 +1,34 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
+  require 'koala'
   respond_to :json
   before_action :configure_permitted_parameters
 
   # POST /resource
   def create
     sign_up_params.delete(:current_password)
+    create_user
+  end
+
+  def create_facebook
+    token = sign_up_params[:facebook_access_token]
+    fb_user = facebook_user
+    fb_details = fb_user.get_object("me")
+
+    if db_details["id"].present?
+      params[:uid] = db_details["id"]
+      params[:provider] = 'facebook'
+      params[:password] = SecureRandom.hex(20)
+      params[:password_confirmation] = params[:password]
+    else
+      errors.add(:base, "Facebook User Not Valid")
+    end
+
+    create_user
+  end
+
+  private
+
+  def create_user
     build_resource(sign_up_params)
 
     if resource.save
@@ -20,16 +44,27 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  private
+  def facebook_user
+    Koala::Facebook::API.new(sign_up_params[:facebook_access_token])
+  end
+
+  def creating_facebook_user?
+    params[:user][:access_token].present? && params[:user][:password].blank?
+  end
+
+  def set_facebook_user_password
+    params[:password] = SecureRandom.hex(20)
+    params[:password_confirmation] = params[:password]
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :address, address_attributes: [:street1, :street2, :city, :state, :zip])
+      u.permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :address, :facebook_access_token, address_attributes: [:street1, :street2, :city, :state, :zip])
     end
   end
 
   def sign_up_params
     params[:user].delete(:current_password)
-    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :address, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :address, :facebook_access_token, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 end

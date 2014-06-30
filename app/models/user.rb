@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   rolify
   after_create :ensure_address
 
+  # validate :password_on_create_with_email, only: :create
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
 
@@ -45,6 +46,10 @@ class User < ActiveRecord::Base
     self.update_attribute(:confirmed_at, DateTime.now)
   end
 
+  def confirmed?
+    self.confirmed_at.present?
+  end
+
   def full_name
     [first_name, last_name].join(' ')
   end
@@ -54,8 +59,18 @@ class User < ActiveRecord::Base
   end
   delegate :can?, :cannot?, to: :ability
 
-  def self.find_for_facebook(provider, uid)
-    user = User.where(:provider => provider, :uid => uid).first
+  def self.first_user_by_facebook_access_token(token)
+    user = User.where(facebook_access_token: token).first
+  end
+
+  def data
+    {
+      user_id: self.id,
+      auth_token: self.authentication_token,
+      auth_email: self.email,
+      user_name: "#{self.first_name} #{self.last_name}",
+      user_admin: self.has_role?(:admin)
+    }
   end
 
   private

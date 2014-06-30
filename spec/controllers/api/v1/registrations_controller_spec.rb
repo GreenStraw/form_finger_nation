@@ -23,4 +23,8 @@ describe Api::V1::RegistrationsController do
       end
     end
   end
+
+  describe "POST create_facebook" do
+    context ""
+  end
 end

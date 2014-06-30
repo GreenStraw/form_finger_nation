@@ -47,6 +47,7 @@ gem 'newrelic_rpm'
 gem 'exception_notification',   '~> 4.0.1'
 #letter opener
 gem 'letter_opener', group: :development
+gem "koala", "~> 1.10.0rc"
 
 # =========================================================
 gem 'devise',                   '~>3.2'
