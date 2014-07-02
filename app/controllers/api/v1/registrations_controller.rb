@@ -10,12 +10,11 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_facebook
-    token = sign_up_params[:facebook_access_token]
-    fb_user = facebook_user
+    fb_user = User.facebook_user(sign_up_params[:facebook_access_token])
     fb_details = fb_user.get_object("me")
 
-    if db_details["id"].present?
-      params[:uid] = db_details["id"]
+    if fb_details["id"].present?
+      params[:uid] = fb_details["id"]
       params[:provider] = 'facebook'
       params[:password] = SecureRandom.hex(20)
       params[:password_confirmation] = params[:password]
@@ -44,9 +43,9 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def facebook_user
-    Koala::Facebook::API.new(sign_up_params[:facebook_access_token])
-  end
+  # def facebook_user
+  #   Koala::Facebook::API.new(sign_up_params[:facebook_access_token])
+  # end
 
   def creating_facebook_user?
     params[:user][:access_token].present? && params[:user][:password].blank?

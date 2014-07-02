@@ -59,8 +59,15 @@ class User < ActiveRecord::Base
   end
   delegate :can?, :cannot?, to: :ability
 
-  def self.first_user_by_facebook_access_token(token)
-    user = User.where(facebook_access_token: token).first
+  def self.first_user_by_facebook_id(facebook_access_token)
+    fb_user = facebook_user(facebook_access_token)
+    fb_details = fb_user.get_object("me")
+    fb_id = fb_details["id"]
+    user = User.where(uid: fb_id).first
+  end
+
+  def self.facebook_user(facebook_access_token)
+    Koala::Facebook::API.new(facebook_access_token)
   end
 
   def data
