@@ -7,6 +7,7 @@ class CreatePartyInvitations < ActiveRecord::Migration
       t.belongs_to :inviter
       t.belongs_to :user
       t.belongs_to :party
+      t.timestamps
     end
 
     add_index(:party_invitations, :user_id)

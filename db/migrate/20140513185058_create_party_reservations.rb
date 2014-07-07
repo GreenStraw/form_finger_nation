@@ -4,6 +4,7 @@ class CreatePartyReservations < ActiveRecord::Migration
       t.string :email
       t.belongs_to :user
       t.belongs_to :party
+      t.timestamps
     end
 
     add_index(:party_reservations, :user_id)

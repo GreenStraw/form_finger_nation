@@ -1,5 +1,6 @@
 class Api::V1::VenuesController < Api::V1::BaseController
-  load_and_authorize_resource
+  load_and_authorize_resource :user
+  load_and_authorize_resource :venue
 
   def index
     respond_with @venues
@@ -21,6 +22,16 @@ class Api::V1::VenuesController < Api::V1::BaseController
 
   def destroy
     @venue.destroy
+    respond_with @venue, :location=>api_v1_venues_path
+  end
+
+  def add_manager
+    @user.add_role(:manager, @venue)
+    respond_with @venue, :location=>api_v1_venues_path
+  end
+
+  def remove_manager
+    @user.remove_role(:manager, @venue)
     respond_with @venue, :location=>api_v1_venues_path
   end
 

@@ -18,10 +18,10 @@ t = Tenant.first_or_create({
 Tenant.set_current_tenant(t)
 
 User.create([
-  { email: 'admin@test.com', password: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', confirmed_at: DateTime.now, address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') },
-  { email: 'team_admin@test.com', password: '123123123', username: 'putdownthatpickle', first_name: 'Rocky', confirmed_at: DateTime.now, last_name: 'Rococo', address: Address.create(city: 'Oklahoma City', state: 'OK', zip: '73105')},
-  { email: 'venue_manager@test.com', password: '123123123', username: 'rspoilsport', first_name: 'Ralph', confirmed_at: DateTime.now, last_name: 'Spoilsport', address: Address.create(city: 'Austin', state: 'TX', zip: '78726')},
-  { email: 'user@test.com', password: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', confirmed_at: DateTime.now, address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}
+  { email: 'admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', confirmed_at: DateTime.now, address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') },
+  { email: 'team_admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'putdownthatpickle', first_name: 'Rocky', confirmed_at: DateTime.now, last_name: 'Rococo', address: Address.create(city: 'Oklahoma City', state: 'OK', zip: '73105')},
+  { email: 'venue_manager@test.com', password: '123123123', password_confirmation: '123123123', username: 'rspoilsport', first_name: 'Ralph', confirmed_at: DateTime.now, last_name: 'Spoilsport', address: Address.create(city: 'Austin', state: 'TX', zip: '78726')},
+  { email: 'user@test.com', password: '123123123', password_confirmation: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', confirmed_at: DateTime.now, address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}
 ])
 
 Sport.create([

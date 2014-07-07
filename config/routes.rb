@@ -56,14 +56,21 @@ Baseapp::Application.routes.draw do
         put 'unsubscribe_user'
       end
       resources :teams do
-        put 'subscribe_user'
-        put 'unsubscribe_user'
         member do
+          put 'subscribe_user'
+          put 'unsubscribe_user'
           put 'add_host'
           put 'remove_host'
+          put 'add_admin'
+          put 'remove_admin'
         end
       end
-      resources :venues
+      resources :venues do
+        member do
+          put 'add_manager'
+          put 'remove_manager'
+        end
+      end
       resources :parties do
         collection do
           get 'search'
