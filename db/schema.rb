@@ -57,20 +57,24 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   end
 
   create_table "endorsements", force: true do |t|
-    t.integer "endorsable_id"
-    t.string  "endorsable_type"
-    t.integer "endorser_id"
-    t.string  "endorser_type"
+    t.integer  "endorsable_id"
+    t.string   "endorsable_type"
+    t.integer  "endorser_id"
+    t.string   "endorser_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "endorsements", ["endorsable_id", "endorsable_type"], name: "index_endorsements_on_endorsable_id_and_endorsable_type", using: :btree
   add_index "endorsements", ["endorser_id", "endorser_type"], name: "index_endorsements_on_endorser_id_and_endorser_type", using: :btree
 
   create_table "favorites", force: true do |t|
-    t.integer "favoritable_id"
-    t.string  "favoritable_type"
-    t.integer "favoriter_id"
-    t.string  "favoriter_type"
+    t.integer  "favoritable_id"
+    t.string   "favoritable_type"
+    t.integer  "favoriter_id"
+    t.string   "favoriter_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "favorites", ["favoritable_id", "favoritable_type"], name: "index_favorites_on_favoritable_id_and_favoritable_type", using: :btree
@@ -86,6 +90,8 @@ ActiveRecord::Schema.define(version: 20140626141545) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "venue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "parties", force: true do |t|
@@ -107,12 +113,14 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "parties", ["team_id"], name: "index_parties_on_team_id", using: :btree
 
   create_table "party_invitations", force: true do |t|
-    t.string  "email"
-    t.string  "uuid"
-    t.string  "status",     default: "pending"
-    t.integer "inviter_id"
-    t.integer "user_id"
-    t.integer "party_id"
+    t.string   "email"
+    t.string   "uuid"
+    t.string   "status",     default: "pending"
+    t.integer  "inviter_id"
+    t.integer  "user_id"
+    t.integer  "party_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "party_invitations", ["inviter_id"], name: "index_party_invitations_on_inviter_id", using: :btree
@@ -120,14 +128,18 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "party_invitations", ["user_id"], name: "index_party_invitations_on_user_id", using: :btree
 
   create_table "party_packages", force: true do |t|
-    t.integer "party_id"
-    t.integer "package_id"
+    t.integer  "party_id"
+    t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "party_reservations", force: true do |t|
-    t.string  "email"
-    t.integer "user_id"
-    t.integer "party_id"
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "party_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "party_reservations", ["email"], name: "index_party_reservations_on_email", using: :btree
@@ -247,10 +259,12 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "venues", force: true do |t|
-    t.string  "name"
-    t.string  "description"
-    t.string  "image_url"
-    t.integer "user_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "image_url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree

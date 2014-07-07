@@ -10,6 +10,7 @@ class CreatePackages < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.belongs_to :venue
+      t.timestamps
     end
   end
 end

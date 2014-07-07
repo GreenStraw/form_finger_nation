@@ -17,6 +17,10 @@ class Ability
       user.id == party.organizer_id || user.has_role?(:manager, party)
     end
 
+    can :update, Party do |party|
+      user.has_role?(:manager, party.venue) if party.venue.present?
+    end
+
     can :manage, Team do |team|
       user.has_role?(:team_admin, team)
     end

@@ -3,6 +3,7 @@ class CreateEndorsements < ActiveRecord::Migration
     create_table :endorsements do |t|
       t.references :endorsable, polymorphic: true
       t.references :endorser, polymorphic: true
+      t.timestamps
     end
 
     add_index :endorsements, [:endorsable_id, :endorsable_type]
