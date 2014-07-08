@@ -59,21 +59,6 @@ describe Api::V1::AddressesController do
         expect(JSON.parse(response.body)).to have_key('address')
       end
     end
-
-    describe "with invalid params" do
-      before(:each) do
-        post :create, :address => { "street1" => "123 Some Street" }, :format => :json
-      end
-      it "assigns a newly created but unsaved activity as @address" do
-        assigns(:address).should be_a_new(Address)
-      end
-      it "dos not persist the address" do
-        assigns(:address).should_not be_persisted
-      end
-      it "responds with status 422" do
-        expect(response.status).to eq(422)
-      end
-    end
   end
 
   describe "PUT update" do

@@ -19,7 +19,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
 
-gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
+gem 'active_model_serializers', :git => 'git://github.com/rails-api/active_model_serializers.git' # json tat conforms to ember-data expectationh
 
 # pick enumerable or rolify for user roles
 gem 'rolify'

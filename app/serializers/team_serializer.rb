@@ -1,5 +1,4 @@
 class TeamSerializer < ActiveModel::Serializer
-  embed :ids
   attributes :id, :name, :image_url, :information, :address, :sport_id
   has_many :admins, key: :admin_ids, root: :admin_ids
   has_many :fans, key: :fan_ids, root: :fan_ids

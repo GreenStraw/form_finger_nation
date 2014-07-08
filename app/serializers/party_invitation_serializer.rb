@@ -1,5 +1,4 @@
 class PartyInvitationSerializer < ActiveModel::Serializer
-  embed :ids
   attributes :id, :email, :registered, :uuid, :status
   has_one :party, key: :party_id, root: :party_id
   has_one :user, key: :user_id, root: :user_id
@@ -8,5 +7,5 @@ class PartyInvitationSerializer < ActiveModel::Serializer
   def registered
     user.present?
   end
-  
+
 end
