@@ -132,10 +132,12 @@ describe Api::V1::UsersController do
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address'=>nil,
+          'address' => {"id"=>nil, "addressable_id"=>nil, "addressable_type"=>nil, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>nil, "updated_at"=>nil},
           'follower_ids'=>[],
           'followee_ids'=>[],
-          'voucher_ids'=>[]}
+          'voucher_ids'=>[],
+          'created_at'=>@current_user.created_at.to_i,
+          'updated_at'=>@current_user.updated_at.to_i}
         up_user.should == expect_user
       end
     end
@@ -173,7 +175,10 @@ describe Api::V1::UsersController do
           'address'=>nil,
           'follower_ids'=>[],
           'followee_ids'=>[],
-          'voucher_ids'=>[]}
+          'voucher_ids'=>[],
+          'address' => {"id"=>nil, "addressable_id"=>nil, "addressable_type"=>nil, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>nil, "updated_at"=>nil},
+          'created_at'=>@current_user.created_at.to_i,
+          'updated_at'=>@current_user.updated_at.to_i}
         up_user.should == expect_user
       end
     end
