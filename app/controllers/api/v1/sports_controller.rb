@@ -1,5 +1,6 @@
 class Api::V1::SportsController < Api::V1::BaseController
-  load_and_authorize_resource
+  load_and_authorize_resource :user
+  load_and_authorize_resource :sport
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
 
   def index
@@ -26,8 +27,6 @@ class Api::V1::SportsController < Api::V1::BaseController
   end
 
   def subscribe_user
-    @sport = Sport.find(params[:sport_id])
-    @user = User.find(params[:fan_id])
     if !@sport.fans.include?(@user)
       @sport.fans << @user
     end
@@ -35,8 +34,6 @@ class Api::V1::SportsController < Api::V1::BaseController
   end
 
   def unsubscribe_user
-    @sport = Sport.find(params[:sport_id])
-    @user = User.find(params[:fan_id])
     if @sport.fans.include?(@user)
       @sport.fans.delete(@user)
     end
@@ -44,10 +41,6 @@ class Api::V1::SportsController < Api::V1::BaseController
   end
 
   private
-
-  def subscribe_params
-    params.permit(:fan_id)
-  end
 
   def sport_params
     params.require(:sport).permit(:name, :image_url, {:fan_ids=>[],:team_ids=>[]})

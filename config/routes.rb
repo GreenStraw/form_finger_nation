@@ -52,8 +52,10 @@ Baseapp::Application.routes.draw do
       end
       resources :endorsement_requests, only: [:index, :show, :update, :create]
       resources :sports do
-        put 'subscribe_user'
-        put 'unsubscribe_user'
+        member do
+          put 'subscribe_user'
+          put 'unsubscribe_user'
+        end
       end
       resources :teams do
         member do

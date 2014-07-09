@@ -128,7 +128,7 @@ describe Api::V1::SportsController do
     context "user not fan" do
       it "adds user to sport fans" do
         expect {
-          put :subscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+          put :subscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
         }.to change(@sport.fans, :count).by(1)
       end
     end
@@ -138,7 +138,7 @@ describe Api::V1::SportsController do
       }
       it "does not add user" do
         expect {
-          put :subscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+          put :subscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
         }.to change(@sport.fans, :count).by(0)
       end
     end
@@ -151,14 +151,14 @@ describe Api::V1::SportsController do
       }
       it "removes user from sport fans" do
         expect {
-          put :unsubscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+          put :unsubscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
         }.to change(@sport.fans, :count).by(-1)
       end
     end
     context "user not fan" do
       it "does not remove user" do
         expect {
-          put :unsubscribe_user, sport_id: @sport.id, fan_id: @current_user.id, format: :json
+          put :unsubscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
         }.to change(@sport.fans, :count).by(0)
       end
     end
