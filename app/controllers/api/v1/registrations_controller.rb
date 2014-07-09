@@ -8,6 +8,9 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     if resource.save
+      if resource.address.nil?
+        resource.create_address
+      end
       resource.confirm!
       resource.ensure_authentication_token
       return render json: RegistrationUserSerializer.new(resource).to_json, status: 201

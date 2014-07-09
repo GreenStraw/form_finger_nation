@@ -1,4 +1,4 @@
-class CommentSerializer < ActiveModel::Serializer
+class CommentSerializer < BaseSerializer
   attributes :id, :title, :subject, :body, :parent_id, :created_at, :commenter_name
   has_many :children, key: :children, root: :children
   has_one :commentable, key: :commentable, root: :commentable

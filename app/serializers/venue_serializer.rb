@@ -1,4 +1,4 @@
-class VenueSerializer < ActiveModel::Serializer
+class VenueSerializer < BaseSerializer
   attributes :id, :name, :image_url, :description, :address
   has_many :favorite_teams, key: :favorite_team_ids, root: :favorite_team_ids
   has_many :favorite_sports, key: :favorite_sport_ids, root: :favorite_sport_ids

@@ -8,11 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Baseapp
   class Application < Rails::Application
-
-    ActiveModel::Serializer.setup do |config|
-      config.embed = :ids
-      config.embed_in_root = false
-    end
     #  For faster asset precompiles, you can partially load your application.
     #  In that case, templates cannot see application objects or methods.
     #  Heroku requires this to be false.
