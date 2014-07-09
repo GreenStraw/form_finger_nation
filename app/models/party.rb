@@ -4,6 +4,7 @@ class Party < ActiveRecord::Base
   validates :scheduled_for, presence: true
 
   after_update :send_notification_when_verified
+  after_create :ensure_address
 
   has_many :party_reservations
   has_many :attendees, through: :party_reservations, source: :user
@@ -52,6 +53,14 @@ class Party < ActiveRecord::Base
 
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
+  end
+
+  private
+
+  def ensure_address
+    if address.nil?
+      create_address
+    end
   end
 
 end

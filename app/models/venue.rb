@@ -1,5 +1,6 @@
 class Venue < ActiveRecord::Base
   resourcify
+  after_create :ensure_address
 
   has_many :comments, as: :commenter
   has_many :parties
@@ -10,4 +11,12 @@ class Venue < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
+
+  private
+
+  def ensure_address
+    if address.nil?
+      create_address
+    end
+  end
 end
