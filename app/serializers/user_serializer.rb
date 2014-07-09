@@ -1,4 +1,4 @@
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < BaseSerializer
   attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :created_at, :updated_at, :address
   has_many :sports, key: :favorite_sport_ids, root: :favorite_sport_ids#, include: true
   has_many :teams, key: :favorite_team_ids, root: :favorite_team_ids#, include: true
@@ -17,7 +17,7 @@ class UserSerializer < ActiveModel::Serializer
     {
       id: object.address.try(:id),
       addressable_id: object.address.try(:addressable_id),
-      addressable_type: object.address.try(:addressable_id),
+      addressable_type: object.address.try(:addressable_type),
       street1: object.address.try(:street1),
       street2: object.address.try(:street2),
       city: object.address.try(:city),
