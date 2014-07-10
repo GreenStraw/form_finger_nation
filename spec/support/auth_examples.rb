@@ -32,8 +32,6 @@ shared_examples 'auth response case' do
     post 'create', params
   end
   subject { JSON.parse response.body }
-
-  it { should include 'authentication_token' }
-
+  it { should include 'user' }
   it_behaves_like 'http code', 201
 end

@@ -14,7 +14,6 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
     return invalid_credentials unless @user
     @user.ensure_authentication_token
-
     render json: RegistrationUserSerializer.new(@user).to_json, status: 201
   end
 
