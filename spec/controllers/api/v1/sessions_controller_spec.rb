@@ -31,8 +31,7 @@ describe Api::V1::SessionsController do
 
       subject { JSON.parse response.body }
 
-      it { should include 'user_id' }
-      it { should include 'auth_token' }
+      it { should include 'authentication_token' }
 
       it 'returns http 201' do
         response.response_code.should == 201

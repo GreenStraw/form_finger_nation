@@ -14,20 +14,8 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
     return invalid_credentials unless @user
     @user.ensure_authentication_token
-    # return unconfirmed unless @user.confirmed?
 
-    data = {
-      user_id: @user.id,
-      auth_token: @user.authentication_token,
-      auth_email: @user.email,
-      user_name: "#{@user.first_name} #{@user.last_name}",
-      user_admin: @user.has_role?(:admin)
-    }
-    if params[:remember]
-      @user.remember_me!
-      data[:remember_token] = remember_token
-    end
-    render json: data, status: 201
+    render json: RegistrationUserSerializer.new(@user).to_json, status: 201
   end
 
   def destroy
