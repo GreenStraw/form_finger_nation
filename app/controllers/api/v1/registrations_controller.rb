@@ -6,7 +6,19 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     sign_up_params.delete(:current_password)
-    create_user
+    build_resource(sign_up_params)
+
+    if resource.save
+      if resource.address.nil?
+        resource.create_address
+      end
+      resource.confirm!
+      resource.ensure_authentication_token
+      return render json: RegistrationUserSerializer.new(resource).to_json, status: 201
+    else
+      render json: { :errors => resource.errors.full_messages }, status: 422
+      return
+    end
   end
 
   def create_facebook
@@ -26,26 +38,6 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-  def create_user
-    build_resource(sign_up_params)
-
-    if resource.save
-      if resource.address.nil?
-        resource.create_address
-      end
-      resource.confirm!
-      resource.ensure_authentication_token
-      return render json: RegistrationUserSerializer.new(resource).to_json, status: 201
-    else
-      render json: { :errors => resource.errors.full_messages }, status: 422
-      return
-    end
-  end
-
-  # def facebook_user
-  #   Koala::Facebook::API.new(sign_up_params[:facebook_access_token])
-  # end
 
   def creating_facebook_user?
     params[:user][:access_token].present? && params[:user][:password].blank?

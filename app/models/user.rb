@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
     fb_details = fb_user.get_object("me")
     fb_id = fb_details["id"]
     user = User.where(uid: fb_id).first
+  rescue
+    nil
   end
 
   def self.facebook_user(facebook_access_token)

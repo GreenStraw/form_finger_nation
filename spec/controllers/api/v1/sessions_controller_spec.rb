@@ -39,7 +39,7 @@ describe Api::V1::SessionsController do
     context 'access_token' do
       context 'user found' do
         before do
-          User.should_receive(:first_user_by_facebook_access_token).with('test').and_return(@current_user)
+          controller.should_receive(:user_from_facebook).and_return(@current_user)
           post :create, access_token: 'test', format: :json
         end
 
@@ -49,7 +49,7 @@ describe Api::V1::SessionsController do
       end
       context 'user not found' do
         before do
-          User.should_receive(:first_user_by_facebook_access_token).with('test').and_return(nil)
+          controller.should_receive(:user_from_facebook).and_return(nil)
           post :create, access_token: 'test', format: :json
         end
 
