@@ -79,7 +79,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def update_without_password
     if @user.update(user_params)
-      return render json: @user, status: 204
+      respond_with @user
     else
       return render json: { :errors => @user.errors }, status: 422
     end

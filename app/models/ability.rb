@@ -13,6 +13,10 @@ class Ability
       can :create, Party
     end
 
+    can :update, User do |user_to_update|
+      user_to_update.id == user.id
+    end
+
     can :manage, Party do |party|
       user.id == party.organizer_id || user.has_role?(:manager, party)
     end
