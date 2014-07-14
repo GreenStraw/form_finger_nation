@@ -32,7 +32,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def user_from_facebook
-    user = User.first_user_by_facebook_id(params[:access_token])
+    User.first_user_by_facebook_id(params[:access_token])
   end
 
   def remember_token

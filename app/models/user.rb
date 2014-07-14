@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
 
-  attr_accessor :current_password
+  attr_accessor :current_password, :access_token
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

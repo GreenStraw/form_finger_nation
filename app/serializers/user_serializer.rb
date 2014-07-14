@@ -1,34 +1,18 @@
-class UserSerializer < BaseSerializer
-  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :created_at, :updated_at, :address
-  has_many :sports, key: :favorite_sport_ids, root: :favorite_sport_ids#, include: true
-  has_many :teams, key: :favorite_team_ids, root: :favorite_team_ids#, include: true
-  has_many :managed_venues, key: :managed_venue_ids, root: :managed_venue_ids
-  has_many :managed_teams, key: :managed_team_ids, root: :managed_team_ids
-  has_many :reservations, key: :reservation_ids, root: :reservation_ids#, include: true
-  has_many :invitations, key: :invitation_ids, root: :invitation_ids#, include: true
-  has_many :parties, key: :party_ids, root: :party_ids#, include: true
-  has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids
-  has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages
-  has_many :followees, key: :followee_ids, root: :followee_ids
-  has_many :followers, key: :follower_ids, root: :follower_ids
-  has_many :vouchers, key: :voucher_ids, root: :voucher_ids
-
-  def address
-    {
-      id: object.address.try(:id),
-      addressable_id: object.address.try(:addressable_id),
-      addressable_type: object.address.try(:addressable_type),
-      street1: object.address.try(:street1),
-      street2: object.address.try(:street2),
-      city: object.address.try(:city),
-      state: object.address.try(:state),
-      zip: object.address.try(:zip),
-      latitude: object.address.try(:latitude),
-      longitude: object.address.try(:longitude),
-      created_at: object.address.try(:created_at).try(:to_i),
-      updated_at: object.address.try(:updated_at).try(:to_i)
-    }
-  end
+class UserSerializer < ActiveModel::Serializer
+  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :created_at, :updated_at
+  has_one :address
+  has_many :sports, key: :favorite_sport_ids, root: :favorite_sport_ids, embed: :ids
+  has_many :teams, key: :favorite_team_ids, root: :favorite_team_ids, embed: :ids
+  has_many :managed_venues, key: :managed_venue_ids, root: :managed_venue_ids, embed: :ids
+  has_many :managed_teams, key: :managed_team_ids, root: :managed_team_ids, embed: :ids
+  has_many :reservations, key: :reservation_ids, root: :reservation_ids, embed: :ids
+  has_many :invitations, key: :invitation_ids, root: :invitation_ids, embed: :ids
+  has_many :parties, key: :party_ids, root: :party_ids, embed: :ids
+  has_many :endorsing_teams, key: :endorsing_team_ids, root: :endorsing_team_ids, embed: :ids
+  has_many :user_purchased_packages, key: :purchased_packages, root: :purchased_packages, embed: :ids
+  has_many :followees, key: :followee_ids, root: :followee_ids, embed: :ids
+  has_many :followers, key: :follower_ids, root: :follower_ids, embed: :ids
+  has_many :vouchers, key: :voucher_ids, root: :voucher_ids, embed: :ids
 
   def confirmed
     object.confirmed_at.present?
