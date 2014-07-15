@@ -154,6 +154,8 @@ GEM
       activesupport (>= 3.0.4)
     execjs (2.2.1)
     fabrication (2.11.3)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
     formatador (0.2.5)
     geocoder (1.2.2)
@@ -184,6 +186,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     kgio (2.9.2)
+    koala (1.10.0rc2)
+      addressable
+      faraday
+      multi_json
     launchy (2.4.2)
       addressable (~> 2.3)
     less (2.5.1)
@@ -211,6 +217,7 @@ GEM
     minitest (5.4.0)
     multi_json (1.10.1)
     multi_test (0.1.1)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -395,6 +402,7 @@ DEPENDENCIES
   guard-rspec (~> 3.0)
   guard-spork (~> 1.5)
   jquery-rails
+  koala (~> 1.10.0rc)
   launchy
   less-rails
   letter_opener

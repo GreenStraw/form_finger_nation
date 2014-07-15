@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20140626141545) do
     t.string   "provider"
     t.string   "uid"
     t.string   "customer_id"
+    t.string   "facebook_access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

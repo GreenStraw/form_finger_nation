@@ -124,15 +124,15 @@ describe Api::V1::UsersController do
           'reservation_ids' => @current_user.reservations,
           'invitation_ids' => @current_user.invitations,
           'managed_team_ids' => [],
+          'managed_venue_ids' => [],
           'first_name' => nil,
           'last_name' => nil,
           'endorsing_team_ids' => @current_user.endorsing_teams,
-          'managed_venue_ids' => [],
           'purchased_packages' => [],
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address' => {"id"=>@current_user.address.id, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
+          'address' => {"id"=>@current_user.address.id, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
           'follower_ids'=>[],
           'followee_ids'=>[],
           'voucher_ids'=>[],
@@ -150,36 +150,6 @@ describe Api::V1::UsersController do
       end
       it 'returns http 204' do
         response.response_code.should == 204
-      end
-      it 'returns updated user' do
-        up_user = JSON.parse(response.body)['user']
-        expect_user = {
-          'id' => @current_user.id,
-          'username' => "NewName",
-          'email' => @current_user.email,
-          'admin' => @current_user.has_role?(:admin),
-          'favorite_sport_ids' => @current_user.sports,
-          'favorite_team_ids'=> @current_user.teams,
-          'party_ids' => @current_user.parties,
-          'reservation_ids' => @current_user.reservations,
-          'invitation_ids' => @current_user.invitations,
-          'managed_team_ids' => [],
-          'first_name' => nil,
-          'last_name' => nil,
-          'endorsing_team_ids' => @current_user.endorsing_teams,
-          'managed_venue_ids' => [],
-          'purchased_packages' => [],
-          'first_name' => 'Test',
-          'last_name' => 'User',
-          'confirmed'=>true,
-          'address'=>nil,
-          'follower_ids'=>[],
-          'followee_ids'=>[],
-          'voucher_ids'=>[],
-          'address' => {"id"=>@current_user.address.id, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
-          'created_at'=>up_user['created_at'],
-          'updated_at'=>up_user['updated_at']}
-        up_user.should == expect_user
       end
     end
     context "set followees" do

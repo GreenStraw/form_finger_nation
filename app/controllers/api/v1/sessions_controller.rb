@@ -3,18 +3,17 @@ class Api::V1::SessionsController < Devise::SessionsController
   skip_before_filter :authenticate_user_from_token!, only: [:create]
 
   def create
-    unless (params[:email] && params[:password]) || (params[:email] && params[:uid] && params[:provider])
+    unless (params[:email] && params[:password]) || params[:access_token]
       return missing_params
     end
 
-    @user = if (params[:email] && params[:uid] && params[:provider])
-      user_from_facebook
+    if params[:access_token]
+      @user = user_from_facebook
     else
-      user_from_credentials
+      @user = user_from_credentials
     end
     return invalid_credentials unless @user
     @user.ensure_authentication_token
-
     render json: RegistrationUserSerializer.new(@user).to_json, status: 201
   end
 
@@ -33,10 +32,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def user_from_facebook
-    user = User.find_for_facebook(params[:provider], params[:uid])
-    if user && user.email == params[:email]
-      user
-    end
+    User.first_user_by_facebook_id(params[:access_token])
   end
 
   def remember_token

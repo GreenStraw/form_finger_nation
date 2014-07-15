@@ -39,6 +39,7 @@ Baseapp::Application.routes.draw do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
         post '/users' => 'registrations#create'
+        post '/users/facebook' => 'registrations#create_facebook'
       end
 
       resources :users, only: [:index, :show, :update] do
@@ -88,6 +89,7 @@ Baseapp::Application.routes.draw do
           put 'redeem'
         end
       end
+      resources :facebook, only: [:index]
       resources :packages
       resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]

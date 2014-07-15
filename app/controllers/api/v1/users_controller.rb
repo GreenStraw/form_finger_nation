@@ -53,8 +53,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
 
-
-
   def are_fans_of(team_id)
     Favorite.where('favoritable_id = ? and favoriter_type = ? and favoritable_type = ?', team_id, "User", "Team").map(&:favoriter_id)
   end
