@@ -53,8 +53,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
 
-
-
   def are_fans_of(team_id)
     Favorite.where('favoritable_id = ? and favoriter_type = ? and favoritable_type = ?', team_id, "User", "Team").map(&:favoriter_id)
   end
@@ -79,7 +77,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def update_without_password
     if @user.update(user_params)
-      respond_with @user
+      return render json: @user, status: 204
     else
       return render json: { :errors => @user.errors }, status: 422
     end
