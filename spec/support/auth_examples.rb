@@ -33,15 +33,7 @@ shared_examples 'auth response case' do
   end
   subject { JSON.parse response.body }
 
-  it { should include 'user_id' }
-  it { should include 'auth_token' }
-  it do
-    if remember
-      should include 'remember_token'
-    else
-      should_not include 'remember_token'
-    end
-  end
+  it { should include 'authentication_token' }
 
   it_behaves_like 'http code', 201
 end

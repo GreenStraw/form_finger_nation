@@ -11,7 +11,7 @@ class TeamSerializer < BaseSerializer
     {
       id: object.address.try(:id),
       addressable_id: object.address.try(:addressable_id),
-      addressable_type: object.address.try(:addressable_id),
+      addressable_type: object.address.try(:addressable_type),
       street1: object.address.try(:street1),
       street2: object.address.try(:street2),
       city: object.address.try(:city),

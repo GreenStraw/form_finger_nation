@@ -1,4 +1,4 @@
 class RegistrationUserSerializer < UserSerializer
-  self.root = 'user'
+  self.root = false
   attributes :authentication_token
 end

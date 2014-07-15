@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   resourcify
   validates :name, presence: true
+  after_create :ensure_address
 
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"
@@ -13,4 +14,12 @@ class Team < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
+
+  private
+
+  def ensure_address
+    if address.nil?
+      create_address
+    end
+  end
 end

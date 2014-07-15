@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include TokenAuthenticatable
   extend Enumerize
   rolify
+  after_create :ensure_address
 
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
@@ -55,5 +56,13 @@ class User < ActiveRecord::Base
 
   def self.find_for_facebook(provider, uid)
     user = User.where(:provider => provider, :uid => uid).first
+  end
+
+  private
+
+  def ensure_address
+    if address.nil?
+      create_address
+    end
   end
 end

@@ -132,12 +132,12 @@ describe Api::V1::UsersController do
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address' => {"id"=>nil, "addressable_id"=>nil, "addressable_type"=>nil, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>nil, "updated_at"=>nil},
+          'address' => {"id"=>@current_user.address.id, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
           'follower_ids'=>[],
           'followee_ids'=>[],
           'voucher_ids'=>[],
-          'created_at'=>@current_user.created_at.to_i,
-          'updated_at'=>@current_user.updated_at.to_i}
+          'created_at'=>up_user['created_at'],
+          'updated_at'=>up_user['updated_at']}
         up_user.should == expect_user
       end
     end
@@ -176,9 +176,9 @@ describe Api::V1::UsersController do
           'follower_ids'=>[],
           'followee_ids'=>[],
           'voucher_ids'=>[],
-          'address' => {"id"=>nil, "addressable_id"=>nil, "addressable_type"=>nil, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>nil, "updated_at"=>nil},
-          'created_at'=>@current_user.created_at.to_i,
-          'updated_at'=>@current_user.updated_at.to_i}
+          'address' => {"id"=>@current_user.address.id, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
+          'created_at'=>up_user['created_at'],
+          'updated_at'=>up_user['updated_at']}
         up_user.should == expect_user
       end
     end
