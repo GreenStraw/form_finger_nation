@@ -51,6 +51,19 @@ describe User do
     end
   end
 
+  describe "With a real token first_user_by_facebook_id" do
+    it "should return a user" do
+      Koala::Facebook::API.should_receive(:new).with("access_token").and_return(@current_user)
+      User.first_user_by_facebook_id("access_token").should == @current_user
+    end
+  end
+
+  describe "With a fake token first_user_by_facebook_id" do
+    it "should return nil" do
+      User.first_user_by_facebook_id("fake_token").should == nil
+    end
+  end
+
 end
 
 # == Schema Information
