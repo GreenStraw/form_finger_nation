@@ -15,6 +15,8 @@ class RegistrationUserSerializer < ActiveModel::Serializer
   has_many :followers
   has_many :vouchers
 
+  private
+
   def confirmed
     object.confirmed_at.present?
   end

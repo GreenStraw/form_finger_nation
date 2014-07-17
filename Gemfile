@@ -34,6 +34,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'geocoder'
 gem 'acts_as_commentable_with_threading'
 gem 'stripe'
+gem 'aws-sdk'
 
 # Use unicorn as the app server
 gem 'unicorn'

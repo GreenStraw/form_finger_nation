@@ -121,46 +121,6 @@ describe Api::V1::TeamsController do
     end
   end
 
-  describe "PUT subscribe user" do
-    context "user not fan" do
-      it "adds user to team fans" do
-        expect {
-          put :subscribe_user, id: @team.id, user_id: @current_user.id, format: :json
-        }.to change(@team.fans, :count).by(1)
-      end
-    end
-    context "user already fan" do
-      before {
-        @team.fans = [@current_user]
-      }
-      it "does not add user" do
-        expect {
-          put :subscribe_user, id: @team.id, user_id: @current_user.id, format: :json
-        }.to change(@team.fans, :count).by(0)
-      end
-    end
-  end
-
-  describe "PUT unsubscribe user" do
-    context "user is fan" do
-      before {
-        @team.fans = [@current_user]
-      }
-      it "removes user from team fans" do
-        expect {
-          put :unsubscribe_user, id: @team.id, user_id: @current_user.id, format: :json
-        }.to change(@team.fans, :count).by(-1)
-      end
-    end
-    context "user not fan" do
-      it "does not remove user" do
-        expect {
-          put :unsubscribe_user, id: @team.id, user_id: @current_user.id, format: :json
-        }.to change(@team.fans, :count).by(0)
-      end
-    end
-  end
-
   describe "PUT add_host" do
     context "user not host" do
       it "adds user to team hosts" do

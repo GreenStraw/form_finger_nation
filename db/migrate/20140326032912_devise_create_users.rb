@@ -46,6 +46,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :customer_id
       t.string :facebook_access_token
+      t.string :image_url
 
       t.timestamps
     end

@@ -7,6 +7,7 @@ describe Api::V1::UsersController do
   before do
     create_new_tenant
     login(:admin)
+    @team = Fabricate(:team)
     request.headers['auth-token'] = @current_user.authentication_token
     request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
@@ -118,8 +119,9 @@ describe Api::V1::UsersController do
           'username' => @current_user.username,
           'email' => @current_user.email,
           'admin' => @current_user.has_role?(:admin),
-          'favorite_sport_ids' => @current_user.sports,
-          'favorite_team_ids'=> @current_user.teams,
+          'image_url' => nil,
+          'sport_ids' => @current_user.sports,
+          'team_ids'=> @current_user.teams,
           'party_ids' => @current_user.parties,
           'reservation_ids' => @current_user.reservations,
           'invitation_ids' => @current_user.invitations,
@@ -128,7 +130,7 @@ describe Api::V1::UsersController do
           'first_name' => nil,
           'last_name' => nil,
           'endorsing_team_ids' => @current_user.endorsing_teams,
-          'purchased_packages' => [],
+          'user_purchased_package_ids' => [],
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
@@ -205,6 +207,46 @@ describe Api::V1::UsersController do
       end
       it 'returns http 422' do
         response.response_code.should == 422
+      end
+    end
+  end
+
+  describe "PUT follow team" do
+    context "team not favorite" do
+      it "adds team to user teams" do
+        expect {
+          put :follow_team, id: @current_user.id, team_id: @team.id, format: :json
+        }.to change(@current_user.teams, :count).by(1)
+      end
+    end
+    context "team already favorite" do
+      before {
+        @current_user.teams = [@team]
+      }
+      it "does not add team" do
+        expect {
+          put :follow_team, id: @current_user.id, team_id: @team.id, format: :json
+        }.to change(@current_user.teams, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT unfollow team" do
+    context "team is favorite" do
+      before {
+        @current_user.teams = [@team]
+      }
+      it "removes user from teams" do
+        expect {
+          put :unfollow_team, id: @current_user.id, team_id: @team.id, format: :json
+        }.to change(@current_user.teams, :count).by(-1)
+      end
+    end
+    context "team not favorite" do
+      it "does not remove team" do
+        expect {
+          put :unfollow_team, id: @current_user.id, team_id: @team.id, format: :json
+        }.to change(@current_user.teams, :count).by(0)
       end
     end
   end
