@@ -47,6 +47,8 @@ Baseapp::Application.routes.draw do
           get 'search_users'
         end
         member do
+          put 'follow_team'
+          put 'unfollow_team'
           put 'follow_user'
           put 'unfollow_user'
         end
@@ -60,8 +62,8 @@ Baseapp::Application.routes.draw do
       end
       resources :teams do
         member do
-          put 'subscribe_user'
-          put 'unsubscribe_user'
+          # put 'subscribe_user'
+          # put 'unsubscribe_user'
           put 'add_host'
           put 'remove_host'
           put 'add_admin'
@@ -89,7 +91,8 @@ Baseapp::Application.routes.draw do
           put 'redeem'
         end
       end
-      resources :facebook, only: [:index]
+      resources :uploads, only: [:index] do
+      end
       resources :packages
       resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]

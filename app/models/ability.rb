@@ -13,8 +13,8 @@ class Ability
       can :create, Party
     end
 
-    can :update, User do |user_to_update|
-      user_to_update.id == user.id
+    can :manage, User do |u|
+      user.id == u.id
     end
 
     can :manage, Party do |party|
