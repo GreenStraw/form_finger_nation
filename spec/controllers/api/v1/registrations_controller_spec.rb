@@ -23,8 +23,15 @@ describe Api::V1::RegistrationsController do
       end
     end
   end
-
-  describe "POST create_facebook" do
-    context ""
+  context 'facebook access token good' do
+    before do
+      user = Fabricate.attributes_for(:user)
+      user[:access_token] = 'test'
+      subject.should_receive(:facebook_params).once
+      xhr :post, :create, user: user
+    end
+    it 'returns http 201' do
+      response.response_code.should == 201
+    end
   end
 end

@@ -27,16 +27,16 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def facebook_params
-    fb_user = User.first_user_by_facebook_id(sign_up_params[:access_token])
+    fb_user = Koala::Facebook::API.new(sign_up_params[:access_token])
+    fb_details = fb_user.get_object("me")
+    fb_id = fb_details["id"]
 
-    if fb_user.present?
+    if fb_id.present?
       password = SecureRandom.hex(20)
-      params[:user][:uid] = fb_user.uid
+      params[:user][:uid] = fb_id
       params[:user][:provider] = 'facebook'
       params[:user][:password] = password
       params[:user][:password_confirmation] = password
-    else
-      errors.add(:base, "Facebook User Not Valid")
     end
   end
 
