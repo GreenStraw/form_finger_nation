@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   # validate :password_on_create_with_email, only: :create
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
+  validates_uniqueness_of :username
+  validates_length_of :username, :maximum => 12
+  validates_length_of :username, :minimum => 1
+  validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   attr_accessor :current_password, :access_token
 
