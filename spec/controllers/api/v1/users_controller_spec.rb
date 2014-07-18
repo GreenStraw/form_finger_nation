@@ -7,6 +7,7 @@ describe Api::V1::UsersController do
   before do
     create_new_tenant
     login(:admin)
+    @sport = Fabricate(:sport)
     @team = Fabricate(:team)
     request.headers['auth-token'] = @current_user.authentication_token
     request.headers['auth-email'] = @current_user.email
@@ -35,59 +36,6 @@ describe Api::V1::UsersController do
       end
     end
   end
-
-  # describe 'POST create' do
-  #   context 'user failed to be created' do
-  #     before {
-  #       Devise.should_receive(:friendly_token).and_return('12345678')
-  #       new_user = User.new({:email=> 'test@test.com', :password=> '12345678'})
-  #       User.should_receive(:new).with({"email"=> new_user.email, "password"=> new_user.password}).and_return(new_user)
-  #       new_user.should_receive(:save!).and_return(false)
-  #       xhr :post, :create, :user => {email: 'test@test.com'}
-  #     }
-
-  #     it 'returns 422' do
-  #       response.response_code.should == 422
-  #     end
-  #   end
-
-  #   context "email and password user (not facebook)" do
-  #     context 'user is created' do
-  #       before {
-  #         Devise.should_receive(:friendly_token).and_return('12345678')
-  #         new_user = User.new({email: 'test@test.com', password: '12345678'})
-  #         User.should_receive(:new).with({"email"=> new_user.email, "password"=> new_user.password}).and_return(new_user)
-  #         new_user.should_receive(:save!).and_return(true)
-  #         email = RegistrationMailer.welcome_email(new_user)
-  #         RegistrationMailer.should_receive(:welcome_email).with(new_user).and_return(email)
-  #         email.should_receive(:deliver).once
-  #         xhr :post, :create, :user => {email: 'test@test.com'}
-  #       }
-
-  #       it 'returns 200' do
-  #         response.response_code.should == 200
-  #       end
-  #     end
-  #   end
-    # context "facebook user" do
-    #   context 'user is created' do
-    #     before {
-    #       Devise.should_receive(:friendly_token).and_return('12345678')
-    #       new_user = User.new({email: 'test@test.com', password: '12345678', uid: '987654321', provider: 'facebook'})
-    #       User.should_receive(:new).and_return(new_user)
-    #       new_user.should_receive(:save!).and_return(true)
-    #       email = RegistrationMailer.facebook_welcome_email(new_user)
-    #       RegistrationMailer.should_receive(:facebook_welcome_email).with(new_user).and_return(email)
-    #       email.should_receive(:deliver).once
-    #       xhr :post, :create, :user => {email: 'test@test.com', uid: '987654321', provider: 'facebook'}
-    #     }
-
-    #     it 'returns 200' do
-    #       response.response_code.should == 200
-    #     end
-    #   end
-    # end
-  # end
 
   describe 'PUT update' do
     context 'Invalid credentials no auth token' do
@@ -120,8 +68,8 @@ describe Api::V1::UsersController do
           'email' => @current_user.email,
           'admin' => @current_user.has_role?(:admin),
           'image_url' => nil,
-          'sport_ids' => @current_user.sports,
-          'team_ids'=> @current_user.teams,
+          'followed_team_ids' => @current_user.followed_teams,
+          'followed_sport_ids'=> @current_user.followed_sports,
           'party_ids' => @current_user.parties,
           'reservation_ids' => @current_user.reservations,
           'invitation_ids' => @current_user.invitations,
@@ -134,7 +82,7 @@ describe Api::V1::UsersController do
           'first_name' => 'Test',
           'last_name' => 'User',
           'confirmed'=>true,
-          'address' => {"id"=>@current_user.address.id, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "latitude"=>nil, "longitude"=>nil, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i},
+          'address' => {"id"=>@current_user.address.id, "created_at"=>@current_user.address.created_at.to_i, "updated_at"=>@current_user.address.updated_at.to_i, "street1"=>nil, "street2"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "addressable_id"=>@current_user.address.addressable_id, "addressable_type"=>@current_user.address.addressable_type, "latitude"=>nil, "longitude"=>nil},
           'follower_ids'=>[],
           'followee_ids'=>[],
           'voucher_ids'=>[],
@@ -216,17 +164,17 @@ describe Api::V1::UsersController do
       it "adds team to user teams" do
         expect {
           put :follow_team, id: @current_user.id, team_id: @team.id, format: :json
-        }.to change(@current_user.teams, :count).by(1)
+        }.to change(@current_user.followed_teams, :count).by(1)
       end
     end
     context "team already favorite" do
       before {
-        @current_user.teams = [@team]
+        @current_user.followed_teams = [@team]
       }
       it "does not add team" do
         expect {
           put :follow_team, id: @current_user.id, team_id: @team.id, format: :json
-        }.to change(@current_user.teams, :count).by(0)
+        }.to change(@current_user.followed_teams, :count).by(0)
       end
     end
   end
@@ -234,19 +182,59 @@ describe Api::V1::UsersController do
   describe "PUT unfollow team" do
     context "team is favorite" do
       before {
-        @current_user.teams = [@team]
+        @current_user.followed_teams = [@team]
       }
       it "removes user from teams" do
         expect {
           put :unfollow_team, id: @current_user.id, team_id: @team.id, format: :json
-        }.to change(@current_user.teams, :count).by(-1)
+        }.to change(@current_user.followed_teams, :count).by(-1)
       end
     end
     context "team not favorite" do
       it "does not remove team" do
         expect {
           put :unfollow_team, id: @current_user.id, team_id: @team.id, format: :json
-        }.to change(@current_user.teams, :count).by(0)
+        }.to change(@current_user.followed_teams, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT follow sport" do
+    context "sport not favorite" do
+      it "adds sport to user sports" do
+        expect {
+          put :follow_sport, id: @current_user.id, sport_id: @sport.id, format: :json
+        }.to change(@current_user.followed_sports, :count).by(1)
+      end
+    end
+    context "sport already favorite" do
+      before {
+        @current_user.followed_sports = [@sport]
+      }
+      it "does not add sport" do
+        expect {
+          put :follow_sport, id: @current_user.id, sport_id: @sport.id, format: :json
+        }.to change(@current_user.followed_sports, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT unfollow sport" do
+    context "sport is favorite" do
+      before {
+        @current_user.followed_sports = [@sport]
+      }
+      it "removes user from sports" do
+        expect {
+          put :unfollow_sport, id: @current_user.id, sport_id: @sport.id, format: :json
+        }.to change(@current_user.followed_sports, :count).by(-1)
+      end
+    end
+    context "sport not favorite" do
+      it "does not remove sport" do
+        expect {
+          put :unfollow_sport, id: @current_user.id, sport_id: @sport.id, format: :json
+        }.to change(@current_user.followed_sports, :count).by(0)
       end
     end
   end

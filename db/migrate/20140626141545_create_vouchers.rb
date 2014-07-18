@@ -4,6 +4,7 @@ class CreateVouchers < ActiveRecord::Migration
       t.boolean :redeemed, default: false
       t.belongs_to :user
       t.belongs_to :package
+      t.timestamps
     end
   end
 end

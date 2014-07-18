@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
 
   has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
-  has_many :sports, through: :favorites, source: :favoritable, source_type: "Sport"
-  has_many :teams, through: :favorites, source: :favoritable, source_type: "Team"
+  has_many :followed_sports, through: :favorites, source: :favoritable, source_type: "Sport"
+  has_many :followed_teams, through: :favorites, source: :favoritable, source_type: "Team"
   has_many :followees, through: :favorites, source: :favoritable, source_type: "User"
   has_many :followers, through: :favorites, source: :favoriter, source_type: "User"
   has_many :endorsements, as: :endorsable

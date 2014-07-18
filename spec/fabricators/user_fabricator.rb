@@ -7,7 +7,7 @@ Fabricator(:user) do
   email { sequence(:email) { |i| "foo#{i}@example.com"} }
   password 'password'
   password_confirmation 'password'
-  sports []
-  teams []
+  followed_sports []
+  followed_teams []
 end
 

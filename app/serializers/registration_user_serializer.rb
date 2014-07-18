@@ -1,9 +1,9 @@
-class RegistrationUserSerializer < ActiveModel::Serializer
+class RegistrationUserSerializer < BaseSerializer
   self.root = 'user'
-  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :created_at, :updated_at, :authentication_token
+  attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :authentication_token
   has_one :address
-  has_many :sports
-  has_many :teams
+  has_many :followed_sports
+  has_many :followed_teams
   has_many :managed_venues
   has_many :managed_teams
   has_many :reservations
@@ -45,13 +45,5 @@ class RegistrationUserSerializer < ActiveModel::Serializer
       end
     end
     venues
-  end
-
-  def created_at
-    object.created_at.to_i
-  end
-
-  def updated_at
-    object.updated_at.to_i
   end
 end

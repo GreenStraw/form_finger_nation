@@ -1,8 +1,10 @@
 class CommentSerializer < BaseSerializer
-  attributes :id, :title, :subject, :body, :parent_id, :created_at, :commenter_name
-  has_many :children, key: :children, root: :children
-  has_one :commentable, key: :commentable, root: :commentable
-  has_one :commenter, key: :commenter, root: :commenter
+  attributes :title, :subject, :body, :parent_id, :created_at, :commenter_name
+  has_many :children, embed: :ids
+  has_one :commentable, embed: :ids
+  has_one :commenter, embed: :ids
+
+  private
 
   def commenter_name
     case object.commenter_type

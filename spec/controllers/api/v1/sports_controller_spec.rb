@@ -123,44 +123,4 @@ describe Api::V1::SportsController do
       }.to change(Sport, :count).by(-1)
     end
   end
-
-  describe "PUT subscribe user" do
-    context "user not fan" do
-      it "adds user to sport fans" do
-        expect {
-          put :subscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
-        }.to change(@sport.fans, :count).by(1)
-      end
-    end
-    context "user already fan" do
-      before {
-        @sport.fans = [@current_user]
-      }
-      it "does not add user" do
-        expect {
-          put :subscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
-        }.to change(@sport.fans, :count).by(0)
-      end
-    end
-  end
-
-  describe "PUT unsubscribe user" do
-    context "user is fan" do
-      before {
-        @sport.fans = [@current_user]
-      }
-      it "removes user from sport fans" do
-        expect {
-          put :unsubscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
-        }.to change(@sport.fans, :count).by(-1)
-      end
-    end
-    context "user not fan" do
-      it "does not remove user" do
-        expect {
-          put :unsubscribe_user, id: @sport.id, user_id: @current_user.id, format: :json
-        }.to change(@sport.fans, :count).by(0)
-      end
-    end
-  end
 end

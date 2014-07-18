@@ -4,6 +4,7 @@ class CreateEndorsementRequests < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :team
       t.string :status, default: 'pending'
+      t.timestamps
     end
   end
 end

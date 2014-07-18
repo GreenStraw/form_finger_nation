@@ -47,6 +47,8 @@ Baseapp::Application.routes.draw do
           get 'search_users'
         end
         member do
+          put 'follow_sport'
+          put 'unfollow_sport'
           put 'follow_team'
           put 'unfollow_team'
           put 'follow_user'
@@ -54,16 +56,9 @@ Baseapp::Application.routes.draw do
         end
       end
       resources :endorsement_requests, only: [:index, :show, :update, :create]
-      resources :sports do
-        member do
-          put 'subscribe_user'
-          put 'unsubscribe_user'
-        end
-      end
+      resources :sports
       resources :teams do
         member do
-          # put 'subscribe_user'
-          # put 'unsubscribe_user'
           put 'add_host'
           put 'remove_host'
           put 'add_admin'
