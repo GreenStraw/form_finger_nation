@@ -4,10 +4,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, except: [:create]
   load_and_authorize_resource :team
   load_and_authorize_resource :sport
-  load_and_authorize_resource :user, except: [:create]
+  load_and_authorize_resource
 
   def index
-    respond_with @user=User.all
+    respond_with @users
   end
 
   def show

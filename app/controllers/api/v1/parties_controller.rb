@@ -3,7 +3,7 @@ class Api::V1::PartiesController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @parties=Party.all
+    respond_with @parties
   end
 
   def show

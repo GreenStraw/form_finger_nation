@@ -42,6 +42,10 @@ Venue.create([
   { name: 'Venue 3', description: 'Something else here!', address: Address.create(street1: '3705 Elmcrest Circle', city: 'Garland', state: 'TX', zip: '79424')}
 ])
 
+Package.create([
+  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: 1 }
+])
+
 u = User.find_by_email('admin@test.com')
 u.add_role(:admin)
 

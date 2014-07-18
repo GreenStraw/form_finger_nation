@@ -12,10 +12,6 @@ Baseapp::Application.routes.draw do
     post  '/login'  => 'milia/sessions#create',  as: 'user_session'
     get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
 
-    # joining
-    # get   '/join' => 'milia/registrations#new',    as: 'new_user_registration'
-    # post  '/join' => 'milia/registrations#create', as: 'user_registration'
-
     scope '/account' do
       # password reset
       get   '/password'        => 'milia/passwords#new',    as: 'new_user_password'

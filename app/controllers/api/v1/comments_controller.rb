@@ -3,7 +3,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @comments=Comment.all
+    respond_with @comments
   end
 
   def show

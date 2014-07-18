@@ -51,9 +51,11 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "comments", ["commenter_id", "commenter_type"], name: "index_comments_on_commenter_id_and_commenter_type", using: :btree
 
   create_table "endorsement_requests", force: true do |t|
-    t.integer "user_id"
-    t.integer "team_id"
-    t.string  "status",  default: "pending"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "status",     default: "pending"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "endorsements", force: true do |t|
@@ -272,9 +274,11 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
   create_table "vouchers", force: true do |t|
-    t.boolean "redeemed",   default: false
-    t.integer "user_id"
-    t.integer "package_id"
+    t.boolean  "redeemed",   default: false
+    t.integer  "user_id"
+    t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

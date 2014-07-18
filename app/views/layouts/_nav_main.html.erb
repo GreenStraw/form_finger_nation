@@ -22,18 +22,18 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to( t("theme.profile", :default => "Profile"), edit_member_path(current_user) ) %>              
+                <%= link_to( t("theme.profile", :default => "Profile"), '#' ) %>              
               </li>
               <li class="divider"></li>
               <li>
-                <%= link_to( t("theme.invite", :default => "Account Members"), members_path ) %>
+                <%= link_to( t("theme.invite", :default => "Account Members"), '#' ) %>
               </li>
               <li>
-                <%= link_to( t("theme.invite", :default => "Invite member"), new_member_path ) %>
+                <%= link_to( t("theme.invite", :default => "Invite member"), '#' ) %>
               </li>
               <li class="divider"></li>
               <li>
-                <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :delete ) %>
+                <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
               </li>
             </ul>
           </li>

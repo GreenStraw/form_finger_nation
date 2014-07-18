@@ -3,7 +3,7 @@ class Api::V1::AddressesController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @addresses=Address.all
+    respond_with @addresses
   end
 
   def show

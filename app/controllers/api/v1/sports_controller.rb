@@ -4,7 +4,7 @@ class Api::V1::SportsController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
 
   def index
-    respond_with @sports = Sport.all
+    respond_with @sports
   end
 
   def show

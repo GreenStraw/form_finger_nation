@@ -3,6 +3,7 @@ class Api::V1::BaseController < ApplicationController
 
   # token validation per tenant should be implemented
   before_action :validate_token
+  
   respond_to :json
 
   def current_user
