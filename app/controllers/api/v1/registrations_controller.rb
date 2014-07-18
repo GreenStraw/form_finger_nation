@@ -27,12 +27,11 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def facebook_params
-    fb_user = User.facebook_user(sign_up_params[:access_token])
-    fb_details = fb_user.get_object("me")
+    fb_user = User.first_user_by_facebook_id(sign_up_params[:access_token])
 
-    if fb_details["id"].present?
+    if fb_user.present?
       password = SecureRandom.hex(20)
-      params[:user][:uid] = fb_details["id"]
+      params[:user][:uid] = fb_user.uid
       params[:user][:provider] = 'facebook'
       params[:user][:password] = password
       params[:user][:password_confirmation] = password
