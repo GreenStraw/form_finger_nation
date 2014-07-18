@@ -26,20 +26,6 @@ class Api::V1::SportsController < Api::V1::BaseController
     respond_with @sport, :location=>api_v1_sports_path
   end
 
-  def subscribe_user
-    if !@sport.fans.include?(@user)
-      @sport.fans << @user
-    end
-    respond_with @sport, :location=>api_v1_sports_path
-  end
-
-  def unsubscribe_user
-    if @sport.fans.include?(@user)
-      @sport.fans.delete(@user)
-    end
-    respond_with @sport, :location=>api_v1_sports_path
-  end
-
   private
 
   def sport_params

@@ -1,6 +1,6 @@
 class PackageSerializer < BaseSerializer
-  attributes :id, :name, :description, :price, :is_public, :created_at
-  has_many :parties, key: :party_ids, root: :party_ids
-  has_many :vouchers, key: :voucher_ids, root: :voucher_ids
-  has_one :venue, key: :venue_id, root: :venue_id
+  attributes :name, :description, :price, :is_public
+  has_many :parties, embed: :ids
+  has_many :vouchers, embed: :ids
+  has_one :venue, embed: :ids
 end

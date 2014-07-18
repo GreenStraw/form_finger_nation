@@ -1,3 +1,3 @@
 class SportSubscriptionSerializer < BaseSerializer
-  attributes :id, :user, :sport
+  attributes :user, :sport
 end

@@ -1,5 +1,5 @@
 class VoucherSerializer < BaseSerializer
-  attributes :id, :redeemed
-  has_one :user, key: :user_id, root: :user_id
-  has_one :package, key: :package_id, root: :package_id
+  attributes :redeemed
+  has_one :user, embed: :ids
+  has_one :package, embed: :ids
 end

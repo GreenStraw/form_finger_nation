@@ -1,8 +1,8 @@
-class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :first_name, :last_name, :email, :admin, :confirmed, :created_at, :updated_at, :image_url
+class UserSerializer < BaseSerializer
+  attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :image_url
   has_one :address
-  has_many :sports, embed: :ids
-  has_many :teams, embed: :ids
+  has_many :followed_sports, embed: :ids
+  has_many :followed_teams, embed: :ids
   has_many :managed_venues, embed: :ids
   has_many :managed_teams, embed: :ids
   has_many :reservations, embed: :ids
@@ -44,13 +44,5 @@ class UserSerializer < ActiveModel::Serializer
       end
     end
     venues
-  end
-
-  def created_at
-    object.created_at.to_i
-  end
-
-  def updated_at
-    object.updated_at.to_i
   end
 end

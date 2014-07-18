@@ -3,6 +3,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   include ActiveRecord::AttributeAssignment
   before_filter :authenticate_user_from_token!, except: [:create]
   load_and_authorize_resource :team
+  load_and_authorize_resource :sport
   load_and_authorize_resource :user, except: [:create]
 
   def index
@@ -22,15 +23,29 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def follow_team
-    if !@user.teams.include?(@team)
-      @user.teams << @team
+    if !@user.followed_teams.include?(@team)
+      @user.followed_teams << @team
     end
     respond_with @user
   end
 
   def unfollow_team
-    if @user.teams.include?(@team)
-      @user.teams.delete(@team)
+    if @user.followed_teams.include?(@team)
+      @user.followed_teams.delete(@team)
+    end
+    respond_with @user
+  end
+
+  def follow_sport
+    if !@user.followed_sports.include?(@sport)
+      @user.followed_sports << @sport
+    end
+    respond_with @user
+  end
+
+  def unfollow_sport
+    if @user.followed_sports.include?(@sport)
+      @user.followed_sports.delete(@sport)
     end
     respond_with @user
   end

@@ -1,8 +1,10 @@
 class PartyInvitationSerializer < BaseSerializer
-  attributes :id, :email, :registered, :uuid, :status
-  has_one :party, key: :party_id, root: :party_id
-  has_one :user, key: :user_id, root: :user_id
-  has_one :inviter, key: :inviter_id, root: :inviter_id
+  attributes :email, :registered, :uuid, :status
+  has_one :party, embed: :ids
+  has_one :user, embed: :ids
+  has_one :inviter, embed: :ids
+
+  private
 
   def registered
     user.present?

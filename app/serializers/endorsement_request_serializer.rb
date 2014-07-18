@@ -1,3 +1,3 @@
 class EndorsementRequestSerializer < BaseSerializer
-  attributes :id, :user, :team
+  attributes :user, :team
 end
