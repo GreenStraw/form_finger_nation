@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Api::V1::VenuesController do
-  
+
   render_views
-  
+
   before do
     create_new_tenant
     login(:admin)
     @venue = Fabricate(:venue)
-    
+
     request.headers['auth-token'] = @current_user.authentication_token
     request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
@@ -99,7 +99,7 @@ describe Api::V1::VenuesController do
       it "assigns the activity as @venue" do
         assigns(:venue).should eq(@venue)
       end
-      it "should return the error as json" do 
+      it "should return the error as json" do
         response.body.should eq("{\"errors\":{\"base\":[\"some generic error\"]}}")
       end
     end
@@ -110,6 +110,18 @@ describe Api::V1::VenuesController do
       expect {
         delete :destroy, :id => @venue.to_param, :format => :json
       }.to change(Venue, :count).by(-1)
+    end
+  end
+
+  describe "GET packages" do
+    before {
+      @package = Fabricate(:package)
+      @venue.packages << @package
+      get :packages, :id => @venue.to_param, :format => :json
+    }
+
+    it "returns packages" do
+      response.body.should == "{\"packages\":[{\"id\":1,\"created_at\":#{@package.created_at.to_i},\"updated_at\":#{@package.updated_at.to_i},\"name\":\"test package\",\"description\":\"wings for 50 cents\",\"price\":\"5.0\",\"is_public\":false,\"image_url\":null,\"party_ids\":[],\"voucher_ids\":[],\"venue_id\":1}]}"
     end
   end
 

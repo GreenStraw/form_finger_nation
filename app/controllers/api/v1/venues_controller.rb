@@ -35,6 +35,10 @@ class Api::V1::VenuesController < Api::V1::BaseController
     respond_with @venue, :location=>api_v1_venues_path
   end
 
+  def packages
+    respond_with @venue.packages, each_serializer: PackageSerializer, root: 'packages'
+  end
+
   private
 
   def venue_params

@@ -1,13 +1,11 @@
 class Api::V1::UsersController < Api::V1::BaseController
   include Devise::Models::DatabaseAuthenticatable
   include ActiveRecord::AttributeAssignment
-  before_filter :authenticate_user_from_token!, except: [:create]
-  load_and_authorize_resource :team
-  load_and_authorize_resource :sport
+  before_filter :authenticate_user_from_token!
   load_and_authorize_resource
 
   def index
-    respond_with @users
+    respond_with @user
   end
 
   def show
@@ -20,34 +18,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       update_without_password
     end
-  end
-
-  def follow_team
-    if !@user.followed_teams.include?(@team)
-      @user.followed_teams << @team
-    end
-    respond_with @user
-  end
-
-  def unfollow_team
-    if @user.followed_teams.include?(@team)
-      @user.followed_teams.delete(@team)
-    end
-    respond_with @user
-  end
-
-  def follow_sport
-    if !@user.followed_sports.include?(@sport)
-      @user.followed_sports << @sport
-    end
-    respond_with @user
-  end
-
-  def unfollow_sport
-    if @user.followed_sports.include?(@sport)
-      @user.followed_sports.delete(@sport)
-    end
-    respond_with @user
   end
 
   def follow_user

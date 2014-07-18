@@ -7,10 +7,14 @@ class Ability
     if user.has_role?(:admin)
       can :manage, :all
     else
-      
       can :read, :all
+      can :subscribe_user, Team
+      can :unsubscribe_user, Team
+      can :subscribe_user, Sport
+      can :unsubscribe_user, Sport
+      can :index, Team
       can :create, Party
-
+      can :packages, Venue
       can :manage, User do |u|
         user.id == u.id
       end
@@ -42,8 +46,6 @@ class Ability
       can :remove_host, Team do |team|
         user.has_role?(:team_admin, team)
       end
-
     end
-
   end
 end

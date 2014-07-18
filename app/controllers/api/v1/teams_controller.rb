@@ -50,6 +50,20 @@ class Api::V1::TeamsController < Api::V1::BaseController
     respond_with @team, :location=>api_v1_teams_path
   end
 
+  def subscribe_user
+    if !@team.fans.include?(@user)
+      @team.fans << @user
+    end
+    respond_with @team
+  end
+
+  def unsubscribe_user
+    if @team.fans.include?(@user)
+      @team.fans.delete(@user)
+    end
+    respond_with @team
+  end
+
   private
 
   def subscribe_params

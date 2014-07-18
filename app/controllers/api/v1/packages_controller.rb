@@ -3,7 +3,7 @@ class Api::V1::PackagesController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @packages=Package.all
+    respond_with @packages
   end
 
   def show
