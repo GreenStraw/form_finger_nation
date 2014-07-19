@@ -1,5 +1,5 @@
-class VenueSerializer < BaseSerializer
-  attributes :name, :image_url, :description
+class VenueSerializer < ImageSerializer
+  attributes :name, :description
   has_one :address
   has_many :followed_teams, embed: :ids
   has_many :followed_sports, embed: :ids

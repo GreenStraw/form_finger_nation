@@ -1,4 +1,4 @@
-class RegistrationUserSerializer < BaseSerializer
+class RegistrationUserSerializer < ImageSerializer
   self.root = 'user'
   attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :authentication_token
   has_one :address

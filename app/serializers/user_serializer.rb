@@ -1,5 +1,5 @@
-class UserSerializer < BaseSerializer
-  attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :image_url
+class UserSerializer < ImageSerializer
+  attributes :username, :first_name, :last_name, :email, :admin, :confirmed
   has_one :address
   has_many :followed_sports, embed: :ids
   has_many :followed_teams, embed: :ids
