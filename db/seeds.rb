@@ -57,8 +57,8 @@ Party.create([
 ])
 
 Package.create([
-  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: 1 },
-  { name: "Beer for some amount of money", description: "BEER!", price: "4.55", is_public: false, party_ids: [], voucher_ids: [], venue_id: 1 }
+  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.first.id },
+  { name: "Beer for some amount of money", description: "BEER!", price: "4.55", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.first.id }
 ])
 
 u = User.find_by_email('admin@test.com')

@@ -4,9 +4,19 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.has_role?(:team_admin)
+    if user.has_role?(:team_admin, :any)
       can :update, :add_host, :remove_host, Team do |team|
         user.has_role?(:team_admin, team)
+      end
+    end
+
+    if user.has_role?(:manager, :any)
+      can :add_package, Party do |p|
+        user.has_role?(:manager, p.venue)
+      end
+
+      can :remove_package, Party do |p|
+        user.has_role?(:manager, p.venue)
       end
     end
 
