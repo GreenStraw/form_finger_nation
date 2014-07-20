@@ -5,6 +5,7 @@ describe Api::V1::PartiesController do
     create_new_tenant
     login(:admin)
     @party = Fabricate(:party)
+    @package = Fabricate(:package)
     request.headers['auth-token'] = @current_user.authentication_token
     request.headers['auth-email'] = @current_user.email
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
@@ -284,6 +285,46 @@ describe Api::V1::PartiesController do
         u = User.create(email: 'test2@test.com')
         PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@current_user.id, @party.id)
         post :invite, :party => {emails:['test2@test.com','test3@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
+      end
+    end
+  end
+
+  describe "PUT add_package" do
+    context "user not fan" do
+      it "adds user to party packages" do
+        expect {
+          put :add_package, id: @party.id, package_id: @package.id, format: :json
+        }.to change(@party.packages, :count).by(1)
+      end
+    end
+    context "user already fan" do
+      before {
+        @party.packages = [@package]
+      }
+      it "does not add user" do
+        expect {
+          put :add_package, id: @party.id, package_id: @package.id, format: :json
+        }.to change(@party.packages, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT remove_package" do
+    context "user is fan" do
+      before {
+        @party.packages = [@package]
+      }
+      it "removes user from party packages" do
+        expect {
+          put :remove_package, id: @party.id, package_id: @package.id, format: :json
+        }.to change(@party.packages, :count).by(-1)
+      end
+    end
+    context "user not fan" do
+      it "does not remove user" do
+        expect {
+          put :remove_package, id: @party.id, package_id: @package.id, format: :json
+        }.to change(@party.packages, :count).by(0)
       end
     end
   end

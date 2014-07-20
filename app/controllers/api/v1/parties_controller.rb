@@ -1,6 +1,7 @@
 class Api::V1::PartiesController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :rsvp, :unrsvp]
-  load_and_authorize_resource
+  load_and_authorize_resource :party
+  load_and_authorize_resource :package
 
   def index
     respond_with @parties
@@ -23,6 +24,20 @@ class Api::V1::PartiesController < Api::V1::BaseController
   def destroy
     @party.destroy
     respond_with @party, :location=>api_v1_parties_path
+  end
+
+  def add_package
+    if !@party.packages.include?(@package)
+      @party.packages << @package
+    end
+    respond_with @party
+  end
+
+  def remove_package
+    if @party.packages.include?(@package)
+      @party.packages.delete(@package)
+    end
+    respond_with @party
   end
 
   def search
