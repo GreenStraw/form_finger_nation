@@ -30,6 +30,8 @@ class Ability
       can :unsubscribe_user, Sport
       can :create, Party
       can :packages, Venue
+      can :rsvp, Party
+      can :unrsvp, Party
 
       can :update, User do |u|
         user.id == u.id
