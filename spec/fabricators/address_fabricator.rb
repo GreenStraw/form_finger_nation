@@ -1,9 +1,9 @@
 Fabricator(:address) do
   street1 { sequence(:street1) { |i| "#{i} some street"} }
   street2 'St. 200'
-  city 'Anytown'
+  city 'Austin'
   state 'TX'
-  zip '78978'
+  zip '78728'
   longitude 30.00
   latitude 30.00
   addressable_type "Venue"

@@ -32,6 +32,7 @@ gem 'awesome_nested_set', '~>3.0.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'geocoder'
+gem 'geokit-rails'
 gem 'acts_as_commentable_with_threading'
 gem 'stripe'
 gem 'aws-sdk'
