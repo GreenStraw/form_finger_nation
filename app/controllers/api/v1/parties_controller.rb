@@ -16,6 +16,10 @@ class Api::V1::PartiesController < Api::V1::BaseController
     respond_with Party.joins(:attendees).merge(User.where(id: @user.id))
   end
 
+  def by_organizer
+    respond_with Party.where(organizer_id: @user.id)
+  end
+
   def create
     @party.save
     respond_with @party, :location=>api_v1_parties_path
