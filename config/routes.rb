@@ -74,6 +74,7 @@ Baseapp::Application.routes.draw do
       resources :parties do
         collection do
           get 'search'
+          get 'by_attendee'
           post 'invite'
         end
         member do

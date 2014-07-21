@@ -2,6 +2,7 @@ class Api::V1::PartiesController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :rsvp, :unrsvp]
   load_and_authorize_resource :party
   load_and_authorize_resource :package
+  load_and_authorize_resource :user
 
   def index
     respond_with @parties
@@ -9,6 +10,10 @@ class Api::V1::PartiesController < Api::V1::BaseController
 
   def show
     respond_with @party
+  end
+
+  def by_attendee
+    respond_with Party.joins(:attendees).merge(User.where(id: @user.id))
   end
 
   def create
