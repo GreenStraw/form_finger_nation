@@ -14,69 +14,13 @@ describe Api::V1::PartiesController do
   let(:valid_attributes) { Fabricate.attributes_for(:party) }
 
   describe "search_parties(search, address, radius)" do
-    before(:each) do
-      Venue.all.map(&:destroy)
-      Party.all.map(&:destroy)
-      @e1 = Venue.create(name: 'Bar 1', address: Fabricate(:address))
-      @e2 = Venue.create(name: 'Bar 2', address: Fabricate(:address))
-      @t = Team.create(name: 'Team 1')
-      @p1 = Party.create(venue: @e1, name: 'Party 1', team: @t, scheduled_for: DateTime.now + 1.day, is_private: false)
-      @p2 = Party.create(venue: @e2, name: 'Party 2', team: @t, scheduled_for: DateTime.now + 8.days, is_private: false)
+    it "returns empty array if none found" do
+      Address.should_receive(:class_within_radius_of).with('Venue', 1, 1, 25).once.and_return([])
+      subject.send(:search_parties, 1, 1, 25).should == []
     end
-    it "should call venue_ids_by_address_and_radius" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
-      subject.send(:search_parties, '', '78728', 15, Date.today, Date.today + 7.days)
-    end
-
-    it "should return parties in the area if there are any" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
-      subject.send(:search_parties, '', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
-    end
-
-    it "should not find parties in the area if there are none" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('77777', 15).and_return([]);
-      subject.send(:search_parties, '', '77777', 15, Date.today, Date.today + 7.days).should == []
-    end
-
-    it "should find parties by party name in area" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
-      subject.send(:search_parties, 'Party 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
-    end
-
-    it "should find parties by team name in area" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
-      subject.send(:search_parties, 'Team 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
-    end
-
-    it "should find parties by venue name in area" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('78728', 15).and_return([@e1.id]);
-      subject.send(:search_parties, 'Bar 1', '78728', 15, Date.today, Date.today + 7.days).should == [@p1]
-    end
-
-    it "should find no parties if outside of date range" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('79424', 15).and_return([@e2.id]);
-      subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 7.days).should == []
-    end
-
-    it "should find  parties if inside of date range" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('79424', 15).and_return([@e2.id]);
-      subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 9.days).should == [@p2]
-    end
-
-    it "should not include private parties" do
-      subject.should_receive(:venue_ids_by_address_and_radius).with('79424', 15).and_return([@e2.id]);
-      @p2.update_attribute(:is_private, true)
-      subject.send(:search_parties, '', '79424', 15, Date.today, Date.today + 9.days).should == []
-    end
-  end
-
-  describe "venue_ids_by_address_and_radius(address, radius)" do
-    it "should call the needed methods" do
-      @v = Fabricate(:venue)
-      @ad1 = Fabricate(:address)
-      @ad1.should_receive(:addressable_id).and_return(@v.id)
-      Address.should_receive(:near).with('1 some street', 10).and_return([@ad1])
-      subject.send(:venue_ids_by_address_and_radius, '1 some street', 10).should == [@v.id]
+    it "returns parties for venues in range" do
+      Address.should_receive(:class_within_radius_of).with('Venue', 1, 1, 25).once.and_return([@party.venue.address])
+      subject.send(:search_parties, 1, 1, 25).should == [@party]
     end
   end
 
@@ -121,6 +65,28 @@ describe Api::V1::PartiesController do
 
     it "should return 200" do
       response.status.should eq(200)
+    end
+  end
+
+  describe "GET search" do
+    context "no radius" do
+      before do
+        get :search, lat: 1, lng: 1, format: :json
+      end
+
+      it "returns http 200" do
+        response.response_code.should eq(200)
+      end
+    end
+
+    context "radius" do
+      before do
+        get :search, lat: 1, lng: 1, radius: 50, format: :json
+      end
+
+      it "returns http 200" do
+        response.response_code.should eq(200)
+      end
     end
   end
 

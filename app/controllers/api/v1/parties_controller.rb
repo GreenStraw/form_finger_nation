@@ -50,13 +50,11 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   def search
-    search = params[:query] if params[:query]
-    address = params[:address] if params[:address]
-    radius = params[:radius] if params[:radius]
-    from_date = params[:fromDate].to_date if params[:fromDate]
-    to_date = params[:toDate].to_date if params[:toDate]
-    @results = search_parties(search, address, radius, from_date, to_date)
-    render json: @results, status: 200
+    radius = params[:radius] || 25
+    lat = params[:lat]
+    lng = params[:lng]
+    parties = search_parties(lat, lng, radius)
+    respond_with parties
   end
 
   def rsvp
@@ -89,32 +87,10 @@ class Api::V1::PartiesController < Api::V1::BaseController
 
   private
 
-  def search_parties(search, address, radius, from_date, to_date)
-    bar_ids = venue_ids_by_address_and_radius(address, radius)
-    parties_by_date = Party.where(scheduled_for: from_date.beginning_of_day..to_date.end_of_day, is_private: false)
-    parties_in_area = parties_by_date.where(venue_id: bar_ids)
-    results = parties_in_area.where("name ilike '%#{search}%'")
-    teams = Team.where("name ilike '%#{search}%'")
-    if teams.any?
-      results += parties_in_area.where("team_id in (#{teams.map(&:id).join(',')})")
-    end
-    venues = Venue.where("name ilike '%#{search}%'")
-    if venues.any?
-      results += parties_in_area.where("venue_id in (#{venues.map(&:id).join(',')})")
-    end
-    results.to_a.compact.uniq
-  end
-
-  def venue_ids_by_address_and_radius(address, radius)
-    results = []
-    add = address
-    rad = radius || 10
-    addresses = Address.near(add, rad).to_a
-    if addresses.any?
-      venue_ids = addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
-      results = Venue.where(:id => venue_ids).to_a.map(&:id)
-    end
-    results || []
+  def search_parties(lat, lng, radius)
+    addresses_in_radius = Address.class_within_radius_of('Venue', lat, lng, radius)
+    venues = addresses_in_radius.map(&:addressable)
+    venues.map(&:parties).flatten.uniq
   end
 
   def invite_params
