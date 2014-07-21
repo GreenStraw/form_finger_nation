@@ -13,6 +13,10 @@ class PartySerializer < BaseSerializer
 
   private
 
+  def scheduled_for
+    object.scheduled_for.to_i
+  end
+
   def unregistered_attendees
     object.party_reservations.where(:user_id => nil)
   end
