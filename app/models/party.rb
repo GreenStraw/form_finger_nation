@@ -22,6 +22,14 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
+  def scheduled_for=(value)
+    if value.is_a?(Integer)
+      self[:scheduled_for] = Time.at(value).to_datetime
+    else
+      self[:scheduled_for] = value
+    end
+  end
+
   def self.send_host_fourty_eight_hour_notifications
     parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+2.days).beginning_of_day, (DateTime.now+2.days).end_of_day)
     parties.each do |party|

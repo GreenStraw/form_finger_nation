@@ -117,9 +117,6 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   def party_params
-    if params[:party][:scheduled_for].present? && params[:party][:scheduled_for].is_a?(Integer)
-      params[:party][:scheduled_for] = Time.at(params[:party][:scheduled_for]).to_datetime
-    end
     params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :venue_id, :team_id, :sport_id, :address, { :attendee_ids=>[], :package_ids=>[] }, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
