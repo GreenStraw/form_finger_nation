@@ -75,6 +75,7 @@ Baseapp::Application.routes.draw do
         collection do
           get 'search'
           get 'by_attendee'
+          get 'by_organizer'
           post 'invite'
         end
         member do

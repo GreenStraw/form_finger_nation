@@ -114,6 +114,16 @@ describe Api::V1::PartiesController do
     end
   end
 
+  describe 'GET by_organizer' do
+    before do
+      get :by_organizer, user_id: @current_user.id, format: :json
+    end
+
+    it "should return 200" do
+      response.status.should eq(200)
+    end
+  end
+
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
