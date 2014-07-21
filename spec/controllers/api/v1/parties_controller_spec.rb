@@ -137,6 +137,23 @@ describe Api::V1::PartiesController do
         expect(response.status).to eq(422)
       end
     end
+
+    describe "with unix scheduled_for" do
+      before(:each) do
+        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days).to_i }, :format => :json
+      end
+      it "returns a 201" do
+        expect(response.status).to eq(201)
+      end
+    end
+    describe "with Datetime scheduled_for" do
+      before(:each) do
+        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days) }, :format => :json
+      end
+      it "returns a 201" do
+        expect(response.status).to eq(201)
+      end
+    end
   end
 
   describe "PUT update" do
