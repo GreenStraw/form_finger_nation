@@ -104,6 +104,16 @@ describe Api::V1::PartiesController do
     end
   end
 
+  describe 'GET by_attendee' do
+    before do
+      get :by_attendee, user_id: @current_user.id, format: :json
+    end
+
+    it "should return 200" do
+      response.status.should eq(200)
+    end
+  end
+
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
