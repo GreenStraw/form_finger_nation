@@ -75,10 +75,10 @@ Baseapp::Application.routes.draw do
         collection do
           get 'search'
           post 'invite'
-          put 'add_package'
-          put 'remove_package'
         end
         member do
+          put 'add_package'
+          put 'remove_package'
           put 'rsvp'
           put 'unrsvp'
         end
