@@ -32,6 +32,7 @@ class Ability
       can :packages, Venue
       can :rsvp, Party
       can :unrsvp, Party
+      can :search, Party
 
       can :update, User do |u|
         user.id == u.id
