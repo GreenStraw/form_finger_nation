@@ -46,19 +46,29 @@ Team.create([
 ])
 
 Venue.create([
-  { name: 'Venue 1', description: 'We show sports!', address: Address.create(street1: '8021 Davis Mountain Pass', city: 'Austin', state: 'TX', zip: '78726')},
-  { name: 'Venue 2', description: 'Sport sports sports', address: Address.create(street1: '14504 Gold Fish Pond Ave', city: 'Austin', state: 'TX', zip: '78728')},
-  { name: 'Venue 3', description: 'Something else here!', address: Address.create(street1: '3705 Elmcrest Circle', city: 'Garland', state: 'TX', zip: '79424')}
+  { name: 'Pluckers', description: 'Sports bar & grill offering wings, burgers & more, plus trivia & bingo nights.', address: Address.create(street1: '11066 Pecan Park Blvd', city: 'Cedar Park', state: 'TX', zip: '78613')},
+  { name: 'Third Base', description: 'Loud, lively bars with lots of TVs, happy-hour deals & pub grub, including several kinds of wings.', address: Address.create(street1: '3107 S Interstate 35', city: 'Round Rock', state: 'TX', zip: '78664')},
+  { name: 'Scholz Garten', description: 'Packed during football games, this famed spot features beer & burgers in a shaded outdoor setting.', address: Address.create(street1: '1607 San Jacinto Blvd', city: 'Austin', state: 'TX', zip: '78701')},
+  { name: 'Bikinis Sports Bar & Grill', description: '', address: Address.create(street1: '6901 N I H 35', city: 'Austin', state: 'TX', zip: '78752')}
 ])
 
 Party.create([
-  { name: 'First Party', description: 'Watching FC Dallas', is_private: false, verified: false, scheduled_for: DateTime.now + 10.days, organizer_id: 1, team_id: Team.find_by_name('FC Dallas').id, venue_id: 1 },
-  { name: 'Another Party', description: 'Portland!', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('Portland Timbers').id, venue_id: 1 }
+  { name: 'Cowboys watch party', description: 'Go Cowboys!', is_private: false, verified: false, scheduled_for: DateTime.now + 10.days, organizer_id: 1, team_id: Team.find_by_name('Dallas Cowboys').id, venue_id: Venue.find_by_name('Pluckers').id },
+  { name: 'FC Dallas MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('FC Dallas').id, venue_id: Venue.find_by_name('Third Base').id },
+  { name: 'Houston Dynamo MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('Houston Dynamo').id, venue_id: Venue.find_by_name('Scholz Garten').id },
+  { name: 'Real Salt Lake MLS watch party', description: 'Utah takeover!', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('Real Salt Lake').id, venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id }
 ])
 
 Package.create([
-  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.first.id },
-  { name: "Beer for some amount of money", description: "BEER!", price: "4.55", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.first.id }
+  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id },
+  { name: "Beer for some amount of money", description: "BEER!", price: "4.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id },
+  { name: "Ten cent wings", description: "Wings for $0.10", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id },
+  { name: "Bucket of beer $8", description: "It's a bucket of beer", price: "8.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id },
+  { name: "Sliders 4/$3", description: "Sliders", price: "3.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id },
+  { name: "Domestic longnecks $1.50 all night", description: "1.50 domestic longnecks", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id },
+  { name: "Shrimp cocktail", description: "yeah, shrimp cocktail", price: "2.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id },
+  { name: "Pint draft $2.00 all night", description: "Any draft beer $2.00 all night with voucher", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id },
+
 ])
 
 u = User.find_by_email('admin@test.com')
@@ -68,4 +78,7 @@ u = User.find_by_email('team_admin@test.com')
 u.add_role(:team_admin, Team.find_by_name('FC Dallas'))
 
 u = User.find_by_email('venue_manager@test.com')
-u.add_role(:manager, Venue.find_by_name('Venue 1'))
+u.add_role(:manager, Venue.find_by_name('Pluckers'))
+u.add_role(:manager, Venue.find_by_name('Third Base'))
+u.add_role(:manager, Venue.find_by_name('Scholz Garten'))
+u.add_role(:manager, Venue.find_by_name('Bikinis Sports Bar & Grill'))
