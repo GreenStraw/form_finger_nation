@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @user
+    respond_with @users
   end
 
   def show
