@@ -1,5 +1,4 @@
 <h2>You have been invited to a watch party on Foam Finger Nation by <%= @inviter.username %></h2>
-
 <p>
   <%= @party.name %><br>
   Team: <%= @party.team.name %><br>
@@ -9,6 +8,12 @@
     <%= @party_address.city %>, <%= @party_address.state %> <%= @party_address.zip %><br>
 </p>
 
+<% if @member %>
+  <p>Follow the link below to download the Foam Finger Nation Mobile App.</p>
+
+  <a href="http://thisisfake.com/">http://thisisfake.com/</a>
+<% end %>
+
 <p>Visit the link below to RSVP to this watch party</p>
 
-<%= @url %>
+<a href=<%= @url %>><%= @url %></a>

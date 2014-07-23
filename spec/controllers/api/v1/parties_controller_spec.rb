@@ -126,7 +126,7 @@ describe Api::V1::PartiesController do
 
     describe "with unix scheduled_for" do
       before(:each) do
-        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days).to_i }, :format => :json
+        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days).to_i, venue_id: Venue.first.id }, :format => :json
       end
       it "returns a 201" do
         expect(response.status).to eq(201)
@@ -134,7 +134,7 @@ describe Api::V1::PartiesController do
     end
     describe "with Datetime scheduled_for" do
       before(:each) do
-        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days) }, :format => :json
+        post :create, :party => { "name" => "test","scheduled_for"=>(DateTime.now + 3.days), venue_id: Venue.first.id }, :format => :json
       end
       it "returns a 201" do
         expect(response.status).to eq(201)
@@ -270,7 +270,7 @@ describe Api::V1::PartiesController do
     before(:each) do
       @party.update_attribute(:organizer, @current_user)
       Party.should_receive(:find).and_return(@party)
-      post :invite, :party => {user_ids:[1],emails:['test2@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
+      post :invite, id: 1, emails:['test2@test.com'], :format => :json
     end
     it "responds with status 201" do
       expect(response.status).to eq(201)
@@ -282,12 +282,11 @@ describe Api::V1::PartiesController do
     context "user is invited by id" do
       before(:each) do
         @party.update_attribute(:organizer, @current_user)
-        Party.should_receive(:find).and_return(@party)
       end
       it "passes the correct invitees to PartyInvitation.create_invitations" do
         u = User.create(email: 'test2@test.com')
-        PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@current_user.id, @party.id)
-        post :invite, :party => {emails:['test2@test.com','test3@test.com'],inviter_id:@current_user.id,party_id:@party.id}, :format => :json
+        PartyInvitation.should_receive(:send_invitations).with(['test2@test.com','test3@test.com'] ,@party.organizer_id, @party.id)
+        post :invite, id: 1, emails:['test2@test.com','test3@test.com'], :format => :json
       end
     end
   end

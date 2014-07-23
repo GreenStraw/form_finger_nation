@@ -76,13 +76,13 @@ Baseapp::Application.routes.draw do
           get 'search'
           get 'by_attendee'
           get 'by_organizer'
-          post 'invite'
         end
         member do
           put 'add_package'
           put 'remove_package'
           put 'rsvp'
           put 'unrsvp'
+          post 'invite'
         end
       end
       resources :vouchers, only: [:show, :create] do
