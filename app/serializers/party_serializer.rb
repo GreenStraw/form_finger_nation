@@ -1,6 +1,5 @@
 class PartySerializer < BaseSerializer
-  attributes :name, :description, :scheduled_for, :is_private, :verified
-  has_one :address
+  attributes :name, :description, :scheduled_for, :is_private, :verified, :address
   has_many :party_invitations, embed: :ids
   has_many :unregistered_attendees, embed: :ids
   has_many :attendees, embed: :ids
@@ -12,6 +11,14 @@ class PartySerializer < BaseSerializer
   has_one :venue, embed: :ids
 
   private
+
+  def address
+    if object.is_private?
+      AddressSerializer.new(object.address)
+    else
+      AddressSerializer.new(object.venue.address)
+    end
+  end
 
   def scheduled_for
     object.scheduled_for.to_i
