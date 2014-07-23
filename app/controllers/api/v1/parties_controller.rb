@@ -76,12 +76,8 @@ class Api::V1::PartiesController < Api::V1::BaseController
   end
 
   def invite
-    emails = invite_params[:emails]
-    inviter_id = invite_params[:inviter_id]
-    party_id = invite_params[:party_id]
-    @party = Party.find(invite_params[:party_id])
-    PartyInvitation.send_invitations(emails, inviter_id, party_id)
-
+    emails = params[:emails]
+    PartyInvitation.send_invitations(emails, @party.organizer_id, @party.id)
     respond_with @party, :location=>api_v1_teams_path
   end
 
@@ -91,10 +87,6 @@ class Api::V1::PartiesController < Api::V1::BaseController
     addresses_in_radius = Address.class_within_radius_of('Venue', lat, lng, radius)
     venues = addresses_in_radius.map(&:addressable)
     venues.map(&:parties).flatten.uniq
-  end
-
-  def invite_params
-    params.require(:party).permit(:inviter_id, :party_id, { user_ids: [], emails: [] })
   end
 
   def rsvp_params
