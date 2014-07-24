@@ -28,25 +28,15 @@ class Ability
       can :unsubscribe_user, Team
       can :subscribe_user, Sport
       can :unsubscribe_user, Sport
-      can :create, Party
       can :packages, Venue
+
+      can :create, Party
       can :rsvp, Party
       can :unrsvp, Party
       can :search, Party
       can :invite, Party
-
-      can :update, User do |u|
-        user.id == u.id
-      end
-
-      can :follow_user, User do |u|
-        user.id == u.id
-      end
-
-      can :unfollow_user, User do |u|
-        user.id == u.id
-      end
-
+      can :by_organizer, Party
+      can :by_attendee, Party
       can :update, Party do |party|
         user.id == party.organizer_id || user.has_role?(:manager, party)
       end
@@ -61,6 +51,18 @@ class Ability
 
       can :update, Party do |party|
         user.has_role?(:manager, party.venue) if party.venue.present?
+      end
+
+      can :update, User do |u|
+        user.id == u.id
+      end
+
+      can :follow_user, User do |u|
+        user.id == u.id
+      end
+
+      can :unfollow_user, User do |u|
+        user.id == u.id
       end
 
       can :destroy, Comment do |comment|
