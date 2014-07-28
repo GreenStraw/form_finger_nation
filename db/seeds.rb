@@ -33,23 +33,23 @@ Sport.create([
 ])
 
 Team.create([
-  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Dallas', state: 'TX')},
-  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Houston', state: 'TX')},
-  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Chicago', state: 'IL')},
-  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Denver', state: 'CO')},
-  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Salt Lake City', state: 'UT')},
-  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'San Jose', state: 'CA')},
-  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Portland', state: 'OR')},
-  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Los Angeles', state: 'CA')},
-  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Columbus', state: 'OH')},
-  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')}
+  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/1/soccer.jpeg", address: Address.create(city: 'Dallas', state: 'TX')},
+  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/2/soccer.jpeg", address: Address.create(city: 'Houston', state: 'TX')},
+  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/3/soccer.jpeg", address: Address.create(city: 'Chicago', state: 'IL')},
+  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/4/soccer.jpeg", address: Address.create(city: 'Denver', state: 'CO')},
+  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/5/soccer.jpeg", address: Address.create(city: 'Salt Lake City', state: 'UT')},
+  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/6/soccer.jpeg", address: Address.create(city: 'San Jose', state: 'CA')},
+  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/7/soccer.jpeg", address: Address.create(city: 'Portland', state: 'OR')},
+  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/8/soccer.jpeg", address: Address.create(city: 'Los Angeles', state: 'CA')},
+  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/9/soccer.jpeg", address: Address.create(city: 'Columbus', state: 'OH')},
+  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/10/NFL.jpeg", address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')}
 ])
 
 Venue.create([
-  { name: 'Pluckers', description: 'Sports bar & grill offering wings, burgers & more, plus trivia & bingo nights.', address: Address.create(street1: '11066 Pecan Park Blvd', city: 'Cedar Park', state: 'TX', zip: '78613')},
-  { name: 'Third Base', description: 'Loud, lively bars with lots of TVs, happy-hour deals & pub grub, including several kinds of wings.', address: Address.create(street1: '3107 S Interstate 35', city: 'Round Rock', state: 'TX', zip: '78664')},
-  { name: 'Scholz Garten', description: 'Packed during football games, this famed spot features beer & burgers in a shaded outdoor setting.', address: Address.create(street1: '1607 San Jacinto Blvd', city: 'Austin', state: 'TX', zip: '78701')},
-  { name: 'Bikinis Sports Bar & Grill', description: '', address: Address.create(street1: '6901 N I H 35', city: 'Austin', state: 'TX', zip: '78752')}
+  { name: 'Pluckers', description: 'Sports bar & grill offering wings, burgers & more, plus trivia & bingo nights.', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/venue/1/pluckers.jpeg", address: Address.create(street1: '11066 Pecan Park Blvd', city: 'Cedar Park', state: 'TX', zip: '78613')},
+  { name: 'Third Base', description: 'Loud, lively bars with lots of TVs, happy-hour deals & pub grub, including several kinds of wings.', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/venue/2/third base.jpeg", address: Address.create(street1: '3107 S Interstate 35', city: 'Round Rock', state: 'TX', zip: '78664')},
+  { name: 'Scholz Garten', description: 'Packed during football games, this famed spot features beer & burgers in a shaded outdoor setting.', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/venue/3/Scholz Garten.jpeg", address: Address.create(street1: '1607 San Jacinto Blvd', city: 'Austin', state: 'TX', zip: '78701')},
+  { name: 'Bikinis Sports Bar & Grill', description: '', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/venue/4/bikinis.jpeg", address: Address.create(street1: '6901 N I H 35', city: 'Austin', state: 'TX', zip: '78752')}
 ])
 
 Party.create([
@@ -60,16 +60,17 @@ Party.create([
 ])
 
 Package.create([
-  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id },
-  { name: "Beer for some amount of money", description: "BEER!", price: "4.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id },
-  { name: "Ten cent wings", description: "Wings for $0.10", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id },
-  { name: "Bucket of beer $8", description: "It's a bucket of beer", price: "8.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id },
-  { name: "Sliders 4/$3", description: "Sliders", price: "3.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id },
-  { name: "Domestic longnecks $1.50 all night", description: "1.50 domestic longnecks", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id },
-  { name: "Shrimp cocktail", description: "yeah, shrimp cocktail", price: "2.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id },
-  { name: "Pint draft $2.00 all night", description: "Any draft beer $2.00 all night with voucher", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id },
-
+  { name: "Wings for five cents", description: "Wings for $0.05", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/1/wings.jpeg"},
+  { name: "Beer for some amount of money", description: "BEER!", price: "4.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Pluckers').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/2/beer!.jpeg"},
+  { name: "Ten cent wings", description: "Wings for $0.10", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/3/wings 1.jpeg"},
+  { name: "Bucket of beer $8", description: "It's a bucket of beer", price: "8.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Third Base').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/4/bucket of beer.jpeg"},
+  { name: "Sliders 4/$3", description: "Sliders", price: "3.0", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/5/sliders.jpeg"},
+  { name: "Domestic longnecks $1.50 all night", description: "1.50 domestic longnecks", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Scholz Garten').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/6/longneck.jpeg"},
+  { name: "Shrimp cocktail", description: "yeah, shrimp cocktail", price: "2.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/7/shrimp cocktail.jpeg"},
+  { name: "Pint draft $2.00 all night", description: "Any draft beer $2.00 all night with voucher", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/8/pint draft.jpeg"}
 ])
+
+Party.find_by_name('FC Dallas MLS watch party').update_attribute(:package_ids, [3,4])
 
 u = User.find_by_email('admin@test.com')
 u.add_role(:admin)
