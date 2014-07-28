@@ -121,7 +121,7 @@ describe Api::V1::VenuesController do
     }
 
     it "returns packages" do
-      response.body.should == "{\"packages\":[{\"id\":1,\"created_at\":#{@package.created_at.to_i},\"updated_at\":#{@package.updated_at.to_i},\"image_url\":null,\"name\":\"test package\",\"description\":\"wings for 50 cents\",\"price\":\"5.0\",\"is_public\":false,\"party_ids\":[],\"voucher_ids\":[],\"venue_id\":1}]}"
+      response.body.should == "{\"packages\":[{\"id\":1,\"created_at\":#{@package.created_at.to_i},\"updated_at\":#{@package.updated_at.to_i},\"image_url\":null,\"name\":\"test package\",\"description\":\"wings for 50 cents\",\"price\":\"5.0\",\"is_public\":false,\"voucher_count\":0,\"party_ids\":[],\"voucher_ids\":[],\"venue_id\":1}]}"
     end
   end
 
