@@ -56,7 +56,7 @@ describe Api::V1::AddressesController do
         expect(response.status).to eq(201)
       end
       it "responds with json" do
-        expect(JSON.parse(response.body)).to have_key('address')
+        expect(JSON.parse(response.body)).to have_key('street1')
       end
     end
   end
