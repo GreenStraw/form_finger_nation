@@ -1,8 +1,9 @@
 class Voucher < ActiveRecord::Base
-  validates_presence_of :user, :package
+  validates_presence_of :user, :package, :party
 
   belongs_to :package
   belongs_to :user
+  belongs_to :party
 
   def verify
     req = Zooz::Request::Verify.new

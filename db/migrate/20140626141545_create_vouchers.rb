@@ -6,6 +6,7 @@ class CreateVouchers < ActiveRecord::Migration
       t.datetime :redeemed_at, default: nil
       t.belongs_to :user
       t.belongs_to :package
+      t.belongs_to :party
       t.timestamps
     end
   end

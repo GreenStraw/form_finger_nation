@@ -15,6 +15,10 @@ class Team < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  def college?
+    self.college
+  end
+
   private
 
   def ensure_address

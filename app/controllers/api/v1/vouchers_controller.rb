@@ -1,4 +1,5 @@
 class Api::V1::VouchersController < Api::V1::BaseController
+  load_and_authorize_resource :party
   load_and_authorize_resource :user
   load_and_authorize_resource
 
@@ -41,7 +42,7 @@ class Api::V1::VouchersController < Api::V1::BaseController
   private
 
   def voucher_params
-    params.require(:voucher).permit(:user_id, :package_id, :transaction_display_id, :transaction_id)
+    params.require(:voucher).permit(:user_id, :package_id, :party_id, :transaction_display_id, :transaction_id)
   end
 
 end

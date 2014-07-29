@@ -1,16 +1,21 @@
 class PartySerializer < BaseSerializer
-  attributes :name, :description, :scheduled_for, :is_private, :verified
+  attributes :name, :description, :scheduled_for, :is_private, :verified, :purchase_total, :address
   has_many :party_invitations, embed: :ids
   has_many :unregistered_attendees, embed: :ids
   has_many :attendees, embed: :ids
   has_many :comments, embed: :ids
   has_many :packages, embed: :ids
+  has_many :vouchers, embed: :ids
   has_one :organizer, embed: :ids
   has_one :team, embed: :ids
   has_one :sport, embed: :ids
   has_one :venue, embed: :ids
 
   private
+
+  def purchase_total
+    object.completed_purchases.map(&:package).sum(&:price).to_f
+  end
 
   def address
     if object.is_private?

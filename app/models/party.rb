@@ -13,6 +13,7 @@ class Party < ActiveRecord::Base
   has_many :invitees, through: :party_invitations, source: :user
   has_many :party_packages
   has_many :packages, through: :party_packages
+  has_many :vouchers
   has_one :address, as: :addressable, dependent: :destroy
   belongs_to :organizer, class_name: 'User', foreign_key: 'organizer_id'
   belongs_to :team
@@ -52,6 +53,10 @@ class Party < ActiveRecord::Base
         PartyMailer.attendee_three_day_notification_email(reservation).deliver
       end
     end
+  end
+
+  def completed_purchases
+    vouchers.where('transaction_id IS NOT NULL')
   end
 
   def send_notification_when_verified
