@@ -112,4 +112,14 @@ describe Api::V1::VouchersController do
       end
     end
   end
+
+  describe 'GET by_user' do
+    before do
+      get :by_user, user_id: @current_user.id, format: :json
+    end
+
+    it "should return 200" do
+      response.status.should eq(200)
+    end
+  end
 end

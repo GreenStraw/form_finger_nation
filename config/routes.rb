@@ -86,6 +86,9 @@ Baseapp::Application.routes.draw do
         end
       end
       resources :vouchers, only: [:index, :show, :create, :update] do
+        collection do
+          get 'by_user'
+        end
         member do
           put 'redeem'
         end
