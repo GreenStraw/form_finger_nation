@@ -85,7 +85,7 @@ Baseapp::Application.routes.draw do
           post 'invite'
         end
       end
-      resources :vouchers, only: [:show, :create] do
+      resources :vouchers, only: [:index, :show, :create, :update] do
         member do
           put 'redeem'
         end
@@ -93,7 +93,6 @@ Baseapp::Application.routes.draw do
       resources :uploads, only: [:index] do
       end
       resources :packages
-      resources :charges, only: [:new, :create]
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:index, :create, :show, :update]
       resources :party_invitations, only: [:index, :show] do

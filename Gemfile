@@ -36,6 +36,7 @@ gem 'geokit-rails'
 gem 'acts_as_commentable_with_threading'
 gem 'stripe'
 gem 'aws-sdk'
+gem 'httparty'
 
 # Use unicorn as the app server
 gem 'unicorn'

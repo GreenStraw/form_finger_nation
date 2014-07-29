@@ -1,8 +1,17 @@
 class Api::V1::VouchersController < Api::V1::BaseController
   load_and_authorize_resource
 
+  def index
+    respond_with @vouchers
+  end
+
   def show
     respond_with @voucher
+  end
+
+  def update
+    @voucher.update(voucher_params)
+    respond_with @voucher, :location=>api_v1_packages_path
   end
 
   def create
@@ -11,10 +20,15 @@ class Api::V1::VouchersController < Api::V1::BaseController
   end
 
   def redeem
-    if @voucher.redeemed?
-      @voucher.errors.add(:redeemed, 'has already been redeemed')
+    if @voucher.redeemed_at.present?
+      @voucher.errors.add(:base, 'has already been redeemed')
     else
-      @voucher.update_attribute(:redeemed, true)
+      verification_response, verification_errors = @voucher.verify
+      if verification_response
+        @voucher.update_attribute(:redeemed_at, DateTime.now)
+      else
+        @voucher.errors.add(:base, verification_errors)
+      end
     end
     respond_with @voucher, :location=>api_v1_vouchers_path
   end
@@ -22,7 +36,7 @@ class Api::V1::VouchersController < Api::V1::BaseController
   private
 
   def voucher_params
-    params.require(:voucher).permit(:user_id, :package_id)
+    params.require(:voucher).permit(:user_id, :package_id, :transaction_display_id, :transaction_id)
   end
 
 end

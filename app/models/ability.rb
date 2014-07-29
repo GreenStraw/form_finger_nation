@@ -11,11 +11,7 @@ class Ability
     end
 
     if user.has_role?(:manager, :any)
-      can :add_package, Party do |p|
-        user.has_role?(:manager, p.venue)
-      end
-
-      can :remove_package, Party do |p|
+      can [:add_package, :remove_package], Party do |p|
         user.has_role?(:manager, p.venue)
       end
     end
@@ -24,28 +20,13 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :subscribe_user, Team
-      can :unsubscribe_user, Team
-      can :subscribe_user, Sport
-      can :unsubscribe_user, Sport
+      can [:subscribe_user, :unsubscribe_user], Team
+      can [:subscribe_user, :unsubscribe_user], Sport
       can :packages, Venue
 
-      can :create, Party
-      can :rsvp, Party
-      can :unrsvp, Party
-      can :search, Party
-      can :invite, Party
-      can :by_organizer, Party
-      can :by_attendee, Party
-      can :update, Party do |party|
-        user.id == party.organizer_id || user.has_role?(:manager, party)
-      end
+      can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee], Party
 
-      can :destroy, Party do |party|
-        user.id == party.organizer_id || user.has_role?(:manager, party)
-      end
-
-      can :invite, Party do |party|
+      can [:update, :destroy, :invite], Party do |party|
         user.id == party.organizer_id || user.has_role?(:manager, party)
       end
 
@@ -53,36 +34,24 @@ class Ability
         user.has_role?(:manager, party.venue) if party.venue.present?
       end
 
-      can :update, User do |u|
+      can [:update, :follow_user, :unfollow_user], User do |u|
         user.id == u.id
       end
 
-      can :follow_user, User do |u|
-        user.id == u.id
-      end
-
-      can :unfollow_user, User do |u|
-        user.id == u.id
-      end
-
-      can :destroy, Comment do |comment|
+      can [:destroy, :update, :create], Comment do |comment|
         (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
       end
 
-      can :update, Comment do |comment|
-        (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
-      end
-
-      can :create, Comment do |comment|
-        (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
-      end
-
-      can :update, Package do |package|
+      can [:update, :destroy], Package do |package|
         user.has_role?(:manager, package.venue)
       end
 
-      can :destroy, Package do |package|
-        user.has_role?(:manager, package.venue)
+      can :create, Voucher
+      can [:show, :update, :redeem], Voucher do |voucher|
+        user.id == voucher.user_id
+      end
+      can :show, Voucher do |voucher|
+        user.has_role?(:manager, voucher.package.venue)
       end
     end
   end
