@@ -14,6 +14,18 @@ describe Api::V1::VouchersController do
 
   let(:valid_attributes) { Fabricate.attributes_for(:voucher) }
 
+  describe 'GET index' do
+    context 'index' do
+      before do
+        get :index, format: :json
+      end
+
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
+    end
+  end
+
   describe 'GET show' do
     context 'show' do
       before do
@@ -63,19 +75,23 @@ describe Api::V1::VouchersController do
 
   describe "PUT redeem" do
     context "not already redeemed" do
-      it "returns 200" do
-        expect(response.status).to eq(200)
-      end
-      it "sets redeemed to true" do
+      before(:each) do
         Voucher.should_receive(:find).and_return(@voucher)
+        @voucher.should_receive(:verify).and_return([true, nil])
+      end
+      it "returns 200" do
+        put :redeem, id: @voucher.id, format: :json
+        expect(response.status).to eq(204)
+      end
+      it "sets redeemed_at to DateTime.now" do
         expect {
           put :redeem, id: @voucher.id, format: :json
-        }.to change{@voucher.redeemed}.from(false).to(true)
+        }.to change{@voucher.redeemed_at}.from(nil)
       end
     end
     context "already redeemed" do
       before {
-        @voucher.should_receive(:redeemed?).and_return(true)
+        @voucher.should_receive(:redeemed_at).and_return(DateTime.now - 1.hour)
         Voucher.should_receive(:find).and_return(@voucher)
         put :redeem, id: @voucher.id, format: :json
       }
@@ -83,7 +99,16 @@ describe Api::V1::VouchersController do
         expect(response.status).to eq(422)
       end
       it "returns errors" do
-        response.body.should eq("{\"errors\":{\"redeemed\":[\"has already been redeemed\"]}}")
+        response.body.should eq("{\"errors\":{\"base\":[\"has already been redeemed\"]}}")
+      end
+    end
+    context "transaction not verified" do
+      it "returns 422" do
+        @voucher.should_receive(:redeemed_at).and_return(nil)
+        Voucher.should_receive(:find).and_return(@voucher)
+        @voucher.should_receive(:verify).and_return([false, "error"])
+        put :redeem, id: @voucher.id, format: :json
+        expect(response.status).to eq(422)
       end
     end
   end

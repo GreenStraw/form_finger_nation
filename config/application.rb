@@ -13,6 +13,8 @@ module Baseapp
     #  Heroku requires this to be false.
     config.assets.initialize_on_precompile = false
 
+    config.autoload_paths << Rails.root.join('lib')
+
     # Adding Webfonts to the Asset Pipeline
     config.assets.precompile << Proc.new { |path|
       if path =~ /\.(eot|svg|ttf|woff|otf)\z/

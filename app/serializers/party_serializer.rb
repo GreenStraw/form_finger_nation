@@ -1,5 +1,5 @@
 class PartySerializer < BaseSerializer
-  attributes :name, :description, :scheduled_for, :is_private, :verified, :address
+  attributes :name, :description, :scheduled_for, :is_private, :verified
   has_many :party_invitations, embed: :ids
   has_many :unregistered_attendees, embed: :ids
   has_many :attendees, embed: :ids

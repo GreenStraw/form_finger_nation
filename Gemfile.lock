@@ -184,6 +184,9 @@ GEM
       guard (>= 1.1)
       spork (>= 0.8.4)
     hike (1.2.3)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     jimson-temp (0.9.5)
       blankslate (>= 3.1.2)
@@ -226,6 +229,7 @@ GEM
     minitest (5.4.0)
     multi_json (1.10.1)
     multi_test (0.1.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -413,6 +417,7 @@ DEPENDENCIES
   geokit-rails
   guard-rspec (~> 3.0)
   guard-spork (~> 1.5)
+  httparty
   jquery-rails
   koala (~> 1.10.0rc)
   launchy

@@ -274,7 +274,9 @@ ActiveRecord::Schema.define(version: 20140626141545) do
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
   create_table "vouchers", force: true do |t|
-    t.boolean  "redeemed",   default: false
+    t.string   "transaction_display_id"
+    t.string   "transaction_id"
+    t.datetime "redeemed_at"
     t.integer  "user_id"
     t.integer  "package_id"
     t.datetime "created_at"

@@ -4,7 +4,6 @@ class CreateUserPurchasedPackages < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :package
       t.belongs_to :party
-      t.string :charge_id
       t.timestamps
     end
 
