@@ -1,4 +1,5 @@
 class Api::V1::VouchersController < Api::V1::BaseController
+  load_and_authorize_resource :user
   load_and_authorize_resource
 
   def index
@@ -31,6 +32,10 @@ class Api::V1::VouchersController < Api::V1::BaseController
       end
     end
     respond_with @voucher, :location=>api_v1_vouchers_path
+  end
+
+  def by_user
+    respond_with Voucher.joins(:user).merge(User.where(id: @user.id))
   end
 
   private

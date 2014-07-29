@@ -46,7 +46,7 @@ class Ability
         user.has_role?(:manager, package.venue)
       end
 
-      can :create, Voucher
+      can [:create, :by_user], Voucher
       can [:show, :update, :redeem], Voucher do |voucher|
         user.id == voucher.user_id
       end
