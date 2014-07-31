@@ -1,5 +1,6 @@
 class VoucherSerializer < BaseSerializer
   attributes :redeemed_at, :transaction_display_id, :transaction_id
+  has_one :party, embed: :ids
   has_one :user, embed: :ids
   has_one :package, embed: :ids
 

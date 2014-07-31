@@ -1,5 +1,5 @@
 class TeamSerializer < ImageSerializer
-  attributes :name, :information, :sport_id
+  attributes :name, :information, :sport_id, :college
   has_one :address
   has_many :admins, embed: :ids
   has_many :fans, embed: :ids

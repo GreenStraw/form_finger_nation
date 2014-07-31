@@ -29,20 +29,40 @@ User.create([
 Sport.create([
   { name: 'NFL' },
   { name: 'MLB' },
-  { name: 'MLS' }
+  { name: 'MLS' },
+  { name: 'NCAA-FOOTBALL' }
 ])
 
 Team.create([
-  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/1/soccer.jpeg", address: Address.create(city: 'Dallas', state: 'TX')},
-  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/2/soccer.jpeg", address: Address.create(city: 'Houston', state: 'TX')},
-  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/3/soccer.jpeg", address: Address.create(city: 'Chicago', state: 'IL')},
-  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/4/soccer.jpeg", address: Address.create(city: 'Denver', state: 'CO')},
-  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/5/soccer.jpeg", address: Address.create(city: 'Salt Lake City', state: 'UT')},
-  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/6/soccer.jpeg", address: Address.create(city: 'San Jose', state: 'CA')},
-  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/7/soccer.jpeg", address: Address.create(city: 'Portland', state: 'OR')},
-  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/8/soccer.jpeg", address: Address.create(city: 'Los Angeles', state: 'CA')},
-  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/9/soccer.jpeg", address: Address.create(city: 'Columbus', state: 'OH')},
-  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/team/10/NFL.jpeg", address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')}
+  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Dallas', state: 'TX')},
+  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Houston', state: 'TX')},
+  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Chicago', state: 'IL')},
+  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Denver', state: 'CO')},
+  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Salt Lake City', state: 'UT')},
+  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'San Jose', state: 'CA')},
+  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Portland', state: 'OR')},
+  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Los Angeles', state: 'CA')},
+  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Columbus', state: 'OH')},
+  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')},
+
+  { name: 'Air Force Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Akron Zips', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Alabama Crimson Tide', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Arizona State Sun Devils', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Arizona Wildcats', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Arkansas Razorbacks', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Arkansas State Red Wolves', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Army Black Knights', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Auburn Tigers', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Ball State Cardinals', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Baylor Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Boise State Broncos', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Boston College Eagles', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Bowling Green Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Buffalo Bulls', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'BYU Cougars', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'California Golden Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
+  { name: 'Central Michigan Chippewas', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true}
 ])
 
 Venue.create([
@@ -53,10 +73,10 @@ Venue.create([
 ])
 
 Party.create([
-  { name: 'Cowboys watch party', description: 'Go Cowboys!', is_private: false, verified: false, scheduled_for: DateTime.now + 10.days, organizer_id: 1, team_id: Team.find_by_name('Dallas Cowboys').id, venue_id: Venue.find_by_name('Pluckers').id },
-  { name: 'FC Dallas MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('FC Dallas').id, venue_id: Venue.find_by_name('Third Base').id },
-  { name: 'Houston Dynamo MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('Houston Dynamo').id, venue_id: Venue.find_by_name('Scholz Garten').id },
-  { name: 'Real Salt Lake MLS watch party', description: 'Utah takeover!', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: 1, team_id: Team.find_by_name('Real Salt Lake').id, venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id }
+  { name: 'Cowboys watch party', description: 'Go Cowboys!', is_private: false, verified: false, scheduled_for: DateTime.now + 10.days, organizer_id: User.first.id, team_id: Team.find_by_name('Dallas Cowboys').id, venue_id: Venue.find_by_name('Pluckers').id },
+  { name: 'FC Dallas MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: User.first.id, team_id: Team.find_by_name('FC Dallas').id, venue_id: Venue.find_by_name('Third Base').id },
+  { name: 'Houston Dynamo MLS watch party', description: '', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: User.first.id, team_id: Team.find_by_name('Houston Dynamo').id, venue_id: Venue.find_by_name('Scholz Garten').id },
+  { name: 'Real Salt Lake MLS watch party', description: 'Utah takeover!', is_private: false, verified: false, scheduled_for: DateTime.now - 1.day, organizer_id: User.first.id, team_id: Team.find_by_name('Real Salt Lake').id, venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id }
 ])
 
 Package.create([
@@ -70,7 +90,7 @@ Package.create([
   { name: "Pint draft $2.00 all night", description: "Any draft beer $2.00 all night with voucher", price: "5.00", is_public: false, party_ids: [], voucher_ids: [], venue_id: Venue.find_by_name('Bikinis Sports Bar & Grill').id, image_url: "https://s3.amazonaws.com/foam-finger-nation/images/package/8/pint draft.jpeg"}
 ])
 
-Party.find_by_name('FC Dallas MLS watch party').update_attribute(:package_ids, [3,4])
+Party.find_by_name('FC Dallas MLS watch party').update_attribute(:package_ids, [Package.find_by_name("Ten cent wings").id,Package.find_by_name("Bucket of beer $8").id])
 
 u = User.find_by_email('admin@test.com')
 u.add_role(:admin)

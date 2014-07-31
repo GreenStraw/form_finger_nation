@@ -4,6 +4,7 @@ class CreateTeams < ActiveRecord::Migration
       t.string :name
       t.string :image_url
       t.text :information
+      t.boolean :college, default: false
       t.belongs_to :sport
       t.timestamps
     end
