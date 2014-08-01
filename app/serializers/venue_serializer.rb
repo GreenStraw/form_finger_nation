@@ -1,11 +1,11 @@
 class VenueSerializer < ImageSerializer
-  attributes :name, :description
+  attributes :name, :description, :phone, :email, :hours_sunday, :hours_monday, :hours_tuesday, :hours_wednesday, :hours_thusday, :hours_friday, :hours_saturday
   has_one :address
   has_many :followed_teams, embed: :ids
   has_many :followed_sports, embed: :ids
   has_many :parties, embed: :ids
   has_many :managers, embed: :ids
-  has_many :packages, embed: :ids
+  has_many :packages, embed: :ids, include: true
 
   private
 
