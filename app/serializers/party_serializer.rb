@@ -9,7 +9,7 @@ class PartySerializer < BaseSerializer
   has_one :organizer, embed: :ids
   has_one :team, embed: :ids, include: true
   has_one :sport, embed: :ids
-  has_one :venue, embed: :ids
+  has_one :venue, embed: :ids, include: true
 
   private
 

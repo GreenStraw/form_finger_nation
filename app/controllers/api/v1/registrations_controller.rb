@@ -5,7 +5,9 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    sign_up_params.delete(:current_password)
+    if sign_up_params[:current_password].present?
+      sign_up_params.delete(:current_password)
+    end
 
     if sign_up_params[:access_token].present?
       facebook_params
