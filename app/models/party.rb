@@ -25,11 +25,10 @@ class Party < ActiveRecord::Base
   attr_accessor :user_ids, :emails
 
   def scheduled_for=(value)
-    if value.is_a?(Integer)
-      self[:scheduled_for] = Time.at(value).to_datetime
-    else
-      self[:scheduled_for] = value
+    if value.is_a?(String)
+      value = value.to_i
     end
+    self[:scheduled_for] = Time.at(value).to_datetime
   end
 
   def self.send_host_fourty_eight_hour_notifications
