@@ -180,7 +180,6 @@ ActiveRecord::Schema.define(version: 20140801162901) do
     t.string   "name"
     t.string   "image_url"
     t.text     "information"
-    t.boolean  "college",     default: false
     t.integer  "sport_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -208,6 +207,7 @@ ActiveRecord::Schema.define(version: 20140801162901) do
     t.integer  "user_id"
     t.integer  "package_id"
     t.integer  "party_id"
+    t.string   "charge_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -283,12 +283,9 @@ ActiveRecord::Schema.define(version: 20140801162901) do
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
   create_table "vouchers", force: true do |t|
-    t.string   "transaction_display_id"
-    t.string   "transaction_id"
-    t.datetime "redeemed_at"
+    t.boolean  "redeemed",   default: false
     t.integer  "user_id"
     t.integer  "package_id"
-    t.integer  "party_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

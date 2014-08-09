@@ -4,14 +4,14 @@ rvm:
   - 2.0.0
 env:
   - DB=postgresql
+  - SMTP_DEFAULT_URL=test.host
+  - SECRET_KEY_BASE=d71985b96e0aba0cf97c7d3dd7d9786ee4f86f41dd611f64c5d916108c5685ac547916c78b19bf68723ab0ab82c22ce48e9f2bff52dc88281291c1fd9b21bdcc
+  - STRIPE_API_KEY= sk_test_BQokikJOvBiI2HlWgH4olfQ2
+  - STRIPE_PUBLIC_KEY= pk_test_6pRNASCoBOKtIshFeQd4XMUh
+  - WEB_APP_URL= "http://localhost:8000"
+  - SMTP_DEFAULT_URL= "localhost:3000"
+  - EMAIL_FROM= "test@ffn.com"
 script:
-  - export SMTP_DEFAULT_URL=test.host
-  - export SECRET_KEY_BASE=d71985b96e0aba0cf97c7d3dd7d9786ee4f86f41dd611f64c5d916108c5685ac547916c78b19bf68723ab0ab82c22ce48e9f2bff52dc88281291c1fd9b21bdcc
-  - export STRIPE_API_KEY= sk_test_BQokikJOvBiI2HlWgH4olfQ2
-  - export STRIPE_PUBLIC_KEY= pk_test_6pRNASCoBOKtIshFeQd4XMUh
-  - export WEB_APP_URL= "http://localhost:8000"
-  - export SMTP_DEFAULT_URL= "localhost:3000"
-  - export EMAIL_FROM= "test@ffn.com"
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec
