@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Redeemed:</strong>
+  <%= @voucher.redeemed %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @voucher.user %>
+</p>
+
+<p>
+  <strong>Package:</strong>
+  <%= @voucher.package %>
+</p>
+
+<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
+<%= link_to 'Back', vouchers_path %>

@@ -1,5 +1,7 @@
 Baseapp::Application.routes.draw do
 
+  resources :vouchers
+
   resources :packages
 
   resources :parties

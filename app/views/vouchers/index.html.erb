@@ -1,0 +1,29 @@
+<h1>Listing vouchers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Redeemed</th>
+      <th>User</th>
+      <th>Package</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vouchers.each do |voucher| %>
+      <tr>
+        <td><%= voucher.redeemed %></td>
+        <td><%= voucher.user %></td>
+        <td><%= voucher.package %></td>
+        <td><%= link_to 'Show', voucher %></td>
+        <td><%= link_to 'Edit', edit_voucher_path(voucher) %></td>
+        <td><%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Voucher', new_voucher_path %>
