@@ -1,5 +1,7 @@
 Baseapp::Application.routes.draw do
 
+  resources :venues
+
   get "/terms" => "home#terms"
   get "/privacy" => "home#privacy"
   root :to => "home#index"
