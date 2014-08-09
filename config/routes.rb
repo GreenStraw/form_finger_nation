@@ -1,5 +1,7 @@
 Baseapp::Application.routes.draw do
 
+  resources :teams
+
   resources :sports
 
   resources :venues
