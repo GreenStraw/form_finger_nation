@@ -20,6 +20,17 @@ namespace :db do
     system("annotate --position after")    
   end
   
+  desc 'Generates an class diagram for all models.'
+  task :diagram do
+    @MODELS_ALL = RailRoady::RakeHelpers.full_path("models_complete.#{RailRoady::RakeHelpers.format}").freeze      
+    f = RailRoady::RakeHelpers.full_path("models_complete.dot")
+    puts "Generating #{f}"
+    sh "railroady -ilamM | #{RailRoady::RakeHelpers.sed} > #{f}"
+    f = @MODELS_ALL
+    puts "Generating #{f}"
+    sh "railroady -ilamM | #{RailRoady::RakeHelpers.sed} | dot -T#{RailRoady::RakeHelpers.format} > #{f}"
+  end
+  
   private
   
   def load_seeds(environment)

@@ -1,5 +1,5 @@
 require 'active_support/concern'
-module TokenAuthenticatable
+module Concerns::TokenAuthenticatable
   extend ActiveSupport::Concern
   
   included do

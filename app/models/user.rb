@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include TokenAuthenticatable
+  include Concerns::TokenAuthenticatable
   extend Enumerize
   rolify
   after_create :ensure_address
