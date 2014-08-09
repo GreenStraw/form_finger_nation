@@ -1,0 +1,45 @@
+<h1>Listing parties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Is private</th>
+      <th>Verified</th>
+      <th>Scheduled for</th>
+      <th>Organizer</th>
+      <th>References</th>
+      <th>Team</th>
+      <th>References</th>
+      <th>Venue</th>
+      <th>References</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parties.each do |party| %>
+      <tr>
+        <td><%= party.name %></td>
+        <td><%= party.description %></td>
+        <td><%= party.is_private %></td>
+        <td><%= party.verified %></td>
+        <td><%= party.scheduled_for %></td>
+        <td><%= party.organizer %></td>
+        <td><%= party.references %></td>
+        <td><%= party.team %></td>
+        <td><%= party.references %></td>
+        <td><%= party.venue %></td>
+        <td><%= party.references %></td>
+        <td><%= link_to 'Show', party %></td>
+        <td><%= link_to 'Edit', edit_party_path(party) %></td>
+        <td><%= link_to 'Destroy', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Party', new_party_path %>
