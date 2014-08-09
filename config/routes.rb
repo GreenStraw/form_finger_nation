@@ -1,5 +1,7 @@
 Baseapp::Application.routes.draw do
 
+  resources :packages
+
   resources :parties
 
   resources :teams

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @package.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @package.description %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @package.image_url %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @package.price %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @package.active %>
+</p>
+
+<p>
+  <strong>Is public:</strong>
+  <%= @package.is_public %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @package.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @package.end_date %>
+</p>
+
+<p>
+  <strong>Venue:</strong>
+  <%= @package.venue %>
+</p>
+
+<p>
+  <strong>References:</strong>
+  <%= @package.references %>
+</p>
+
+<%= link_to 'Edit', edit_package_path(@package) %> |
+<%= link_to 'Back', packages_path %>
