@@ -1,20 +1,21 @@
 Baseapp::Application.routes.draw do
 
   resources :vouchers
-
   resources :packages
-
   resources :parties
-
   resources :teams
-
   resources :sports
-
   resources :venues
 
-  get "/terms" => "home#terms"
+  get "/about" => "home#about"
+  get "/contact" => "home#contact"
+  get "/faq" => "home#faq"
+  get "/home" => "home#home"
+  get "/how" => "home#how"
+  get "/jobs" => "home#jobs"
   get "/privacy" => "home#privacy"
-  root :to => "home#index"
+  get "/terms" => "home#terms"
+  root :to => "home#home"
 
   # Authentication
   devise_for :users, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
