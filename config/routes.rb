@@ -1,5 +1,7 @@
 Baseapp::Application.routes.draw do
 
+  resources :sports
+
   resources :venues
 
   get "/terms" => "home#terms"
