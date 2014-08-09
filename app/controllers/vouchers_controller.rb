@@ -22,7 +22,6 @@ class VouchersController < ApplicationController
   # POST /vouchers
   def create
     @voucher = Voucher.new(voucher_params)
-
     if @voucher.save
       redirect_to @voucher, notice: 'Voucher was successfully created.'
     else
@@ -53,6 +52,6 @@ class VouchersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def voucher_params
-      params.require(:voucher).permit(:redeemed, :user_id, :package_id)
+      params.require(:voucher).permit(:redeemed_at, :user_id, :package_id, :party_id)
     end
 end

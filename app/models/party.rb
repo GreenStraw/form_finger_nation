@@ -1,8 +1,8 @@
 class Party < ActiveRecord::Base
   acts_as_commentable
-  validates_presence_of :name
-  validates_presence_of :scheduled_for
-  validates_presence_of :venue_id
+  validates :name, presence: true
+  validates :scheduled_for, presence: true
+  validates :venue_id, presence: true
 
   after_update :send_notification_when_verified
   after_create :ensure_address
