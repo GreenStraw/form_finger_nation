@@ -15,9 +15,13 @@
 /log/*.log
 /tmp
 
+# Ignore rvm config files
+.rvmrc
+.ruby-version
+.ruby-gemset
+
 # Ignore dotenv files
 /.env*
-!/.env.test
 
 # Ignore config yml files
 /config/*.yml
