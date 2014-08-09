@@ -90,9 +90,16 @@ end
 #  locked_at                    :datetime
 #  skip_confirm_change_password :boolean          default(FALSE)
 #  tenant_id                    :integer
+#  authentication_token         :string(255)
 #  first_name                   :string(255)
 #  last_name                    :string(255)
+#  role                         :string(255)
+#  username                     :string(255)
+#  provider                     :string(255)
+#  uid                          :string(255)
+#  customer_id                  :string(255)
+#  facebook_access_token        :string(255)
+#  image_url                    :string(255)
 #  created_at                   :datetime
 #  updated_at                   :datetime
-#  role                         :string(255)
 #

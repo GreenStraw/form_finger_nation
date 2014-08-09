@@ -25,3 +25,15 @@ describe PartyReservation do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: party_reservations
+#
+#  id         :integer          not null, primary key
+#  email      :string(255)
+#  user_id    :integer
+#  party_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#

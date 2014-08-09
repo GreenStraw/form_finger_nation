@@ -58,3 +58,21 @@ describe Party do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: parties
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  is_private    :boolean          default(FALSE)
+#  verified      :boolean          default(FALSE)
+#  description   :string(255)
+#  scheduled_for :datetime
+#  organizer_id  :integer
+#  team_id       :integer
+#  sport_id      :integer
+#  venue_id      :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#
