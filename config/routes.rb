@@ -52,7 +52,6 @@ Baseapp::Application.routes.draw do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
         post '/users' => 'registrations#create'
-       # post '/users/facebook' => 'registrations#create_facebook'
       end
 
       resources :users, only: [:index, :show, :update] do
