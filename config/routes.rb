@@ -16,9 +16,11 @@ Baseapp::Application.routes.draw do
   get "/privacy" => "home#privacy"
   get "/terms" => "home#terms"
   root :to => "home#home"
+  
+
 
   # Authentication
-  devise_for :users, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
+  devise_for :users,  controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
   as :user do
     # session handling
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
@@ -40,6 +42,7 @@ Baseapp::Application.routes.draw do
     end
   end
 
+
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'api/v1/registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
@@ -48,7 +51,7 @@ Baseapp::Application.routes.draw do
         post   '/sign_in'  => 'sessions#create'
         delete '/sign_out' => 'sessions#destroy'
         post '/users' => 'registrations#create'
-        post '/users/facebook' => 'registrations#create_facebook'
+       # post '/users/facebook' => 'registrations#create_facebook'
       end
 
       resources :users, only: [:index, :show, :update] do
@@ -116,6 +119,10 @@ Baseapp::Application.routes.draw do
       end
     end
   end
+  
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'milia/sessions#destroy', as: 'signout'
 
   get '*ember' => 'home#index'
 

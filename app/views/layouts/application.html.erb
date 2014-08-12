@@ -14,6 +14,9 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
+	  
+<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+
     <%= render 'layouts/nav_main' %>
 
     <%= render 'layouts/flash' %>
