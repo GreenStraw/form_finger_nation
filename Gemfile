@@ -54,6 +54,9 @@ gem "koala", "~> 1.10.0rc"
 
 # =========================================================
 gem 'devise',                   '~>3.2'
+gem 'omniauth'
+gem 'omniauth-oauth2'
+gem 'omniauth-facebook', '1.4.0' #important: 1.4.1 is broken!!!
 gem 'milia',                    '~> 1.0.0'
 gem 'cancancan',                github: 'bryanrite/cancancan', branch: 'master'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
@@ -65,9 +68,11 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 gem 'will_paginate'
 
+
 group :development, :test do
   gem 'annotate',                 '>= 2.5.0'
   gem 'awesome_print'
+  gem 'byebug'
   gem "capybara"
   gem "capybara-webkit"
   gem "codeclimate-test-reporter" , require: false
