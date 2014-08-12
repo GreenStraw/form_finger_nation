@@ -50,13 +50,13 @@ gem 'newrelic_rpm'
 gem 'exception_notification',   '~> 4.0.1'
 #letter opener
 gem 'letter_opener', group: :development
-#gem "koala", "~> 1.10.0rc"
+gem "koala", "~> 1.10.0rc"
 
 # =========================================================
 gem 'devise',                   '~>3.2'
 gem 'omniauth'
 gem 'omniauth-oauth2'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.4.0' #important: 1.4.1 is broken!!!
 gem 'milia',                    '~> 1.0.0'
 gem 'cancancan',                github: 'bryanrite/cancancan', branch: 'master'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'

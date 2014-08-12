@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20140811154932) do
 
   add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
 
+  create_table "authorizations", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.string   "token"
+    t.string   "secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+  end
+
   create_table "comments", force: true do |t|
     t.integer  "commentable_id"
     t.string   "commentable_type"

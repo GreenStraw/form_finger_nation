@@ -7,6 +7,7 @@ Baseapp::Application.routes.draw do
   resources :sports
   resources :venues
 
+
   get "/about" => "home#about"
   get "/contact" => "home#contact"
   get "/faq" => "home#faq"
@@ -20,7 +21,7 @@ Baseapp::Application.routes.draw do
 
 
   # Authentication
-  devise_for :users,  controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
+  devise_for :users,  controllers: { omniauth_callbacks: 'omniauth_callbacks'}, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
   as :user do
     # session handling
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
@@ -119,10 +120,6 @@ Baseapp::Application.routes.draw do
       end
     end
   end
-  
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
-  get 'signout', to: 'milia/sessions#destroy', as: 'signout'
 
   get '*ember' => 'home#index'
 

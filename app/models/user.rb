@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
           :validatable,
           :registerable,
           :omniauthable
+          
+  has_many :authorizations
 
   acts_as_universal_and_determines_account
 
@@ -85,6 +87,44 @@ class User < ActiveRecord::Base
       user_admin: self.has_role?(:admin)
     }
   end
+  
+  def self.new_with_session(params,session)
+    if session["devise.user_attributes"]
+      new(session["devise.user_attributes"],without_protection: true) do |user|
+        user.attributes = params
+        user.valid?
+      end
+    else
+      super
+    end
+  end
+
+  def self.from_omniauth(auth, current_user)
+    authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
+    if authorization.user.blank?
+      user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
+      if user.blank?
+       user = User.new
+       user.password = Devise.friendly_token[0,10]
+       user.password_confirmation = user.password
+       user.name = auth.info.name
+       user.email = auth.info.email
+       parts = user.name.split(" ")
+       user.username = parts[0][0].downcase + parts[1].downcase rescue user.name
+       auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
+     end
+     authorization.username = auth.info.nickname
+     authorization.user_id = user.id
+     authorization.save
+   end
+   authorization.user
+ end
+  
+  
+  
+  
+  
+  
 =begin  
   def self.find_for_oauth(auth, signed_in_resource = nil)
     return nil if  auth.blank? && signed_in_resource.blank?
@@ -128,7 +168,7 @@ class User < ActiveRecord::Base
       user
     end
 =end  
-
+=begin
   def self.from_omniauth(auth)
     return nil if auth.blank?
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
@@ -140,7 +180,7 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
-   
+=end   
    def email_verified?
        self.email && self.email !~ TEMP_EMAIL_REGEX
    end

@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   def create
-    user = User.from_omniauth(env["omniauth.auth"])
+    omniauth_auth = request.env["rack.session"]["omniauth"]
+    byebug
+    user = User.from_omniauth(request.env["omniauth.auth"])
     unless user.blank?
       session[:user_id] = user.id
     else
