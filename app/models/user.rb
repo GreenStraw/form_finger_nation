@@ -127,9 +127,10 @@ class User < ActiveRecord::Base
       end
       user
     end
-  
+=end  
 
   def self.from_omniauth(auth)
+    return nil if auth.blank?
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
@@ -143,6 +144,7 @@ class User < ActiveRecord::Base
    def email_verified?
        self.email && self.email !~ TEMP_EMAIL_REGEX
    end
+=begin
    
    def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
      user = User.where(provider: auth.provider, uid: auth.uid).first
