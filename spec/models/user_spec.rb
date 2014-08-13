@@ -63,7 +63,26 @@ describe User do
       User.first_user_by_facebook_id("fake_token").should == nil
     end
   end
-
+  
+  describe "Facebook login should return nil without auth" do
+    it "should return nil" do
+      User.from_omniauth(nil, nil).should == nil
+    end
+  end
+=begin
+  #TODO this needs to do an actual facebook login to capture a valid token
+  describe "Facebook login should return user with auth" do
+    it "should return user" do
+      auth = OmniAuth::AuthHash.new( provider: "facebook", 
+                                     uid: "835028399",  
+                                     credentials: {token: "CAAAAAdZBVCP0BACbuqmTKJ5Lv8qHvwmaYsxfkXtOE5KXfzZCP5KZBAA9xPlnUq8pMibyVM1XubSweZBllMHMB5WslzuLuHvZCmZBB1a15fMS1fCc17hMmldzhDEDebeJUMMh69PdYzAMlg9Vk0KAJez8J3e5SoXRbBQZB0rvVNxSFmjTVIOZCDumdSjNMaPi8ZBHazifA1y7mrfLJ134jO9Bp",
+                                                   secret: nil},
+                                     info: { email: "test_user@ff.com"}
+                                    )
+      expect(User.from_omniauth(auth, nil)).to be_a User
+    end
+  end
+=end
 end
 
 # == Schema Information

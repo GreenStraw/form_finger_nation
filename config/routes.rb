@@ -1,5 +1,9 @@
 Baseapp::Application.routes.draw do
 
+  get 'account' => "account#show", :as => 'account'
+  get 'account/edit' => 'account#edit', :as => 'edit_account'
+  post 'account/update' => 'account#update', :as => 'update_account'
+
   resources :vouchers
   resources :packages
   resources :parties

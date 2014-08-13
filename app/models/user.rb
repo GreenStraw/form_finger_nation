@@ -97,6 +97,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth, current_user)
+    return nil if auth.blank?
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
     if authorization.user.blank?
       user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
