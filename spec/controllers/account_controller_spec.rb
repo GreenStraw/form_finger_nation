@@ -34,11 +34,11 @@ describe AccountController do
   end
   
   describe "POST 'update' and change password" do
-    it "updates the record and returns redirects to account page" do 
-      post 'update', :user => { id: @user.id, first_name:  "a test name, too", password: "a new password for me"}
+    it "updates the record and returns redirects to home page" do 
+      post 'update', :user => { id: @user.id, first_name:  "a test name, too", password: "a new password for me", password_confirmation: "a new password for me"}
       @user.reload
       response.should be_redirect
-      response.should redirect_to account_path
+      response.should redirect_to root_path
       expect(@user.first_name).to eq("a test name, too")
     end
   end
