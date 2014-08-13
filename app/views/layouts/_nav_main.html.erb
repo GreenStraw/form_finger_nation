@@ -22,7 +22,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to( t("theme.profile", :default => "Profile"), '#' ) %>              
+                <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>              
               </li>
               <li class="divider"></li>
               <li>
@@ -41,7 +41,7 @@
         <% else %>
 
           <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
-            <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
+            <%= link_to( t("theme.signup", :default => "Sign up"), new_account_path ) %>
           </li>
         
           <li class="<%= 'active' if current_page?( new_user_session_path ) %>">

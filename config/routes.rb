@@ -1,12 +1,19 @@
 Baseapp::Application.routes.draw do
 
+  get 'account' => "account#show", :as => 'account'
+  get 'account/edit' => 'account#edit', :as => 'edit_account'
+  post 'account/update' => 'account#update', :as => 'update_account'
+  post 'account/create' => 'account#create', :as => 'create_account'
+  get 'new_account' => "account#new", :as => 'new_account'
+
+
   resources :vouchers
   resources :packages
   resources :parties
   resources :teams
   resources :sports
   resources :venues
-
+  resource :account, :controller => :account
 
   get "/about" => "home#about"
   get "/contact" => "home#contact"
