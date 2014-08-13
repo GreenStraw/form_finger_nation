@@ -49,6 +49,7 @@ module ApplicationHelper
       return type
     end
   end
+  #these are here because Account needs them
   
   def devise_mapping
     Devise.mappings[:user]
