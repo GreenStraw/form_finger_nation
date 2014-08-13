@@ -41,7 +41,7 @@
         <% else %>
 
           <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
-            <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
+            <%= link_to( t("theme.signup", :default => "Sign up"), new_account_path ) %>
           </li>
         
           <li class="<%= 'active' if current_page?( new_user_session_path ) %>">

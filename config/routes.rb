@@ -13,7 +13,7 @@ Baseapp::Application.routes.draw do
   resources :teams
   resources :sports
   resources :venues
-
+  resource :account, :controller => :account
 
   get "/about" => "home#about"
   get "/contact" => "home#contact"

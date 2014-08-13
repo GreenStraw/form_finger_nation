@@ -1,5 +1,5 @@
 <%#= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form" }) do |f| %>
-<%= form_for @account, :url => create_account_path, html: { class: 'form login' } do |f| %>
+<%= form_for @user, :url => create_account_path, html: { class: 'form login' } do |f| %>
   <%#= devise_error_messages! %>
   
   <%= fields_for(:tenant) do |ff| %>

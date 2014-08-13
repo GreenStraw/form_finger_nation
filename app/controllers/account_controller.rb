@@ -1,7 +1,7 @@
 class AccountController < ApplicationController
   
   def new
-    @account = User.new
+    @user = User.new
   end
   
   def show
