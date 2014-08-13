@@ -27,26 +27,22 @@ module Zooz
     end
 
     def parsed_json_response
-      begin
-        @json_response = JSON.parse(http_body)
-      rescue
-        @json_response = nil
-      end
+      @json_response = JSON.parse(http_body) rescue nil
     end
 
     # Get the ZooZ status code, 0 for success.
     def status_code
-      if @json_response.blank?
+      if json_response.blank?
         get_parsed_singular('statusCode')
       else
-        @json_response['ResponseStatus'].to_s
+        json_response['ResponseStatus'].to_s
       end
     end
 
     # Get the ZooZ error message, returned when status_code is not 0.
     def error_message
       # get_parsed_singular('errorMessage')
-      @json_response["ResponseObject"]["errorMessage"]
+      json_response["ResponseObject"]["errorMessage"]
     end
 
     # Whether the request was successful, populates the @errors array on error.

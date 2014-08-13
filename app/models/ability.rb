@@ -54,5 +54,6 @@ class Ability
         user.has_role?(:manager, voucher.package.venue)
       end
     end
+
   end
 end

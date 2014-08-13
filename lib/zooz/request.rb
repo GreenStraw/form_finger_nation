@@ -7,6 +7,10 @@ module Zooz
     attr_reader :errors, :params
 
     def initialize
+      @app_key = ENV['ZOOZ_APP_KEY']
+      @developer_id = ENV['ZOOZ_DEVELOPER_ID']
+      @unique_id = ENV['ZOOZ_UNIQUE_ID']
+      @sandbox = ENV['ZOOZ_SANDBOX']
       @params = {}
       @errors = []
       @response_type = 'JSON'
@@ -16,17 +20,21 @@ module Zooz
     end
 
     # Set a request parameter.
-    def set_param name, value
+    def set_param(name, value)
       @params[name] = value
     end
 
     # Get a request parameter.
-    def get_param
+    def get_param(name)
       @params[name]
     end
 
-    def set_header name, value
+    def set_header(name, value)
       @headers[name]= value
+    end
+
+    def get_header(name)
+      @headers[name]
     end
 
     # Whether the request will be sent to sandbox.
@@ -46,37 +54,6 @@ module Zooz
       @url
     end
 
-    # Send a request to the server, returns a Zooz::Response object or false.
-    # If returning false, the @errors attribute is populated.
-    def request
-      url1 = url
-      return false unless valid?
-      http_response = HTTParty.post(url, :format => :plain,
-                                    :query => @params.merge({ :cmd => @cmd }),
-                                    :headers => {
-                                        'ZooZ-Unique-ID' => @unique_id,
-                                        'ZooZ-App-Key' => @app_key,
-                                        'ZooZ-Response-Type' => @response_type,
-                                    }) if @response_type.eql?('NVP')
-
-
-
-      http_response = HTTParty.post(url, :format => :json,
-                                    :body => @params.merge({ :cmd => @cmd }),
-                                    :headers => {
-                                        'ZooZDeveloperId' => @developer_id,
-                                        'ZooZServerAPIKey' => CGI::escape(@app_key)
-                                    }) if @response_type.eql?('JSON')
-
-      response = Response.new
-      response.request = self
-      response.http_response = http_response
-      unless response.success?
-        @errors = response.errors
-      end
-      response
-    end
-
     # Whether the request object is valid for requesting.
     def valid?
       @errors = []
@@ -87,5 +64,38 @@ module Zooz
       @errors << 'response_type is required' if @response_type.nil?
       @errors.empty?
     end
+
+    # Send a request to the server, returns a Zooz::Response object or false.
+    # If returning false, the @errors attribute is populated.
+    def request
+      url1 = url
+      return false unless valid?
+
+      if @response_type.eql?('NVP')
+        http_response = HTTParty.post(url, :format => :plain,
+                                      :query => @params.merge({ :cmd => @cmd }),
+                                      :headers => {
+                                          'ZooZ-Unique-ID' => @unique_id,
+                                          'ZooZ-App-Key' => @app_key,
+                                          'ZooZ-Response-Type' => @response_type,
+                                      }) 
+      end
+
+      if @response_type.eql?('JSON')
+        http_response = HTTParty.post(url, :format => :json,
+                                      :body => @params.merge({ :cmd => @cmd }),
+                                      :headers => {
+                                          'ZooZDeveloperId' => @developer_id,
+                                          'ZooZServerAPIKey' => CGI::escape(@app_key)
+                                      }) 
+      end
+      
+      response = Response.new
+      response.request = self
+      response.http_response = http_response
+      @errors = response.errors unless response.success?
+      response
+    end
+
   end
 end
