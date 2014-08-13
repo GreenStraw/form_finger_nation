@@ -35,8 +35,12 @@ div {
   }
 }
 
-#notice {
+#notice, div.alert-seccess {
   color: green;
+}
+
+div.alert-error {
+	color: red;
 }
 
 .field_with_errors {

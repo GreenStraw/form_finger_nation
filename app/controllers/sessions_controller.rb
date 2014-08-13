@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     unless user.blank?
       session[:user_id] = user.id
     else
-      flash[:error] = "There was an issue logging into Facebook, please try again"
+      flash[:warning] = "There was an issue logging into Facebook, please try again"
     end
       redirect_to root_url
   end
