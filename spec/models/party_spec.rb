@@ -1,30 +1,6 @@
 require 'spec_helper'
 
 describe Party do
-  context "with parties" do
-    before(:each) do
-      party1 = Fabricate(:party, scheduled_for: DateTime.now+2.days)
-      party2 = Fabricate(:party, scheduled_for: DateTime.now+3.days)
-      party3 = Fabricate(:party, scheduled_for: DateTime.now+2.days)
-    end
-    context "self.send_host_fourty_eight_hour_notifications" do
-      it "sends an email for each party scheduled in two days" do
-        expect { Party.send_host_fourty_eight_hour_notifications }.to change { ActionMailer::Base.deliveries.count }.by(2)
-      end
-    end
-
-    context "self.send_venue_manager_fourty_eight_hour_notifications" do
-      it "sends an email for each party scheduled in two days" do
-        expect { Party.send_venue_manager_fourty_eight_hour_notifications }.to change { ActionMailer::Base.deliveries.count }.by(2)
-      end
-    end
-
-    context "self.send_attendee_three_day_notifications" do
-      it "sends an to each attendee" do
-        expect { Party.send_attendee_three_day_notifications }.to change { ActionMailer::Base.deliveries.count }.by(2)
-      end
-    end
-  end
 
   describe "send_notification_when_verified" do
     context "verified changed and true" do
@@ -57,6 +33,7 @@ describe Party do
       end
     end
   end
+
 end
 
 # == Schema Information

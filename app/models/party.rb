@@ -31,29 +31,6 @@ class Party < ActiveRecord::Base
     self[:scheduled_for] = Time.at(value).to_datetime
   end
 
-  def self.send_host_fourty_eight_hour_notifications
-    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+2.days).beginning_of_day, (DateTime.now+2.days).end_of_day)
-    parties.each do |party|
-      PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
-    end
-  end
-
-  def self.send_venue_manager_fourty_eight_hour_notifications
-    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+2.days).beginning_of_day, (DateTime.now+2.days).end_of_day)
-    parties.each do |party|
-      PartyMailer.host_fourty_eight_hour_notification_email(party).deliver
-    end
-  end
-
-  def self.send_attendee_three_day_notifications
-    parties = Party.where("scheduled_for >= ? AND scheduled_for <= ?", (DateTime.now+3.days).beginning_of_day, (DateTime.now+3.days).end_of_day)
-    parties.each do |party|
-      party.party_reservations.each do |reservation|
-        PartyMailer.attendee_three_day_notification_email(reservation).deliver
-      end
-    end
-  end
-
   def completed_purchases
     vouchers.where('transaction_id IS NOT NULL')
   end
