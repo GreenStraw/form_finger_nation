@@ -1,11 +1,22 @@
 class AccountController < ApplicationController
   
+  def show
+    @user = current_user
+  end
+
   def new
     @user = User.new
   end
-  
-  def show
-    @user = current_user
+
+  def create
+    @account = User.new(user_params)
+    if @account.save_and_invite_member()
+      flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
+      redirect_to root_path
+    else
+      flash[:warning] = "errors occurred!"
+      render :new, layout: "sign"
+    end
   end
 
   def edit
@@ -32,19 +43,7 @@ class AccountController < ApplicationController
       render :edit
     end
   end
-  
-  def create
-    @account = User.new(user_params)
-    if @account.save_and_invite_member()
-      flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
-      redirect_to root_path
-    else
-      flash[:warning] = "errors occurred!"
-      render :new, layout: "sign"
-    end
-  end
-  
-  
+    
   private
   
   # Only allow a trusted parameter "white list" through.

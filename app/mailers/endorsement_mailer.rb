@@ -8,4 +8,5 @@ class EndorsementMailer < ActionMailer::Base
       mail(to: @to, subject: 'Foam Finger Nation Endorsement Request')
     end
   end
+  
 end
