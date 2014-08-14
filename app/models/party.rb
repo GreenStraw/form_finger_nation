@@ -69,10 +69,22 @@ class Party < ActiveRecord::Base
   end
   
   def self.search(search_item)
-    search_item = "%" + search_item + "%"
-    Party.joins(:organizer, :team, :venue)
-      .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?", 
-               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
+    if search_item.blank?
+      parties = Party.all
+      teams = Team.all
+      people = User.all
+    else
+      search_item = "%" + search_item + "%"
+      parties = Party.joins(:organizer, :team, :venue)
+        .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?", 
+               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])               
+     teams =  Party.joins(:team)
+       .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
+     
+      people  =  Party.joins(:organizer)
+        .where(["users.email ILIKE ? or users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ?", search_item, search_item, search_item, search_item])    
+    end  
+   [parties, teams, people]
   end
 
   private

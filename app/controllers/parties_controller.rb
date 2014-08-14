@@ -4,11 +4,11 @@ class PartiesController < ApplicationController
   # GET /parties
   def index
     unless params[:party] && params[:party][:search_item]
-      @parties = Party.all
+      #pass in an empty item to trigger counting all items for the sort resuts section.
+      @parties, @teams, @people = Party.search("")
     else
       search_item = params[:party][:search_item]
-
-      @parties = Party.search(search_item)
+      @parties, @teams, @people = Party.search(search_item)
     end
   end
 

@@ -33,3 +33,15 @@
  div.alert h2 {
    margin-top: 5px;
  }
+ 
+ div#totals-breakdown{
+	 float:left;
+	 width:20%;
+	 padding:20px;
+ }
+ 
+ div#search{
+	 float:left;
+	 width:80%;
+	 padding: 10px;
+ }

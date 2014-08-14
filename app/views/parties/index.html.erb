@@ -1,47 +1,58 @@
-<h1>Listing parties</h1>
+<h1>Search Foam Finger Nation</h1>
+<div id="totals-breakdown">
+	<h3>Sort Resuts</h3>
+	<p>Watch Parties (<%= @parties.count.to_s || "0" %>)</p>
+	<p>Teams (<%= @teams.count.to_s || "0" %>)</p>
+	<p>Bars and Restaurants</p>
+	<p>Fanmarks</p>
+	<p>People (<%= @people.count.to_s || "0"  %>)</p>
+</div>
+<div id="search">
+  <%= form_for :search, url: parties_path, method: :get do |f|%>
+    <%= text_field "party","search_item", value: "Enter search term" %>
+    <%= f.submit "Search for Watch Party"%>
+  <% end %>
 
-<%= form_for :search, url: parties_path, method: :get do |f|%>
-  <%= text_field "party","search_item", value: "Enter search term" %>
-  <%= f.submit "Search for Watch Party"%>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Is private</th>
-      <th>Verified</th>
-      <th>Scheduled for</th>
-      <th>Organizer</th>
-      <th>Team</th>
-      <th>Venue</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @parties.each do |party| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= party.name %></td>
-        <td><%= party.description %></td>
-        <td><%= party.is_private %></td>
-        <td><%= party.verified %></td>
-        <td><%= party.scheduled_for %></td>
-        <td><%= party.organizer.username %></td>
-        <td><%#= party.references %></td>
-        <td><%= party.team.name %></td>
-        <td><%#= party.references %></td>
-        <td><%= party.venue.name %></td>
-        <td><%#= party.references %></td>
-        <td><%= link_to 'Show', party %></td>
-        <td><%= link_to 'Edit', edit_party_path(party) %></td>
-        <td><%= link_to 'Destroy', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Private</th>
+        <th>Verified</th>
+        <th>Scheduled for</th>
+        <th>Organizer</th>
+        <th>Team</th>
+        <th>Venue</th>
+       <!--  <th colspan="3"></th> -->
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @parties.each do |party| %>
+        <tr>
+          <td><%= party.name %></td>
+          <td><%= party.description %></td>
+          <td><%= party.is_private %></td>
+          <td><%= party.verified %></td>
+          <td><%= party.scheduled_for %></td>
+          <td><%= party.organizer.username %></td>
+          <!--<td><%#= party.references %></td> -->
+          <td><%= party.team.name %></td>
+          <!-- <td><%#= party.references %></td> -->
+          <td><%= party.venue.name %></td>
+		  <!-- 
+          <td><%#= party.references %></td>
+          <td><%#= link_to 'Show', party %></td>
+          <td><%#= link_to 'Edit', edit_party_path(party) %></td>
+          <td><%#= link_to 'Destroy', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		  -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Party', new_party_path %>
+  <br>
+
+  <!-- <%#= link_to 'New Party', new_party_path %> -->
+</div>
