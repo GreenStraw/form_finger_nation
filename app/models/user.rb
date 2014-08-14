@@ -66,15 +66,6 @@ class User < ActiveRecord::Base
   end
   delegate :can?, :cannot?, to: :ability
 
-  def self.first_user_by_facebook_id(facebook_access_token)
-    fb_user = Koala::Facebook::API.new(facebook_access_token)
-    fb_details = fb_user.get_object("me")
-    fb_id = fb_details["id"]
-    User.where(uid: fb_id).first
-  rescue
-    nil
-  end
-
   def data
     {
       user_id: self.id,
@@ -85,7 +76,16 @@ class User < ActiveRecord::Base
     }
   end
   
-  def self.new_with_session(params,session)
+  def self.first_user_by_facebook_id(facebook_access_token)
+    fb_user = Koala::Facebook::API.new(facebook_access_token)
+    fb_details = fb_user.get_object("me")
+    fb_id = fb_details["id"]
+    User.where(uid: fb_id).first
+  rescue
+    nil
+  end
+
+  def self.new_with_session(params, session)
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"],without_protection: true) do |user|
         user.attributes = params
@@ -100,32 +100,30 @@ class User < ActiveRecord::Base
     return nil if auth.blank?
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
     if authorization.user.blank?
-      user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
+      user = current_user.nil? ? User.where('email = ?', auth.info.email).first : current_user
       if user.blank?
-       user = User.new
-       user.password = Devise.friendly_token[0,10]
-       user.password_confirmation = user.password
-       user.name = auth.info.name
-       user.email = auth.info.email
-       parts = user.name.split(" ")
-       user.username = parts[0][0].downcase + parts[1].downcase rescue user.name
-       auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
-     end
-     authorization.username = auth.info.nickname
-     authorization.user_id = user.id
-     authorization.save
-   end
-   authorization.user
- end
+        user = User.new
+        user.password = Devise.friendly_token[0,10]
+        user.password_confirmation = user.password
+        user.name = auth.info.name
+        user.email = auth.info.email
+        parts = user.name.split(" ")
+        user.username = parts[0][0].downcase + parts[1].downcase rescue user.name
+        auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
+      end
+      authorization.username = auth.info.nickname
+      authorization.user_id = user.id
+      authorization.save
+    end
+    authorization.user
+  end
   
-
   private
 
   def ensure_address
-    if address.nil?
-      create_address
-    end
+    create_address if address.nil?
   end
+  
 end
 
 # == Schema Information
@@ -164,4 +162,5 @@ end
 #  image_url                    :string(255)
 #  created_at                   :datetime
 #  updated_at                   :datetime
+#  name                         :string(255)
 #

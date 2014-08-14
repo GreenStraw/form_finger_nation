@@ -22,17 +22,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def follow_user
     @followee = User.find(params[:user_id])
-    if !@user.followees.include?(@followee)
-      @user.followees << @followee
-    end
+    @user.followees << @followee if !@user.followees.include?(@followee)
     respond_with @user, :location=>api_v1_users_path
   end
 
   def unfollow_user
     @followee = User.find(params[:user_id])
-    if @user.followees.include?(@followee)
-      @user.followees.delete(@followee)
-    end
+    @user.followees.delete(@followee) if @user.followees.include?(@followee)
     respond_with @user, :location=>api_v1_users_path
   end
 

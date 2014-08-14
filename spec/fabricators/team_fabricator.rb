@@ -12,6 +12,7 @@ end
 #  name        :string(255)
 #  image_url   :string(255)
 #  information :text
+#  college     :boolean          default(FALSE)
 #  sport_id    :integer
 #  created_at  :datetime
 #  updated_at  :datetime

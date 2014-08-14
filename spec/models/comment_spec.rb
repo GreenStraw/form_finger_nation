@@ -15,6 +15,12 @@ describe Comment do
                           commentable_id: @party.id, commentable_type: 'Party')
   end
 
+  describe 'Comment.build_from' do
+    it 'creates a properly associated comment' do
+      c = Comment.build_from(@party, @user, 'this is my commenty comment')
+      expect(c).to be_valid
+    end
+  end
   describe "self.find_comments_by_commenter(commenter)" do
     it "should return comments created by the specified commenter" do
       Comment.find_comments_by_commenter(@user).should == [@comment]

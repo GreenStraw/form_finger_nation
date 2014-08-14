@@ -12,7 +12,6 @@ end
 #  user_id    :integer
 #  package_id :integer
 #  party_id   :integer
-#  charge_id  :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #

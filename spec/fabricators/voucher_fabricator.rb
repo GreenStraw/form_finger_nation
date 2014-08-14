@@ -9,10 +9,13 @@ end
 #
 # Table name: vouchers
 #
-#  id         :integer          not null, primary key
-#  redeemed   :boolean          default(FALSE)
-#  user_id    :integer
-#  package_id :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id                     :integer          not null, primary key
+#  transaction_display_id :string(255)
+#  transaction_id         :string(255)
+#  redeemed_at            :datetime
+#  user_id                :integer
+#  package_id             :integer
+#  party_id               :integer
+#  created_at             :datetime
+#  updated_at             :datetime
 #

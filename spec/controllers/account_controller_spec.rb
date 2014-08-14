@@ -5,7 +5,6 @@ describe AccountController do
   before do
     create_new_tenant
     @user = Fabricate(:user)
-
   end
 
 

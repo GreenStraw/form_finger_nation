@@ -14,23 +14,40 @@ describe Api::V1::UsersController do
     request.headers['api-token'] = 'SPEAKFRIENDANDENTER'
   end
 
-  describe 'GET show' do
-    context 'wrong token' do
-      before {
+  describe 'GET index' do
+    context 'with an invalid token' do
+      before(:each) do
         request.headers['auth-token'] = 'fake_token'
-        get :show, id: @current_user.id, format: :json
-      }
-
+        get :index, id: @current_user.id, format: :json
+      end
       it 'returns http 401' do
         response.response_code.should == 401
       end
     end
+    context 'with a valid token' do
+      before do
+        get :index, id: @current_user.id, format: :json
+      end
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
+    end
+  end
 
-    context 'authorized' do
+  describe 'GET show' do
+    context 'with an invalid token' do
+      before(:each) do
+        request.headers['auth-token'] = 'fake_token'
+        get :show, id: @current_user.id, format: :json
+      end
+      it 'returns http 401' do
+        response.response_code.should == 401
+      end
+    end
+    context 'with a valid token' do
       before do
         get :show, id: @current_user.id, format: :json
       end
-
       it 'returns http 200' do
         response.response_code.should == 200
       end
@@ -87,8 +104,24 @@ describe Api::V1::UsersController do
           'followee_ids'=>[],
           'voucher_ids'=>[],
           'created_at'=>up_user['created_at'],
-          'updated_at'=>up_user['updated_at']}
+          'updated_at'=>up_user['updated_at']
+        }
         up_user.should == expect_user
+      end
+    end
+    context 'Update without password' do
+      before do
+        xhr :put,
+            :update,
+            :id => @current_user.id,
+            :user => {:first_name => 'NewFirstName'}
+      end
+      it 'returns http 204' do
+        response.response_code.should == 204
+      end
+      it 'returns updated user' do
+        up_user = JSON.parse(response.body)['user']
+        up_user['first_name'].should == 'NewFirstName'
       end
     end
     context 'Update fields' do
@@ -156,6 +189,49 @@ describe Api::V1::UsersController do
       it 'returns http 422' do
         response.response_code.should == 422
       end
+    end
+  end
+
+  describe 'PUT follow_user' do
+    context 'when the user has been previously followed' do
+      before do
+        @current_user.followees << user
+      end
+      it 'returns http 204' do
+        put :follow_user, id: @current_user.id, user_id:user.id, format: :json
+        response.response_code.should == 204
+      end
+    end
+    context 'when the user has not been previously followed' do
+      it 'returns http 204' do
+        put :follow_user, id: @current_user.id, user_id:user.id, format: :json
+        response.response_code.should == 204
+      end
+    end
+  end
+  
+  describe 'PUT unfollow_user' do
+    context 'when the user has been previously followed' do
+      before do
+        @current_user.followees << user
+      end
+      it 'returns http 204' do
+        put :unfollow_user, id: @current_user.id, user_id:user.id, format: :json
+        response.response_code.should == 204
+      end
+    end
+    context 'when the user has not been previously followed' do
+      it 'returns http 204' do
+        put :unfollow_user, id: @current_user.id, user_id:user.id, format: :json
+        response.response_code.should == 204
+      end
+    end
+  end
+  
+  describe 'GET search_users' do
+    it 'returns http 200' do
+      get :search_users, :username=>'bob', :team_id=>'1'
+      response.response_code.should == 200      
     end
   end
 end
