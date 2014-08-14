@@ -3,7 +3,13 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    @parties = Party.all
+    unless params[:party] && params[:party][:search_item]
+      @parties = Party.all
+    else
+      search_item = params[:party][:search_item]
+
+      @parties = Party.search(search_item)
+    end
   end
 
   # GET /parties/1
@@ -53,6 +59,6 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id)
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item)
     end
 end

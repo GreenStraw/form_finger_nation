@@ -67,6 +67,13 @@ class Party < ActiveRecord::Base
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
+  
+  def self.search(search_item)
+    search_item = "%" + search_item + "%"
+    Party.joins(:organizer, :team, :venue)
+      .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?", 
+               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
+  end
 
   private
 

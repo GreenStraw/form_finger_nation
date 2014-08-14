@@ -14,6 +14,13 @@ describe PartiesController do
       assigns(:parties).should eq([@party])
     end
   end
+  
+  describe "GET index with search parameter" do
+    it "assigns all parties as @parties" do
+      get :index, {:party => {:search_item => @party.name}}
+      assigns(:parties).should eq([@party])
+    end
+  end
 
   describe "GET show" do
     it "assigns the requested party as @party" do
