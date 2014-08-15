@@ -12,13 +12,9 @@
 
 <p>
   <strong>Image url:</strong>
-  <%= @venue.image_url %>
+  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @venue.user %>
-</p>
 
 <%= link_to 'Edit', edit_venue_path(@venue) %> |
 <%= link_to 'Back', venues_path %>

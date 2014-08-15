@@ -13,10 +13,13 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    init_selects
   end
 
   # GET /teams/1/edit
   def edit
+    @team = Team.find(params[:id])
+    init_selects
   end
 
   # POST /teams
@@ -54,5 +57,9 @@ class TeamsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def team_params
       params.require(:team).permit(:name, :information, :text, :image_url, :sport, :references)
+    end
+    
+    def init_selects
+      @sport_selects = Sport.order(:name).map {|team| [team.name, team.id]}
     end
 end

@@ -11,24 +11,20 @@
 </p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @team.text %>
+  <strong>Information:</strong>
+  <%= @team.information %>
 </p>
 
 <p>
   <strong>Image url:</strong>
-  <%= @team.image_url %>
+  <%= image_tag(@team.image_url) unless @team.image_url.blank? %>
 </p>
 
 <p>
   <strong>Sport:</strong>
-  <%= @team.sport %>
+  <%= @team.sport.name %>
 </p>
 
-<p>
-  <strong>References:</strong>
-  <%= @team.references %>
-</p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

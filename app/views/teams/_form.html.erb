@@ -17,24 +17,18 @@
   </div>
   <div class="field">
     <%= f.label :information %><br>
-    <%= f.text_field :information %>
+    <%= f.text_area :information, cols: 80, rows: 2 %>
   </div>
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_field :text %>
-  </div>
+
   <div class="field">
     <%= f.label :image_url %><br>
     <%= f.text_field :image_url %>
   </div>
   <div class="field">
     <%= f.label :sport %><br>
-    <%= f.text_field :sport %>
+    <%= f.select :sport_id, @sport_selects %>
   </div>
-  <div class="field">
-    <%= f.label :references %><br>
-    <%= f.text_field :references %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
