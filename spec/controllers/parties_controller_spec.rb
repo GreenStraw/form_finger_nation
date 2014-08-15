@@ -5,8 +5,6 @@ describe PartiesController do
   before(:each) do
     @party = Fabricate(:party)
     @address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
-    #@venue = Fabricate(:venue)
-    #@address2 = Fabricate(:address,  addressable: @venue, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
   end
   
   let(:valid_attributes) { Fabricate.attributes_for(:party) }

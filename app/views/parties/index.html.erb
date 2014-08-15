@@ -54,16 +54,13 @@
           <td><%= party.verified %></td>
           <td><%= party.scheduled_for %></td>
           <td><%= party.organizer.username %></td>
-          <!--<td><%#= party.references %></td> -->
           <td><%= party.team.name %></td>
-          <!-- <td><%#= party.references %></td> -->
           <td><%= party.venue.name %></td>
-		  <!-- 
-          <td><%#= party.references %></td>
-          <td><%#= link_to 'Show', party %></td>
-          <td><%#= link_to 'Edit', edit_party_path(party) %></td>
-          <td><%#= link_to 'Destroy', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		  -->
+
+          <td><%= link_to 'Show', party %></td>
+          <td><%= link_to 'Edit', edit_party_path(party) %></td>
+          <td><%= link_to 'Destroy', party, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
         </tr>
       <% end %>
     </tbody>
@@ -71,5 +68,5 @@
 
   <br>
 
-  <!-- <%#= link_to 'New Party', new_party_path %> -->
+  <%= link_to 'New Party', new_party_path %>
 </div>

@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, cols: 80, rows: 2 %>
   </div>
   <div class="field">
     <%= f.label :is_private %><br>
@@ -31,19 +31,19 @@
     <%= f.label :scheduled_for %><br>
     <%= f.datetime_select :scheduled_for %>
   </div>
+  
   <div class="field">
-    <%= f.label :organizer %><br>
-    <%= f.text_field :organizer %>
+    <%= f.hidden_field :organizer_id, value: current_user.id %>
   </div>
 
   <div class="field">
     <%= f.label :team %><br>
-    <%= f.text_field :team %>
+    <%= f.select :team_id, @team_selects %>
   </div>
 
   <div class="field">
     <%= f.label :venue %><br>
-    <%= f.text_field :venue %>
+    <%= f.select :venue_id, @venue_selects %>
   </div>
 
   <div class="actions">

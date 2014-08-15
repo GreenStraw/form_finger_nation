@@ -35,10 +35,13 @@ class PartiesController < ApplicationController
   # GET /parties/new
   def new
     @party = Party.new
+    init_selects    
   end
 
   # GET /parties/1/edit
   def edit
+    @party = Party.find(params[:id])
+    init_selects
   end
 
   # POST /parties
@@ -76,5 +79,10 @@ class PartiesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def party_params
       params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item)
+    end
+    
+    def init_selects
+      @team_selects = Team.order(:name).map {|team| [team.name, team.id]}
+      @venue_selects = Venue.order(:name).map {|venue| [venue.name, venue.id]}
     end
 end
