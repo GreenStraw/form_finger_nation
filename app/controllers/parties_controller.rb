@@ -3,12 +3,28 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    unless params[:party] && params[:party][:search_item]
-      #pass in an empty item to trigger counting all items for the sort resuts section.
+    radius = 50 #set the location search radius
+    #search scenarios, we can either have a search_item, search_location, or both
+    party_params = params[:party]
+    if party_params.blank? || (party_params[:search_item].blank? && party_params[:search_location].blank?)
       @parties, @teams, @people = Party.search("")
     else
-      search_item = params[:party][:search_item]
-      @parties, @teams, @people = Party.search(search_item)
+      if party_params[:search_item].blank? && !party_params[:search_location].blank?
+        #location search only
+        @parties = Party.geo_search(party_params[:search_location], radius)
+        @teams = []
+        @people = []
+      elsif !party_params[:search_item].blank? && party_params[:search_location].blank?
+        #search item search only
+        @parties, @teams, @people = Party.search(party_params[:search_item])
+      else
+        #both search
+        parties1  = Party.geo_search(party_params[:search_location], radius)
+        parties2, @teams, @people = Party.search(party_params[:search_item])
+        @parties = (parties1 & parties2)
+        @teams = []
+        @people = []
+      end
     end
   end
 

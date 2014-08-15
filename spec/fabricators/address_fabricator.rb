@@ -4,8 +4,8 @@ Fabricator(:address) do
   city 'Austin'
   state 'TX'
   zip '78728'
-  longitude 30.00
-  latitude 30.00
+  longitude -97.7996912
+  latitude 30.4705029
   addressable_type "Venue"
   addressable_id 1
 end

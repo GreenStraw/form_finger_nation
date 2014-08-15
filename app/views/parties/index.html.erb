@@ -8,9 +8,26 @@
 	<p>People (<%= @people.count.to_s || "0"  %>)</p>
 </div>
 <div id="search">
-  <%= form_for :search, url: parties_path, method: :get do |f|%>
-    <%= text_field "party","search_item", value: "Enter search term" %>
-    <%= f.submit "Search for Watch Party"%>
+  <%= form_for :search, url: parties_path, method: :get do |f| %>
+    <table>
+      <tr>
+        <td>
+          <p><b>Search for</b> <i>(Teams, Bars or Fanmarks)</i></p>
+          <%= text_field "party","search_item", cols: 40, value: params[:party].blank? ? "" : params[:party][:search_item] %>
+	    </td>
+	    <td>
+	       <p><b>Near</b> <i>(City,State or Zip Code)</i></p>
+	       <%= text_field "party","search_location", cols: 40, value: params[:party].blank? ? "" : params[:party][:search_location] %>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	    </td>
+	    <td>
+          <%= f.submit "Search"%>
+	    </td>
+      </tr>
+    </table>
   <% end %>
 
   <table>

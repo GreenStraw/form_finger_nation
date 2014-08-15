@@ -86,6 +86,12 @@ class Party < ActiveRecord::Base
     end  
    [parties, teams, people]
   end
+  
+  def self.geo_search(address, radius)
+    venue_addresses_in_radius = Address.class_within_radius_of_address('Venue', address, radius)
+    venues = venue_addresses_in_radius.map(&:addressable)
+    @parties = venues.map(&:parties).flatten.uniq
+  end
 
   private
 
