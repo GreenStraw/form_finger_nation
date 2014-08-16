@@ -3,29 +3,8 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    radius = 50 #set the location search radius
-    #search scenarios, we can either have a search_item, search_location, or both
     party_params = params[:party]
-    if party_params.blank? || (party_params[:search_item].blank? && party_params[:search_location].blank?)
-      @parties, @teams, @people = Party.search("")
-    else
-      if party_params[:search_item].blank? && !party_params[:search_location].blank?
-        #location search only
-        @parties = Party.geo_search(party_params[:search_location], radius)
-        @teams = []
-        @people = []
-      elsif !party_params[:search_item].blank? && party_params[:search_location].blank?
-        #search item search only
-        @parties, @teams, @people = Party.search(party_params[:search_item])
-      else
-        #both search
-        parties1  = Party.geo_search(party_params[:search_location], radius)
-        parties2, @teams, @people = Party.search(party_params[:search_item])
-        @parties = (parties1 & parties2)
-        @teams = []
-        @people = []
-      end
-    end
+    @parties, @teams, @people = Party.search_by_params(party_params)    
   end
 
   # GET /parties/1
@@ -34,14 +13,12 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
-    @party = Party.new
-    init_selects    
+    @party = Party.new 
   end
 
   # GET /parties/1/edit
   def edit
     @party = Party.find(params[:id])
-    init_selects
   end
 
   # POST /parties
@@ -81,8 +58,5 @@ class PartiesController < ApplicationController
       params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item)
     end
     
-    def init_selects
-      @team_selects = Team.order(:name).map {|team| [team.name, team.id]}
-      @venue_selects = Venue.order(:name).map {|venue| [venue.name, venue.id]}
-    end
+    
 end

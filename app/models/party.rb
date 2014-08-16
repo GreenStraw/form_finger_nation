@@ -92,6 +92,33 @@ class Party < ActiveRecord::Base
     venues = venue_addresses_in_radius.map(&:addressable)
     @parties = venues.map(&:parties).flatten.uniq
   end
+  
+  def self.search_by_params(party_params)
+    radius = 50 #set the location search radius
+    #search scenarios, we can either have a search_item, search_location, or both
+    if party_params.blank? || (party_params[:search_item].blank? && party_params[:search_location].blank?)
+      @parties, @teams, @people = Party.search("")
+    else
+      if party_params[:search_item].blank? && !party_params[:search_location].blank?
+        #location search only
+        parties = Party.geo_search(party_params[:search_location], radius)
+        teams = []
+        people = []
+      elsif !party_params[:search_item].blank? && party_params[:search_location].blank?
+        #search item search only
+        parties, teams, people = Party.search(party_params[:search_item])
+      else
+        #both search
+        parties1  = Party.geo_search(party_params[:search_location], radius)
+        parties2, @teams, @people = Party.search(party_params[:search_item])
+        parties = (parties1 & parties2)
+        teams = []
+        people = []
+      end
+      
+      [parties,teams,people]
+    end
+  end
 
   private
 
