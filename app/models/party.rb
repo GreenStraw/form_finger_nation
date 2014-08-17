@@ -44,6 +44,58 @@ class Party < ActiveRecord::Base
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
+  
+  def self.search(search_item)
+    if search_item.blank?
+      parties = Party.all
+      teams = Team.all
+      people = User.all
+    else
+      search_item = "%" + search_item + "%"
+      parties = Party.joins(:organizer, :team, :venue)
+        .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?", 
+               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])               
+     teams =  Party.joins(:team)
+       .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
+     
+      people  =  Party.joins(:organizer)
+        .where(["users.email ILIKE ? or users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ?", search_item, search_item, search_item, search_item])    
+    end  
+   [parties, teams, people]
+  end
+  
+  def self.geo_search(address, radius)
+    venue_addresses_in_radius = Address.class_within_radius_of_address('Venue', address, radius)
+    venues = venue_addresses_in_radius.map(&:addressable)
+    @parties = venues.map(&:parties).flatten.uniq
+  end
+  
+  def self.search_by_params(party_params)
+    radius = 50 #set the location search radius
+    #search scenarios, we can either have a search_item, search_location, or both
+    if party_params.blank? || (party_params[:search_item].blank? && party_params[:search_location].blank?)
+      @parties, @teams, @people = Party.search("")
+    else
+      if party_params[:search_item].blank? && !party_params[:search_location].blank?
+        #location search only
+        parties = Party.geo_search(party_params[:search_location], radius)
+        teams = []
+        people = []
+      elsif !party_params[:search_item].blank? && party_params[:search_location].blank?
+        #search item search only
+        parties, teams, people = Party.search(party_params[:search_item])
+      else
+        #both search
+        parties1  = Party.geo_search(party_params[:search_location], radius)
+        parties2, @teams, @people = Party.search(party_params[:search_item])
+        parties = (parties1 & parties2)
+        teams = []
+        people = []
+      end
+      
+      [parties,teams,people]
+    end
+  end
 
   private
 

@@ -17,6 +17,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    @team = Team.find(params[:id])
   end
 
   # POST /teams
@@ -55,4 +56,6 @@ class TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name, :information, :text, :image_url, :sport, :references)
     end
+    
+    
 end
