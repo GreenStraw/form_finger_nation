@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 20140811154913) do
     t.string   "hours_monday"
     t.string   "hours_tuesday"
     t.string   "hours_wednesday"
-    t.string   "hours_thusday"
+    t.string   "hours_thursday"
     t.string   "hours_friday"
     t.string   "hours_saturday"
   end

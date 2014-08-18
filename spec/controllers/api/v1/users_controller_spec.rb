@@ -209,7 +209,7 @@ describe Api::V1::UsersController do
       end
     end
   end
-  
+
   describe 'PUT unfollow_user' do
     context 'when the user has been previously followed' do
       before do
@@ -227,11 +227,11 @@ describe Api::V1::UsersController do
       end
     end
   end
-  
+
   describe 'GET search_users' do
     it 'returns http 200' do
       get :search_users, :username=>'bob', :team_id=>'1'
-      response.response_code.should == 200      
+      response.response_code.should == 200
     end
   end
 end
