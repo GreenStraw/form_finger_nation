@@ -5,7 +5,7 @@ class Ability
     user ||= User.new
 
     if user.has_role?(:team_admin, :any)
-      can :update, :add_host, :remove_host, Team do |team|
+      can [:update, :add_host, :remove_host], Team do |team|
         user.has_role?(:team_admin, team)
       end
     end

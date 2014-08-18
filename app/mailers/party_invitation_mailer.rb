@@ -11,5 +11,5 @@ class PartyInvitationMailer < ActionMailer::Base
     @url = "foamfinger://#{@party.id}"
     mail(to: @to, subject: 'You have been invited to a watch party on Foam Finger Nation!')
   end
-  
+
 end
