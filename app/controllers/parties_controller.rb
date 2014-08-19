@@ -3,8 +3,7 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    party_params = params[:party]
-    @parties, @teams, @people = Party.search_by_params(party_params)    
+    @user = current_user   
   end
 
   # GET /parties/1
