@@ -7,9 +7,9 @@ describe User do
   it { should validate_presence_of :email }
 
   before do
-    @user = Fabricate(:user)    
+    @user = Fabricate(:user)
   end
-  
+
   describe 'confirm!' do
     it 'sets confirmed_at' do
       @user.confirmed_at = nil
@@ -17,7 +17,7 @@ describe User do
       expect(@user.confirmed_at).to_not be_nil
     end
   end
-  
+
   describe 'confirmed?' do
     context 'when user has not been confirmed' do
       it 'returns false' do
@@ -29,9 +29,9 @@ describe User do
       it 'returns true' do
         expect(@user.confirmed?).to eq(true)
       end
-    end    
+    end
   end
-  
+
   describe "full_name" do
     it "should contatenate first and last name" do
       @user.full_name.should == "#{@user.first_name} #{@user.last_name}"
@@ -43,13 +43,77 @@ describe User do
       expect(@user.ability.class).to eq(Ability)
     end
   end
-  
+
   describe 'data' do
     it 'returns a hash' do
       expect(@user.data.class).to eq(Hash)
     end
   end
-  
+
+  describe 'managed_teams' do
+    context 'no managed team' do
+      before {
+        @team = Fabricate(:team)
+      }
+
+      it "should return team" do
+        expect(@user.managed_teams).to eq([])
+      end
+    end
+    context 'one managed team' do
+      before {
+        @team = Fabricate(:team)
+        @user.add_role(:team_admin, @team)
+      }
+
+      it "should return team" do
+        expect(@user.managed_teams).to eq([@team])
+      end
+    end
+    context 'user is admin' do
+      before {
+        @team = Fabricate(:team)
+        @user.add_role(:admin)
+      }
+
+      it "should return team" do
+        expect(@user.managed_teams).to eq([@team])
+      end
+    end
+  end
+
+  describe 'managed_teams' do
+    context 'no managed venue' do
+      before {
+        @venue = Fabricate(:venue)
+      }
+
+      it "should return venue" do
+        expect(@user.managed_venues).to eq([])
+      end
+    end
+    context 'one managed venue' do
+      before {
+        @venue = Fabricate(:venue)
+        @user.add_role(:manager, @venue)
+      }
+
+      it "should return venue" do
+        expect(@user.managed_venues).to eq([@venue])
+      end
+    end
+    context 'user is admin' do
+      before {
+        @venue = Fabricate(:venue)
+        @user.add_role(:admin)
+      }
+
+      it "should return venue" do
+        expect(@user.managed_venues).to eq([@venue])
+      end
+    end
+  end
+
   describe 'User.first_user_by_facebook_id' do
     context "With a real token first_user_by_facebook_id" do
       it "should return a user" do
@@ -65,7 +129,7 @@ describe User do
       end
     end
   end
-  
+
   describe 'User.new_with_session' do
     context 'when devise.user_attributes exists in session' do
       it 'returns a new user populated with session date' do
@@ -80,7 +144,7 @@ describe User do
       end
     end
   end
-  
+
   describe 'User.from_omniauth' do
     describe "when auth is nil" do
       it "should return nil" do
@@ -129,7 +193,7 @@ describe User do
       end
     end
   end
-  
+
 end
 
 # == Schema Information

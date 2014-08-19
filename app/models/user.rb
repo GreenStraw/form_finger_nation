@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
           :validatable,
           :registerable,
           :omniauthable
-          
+
   has_many :authorizations
 
   acts_as_universal_and_determines_account
@@ -66,6 +66,30 @@ class User < ActiveRecord::Base
   end
   delegate :can?, :cannot?, to: :ability
 
+  def admin?
+    self.has_role?(:admin)
+  end
+
+  def managed_venues
+    if self.admin?
+      Venue.all
+    elsif self.has_role?(:manager, :any)
+      Venue.where(id: self.roles.where(name: 'manager').map(&:resource_id))
+    else
+      []
+    end
+  end
+
+  def managed_teams
+    if self.admin?
+      Team.all
+    elsif self.has_role?(:team_admin, :any)
+      Team.where(id: self.roles.where(name: 'team_admin').map(&:resource_id))
+    else
+      []
+    end
+  end
+
   def data
     {
       user_id: self.id,
@@ -75,7 +99,7 @@ class User < ActiveRecord::Base
       user_admin: self.has_role?(:admin)
     }
   end
-  
+
   def self.first_user_by_facebook_id(facebook_access_token)
     fb_user = Koala::Facebook::API.new(facebook_access_token)
     fb_details = fb_user.get_object("me")
@@ -117,13 +141,13 @@ class User < ActiveRecord::Base
     end
     authorization.user
   end
-  
+
   private
 
   def ensure_address
     create_address if address.nil?
   end
-  
+
 end
 
 # == Schema Information

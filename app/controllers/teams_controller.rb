@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /teams
   def index
@@ -46,6 +47,24 @@ class TeamsController < ApplicationController
     redirect_to teams_url, notice: 'Team was successfully destroyed.'
   end
 
+  def subscribe
+    if !@team.fans.include?(current_user)
+      @team.fans << current_user
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unsubscribe
+    if @team.fans.include?(current_user)
+      @team.fans.delete(current_user)
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
@@ -56,6 +75,6 @@ class TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name, :information, :text, :image_url, :sport, :references)
     end
-    
-    
+
+
 end

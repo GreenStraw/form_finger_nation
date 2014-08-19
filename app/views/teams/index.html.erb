@@ -1,33 +1,29 @@
-<h1>Listing teams</h1>
+<h1>Teams</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Information</th>
-      <th>Text</th>
-      <th>Image url</th>
-      <th>Sport</th>
-      <th>References</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<ul class='nav nav-tabs' role='tablist'>
+<li class='active'><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
+<li><a href="#all" role='tab' data-toggle='tab'>All</a></li>
+  <% if current_user.managed_teams.any? %>
+    <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
+  <% end %>
+</ul>
 
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.information %></td>
-        <td><%= image_tag(team.image_url) unless team.image_url.blank? %></td>
-        <td><%= team.sport.name %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class='tab-content'>
+  <div class='tab-pane active' id="favorites">
+    <%= render partial: 'teams_table_followed' %>
+  </div>
+
+  <div class='tab-pane' id="all">
+    <%= render partial: 'teams_table_all' %>
+  </div>
+
+  <div class='tab-pane' id="managed">
+    <%= render partial: 'teams_table_managed' %>
+  </div>
+</div>
 
 <br>
 
-<%= link_to 'New Team', new_team_path %>
+<% if current_user.can?(:create, Team) %>
+  <%= link_to 'New Team', new_team_path %>
+<% end %>

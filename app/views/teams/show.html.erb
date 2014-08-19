@@ -17,7 +17,7 @@
 
 <p>
   <strong>Image url:</strong>
-  <%= image_tag(@team.image_url) unless @team.image_url.blank? %>
+  <%= image_tag(@team.image_url, size: '50') unless @team.image_url.blank? %>
 </p>
 
 <p>
