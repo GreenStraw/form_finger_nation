@@ -1,13 +1,16 @@
 class SportsController < ApplicationController
   before_action :set_sport, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  respond_to :html, :js
 
   # GET /sports
   def index
-    @sports = Sport.all
+    respond_with @sports
   end
 
   # GET /sports/1
   def show
+    respond_with @sport
   end
 
   # GET /sports/new
@@ -17,6 +20,7 @@ class SportsController < ApplicationController
 
   # GET /sports/1/edit
   def edit
+    respond_with @sport
   end
 
   # POST /sports

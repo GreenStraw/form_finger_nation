@@ -1,20 +1,11 @@
-<h1>Listing sports</h1>
+<h1>Manage sports</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Image url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<table class='table borderless table-hover'>
   <tbody>
     <% @sports.each do |sport| %>
       <tr>
-        <td><%= sport.name %></td>
-        <td><%= sport.image_url %></td>
-        <td><%= link_to 'Show', sport %></td>
+        <td><%= image_tag(sport.image_url, size: '30') unless sport.image_url.blank? %></td>
+        <td><%= link_to sport.name, sport_path(sport) %></td>
         <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
         <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

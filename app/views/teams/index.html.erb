@@ -21,9 +21,3 @@
     <%= render partial: 'teams_table_managed' %>
   </div>
 </div>
-
-<br>
-
-<% if current_user.present? && current_user.can?(:create, Team) %>
-  <%= link_to 'New Team', new_team_path %>
-<% end %>
