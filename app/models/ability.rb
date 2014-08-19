@@ -20,7 +20,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can [:subscribe_user, :unsubscribe_user], Team
+      can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe], Team
       can [:subscribe_user, :unsubscribe_user], Sport
       can :packages, Venue
 

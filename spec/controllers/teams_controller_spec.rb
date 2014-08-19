@@ -3,9 +3,11 @@ require 'spec_helper'
 describe TeamsController do
 
   before(:each) do
+    create_new_tenant
+    login(:admin)
     @team = Fabricate(:team)
   end
-  
+
   let(:valid_attributes) { Fabricate.attributes_for(:team) }
 
   describe "GET index" do
@@ -125,6 +127,46 @@ describe TeamsController do
     it "redirects to the teams list" do
       delete :destroy, {:id => @team.to_param}
       response.should redirect_to(teams_url)
+    end
+  end
+
+  describe "PUT subscribe_user" do
+    context "user not fan" do
+      it "adds user to team fans" do
+        expect {
+          put :subscribe, id: @team.id, format: :js
+        }.to change(@team.fans, :count).by(1)
+      end
+    end
+    context "user already fan" do
+      before {
+        @team.fans = [@current_user]
+      }
+      it "does not add user" do
+        expect {
+          put :subscribe, id: @team.id, format: :js
+        }.to change(@team.fans, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT unsubscribe_user" do
+    context "user is fan" do
+      before {
+        @team.fans = [@current_user]
+      }
+      it "removes user from team fans" do
+        expect {
+          put :unsubscribe, id: @team.id, format: :js
+        }.to change(@team.fans, :count).by(-1)
+      end
+    end
+    context "user not fan" do
+      it "does not remove user" do
+        expect {
+          put :unsubscribe, id: @team.id, format: :js
+        }.to change(@team.fans, :count).by(0)
+      end
     end
   end
 

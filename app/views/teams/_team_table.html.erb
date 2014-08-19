@@ -1,0 +1,22 @@
+<table class='table table-hover borderless'>
+    <tbody>
+      <% teams.each do |team| %>
+        <tr>
+          <td><%= image_tag(team.image_url, size: '30') unless team.image_url.blank? %></td>
+          <td><%= link_to(team.name, team) %></td>
+          <td>
+            <% if current_user.followed_teams.include?(team) %>
+              <%= link_to(unsubscribe_team_path(team), remote: true, method: :put) do%>
+                <i class='fa fa-star fa-4x'></i>
+              <% end %>
+            <% else %>
+              <%= link_to(subscribe_team_path(team), remote: true, method: :put, id: 'subscribe-link') do%>
+                <i class='fa fa-star-o fa-4x'></i>
+                <i class='fa fa-star fa-4x'></i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

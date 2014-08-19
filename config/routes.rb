@@ -10,7 +10,12 @@ Baseapp::Application.routes.draw do
   resources :vouchers
   resources :packages
   resources :parties
-  resources :teams
+  resources :teams do
+    member do
+      put 'subscribe'
+      put 'unsubscribe'
+    end
+  end
   resources :sports
   resources :venues
   resource :account, :controller => :account
@@ -24,7 +29,7 @@ Baseapp::Application.routes.draw do
   get "/privacy" => "home#privacy"
   get "/terms" => "home#terms"
   root :to => "home#home"
-  
+
 
 
   # Authentication
