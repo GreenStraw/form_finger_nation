@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>Image url:</strong>
-  <%= @package.image_url %>
+  <strong>Image:</strong>
+  <%= image_tag(@package.image_url,  size: '30') unless @package.image_url.blank?%>
 </p>
 
 <p>
@@ -42,13 +42,10 @@
 
 <p>
   <strong>Venue:</strong>
-  <%= @package.venue %>
+  <%= @package.venue.name %>
 </p>
 
-<p>
-  <strong>References:</strong>
-  <%= @package.references %>
-</p>
+
 
 <%= link_to 'Edit', edit_package_path(@package) %> |
 <%= link_to 'Back', packages_path %>

@@ -16,6 +16,14 @@ class Address < ActiveRecord::Base
   def full_street_address
     "#{street1} #{street2} #{city}, #{state} #{zip}"
   end
+  
+  def street_address
+    "#{street1} #{street2}"
+  end
+  
+  def city_state
+    "#{city}, #{state} #{zip}"
+  end
 
   def self.class_within_radius_of(klass, lat, lng, radius)
     Address.where(addressable_type: klass).within(radius, origin: [lat, lng])

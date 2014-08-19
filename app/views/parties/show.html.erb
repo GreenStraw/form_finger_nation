@@ -1,18 +1,18 @@
 <p id="notice"><%= notice %></p
 	
 <div id="major-details">
-  <div class="logo-name">
-	<%= image_tag(@party.team.image_url, size: '30') unless @party.team.image_url.blank? %>
+  <span class="logo-name">
+	<%= image_tag(@party.team.image_url, size: '50') unless @party.team.image_url.blank? %>
 	<%= @party.name%><br/>
 	Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
-  </div>
-  <div class= "rsvp-invite">
+  </span>
+  <span class= "rsvp-invite">
 	  <%= link_to "RSVP", "", class: "rsvp-button"%>
 	  <%= link_to "Invite Friends", "", class: "invite-friends-button"%>	  
-  </div>
+  </span>
 </div>
 
-<div id="details">
+<div id="details" style="margin-right: 20px;">
 	<h3>Details</h3>
 	
 	<p>
@@ -21,15 +21,16 @@
     </p>
 	<p>
 	  Where?<br/>
-	  <%= @party.venue.name %>
-	  <%= @party.venue.address.full_street_address %>
+	  <%= @party.venue.name %><br/>
+	  <%= @party.venue.address.street_address %><br/>
+	  <%= @party.venue.address.city_state %>
     </p>	
 	<p>
 		<%= @party.party_reservations.count.to_s%> RSVP'd
 	</p>	
 </div>
 
-  <div id="available-packages">
+  <div id="available-packages" style="margin-left:30px;">
 	<%= render :partial => "available_packages" %>
   </div>
 <div style="clear:both;"></div>
