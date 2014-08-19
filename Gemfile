@@ -31,6 +31,9 @@ gem 'bcrypt-ruby', '~> 3.0' # password encryption
 gem 'awesome_nested_set', '~>3.0.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'gmaps4rails'
+gem 'underscore-rails'
+gem 'twitter'
 gem 'geocoder'
 gem 'geokit-rails'
 gem 'acts_as_commentable_with_threading'

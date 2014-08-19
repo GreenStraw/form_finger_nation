@@ -53,7 +53,7 @@
           <td><%= party.is_private %></td>
           <td><%= party.verified %></td>
           <td><%= party.scheduled_for %></td>
-          <td><%= party.organizer.username %></td>
+          <td><%= party.organizer.try(:username) %></td>
           <td><%= party.team.name %></td>
           <td><%= party.venue.name %></td>
 

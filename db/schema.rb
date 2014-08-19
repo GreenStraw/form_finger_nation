@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811154913) do
+ActiveRecord::Schema.define(version: 20140819153927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,10 +191,12 @@ ActiveRecord::Schema.define(version: 20140811154913) do
     t.string   "name"
     t.string   "image_url"
     t.text     "information"
-    t.boolean  "college",     default: false
+    t.boolean  "college",           default: false
     t.integer  "sport_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "twitter_widget_id"
+    t.string   "twitter_name"
   end
 
   create_table "tenants", force: true do |t|

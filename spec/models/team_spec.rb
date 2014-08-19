@@ -11,7 +11,6 @@ describe Team do
       before {
         @user.add_role(:team_admin, @team)
       }
-
       it "should return user" do
         expect(@team.admins).to eq([@user])
       end
@@ -24,6 +23,14 @@ describe Team do
     end
   end
 
+  describe "set_default_image_url" do
+    context "when team is created" do
+      it "should default image_url" do
+        new_team = Fabricate(:team)
+        expect(new_team.image_url).to eq(new_team.sport.image_url)
+      end
+    end
+  end
 end
 
 # == Schema Information
