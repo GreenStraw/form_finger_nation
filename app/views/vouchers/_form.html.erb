@@ -11,17 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :redeemed %><br>
-    <%= f.check_box :redeemed %>
-  </div>
+ 
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    <%= f.text_field :user_id, value: current_user.id %>
   </div>
   <div class="field">
     <%= f.label :package_id %><br>
-    <%= f.text_field :package_id %>
+    <%= f.select :package_id, package_selects %>
   </div>
   <div class="actions">
     <%= f.submit %>

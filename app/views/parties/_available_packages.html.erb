@@ -1,0 +1,5 @@
+<h3>Available Packages</h3>
+<% @party.packages do |package| %>
+  <%= link_to package.name, party %>
+  <p><%= package.description %></p>
+<% end %>
