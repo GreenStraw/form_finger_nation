@@ -4,6 +4,11 @@ describe HomeController do
 
   render_views
 
+  before(:each) do
+    create_new_tenant
+    login(:admin)
+  end
+
   describe 'GET about' do
     it 'should return http status 200' do
       get :about
