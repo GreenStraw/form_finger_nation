@@ -1,11 +1,8 @@
-<h1>Listing vouchers</h1>
-
-
 <div class="row">
     <div class="col-md-12 cols">
       <ul class="nav nav-tabs" role="tablist">
-        <h2>Vouchers</h2>
-        <li class="<%= 'active' if current_page?( vouchers_path(current_user) ) %>"><a href="#redeemable" role="tab" data-toggle="tab">Redeemable</a></li>
+        <li class="tabs-title">Vouchers</li>
+        <li class="<%= 'active' if current_page?( vouchers_path ) %>"><a href="#redeemable" role="tab" data-toggle="tab">Redeemable</a></li>
         <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
       </ul>
 
