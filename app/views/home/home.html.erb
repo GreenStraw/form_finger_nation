@@ -1,19 +1,231 @@
-<% provide(:title, '') %>
-  <div class="row">
-    <div class="col-md-12 cols">
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="tabs-title">Watch Parties</li>
-        <li class="<%= 'active' if current_page?( root_path ) %>"><a href="#created" role="tab" data-toggle="tab">Created</a></li>
-        <li><a href="#rsvp" role="tab" data-toggle="tab">RSVP</a></li>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img class="img-responsive" id="logo" src="./img/foam_finger_logo.png">
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">Venue Owners</a>
+        </li>
+        <li><a href="#">Teams</a></li>
       </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>
 
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane active" id="created"><%= render "created_parties" %></div>
+<div class="bg"></div>
+<!-- Main jumbotron -->
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-6">
+        <p id="intro">
+          <span class="green_text">Watch the game</span> with other fans.
+        </p>
+        <p>
+          Quickly locate <span class="green_text">watch parties</span> in your area and score awesome <span class="green_text">discounts</span> at the same time.
+        </p>
 
-
-        <div class="tab-pane" id="rsvp">
+        <p class="hero_quote">
+        <i class="fa fa-quote-left fa-md"></i> Find watch parties wherever you go. This is the best thing since football and hotwings! <i class="fa fa-quote-right fa-md"></i> -ESPN
+        </p>
+        <div class="container button_container">
+          <div class="row">
+              <div class="col-md-6">
+                <img class="apple_download_button" src="./img/rsz_itunes_download_button.png" alt="Download on iTunes">
+              </div>
+              <div class="col-md-6">
+                <img class="android_download_button" src="./img/rsz_google_play_download_button.png" alt="Download on Google Play">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <img id="app_screenshot" src="./img/iphone_screenshot_portrait.png">&nbsp;</img>
+          </div>
+          <div class="col-sm-1"></div>
         </div>
       </div>
     </div>
+    <!-- <p><a class="btn green-btn btn-lg" role="button">Learn more &raquo;</a></p> -->
   </div>
+</div>
+
+<div class="container">
+  <div class="row explanation_container">
+    <div class="col-sm-4">
+      <span class="green_text"><i class="text-center fa fa-car fa-lg"></i></span>
+      <p>Whether you're out of town, or just want to find some fans to watch a game with, the Foam Finger Nation app will help you quickly locate watch parties in your area. </p>
+    </div>
+    <div class="col-sm-4">
+      <span class="green_text"><i class="text-center fa fa-bullhorn fa-lg"></i></span>
+      <p>Schedule a watch party and invite your friends, or make the watch party public for even more excitement! </p>
+   </div>
+    <div class="col-sm-4">
+      <span class="green_text"><i class="text-center fa fa-beer fa-lg"></i></span>
+      <p>Getting access to exclusive discounts on food and beverages available only to watch parties is a great way to make sure your game day is a success.</p>
+    </div>
+  </div>
+</div>
+
+<br/>
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 id="video_title">What We Do</h3>
+      <iframe id="video_player" src="http://player.vimeo.com/video/40463042?title=0&amp;byline=0&amp;portrait=0&amp;color=98c72b" width="700" height="393" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="container explainer-container">
+
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      <h1 class="explainer-title">Flop over intrigued by the shower</h1>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
+      <p class="explainer-paragraph">
+        Cat ipsum dolor sit amet, play time. Use lap as chair nap all day hate dog bathe private parts with tongue then lick owner's face rub face on everything, or loves cheeseburgers, but sweet beast. Run in circles jump off balcony, onto stranger's head or sweet beast, but missing until dinner time jump off balcony, onto stranger's head scamper intently sniff hand. Always hungry leave fur on owners clothes but sun bathe, so leave dead animals as gifts throwup on your pillow. Leave fur on owners clothes hunt anything that moves chase dog then run away.
+      </p>
+      <div class="btn green-btn">Learn More</div>
+    </div>
+    <div class="col-md-3">
+        <img class="explainer-image" src="http://placehold.it/350x350">
+    </div>
+  </div>
+</div>
+
+<div class="container explainer-container">
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      <h1 class="explainer-title">Lap Milk from Favorite Dish</h1>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+        <img class="explainer-image" src="http://placehold.it/350x350">
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <p class="explainer-paragraph">
+        Cat ipsum dolor sit amet, play time. Use lap as chair nap all day hate dog bathe private parts with tongue then lick owner's face rub face on everything, or loves cheeseburgers, but sweet beast. Run in circles jump off balcony, onto stranger's head or sweet beast, but missing until dinner time jump off balcony, onto stranger's head scamper intently sniff hand. Always hungry leave fur on owners clothes but sun bathe, so leave dead animals as gifts throwup on your pillow. Leave fur on owners clothes hunt anything that moves chase dog then run away.
+      </p>
+      <div class="btn green-btn">Learn More</div>
+    </div>
+  </div>
+</div>
+
+<div class="container explainer-container">
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      <h1 class="explainer-title">Rub Head on Legs</h1>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
+      <p class="explainer-paragraph">
+        Cat ipsum dolor sit amet, play time. Use lap as chair nap all day hate dog bathe private parts with tongue then lick owner's face rub face on everything, or loves cheeseburgers, but sweet beast. Run in circles jump off balcony, onto stranger's head or sweet beast, but missing until dinner time jump off balcony, onto stranger's head scamper intently sniff hand. Always hungry leave fur on owners clothes but sun bathe, so leave dead animals as gifts throwup on your pillow. Leave fur on owners clothes hunt anything that moves chase dog then run away.
+      </p>
+      <div class="btn green-btn">Learn More</div>
+    </div>
+    <div class="col-md-3">
+        <img class="explainer-image" src="http://placehold.it/350x350">
+    </div>
+  </div>
+</div>
+
+<hr class="wide-hr signup-hr" style="width: 100%; margin-top: 60px;">
+
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+      <input type="text" class="form-control" placeholder="Name">
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+      <input type="text" class="form-control" placeholder="Email">
+    </div>
+  </div><!-- /.col-lg-6 -->
+  <div class="col-sm-3"></div>
+</div><!-- /.row -->
+
+<a class="btn green-btn-wide">Subscribe for Updates</a>
+
+<hr class="wide-hr" style="width: 100%">
+
+<div class="testimonial_container row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-2 testimonial">
+    <i class="fa fa-quote-left fa-md"></i>This is how the game was meant to be watched!<i class="fa fa-quote-right fa-md"></i> -&nbsp;Rascal Jones
+  </div>
+  <div class="col-sm-2 testimonial">
+    <i class="fa fa-quote-left fa-md"></i>This app rocks! I love watching sports with my local Steeler Nation!<i class="fa fa-quote-right fa-md"></i>-&nbsp;Nick Danger
+  </div>
+  <div class="col-sm-2 testimonial">
+    <i class="fa fa-quote-left fa-md"></i>Wings, beer, sports, and friends.  What's not to love?!&nbsp;<i class="fa fa-quote-right fa-md"></i> -&nbsp;John Doe
+  </div>
+  <div class="col-sm-3"></div>
+</div>
+
+
+<script>
+var jumboHeight = $('.jumbotron').outerHeight();
+function parallax(){
+var scrolled = $(window).scrollTop();
+$('.bg').css('height', (jumboHeight-scrolled) + 'px');
+}
+
+$(window).scroll(function(e){
+parallax();
+});
+</script>
+
+
+<!-- ----------- -->
+<!--   <div class="row">
+<div class="col-md-12 cols">
+  <ul class="nav nav-tabs" role="tablist">
+    <h2>Watch Parties</h2>
+    <li class="<%= 'active' if current_page?( root_path ) %>"><a href="#created" role="tab" data-toggle="tab">Created</a></li>
+    <li><a href="#rsvp" role="tab" data-toggle="tab">RSVP</a></li>
+  </ul> -->
+
+  <!-- Tab panes -->
+<!--       <div class="tab-content">
+    <div class="tab-pane active" id="created"><%= render "created_parties" %></div>
+
+
+    <div class="tab-pane" id="rsvp">
+    </div>
+  </div>
+</div>
+</div> -->
