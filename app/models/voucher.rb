@@ -26,30 +26,7 @@ class Voucher < ActiveRecord::Base
 end
 
 
-public
-  def test_submit
-    zooz_submit
-  end
-private
-  def zooz_submit 
-    req = Zooz::Request.new
-    req.response_type = 'NVP'
-    req.sandbox = (Rails.env == "production" ? false : true)
-    req.cmd="openTrx"
-    req.set_header("ZooZAppKey", ENV['ZOOZ_APP_KEY'])
-    req.set_header("ZooZResponseType", "NVP")
-    req.set_param("amount", "55.00")
-    req.set_param("currencyCode", "USD")
-    req.set_param("cmd", "openTrx")
 
-    if req.valid? 
-      resp = req.request
-      token = resp.token # the token is needed to create the transaction.
-    else
-      token = nil
-    end
-    token
-  end
 
  
 # == Schema Information

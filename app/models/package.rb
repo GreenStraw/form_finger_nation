@@ -5,6 +5,33 @@ class Package < ActiveRecord::Base
   has_many :parties, through: :party_packages
   has_many :vouchers
   belongs_to :venue
+  
+  
+
+    def self.zooz_submit(zooz_params)
+      req = Zooz::Request.new
+      req.response_type = 'NVP'
+      req.sandbox = (Rails.env == "production" ? false : true)
+      req.cmd=zooz_params[:cmd]
+      req.set_header("ZooZAppKey", ENV['ZOOZ_APP_KEY'])
+      req.set_header("ZooZResponseType", "NVP")
+      req.set_param("amount", zooz_params[:amount])
+      req.set_param("currencyCode", zooz_params[:currency_code])
+      req.set_param("cmd", zooz_params[:cmd])
+
+      if req.valid? 
+        resp = req.request.parsed_response
+        token = resp["token"].first # the token is needed to create the transaction.
+      else
+        token = nil
+      end
+      token
+    end
+  
+  
+  
+  
+  
 end
 
 # == Schema Information

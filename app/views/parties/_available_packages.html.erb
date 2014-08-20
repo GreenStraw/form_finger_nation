@@ -9,7 +9,7 @@
     <tr>
       <td></td>
 	  <td><%= link_to "More Information", package%></td>
-	  <td><%= link_to "Purchase", "" %></td>
+	  <td><%= link_to "Purchase", purchase_package_path(id: package.id)%></td>
     </tr>
   <% end %>
 </table>

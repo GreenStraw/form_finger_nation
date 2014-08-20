@@ -5,6 +5,7 @@ Baseapp::Application.routes.draw do
   post 'account/update' => 'account#update', :as => 'update_account'
   post 'account/create' => 'account#create', :as => 'create_account'
   get 'new_account' => "account#new", :as => 'new_account'
+  get 'purchase_package/:id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
 
 
   resources :vouchers
