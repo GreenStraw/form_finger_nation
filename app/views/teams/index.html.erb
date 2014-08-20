@@ -3,7 +3,7 @@
 <ul class='nav nav-tabs' role='tablist'>
 <li class='active'><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
 <li><a href="#all" role='tab' data-toggle='tab'>All</a></li>
-  <% if current_user.managed_teams.any? %>
+  <% if current_user.try(:managed_teams).try(:any?) %>
     <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
   <% end %>
 </ul>
@@ -24,6 +24,6 @@
 
 <br>
 
-<% if current_user.can?(:create, Team) %>
+<% if current_user.present? && current_user.can?(:create, Team) %>
   <%= link_to 'New Team', new_team_path %>
 <% end %>

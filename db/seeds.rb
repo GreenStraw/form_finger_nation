@@ -27,42 +27,44 @@ User.create([
 ])
 
 Sport.create([
-  { name: 'NFL' },
-  { name: 'MLB' },
-  { name: 'MLS' },
-  { name: 'NCAA-FOOTBALL' }
+  { name: 'NFL', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg" },
+  { name: 'MLB', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/baseball.jpeg" },
+  { name: 'MLS', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg" },
+  { name: 'NCAA-BASEBALL', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/baseball.jpeg" },
+  { name: 'NCAA-FOOTBALL', image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg" }
 ])
 
 Team.create([
-  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Dallas', state: 'TX')},
-  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Houston', state: 'TX')},
-  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Chicago', state: 'IL')},
-  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Denver', state: 'CO')},
-  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Salt Lake City', state: 'UT')},
-  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'San Jose', state: 'CA')},
-  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Portland', state: 'OR')},
-  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Los Angeles', state: 'CA')},
-  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/soccer.jpeg", address: Address.create(city: 'Columbus', state: 'OH')},
-  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: '456 Wow What A Street', city: 'Austin', state: 'TX', zip: '78753')},
+  { name: 'FC Dallas', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Dallas', state: 'TX'), twitter_name: 'FCDallas', twitter_widget_id: '356614379791319040'},
+  { name: 'Houston Dynamo', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Houston', state: 'TX'), twitter_name: 'HoustonDynamo', twitter_widget_id: '356615556335542273'},
+  { name: 'Chicago Fire', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Chicago', state: 'IL'), twitter_name: 'ChicagoFire', twitter_widget_id: '356614509118492672'},
+  { name: 'Colorado Rapids', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Denver', state: 'CO'), twitter_name: 'ColoradoRapids', twitter_widget_id: '356613923887259648'},
+  { name: 'Real Salt Lake', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Salt Lake City', state: 'UT'), twitter_name: 'RealSaltLake', twitter_widget_id: '356614970722631681'},
+  { name: 'San Jose Earthquakes', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'San Jose', state: 'CA'), twitter_name: 'SJEarthquakes', twitter_widget_id: '356615344758067201'},
+  { name: 'Portland Timbers', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Portland', state: 'OR'), twitter_name: 'TimbersFC', twitter_widget_id: '356614274606563331'},
+  { name: 'Los Angeles Galaxy', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Los Angeles', state: 'CA'), twitter_name: 'LAGalaxy', twitter_widget_id: '356614146646740992'},
+  { name: 'Columbus Crew', sport: Sport.find_by_name('MLS'), address: Address.create(city: 'Columbus', state: 'OH'), twitter_name: 'ColumbusCrew', twitter_widget_id: '356615234393346049'},
 
-  { name: 'Air Force Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Akron Zips', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Alabama Crimson Tide', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Arizona State Sun Devils', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Arizona Wildcats', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Arkansas Razorbacks', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Arkansas State Red Wolves', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Army Black Knights', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Auburn Tigers', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Ball State Cardinals', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Baylor Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Boise State Broncos', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Boston College Eagles', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Bowling Green Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Buffalo Bulls', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'BYU Cougars', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'California Golden Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true},
-  { name: 'Central Michigan Chippewas', sport: Sport.find_by_name('NCAA-FOOTBALL'), image_url: "https://s3.amazonaws.com/foam-finger-nation/images/football.jpeg", address: Address.create(street1: nil), college: true}
+  { name: 'Dallas Cowboys', sport: Sport.find_by_name('NFL'), address: Address.create(city: 'Dallas', state: 'TX'), twitter_name: 'dallascowboys', twitter_widget_id: '356429854662602758'},
+
+  { name: 'Air Force Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Colorado Springs', state: 'CO'), college: true, twitter_name: 'AF_Falcons', twitter_widget_id: '356582241608028160'},
+  { name: 'Akron Zips', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Akron', state: 'OH'), college: true, twitter_name: 'ZipsFB', twitter_widget_id: '356579001369767936'},
+  { name: 'Alabama Crimson Tide', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Tuscaloosa', state: 'AL'), college: true, twitter_name: 'AlabamaFTBL', twitter_widget_id: '356505311890255873'},
+  { name: 'Arizona State Sun Devils', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Phoenix', state: 'AZ'), college: true, twitter_name: 'FootballASU', twitter_widget_id: '356503261605396480'},
+  { name: 'Arizona Wildcats', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Tuscon', state: 'AZ'), college: true, twitter_name: 'ArizonaFball', twitter_widget_id: '356503120454483968'},
+  { name: 'Arkansas Razorbacks', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Fayetteville', state: 'AK'), college: true, twitter_name: 'RazorbackFB', twitter_widget_id: '356505484041265155'},
+  { name: 'Arkansas State Red Wolves', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Jonesboro', state: 'AK'), college: true, twitter_name: 'ArkStFootball', twitter_widget_id: '356585038260883456'},
+  { name: 'Army Black Knights', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'West Point', state: 'NY'), college: true, twitter_name: 'Army_Football', twitter_widget_id: '356495291551203328'},
+  { name: 'Auburn Tigers', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Auburn', state: 'AL'), college: true, twitter_name: 'FootballAU', twitter_widget_id: '356505812375584768'},
+  { name: 'Ball State Cardinals', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Muncie', state: 'IN'), college: true, twitter_name: 'BSUCardsFB', twitter_widget_id: '356579237081251840'},
+  { name: 'Baylor Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Waco', state: 'TX'), college: true, twitter_name: 'BUFootball', twitter_widget_id: '356498966101241857'},
+  { name: 'Boise State Broncos', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Boise', state: 'ID'), college: true, twitter_name: 'BroncoSportsFB', twitter_widget_id: '356582405961814016'},
+  { name: 'Boston College Eagles', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Chestnut Hill', state: 'MA'), college: true, twitter_name: 'BCFootballNews', twitter_widget_id: '356495744095641600'},
+  { name: 'Bowling Green Falcons', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Bowling Green', state: 'OH'), college: true, twitter_name: 'BGFalconFootbal', twitter_widget_id: '356579476995469313'},
+  { name: 'Buffalo Bulls', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Buffalo', state: 'NY'), college: true, twitter_name: 'UBFootball', twitter_widget_id: '356579758223523840'},
+  { name: 'BYU Cougars', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Provo', state: 'UT'), college: true, twitter_name: 'BYUFootball', twitter_widget_id: '356850976008835072'},
+  { name: 'California Golden Bears', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Berkeley', state: 'CA'), college: true, twitter_name: 'CalFootball', twitter_widget_id: '356503408317964288'},
+  { name: 'Central Michigan Chippewas', sport: Sport.find_by_name('NCAA-FOOTBALL'), address: Address.create(city: 'Mt. Pleasant', state: 'MI'), college: true, twitter_name: 'CMUFootball', twitter_widget_id: '356579940021444611'}
 ])
 
 Venue.create([

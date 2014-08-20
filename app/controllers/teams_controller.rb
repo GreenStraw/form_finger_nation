@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  respond_to :html
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :team
   load_and_authorize_resource :user
@@ -10,6 +11,11 @@ class TeamsController < ApplicationController
 
   # GET /teams/1
   def show
+    @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|
+      marker.lat team.address.latitude
+      marker.lng team.address.longitude
+    end
+    respond_with @team
   end
 
   # GET /teams/new
@@ -24,8 +30,6 @@ class TeamsController < ApplicationController
 
   # POST /teams
   def create
-    @team = Team.new(team_params)
-
     if @team.save
       redirect_to @team, notice: 'Team was successfully created.'
     else
@@ -110,7 +114,7 @@ class TeamsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def team_params
-      params.require(:team).permit(:name, :information, :text, :image_url, :sport, :references)
+      params.require(:team).permit(:name, :information, :text, :image_url, :sport_id, :references)
     end
 
 

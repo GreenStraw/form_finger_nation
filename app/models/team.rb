@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
   resourcify
-  validates :name, presence: true
+  validates_presence_of :name
+  validates_presence_of :sport_id
+  before_create :set_default_image_url
   after_create :ensure_address
 
   has_many :favorites, as: :favoritable
@@ -25,6 +27,10 @@ class Team < ActiveRecord::Base
     if address.nil?
       create_address
     end
+  end
+
+  def set_default_image_url
+    self.image_url = self.sport.image_url
   end
 end
 

@@ -1,5 +1,6 @@
 Fabricator(:sport) do
   name "sport_name"
+  image_url 'fake_image_url'
 end
 
 # == Schema Information
