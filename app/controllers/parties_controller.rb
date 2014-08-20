@@ -62,8 +62,8 @@ class PartiesController < ApplicationController
     if params[:cmd]
       #This just tells zooz to initiate the payment process
       post_params = {cmd: "openTrx", amount: @party_package.price, currency_code: "USD"}
-      result = Package.zooz_submit(post_params)   
-      byebug
+      result = Package.zooz_submit(post_params)  
+      #result is the session token 
       render :json => {:token => result}
     else
       flash[:notice] = "response from zooz!"
