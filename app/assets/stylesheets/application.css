@@ -60,11 +60,14 @@ form {
 	 padding:5px;
  }
 
-.borderless tbody tr td, .borderless thead tr th {
-  border: none;
-}
 
-.fa-star {
+
+/*********Moved to team.css***********/
+/*.borderless tbody tr td, .borderless thead tr th {
+  border: none;
+}*/
+
+/*.fa-star {
   color: #E6E600;
 }
 
@@ -76,4 +79,4 @@ form {
 #subscribe-link:hover .fa-star {
   display: inline;
   background: #F6F6F6;
-}
+}*/
