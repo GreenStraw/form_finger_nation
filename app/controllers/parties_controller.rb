@@ -1,5 +1,6 @@
 class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
+  #load_and_authorize_resource
 
   # GET /parties
   def index
@@ -44,6 +45,18 @@ class PartiesController < ApplicationController
   def destroy
     @party.destroy
     redirect_to parties_url, notice: 'Party was successfully destroyed.'
+  end
+  
+  def purchase_package
+    @party_package = Package.find(params[:id])
+    unless params[:cmd].blank?
+    	#transactionID is meant to be used with the ZooZ Extended Server API (See www.zooz.com for more details)
+    	transactionID = params["transactionID"]
+    else
+      post_params = {cmd: "openTrx", amount: @party_package.price, currency_code: "USD"}
+      result = Package.zooz_submit(post_params)      
+    end
+
   end
 
   private
