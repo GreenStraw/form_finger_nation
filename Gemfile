@@ -38,6 +38,8 @@ gem 'stripe'
 gem 'aws-sdk'
 gem 'httparty'
 
+gem "select2-rails"
+
 # Use unicorn as the app server
 gem 'unicorn'
 # whenever for managing cron jobs
