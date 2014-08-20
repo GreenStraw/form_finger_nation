@@ -1,5 +1,5 @@
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,9 +19,9 @@
         </li>
         <li><a href="#">Teams</a></li>
       </ul>
-    </div><!--/.navbar-collapse -->
-  </div>
-</div>
+    </div> --><!--/.navbar-collapse -->
+<!--   </div>
+</div> -->
 
 <div class="bg"></div>
 <!-- Main jumbotron -->
@@ -43,9 +43,10 @@
         <div class="container button_container">
           <div class="row">
               <div class="col-md-6">
-                <img class="apple_download_button" src="./img/rsz_itunes_download_button.png" alt="Download on iTunes">
+                <%= image_tag( "rsz_itunes_download_button.png", :class=>"apple-download-button",  :alt=>"Download on iTunes")%>
               </div>
               <div class="col-md-6">
+                <%= image_tag( "rsz_google_play_download_button.png", :class=>"android-download-button",  :alt=>"Download on Google Play")%>
                 <img class="android_download_button" src="./img/rsz_google_play_download_button.png" alt="Download on Google Play">
               </div>
           </div>
