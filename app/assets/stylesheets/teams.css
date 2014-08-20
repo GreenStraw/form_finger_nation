@@ -15,3 +15,7 @@
   display: inline;
   background: #F6F6F6;
 }
+
+.tab-title {
+  text-align: left;
+}
