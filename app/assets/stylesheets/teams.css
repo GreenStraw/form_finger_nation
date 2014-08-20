@@ -3,7 +3,11 @@
 }
 
 .fa-star {
-  color: #E6E600;
+  color: #B1DA4F;
+}
+
+.fa-star-o {
+  color: #d0e895;
 }
 
 #subscribe-link .fa-star,
