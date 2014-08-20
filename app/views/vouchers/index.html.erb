@@ -1,29 +1,44 @@
 <h1>Listing vouchers</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Redeemed</th>
-      <th>User</th>
-      <th>Package</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @vouchers.each do |voucher| %>
-      <tr>
-        <td><%= voucher.redeemed %></td>
-        <td><%= voucher.user %></td>
-        <td><%= voucher.package %></td>
-        <td><%= link_to 'Show', voucher %></td>
-        <td><%= link_to 'Edit', edit_voucher_path(voucher) %></td>
-        <td><%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12 cols">
+      <ul class="nav nav-tabs" role="tablist">
+        <h2>Vouchers</h2>
+        <li class="<%= 'active' if current_page?( vouchers_path(current_user) ) %>"><a href="#redeemable" role="tab" data-toggle="tab">Redeemable</a></li>
+        <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+      </ul>
 
-<br>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="redeemable">
+          <h3>Redeemable Vouchers</h1>
+          <% @vouchers.each do |voucher| %>
+           
+              <%= voucher.redeemed %>
+              <%= voucher.user %>
+              <%= voucher.package %>
+              <%= link_to 'Show', voucher %>
+              <%= link_to 'Edit', edit_voucher_path(voucher) %>
+              <%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %>
+            
+          <% end %>
+        </div>
+        <div class="tab-pane" id="history">
+          <h3>History</h1>
+          <% @vouchers.each do |voucher| %>
+           
+              <%= voucher.redeemed %>
+              <%= voucher.user %>
+              <%= voucher.package %>
+              <%= link_to 'Show', voucher %>
+              <%= link_to 'Edit', edit_voucher_path(voucher) %>
+              <%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <%= link_to 'New Voucher', new_voucher_path %>
