@@ -3,34 +3,22 @@
   border: 1px dashed red;
 }*/
 
-
-
-/*body {
-  padding-top: 40px;
-  padding-bottom: 20px;
-}
-
-footer {
-  text-align: center;
-  display: block;
-}*/
-
-.jumbotron {
+/*.jumbotron {
   margin-top: 40px;
-}
+}*/
 
 #intro {
   height: 50px;
 }
 
-#app_screenshot { 
+#app-screenshot { 
   display: block;
   margin: 0 auto;
   margin-top: -25px;
   max-width: 210px;
 }
 
-.explanation_container .fa {
+.explanation-container .fa {
   font-size: 2em;
   text-align: center;
   display: block;
@@ -38,7 +26,7 @@ footer {
   margin-bottom: 15px;
 }
 
-.explanation_container p {
+.explanation-container p {
   font-size: 1.3em;
 }
 
@@ -64,16 +52,16 @@ footer {
     max-width: 200px;
 }
 
-.hero_container {
+.hero-container {
   margin-top: 40px;
 }
 
-.hero_quote {
+.hero-quote {
   font-style: italic; 
   margin-top: 40px;
 }
 
-.green_text {
+.green-text {
  color: #B1DA4F;
  font-size: large;
  font-weight: bold;
@@ -81,13 +69,14 @@ footer {
  font-size: 1.2em;
 }
 
-.button_container {
+.button-container {
   margin-top: 50px;
 }
 
 .apple-download-button, .android-download-button {
   display: block;
   margin: 0 auto;
+  margin-top: 10px;
   max-width: 200px;
 }
 
@@ -95,14 +84,14 @@ footer {
   background: url( <%= asset_path("ffn_background.jpg") %>) no-repeat center center;
   position: fixed;
   width: 100%;
-  height: 590px; /*same height as jumbotron */
+  height: 640px; /*same height as jumbotron */
   top:0;
   left:0;
   z-index: -1;
 }
 
 .jumbotron {
-  height: 590px;
+  height: 640px; /*same height as bg*/
   color: white;
   text-shadow: #444 0 1px 1px;
   background-color: transparent;
@@ -114,7 +103,7 @@ footer {
   margin-top: -10px;
 }
 */
-#video_title {
+#video-title {
   text-align: center;
   font-size: 2em;
   color: #98C72B;
@@ -125,17 +114,17 @@ footer {
   margin-top: 5px;
 }
 
-#video_player {
+#video-player {
   width: 700px;
   display: block;
   margin: 0 auto;
 }
 
-.testimonial_container {
+.testimonial-container {
   margin: 40px 10px;
 }
 
-.testimonial_container .fa {
+.testimonial-container .fa {
   color: gray;
 }
 
@@ -143,7 +132,7 @@ footer {
   margin-top: 20px;
 }
 
-.email_signup_form {
+.email-signup-form {
   display: inline-block;
 }
 
@@ -207,18 +196,18 @@ fieldset[disabled] .green-btn.active {
 }
 
 @media(max-width:767px){
-  .hero_quote { 
+  .hero-quote { 
   display: none;
   }
 
-  #app_screenshot {
+  #app-screenshot {
     display: none;
   }
-  .apple_download_button, .android_download_button {
-  margin-top: 10px;
-  max-width: 200px;
+
+  .apple-download-button, .android-download-button {
   }
-  #video_player {
+
+  #video-player {
     width: 400px;
     display: block;
     margin: 0 auto;
