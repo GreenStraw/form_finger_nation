@@ -7,21 +7,19 @@
 	$(document).ready(function(){
 		$('#checkoutButton').click(function() {
 			$.ajax({
-				url: '/purchase_package/' + <%= @party_package.id.to_s %>, // A call to server side to initiate the payment process
+				url: "/zooz_transaction/<%=@party_package.id.to_s %>/openTrx", // A call to server side to initiate the payment process
 				dataType: 'html',
 				cache: false,
 				success: function(response) {
-					alert("RESPONSE: " + response);
 					eval(response);
-					var path = window.location.protocol + "//" + window.location.host + "/zooz_response";
-					
+					//var path = window.location.protocol + "//" + window.location.host ;
+					var path = "http://108.226.172.183:3000/" //hardwire local host for me
 					zoozStartCheckout({
 						token : data.token,									// Session token recieved from server
 						uniqueId : "com.cabforward.foamfinger",				// unique ID as registered in the developer portal
 						isSandbox : true,									// true = Sandbox environment
-						returnUrl : path + "/return.jsp",					// return page URL
-						cancelUrl : path + "/failed.jsp"					// cancel page URL
-						
+						returnUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>",					// return page URL
+						cancelUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>"					// cancel page URL						
 					});
 				}
 			});

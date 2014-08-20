@@ -6,6 +6,9 @@ Baseapp::Application.routes.draw do
   post 'account/create' => 'account#create', :as => 'create_account'
   get 'new_account' => "account#new", :as => 'new_account'
   get 'purchase_package/:id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
+  
+  get 'zooz_postback/:id' => "parties#zooz_postback", :as => 'zooz_postback'
+  get 'zooz_transaction/:id(/:cmd)' => "parties#zooz_transaction", :as => 'zooz_transaction'
 
 
   resources :vouchers

@@ -49,14 +49,29 @@ class PartiesController < ApplicationController
   
   def purchase_package
     @party_package = Package.find(params[:id])
-    unless params[:cmd].blank?
-    	#transactionID is meant to be used with the ZooZ Extended Server API (See www.zooz.com for more details)
-    	transactionID = params["transactionID"]
-    else
-      post_params = {cmd: "openTrx", amount: @party_package.price, currency_code: "USD"}
-      result = Package.zooz_submit(post_params)      
-    end
+  end
+  
+  
+  def zooz_postback
 
+    
+  end
+  
+  def zooz_transaction
+    @party_package = Package.find(params[:id])
+    if params[:cmd]
+      #This just tells zooz to initiate the payment process
+      post_params = {cmd: "openTrx", amount: @party_package.price, currency_code: "USD"}
+      result = Package.zooz_submit(post_params)   
+      byebug
+      render :json => {:token => result}
+    else
+      flash[:notice] = "response from zooz!"
+      render :json => {:transaction => result}
+      
+      #this is the resopnse from zooz and contains the transactionID    
+    end
+    #redirect_to "/purchase_package/#{@party_package.id.to_s}"
   end
 
   private
