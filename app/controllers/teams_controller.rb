@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource :team
+  load_and_authorize_resource :user
 
   # GET /teams
   def index
@@ -52,7 +53,7 @@ class TeamsController < ApplicationController
       @team.fans << current_user
     end
     respond_to do |format|
-      format.js
+      format.js { render action: 'subscribe' }
     end
   end
 
@@ -61,7 +62,43 @@ class TeamsController < ApplicationController
       @team.fans.delete(current_user)
     end
     respond_to do |format|
-      format.js
+      format.js { render action: 'subscribe' }
+    end
+  end
+
+  def add_host
+    if !@team.hosts.include?(@user)
+      @team.hosts << @user
+    end
+    respond_to do |format|
+      format.js { render action: 'host' }
+    end
+  end
+
+  def remove_host
+    if @team.hosts.include?(@user)
+      @team.hosts.delete(@user)
+    end
+    respond_to do |format|
+      format.js { render action: 'host' }
+    end
+  end
+
+  def add_admin
+    if !@user.has_role?(:team_admin, @team)
+      @user.add_role(:team_admin, @team)
+    end
+    respond_to do |format|
+      format.js { render action: 'admin' }
+    end
+  end
+
+  def remove_admin
+    if @user.has_role?(:team_admin, @team)
+      @user.remove_role(:team_admin, @team)
+    end
+    respond_to do |format|
+      format.js { render action: 'admin' }
     end
   end
 

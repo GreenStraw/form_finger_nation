@@ -9,6 +9,10 @@ class Address < ActiveRecord::Base
 
   belongs_to :addressable, polymorphic: true
 
+  def city_state
+    "#{city}, #{state}"
+  end
+
   def full_street_address
     "#{street1} #{street2} #{city}, #{state} #{zip}"
   end
@@ -16,7 +20,7 @@ class Address < ActiveRecord::Base
   def self.class_within_radius_of(klass, lat, lng, radius)
     Address.where(addressable_type: klass).within(radius, origin: [lat, lng])
   end
-  
+
   def self.class_within_radius_of_address(klass, address, radius)
     Address.where(addressable_type: klass).within(radius, :origin => address)
   end

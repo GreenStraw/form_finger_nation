@@ -10,6 +10,6 @@ class TeamSerializer < ImageSerializer
   private
 
   def admins
-    User.with_role(:team_admin, object) || []
+    object.admins
   end
 end

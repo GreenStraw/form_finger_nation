@@ -14,6 +14,10 @@ Baseapp::Application.routes.draw do
     member do
       put 'subscribe'
       put 'unsubscribe'
+      put 'add_host'
+      put 'remove_host'
+      put 'add_admin'
+      put 'remove_admin'
     end
   end
   resources :sports

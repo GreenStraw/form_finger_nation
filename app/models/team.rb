@@ -15,6 +15,10 @@ class Team < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  def admins
+    User.with_role(:team_admin, self) || []
+  end
+
   private
 
   def ensure_address
