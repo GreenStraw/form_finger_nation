@@ -52,12 +52,11 @@ class PartiesController < ApplicationController
   
   
   def zooz_postback
-    #under development with issues freom Zooz!
+    #under development with issues from Zooz!
     
   end
   
   def zooz_transaction
-    @package = Package.find(params[:id])
     if params[:cmd]
       #This just tells zooz to initiate the payment process
       post_params = {cmd: "openTrx", amount: @package.price, currency_code: "USD"}
