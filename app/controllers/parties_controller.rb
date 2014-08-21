@@ -1,6 +1,7 @@
 class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
-  #load_and_authorize_resource
+  load_and_authorize_resource :party
+  load_and_authorize_resource :package, only: [:purchase_package, :zooz_transaction]
 
   # GET /parties
   def index
@@ -13,12 +14,10 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
-    @party = Party.new 
   end
 
   # GET /parties/1/edit
   def edit
-    @party = Party.find(params[:id])
   end
 
   # POST /parties
@@ -48,12 +47,12 @@ class PartiesController < ApplicationController
   end
   
   def purchase_package
-    @party_package = Package.find(params[:id])
+  
   end
   
   
   def zooz_postback
-
+    #under development with issues freom Zooz!
     
   end
   

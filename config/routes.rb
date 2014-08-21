@@ -5,10 +5,10 @@ Baseapp::Application.routes.draw do
   post 'account/update' => 'account#update', :as => 'update_account'
   post 'account/create' => 'account#create', :as => 'create_account'
   get 'new_account' => "account#new", :as => 'new_account'
-  get 'purchase_package/:id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
+  get 'purchase_package/:package_id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
   
   get 'zooz_postback/:id' => "parties#zooz_postback", :as => 'zooz_postback'
-  get 'zooz_transaction/:id(/:cmd)' => "parties#zooz_transaction", :as => 'zooz_transaction'
+  get 'zooz_transaction/:package_id(/:cmd)' => "parties#zooz_transaction", :as => 'zooz_transaction'
 
 
   resources :vouchers
