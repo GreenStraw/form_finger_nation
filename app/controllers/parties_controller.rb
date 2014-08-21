@@ -57,10 +57,10 @@ class PartiesController < ApplicationController
   end
   
   def zooz_transaction
-    @party_package = Package.find(params[:id])
+    @package = Package.find(params[:id])
     if params[:cmd]
       #This just tells zooz to initiate the payment process
-      post_params = {cmd: "openTrx", amount: @party_package.price, currency_code: "USD"}
+      post_params = {cmd: "openTrx", amount: @package.price, currency_code: "USD"}
       result = Package.zooz_submit(post_params)  
       #result is the session token 
       render :json => {:token => result}
@@ -70,7 +70,7 @@ class PartiesController < ApplicationController
       
       #this is the resopnse from zooz and contains the transactionID    
     end
-    #redirect_to "/purchase_package/#{@party_package.id.to_s}"
+    #redirect_to "/purchase_package/#{@package.id.to_s}"
   end
 
   private
