@@ -3,6 +3,7 @@ require 'spec_helper'
 describe PartiesController do
 
   before(:each) do
+    login(:admin)
     @party = Fabricate(:party)
     @address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
   end
