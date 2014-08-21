@@ -1,4 +1,4 @@
-<% @user.parties.each do |party| %>
+<% @user.party_reservations.each do |party| %>
   <%= link_to party.name, party %>
   <p><%= party.description %></p>
 <% end %>

@@ -1,10 +1,11 @@
 class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :party
+  load_and_authorize_resource :package, only: [:purchase_package, :zooz_transaction]
 
   # GET /parties
   def index
-    party_params = params[:party]
-    @parties, @teams, @people = Party.search_by_params(party_params)    
+    @user = current_user   
   end
 
   # GET /parties/1
@@ -13,12 +14,10 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
-    @party = Party.new 
   end
 
   # GET /parties/1/edit
   def edit
-    @party = Party.find(params[:id])
   end
 
   # POST /parties
@@ -45,6 +44,32 @@ class PartiesController < ApplicationController
   def destroy
     @party.destroy
     redirect_to parties_url, notice: 'Party was successfully destroyed.'
+  end
+  
+  def purchase_package
+  
+  end
+  
+  
+  def zooz_postback
+    #under development with issues from Zooz!
+    
+  end
+  
+  def zooz_transaction
+    if params[:cmd]
+      #This just tells zooz to initiate the payment process
+      post_params = {cmd: "openTrx", amount: @package.price, currency_code: "USD"}
+      result = Package.zooz_submit(post_params)  
+      #result is the session token 
+      render :json => {:token => result}
+    else
+      flash[:notice] = "response from zooz!"
+      render :json => {:transaction => result}
+      
+      #this is the resopnse from zooz and contains the transactionID    
+    end
+    #redirect_to "/purchase_package/#{@package.id.to_s}"
   end
 
   private

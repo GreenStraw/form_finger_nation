@@ -1,0 +1,15 @@
+<h3>Available Packages</h3>
+<table>
+  <% @party.packages.each do |package| %>
+    <tr>
+      <td><%= image_tag(package.image_url, size: '30') unless package.image_url.blank? %></td>
+      <td><b><%= package.name %></b></td>
+	  <td><%= number_to_currency(package.price)%></td>
+    </tr>
+    <tr>
+      <td></td>
+	  <td><%= link_to "More Information", package%></td>
+	  <td><%= link_to "Purchase", purchase_package_path(package_id: package.id)%></td>
+    </tr>
+  <% end %>
+</table>

@@ -3,40 +3,14 @@ require 'spec_helper'
 describe PartiesController do
 
   before(:each) do
+    login(:admin)
     @party = Fabricate(:party)
     @address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
   end
   
   let(:valid_attributes) { Fabricate.attributes_for(:party) }
 
-  describe "GET index" do
-    it "assigns all parties as @parties" do
-      get :index, {}
-      assigns(:parties).should eq([@party])
-    end
-  end
-  
-  describe "GET index with search parameter" do
-    it "assigns all matching parties as @parties" do
-      get :index, {:party => {:search_item => @party.name}}
-      assigns(:parties).should eq([@party])
-    end
-  end
-  
-  describe "GET index with location  parameter" do
-    it "assigns all matching parties as @parties" do
-      get :index, {:party => {:search_location => @party.address.zip}}
-      assigns(:parties).should eq([@party])
-    end
-  end
-  
-  describe "GET index with location  and search parameters" do
-    it "assigns all matching parties as @parties" do
-      
-      get :index, {:party => {:search_item => @party.name, :search_location => @party.address.zip}}
-      assigns(:parties).should eq([@party])
-    end
-  end
+
 
   describe "GET show" do
     it "assigns the requested party as @party" do

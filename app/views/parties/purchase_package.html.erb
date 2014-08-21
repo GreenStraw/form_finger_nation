@@ -1,0 +1,47 @@
+<!-- Include the ZooZ script that contains the zoozStartCheckout() function -->
+<script src="https://app.zooz.com/mobile/js/zooz-ext-web.js"></script>
+
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$('#checkoutButton').click(function() {
+			$.ajax({
+				url: "/zooz_transaction/<%=@package.id.to_s %>/openTrx", // A call to server side to initiate the payment process
+				dataType: 'html',
+				cache: false,
+				success: function(response) {
+					eval(response);
+					//var path = window.location.protocol + "//" + window.location.host ;
+					var path = "http://108.226.172.183:3000/" //hardwire local host for me
+					zoozStartCheckout({
+						token : data.token,									// Session token recieved from server
+						uniqueId : "com.cabforward.foamfinger",				// unique ID as registered in the developer portal
+						isSandbox : true,									// true = Sandbox environment
+						returnUrl : path + "/zooz_transaction/<%= @package.id.to_s %>",					// return page URL
+						cancelUrl : path + "/zooz_transaction/<%= @package.id.to_s %>"					// cancel page URL						
+					});
+				}
+			});
+			
+		});
+				
+	});
+</script>
+
+	<div data-role="page" data-theme="b">
+		<div data-role="content" data-contnet-theme="b">
+
+			<table id="wrapper">
+				<tr>
+					<td><h3>Buy <i><%= @package.name %></i> for <%= number_to_currency(@package.price)%>!</h3></td>
+				</tr>
+
+				<tr>
+					<td><%= image_tag(@package.image_url, size: '150') unless @package.image_url.blank? %></td>
+				</tr>
+			</table>
+			<button id="checkoutButton">Buy now</button>
+
+		</div>
+	</div>

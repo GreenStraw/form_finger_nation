@@ -24,7 +24,7 @@ class Ability
       can [:subscribe_user, :unsubscribe_user], Sport
       can :packages, Venue
 
-      can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee], Party
+      can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee, :purchase_package], Party
 
       can [:update, :destroy, :invite], Party do |party|
         user.id == party.organizer_id || user.has_role?(:manager, party)
