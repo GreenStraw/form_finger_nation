@@ -1,6 +1,28 @@
-<h1>Editing venue</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <%= render partial: 'details' %>
+    </div>
+    <div class='col-xs-8'>
+      <ul class='nav nav-tabs' role='tablist'>
+        <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+        <% if current_user.admin? %>
+          <li><a href="#manage_managers" role='tab' data-toggle='tab'>Manage Venue Managers</a></li>
+        <% end %>
+      </ul>
 
-<%= render 'form' %>
+      <div class='tab-content'>
+        <div class='tab-pane active' id="info">
+          <%= render 'form' %>
+        </div>
 
-<%= link_to 'Show', @venue %> |
-<%= link_to 'Back', venues_path %>
+        <div class='tab-pane' id="manage_managers">
+          <%= render partial: 'manage_managers' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to 'Show', @venue %> |
+  <%= link_to 'Back', venues_path %>
+</div>

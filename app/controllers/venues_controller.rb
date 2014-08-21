@@ -1,13 +1,21 @@
 class VenuesController < ApplicationController
+  respond_to :html, :js
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :venue
+  load_and_authorize_resource :user
 
   # GET /venues
   def index
-    @venues = Venue.all
+    respond_with @venues
   end
 
   # GET /venues/1
   def show
+    @map_markers = Gmaps4rails.build_markers(@venue) do |venue, marker|
+      marker.lat venue.address.latitude
+      marker.lng venue.address.longitude
+    end
+    respond_with @venue
   end
 
   # GET /venues/new
@@ -21,8 +29,6 @@ class VenuesController < ApplicationController
 
   # POST /venues
   def create
-    @venue = Venue.new(venue_params)
-
     if @venue.save
       redirect_to @venue, notice: 'Venue was successfully created.'
     else
@@ -43,6 +49,24 @@ class VenuesController < ApplicationController
   def destroy
     @venue.destroy
     redirect_to venues_url, notice: 'Venue was successfully destroyed.'
+  end
+
+  def add_manager
+    if !@user.has_role?(:venue_manager, @venue)
+      @user.add_role(:venue_manager, @venue)
+    end
+    respond_to do |format|
+      format.js { render action: 'manager' }
+    end
+  end
+
+  def remove_manager
+    if @user.has_role?(:venue_manager, @venue)
+      @user.remove_role(:venue_manager, @venue)
+    end
+    respond_to do |format|
+      format.js { render action: 'manager' }
+    end
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819153927) do
+ActiveRecord::Schema.define(version: 20140821143614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20140819153927) do
     t.datetime "updated_at"
     t.string   "twitter_widget_id"
     t.string   "twitter_name"
+    t.string   "website"
   end
 
   create_table "tenants", force: true do |t|
@@ -292,6 +293,7 @@ ActiveRecord::Schema.define(version: 20140819153927) do
     t.string   "hours_thursday"
     t.string   "hours_friday"
     t.string   "hours_saturday"
+    t.string   "website"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree

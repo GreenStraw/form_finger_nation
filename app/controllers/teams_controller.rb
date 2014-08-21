@@ -1,10 +1,9 @@
 class TeamsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :team
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
-  respond_to :html, :js
 
   # GET /teams
   def index

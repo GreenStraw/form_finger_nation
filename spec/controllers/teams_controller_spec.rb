@@ -171,26 +171,6 @@ describe TeamsController do
     end
   end
 
-  describe "PUT add_admin" do
-    context "user not admin" do
-      it "give user team admin role" do
-        expect {
-          put :add_admin, id: @team.id, user_id: current_user.id, format: :js
-        }.to change(@team.admins, :count).by(1)
-      end
-    end
-    context "user already fan" do
-      before {
-        current_user.add_role(:team_admin, @team)
-      }
-      it "does not add user" do
-        expect {
-          put :add_admin, id: @team.id, user_id: current_user.id, format: :js
-        }.to change(@team.admins, :count).by(0)
-      end
-    end
-  end
-
   describe "PUT add_host" do
     context "user not host" do
       it "adds user to team hosts" do
@@ -227,6 +207,26 @@ describe TeamsController do
         expect {
           put :remove_host, id: @team.id, user_id: current_user.id, format: :js
         }.to change(@team.hosts, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT add_admin" do
+    context "user not admin" do
+      it "give user team admin role" do
+        expect {
+          put :add_admin, id: @team.id, user_id: current_user.id, format: :js
+        }.to change(@team.admins, :count).by(1)
+      end
+    end
+    context "user already fan" do
+      before {
+        current_user.add_role(:team_admin, @team)
+      }
+      it "does not add user" do
+        expect {
+          put :add_admin, id: @team.id, user_id: current_user.id, format: :js
+        }.to change(@team.admins, :count).by(0)
       end
     end
   end
