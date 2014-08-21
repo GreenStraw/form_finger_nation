@@ -14,6 +14,10 @@ class Ability
       can [:add_package, :remove_package], Party do |p|
         user.has_role?(:manager, p.venue)
       end
+
+      can [:verify_party, :unverify_party], Venue, Party do |v, p|
+        user.has_role?(:manager, v) && v.upcoming_parties.includes?(p)
+      end
     end
 
     if user.has_role?(:admin)

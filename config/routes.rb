@@ -31,6 +31,8 @@ Baseapp::Application.routes.draw do
     member do
       put 'add_manager'
       put 'remove_manager'
+      put 'verify_party'
+      put 'unverify_party'
     end
   end
   resource :account, :controller => :account

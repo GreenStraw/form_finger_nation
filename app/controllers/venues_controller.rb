@@ -3,6 +3,7 @@ class VenuesController < ApplicationController
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :venue
   load_and_authorize_resource :user
+  load_and_authorize_resource :party
 
   # GET /venues
   def index
@@ -67,6 +68,16 @@ class VenuesController < ApplicationController
     respond_to do |format|
       format.js { render action: 'manager' }
     end
+  end
+
+  def verify_party
+    @party.update_attribute(:verified, true)
+    respond_with @venue
+  end
+
+  def unverify_party
+    @party.update_attribute(:verified, false)
+    respond_with @venue
   end
 
   private

@@ -167,4 +167,27 @@ describe VenuesController do
     end
   end
 
+  describe "PUT verify_party" do
+    context "venue party not verified" do
+      before {
+        @party = Fabricate(:party, verified: false)
+      }
+      it "verifies party" do
+        put :verify_party, id: @venue.id, party_id: @party.id, format: :js
+        assigns(:party).verified.should eq(true)
+      end
+    end
+  end
+
+  describe "PUT unverify_party" do
+    context "venue party verified" do
+      before {
+        @party = Fabricate(:party, verified: true)
+      }
+      it "unverifies party" do
+        put :unverify_party, id: @venue.id, party_id: @party.id, format: :js
+        assigns(:party).verified.should eq(false)
+      end
+    end
+  end
 end
