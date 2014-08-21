@@ -1,40 +1,19 @@
 <% provide(:title, '') %>
+  <div class="row">
+    <div class="col-md-12 cols">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="tabs-title">Watch Parties</li>
+        <li class="<%= 'active' if current_page?( root_path ) %>"><a href="#created" role="tab" data-toggle="tab">Created</a></li>
+        <li><a href="#rsvp" role="tab" data-toggle="tab">RSVP</a></li>
+      </ul>
 
-<% provide(:jumbotron, '
-      <h1>Hello, BaseAppers!</h1>
-      <p>Bacon ipsum dolor sit amet ham tri-tip biltong, pastrami short ribs fatback landjaeger. Ground round bacon pork belly bresaola tail meatloaf, prosciutto tri-tip short loin sirloin. Swine short ribs doner, meatloaf shank kevin frankfurter biltong turkey pastrami pork leberkas. Tongue ham meatloaf meatball corned beef rump, kielbasa porchetta frankfurter strip steak venison turducken turkey.
-      </p>
-      <p><a class="btn btn-primary btn-lg" role="button">Start Watching &raquo;</a></p>
-'.html_safe)%>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="created"><%= render "created_parties" %></div>
 
-<div class="row">
 
-  <div class="col-md-4">
-    <h2><font><font>Bacon</font></font></h2>
-    <p>
-      <font>
-        <font>Bacon ipsum dolor sit amet ham tri-tip biltong, pastrami short ribs fatback landjaeger. Ground round bacon pork belly bresaola tail meatloaf, prosciutto tri-tip short loin sirloin. Swine short ribs doner, meatloaf shank kevin frankfurter biltong turkey pastrami pork leberkas. Tongue ham meatloaf meatball corned beef rump, kielbasa porchetta frankfurter strip steak venison turducken turkey. 
-        </font>
-        <font>venison turducken turkey.</font>
-      </font>
-    </p>
-    <p><a class="btn btn-default" href="#" role="button"><font><font>View details Â»</font></font></a></p>
- </div>
-
-  <div class="col-md-4">
-    <h2><font><font>Jerky</font></font></h2>
-    <p>
-      <font>Jerky drumstick turducken pork belly brisket rump boudin shank pork chop. Corned beef jowl pork short loin sausage. Strip steak meatloaf sirloin, sausage hamburger turkey beef ribs. venison turducken turkey. Swine short ribs doner, meatloaf shank kevin frankfurter biltong turkey pastrami pork leberkas. Tongue ham meatloaf meatball corned beef rump, kielbasa porchetta frankfurter strip steak venison turducken turkey.</font>
-    </p>
-    <p><a class="btn btn-default" href="#" role="button"><font><font>View details Â»</font></font></a></p>
- </div>
-
-  <div class="col-md-4">
-    <h2><font><font>Fatback</font></font></h2>
-    <p>
-      <font>Fatback, tri-tip beef ribs short ribs drumstick short loin pork belly turducken salami venison shoulder t-bone. Salami ball tip beef ribs ribeye t-bone cow. Fatback turkey turducken, tenderloin bresaola swine sirloin corned beef shank tri-tip flank andouille jerky venison kevin. Prosciutto meatloaf sirloin ribeye filet mignon porchetta capicola andouille pastrami strip steak leberkas.</font>
-    </p>
-    <p><a class="btn btn-default" href="#" role="button"><font><font>View details Â»</font></font></a></p>
- </div>
-
-</div>
+        <div class="tab-pane" id="rsvp">
+        </div>
+      </div>
+    </div>
+  </div>

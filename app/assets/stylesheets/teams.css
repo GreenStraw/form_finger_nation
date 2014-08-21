@@ -1,0 +1,23 @@
+.borderless tbody tr td, .borderless thead tr th {
+  border: none;
+}
+
+.fa-star {
+  color: #B1DA4F;
+}
+
+.fa-star-o {
+  color: #d0e895;
+}
+
+#subscribe-link .fa-star,
+#subscribe-link:hover .fa-star-o {
+  display: none;
+  background: #F6F6F6;
+}
+#subscribe-link:hover .fa-star {
+  display: inline;
+  background: #F6F6F6;
+}
+
+/*******.tabs-title css found in bootstrap-tabs.css*******/
