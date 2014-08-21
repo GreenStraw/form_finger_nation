@@ -20,8 +20,8 @@
               <% link_to( t("theme.settings", :default => "Settings"), '#' )%>
             </li>
             
-            <li class="<%= 'active' if current_page?( root_path ) %>">
-              <%= link_to( t("Watch Parties", :default => "Watch Parties"), root_path ) %>
+            <li class="<%= 'active' if current_page?( parties_path ) %>">
+              <%= link_to( t("Watch Parties", :default => "Watch Parties"), parties_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( teams_path ) %>">
