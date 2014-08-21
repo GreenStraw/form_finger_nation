@@ -56,6 +56,7 @@ class PartiesController < ApplicationController
     
   end
   
+
   def zooz_transaction
     if params[:cmd]
       #This just tells zooz to initiate the payment process
@@ -64,12 +65,15 @@ class PartiesController < ApplicationController
       #result is the session token 
       render :json => {:token => result}
     else
-      flash[:notice] = "response from zooz!"
-      render :json => {:transaction => result}
-      
-      #this is the resopnse from zooz and contains the transactionID    
+      if params[:statusCode] == "0"
+        @voucher = Voucher.create(transaction_display_id: params[:transactionDisplayID], transaction_id: params[:trxId])
+        flash[:notice] = "You have purchased #{@package.name}, Your transaction is #{params[:transactionDisplayID]}"
+      else
+        flash[:error] = "Error processing the credit card"
+      end
+      redirect_to "/purchase_package/#{@package.id.to_s}"
     end
-    #redirect_to "/purchase_package/#{@package.id.to_s}"
+    
   end
 
   private
