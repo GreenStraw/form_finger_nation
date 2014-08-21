@@ -1,36 +1,29 @@
 <div class='container'>
   <div class='row'>
-    <div class='col-xs-2'>
-      <%= image_tag(@team.image_url, size: '50') unless @team.image_url.blank? %>
+    <div class='col-xs-3'>
+      <%= render partial: 'details' %>
+      <div class='row'>
+        <h3><%= "#{@team.name} Feed" %></h3>
+        <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
+          <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
+        <% end %>
+      </div>
     </div>
+
     <div class='col-xs-4'>
-      <h3><%= @team.name %></h3>
-    </div>
-    <div class='col-xs-4' id='subscribe-star'>
-      <%= render partial: 'subscribe_star', locals: { team: @team } %>
-    </div>
-  </div>
-  <hr>
-  <div class='row'>
-    <div class='col-xs-4'>
-      <h3><%= "#{@team.name} Feed" %></h3>
-      <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
-        <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
-      <% end %>
-    </div>
-    <div class='col-xs-4'>
-      <% if (@team.address.city.present? && @team.address.state.present?) || @team.address.zip.present? %>
+      <% if @team.address.latitude.present? && @team.address.longitude.present?%>
         <div id="map" style='width: 800px; height: 400px;'></div>
       <% end %>
     </div>
-  </div>
 
-  <%= link_to 'teams', teams_path %> |
-  <%= link_to 'sport', sport_path(@team.sport) %>
-  <% if current_user.present? && current_user.can?(:edit, @team) %>
-    | <%= link_to 'Edit', edit_team_path(@team) %>
-  <% end %>
+  </div>
 </div>
+
+<%= link_to 'teams', teams_path %> |
+<%= link_to 'sport', sport_path(@team.sport) %>
+<% if current_user.present? && current_user.can?(:edit, @team) %>
+  | <%= link_to 'Edit', edit_team_path(@team) %>
+<% end %>
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');

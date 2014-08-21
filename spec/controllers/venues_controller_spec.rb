@@ -3,9 +3,11 @@ require 'spec_helper'
 describe VenuesController do
 
   before(:each) do
+    create_new_tenant
+    login(:admin)
     @venue = Fabricate(:venue)
   end
-  
+
   let(:valid_attributes) { Fabricate.attributes_for(:venue) }
 
   describe "GET index" do
@@ -122,6 +124,46 @@ describe VenuesController do
     it "redirects to the venues list" do
       delete :destroy, {:id => @venue.to_param}
       response.should redirect_to(venues_url)
+    end
+  end
+
+  describe "PUT add_manager" do
+    context "user not manager" do
+      it "give user venue manager role" do
+        expect {
+          put :add_manager, id: @venue.id, user_id: current_user.id, format: :js
+        }.to change(@venue.managers, :count).by(1)
+      end
+    end
+    context "user already fan" do
+      before {
+        current_user.add_role(:venue_manager, @venue)
+      }
+      it "does not add user" do
+        expect {
+          put :add_manager, id: @venue.id, user_id: current_user.id, format: :js
+        }.to change(@venue.managers, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT remove_manager" do
+    context "user manager" do
+      before {
+        current_user.add_role(:venue_manager, @venue)
+      }
+      it "remove user venue manager role" do
+        expect {
+          put :remove_manager, id: @venue.id, user_id: current_user.id, format: :js
+        }.to change(@venue.managers, :count).by(-1)
+      end
+    end
+    context "user not manager" do
+      it "does not remove user role" do
+        expect {
+          put :remove_manager, id: @venue.id, user_id: current_user.id, format: :js
+        }.to change(@venue.managers, :count).by(0)
+      end
     end
   end
 

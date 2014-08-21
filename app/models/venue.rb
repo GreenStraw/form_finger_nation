@@ -12,6 +12,14 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  def upcoming_parties
+    self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+  end
+
+  def managers
+    User.with_role(:venue_manager, self) || []
+  end
+
   private
 
   def ensure_address

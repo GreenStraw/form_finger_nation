@@ -1,0 +1,27 @@
+<% parties.each do |party| %>
+  <div class='well'>
+    <div class='row'>
+      <div class='col-xs-3'>
+        <%= image_tag(party.team.image_url, size: '100') unless party.team.image_url.blank? %>
+      </div>
+      <div class='col-xs-5'>
+        <div class='row'>
+          <h4><%= party.name %></h4>
+          <div>
+            <span class='fa fa-clock-o'/> <%= party.scheduled_for %> |
+            <span class='fa fa-user'/> <%= party.attendees.count %>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='pull-left'>
+            <br>
+            <%= party.team.name %>
+          </div>
+          <div class='pull-right'>
+            <%= button_to 'MORE INFO', party_path(party), class: 'btn btn-success btn-xs' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

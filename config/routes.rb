@@ -23,7 +23,12 @@ Baseapp::Application.routes.draw do
       put 'remove_admin'
     end
   end
-  resources :venues
+  resources :venues do
+    member do
+      put 'add_manager'
+      put 'remove_manager'
+    end
+  end
   resource :account, :controller => :account
 
   get "/about" => "home#about"

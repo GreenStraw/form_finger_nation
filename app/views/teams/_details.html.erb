@@ -1,0 +1,14 @@
+<div class='row'>
+  <%= image_tag(@team.image_url, size: '100') unless @team.image_url.blank? %>
+  <div class='pull-right' id='subscribe-star'>
+    <%= render partial: 'subscribe_star', locals: { team: @team } %>
+  </div>
+</div>
+<div class='row'>
+  <h1><%= @team.name.upcase %></h1>
+</div>
+<div class='row'>
+  <%= @team.address.street %><br>
+  <%= @team.address.city_state %><br>
+  <%= link_to 'Visit Website', @team.website if @team.website %>
+</div>

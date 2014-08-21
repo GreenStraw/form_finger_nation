@@ -1,30 +1,13 @@
-<h1>Listing venues</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Image url</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @venues.each do |venue| %>
-      <tr>
-        <td><%= venue.name %></td>
-        <td><%= venue.description %></td>
-        <td><%= venue.image_url %></td>
-        <td><%= link_to 'Show', venue %></td>
-        <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
-        <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Venue', new_venue_path %>
+<div class='container'>
+  <table class='table table-hover borderless'>
+    <tbody>
+      <% @venues.each do |venue| %>
+        <tr>
+          <td><%= image_tag(venue.image_url, size: '80') unless venue.image_url.blank? %></td>
+          <td><h4><%= link_to(venue.name, venue) %></h4></td>
+          <td><%= venue.address.city_state %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
