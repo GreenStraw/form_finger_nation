@@ -48,7 +48,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=current_user.name %><b class="caret"></b></a>
             <ul class="dropdown-menu inverse-dropdown">
               <li>
-                <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>              
+                <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
               </li>
               <li class="divider"></li>
               <li>
@@ -61,9 +61,9 @@
               <li>
                 <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
               </li>
-            </ul>
+            </ul> <!-- end dropdown menu -->
           </li>
-        </ul>
+        </ul> <!-- end navbar-right -->
 
       </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
