@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :party
-  load_and_authorize_resource :package, only: [:purchase_package, :zooz_transaction]
+  load_and_authorize_resource :party_package, only: [:purchase_package]
 
   # GET /parties
   def index
@@ -47,6 +47,8 @@ class PartiesController < ApplicationController
   end
   
   def purchase_package
+
+    @party_package = PartyPackage.find(params[:party_package_id]) unless params[:party_package_id].blank?
   
   end
   
@@ -59,19 +61,23 @@ class PartiesController < ApplicationController
 
   def zooz_transaction
     if params[:cmd]
+      @party_package = PartyPackage.find(params[:party_package_id])
       #This just tells zooz to initiate the payment process
-      post_params = {cmd: "openTrx", amount: @package.price, currency_code: "USD"}
+      post_params = {cmd: "openTrx", amount: @party_package.package.price, currency_code: "USD"}
       result = Package.zooz_submit(post_params)  
       #result is the session token 
       render :json => {:token => result}
     else
       if params[:statusCode] == "0"
-        @voucher = Voucher.create(transaction_display_id: params[:transactionDisplayID], transaction_id: params[:trxId])
+        party_package = PartyPackage.where(id: params[:party_package_id]).first
+        @party = party_package.party
+        @package = party_package.package
+        @voucher = Voucher.create(transaction_display_id: params[:transactionDisplayID], transaction_id: params[:trxId], user_id: current_user.id, package_id: @package.id,  party_id: @party.id)
         flash[:notice] = "You have purchased #{@package.name}, Your transaction is #{params[:transactionDisplayID]}"
       else
         flash[:error] = "Error processing the credit card"
       end
-      redirect_to "/purchase_package/#{@package.id.to_s}"
+      redirect_to "/purchase_package/#{party_package.id.to_s}"
     end
     
   end

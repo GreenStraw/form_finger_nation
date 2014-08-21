@@ -1,6 +1,7 @@
 <h3>Available Packages</h3>
 <table>
   <% @party.packages.each do |package| %>
+    <% @party_package = PartyPackage.where(party_id: @party.id, package_id: package.id).first%>
     <tr>
       <td><%= image_tag(package.image_url, size: '30') unless package.image_url.blank? %></td>
       <td><b><%= package.name %></b></td>
@@ -9,7 +10,7 @@
     <tr>
       <td></td>
 	  <td><%= link_to "More Information", package%></td>
-	  <td><%= link_to "Purchase", purchase_package_path(package_id: package.id)%></td>
+	  <td><%= link_to "Purchase", purchase_package_path(party_package_id: @party_package.id)%></td>
     </tr>
   <% end %>
 </table>
