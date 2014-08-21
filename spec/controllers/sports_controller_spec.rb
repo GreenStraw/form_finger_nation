@@ -3,9 +3,11 @@ require 'spec_helper'
 describe SportsController do
 
   before(:each) do
+    create_new_tenant
+    login(:admin)
     @sport = Fabricate(:sport)
   end
-  
+
   let(:valid_attributes) { Fabricate.attributes_for(:sport) }
 
   describe "GET index" do

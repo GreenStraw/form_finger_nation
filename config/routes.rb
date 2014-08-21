@@ -10,7 +10,10 @@ Baseapp::Application.routes.draw do
   resources :vouchers
   resources :packages
   resources :parties
-  resources :teams do
+  resources :sports do
+    resource :teams, only: [:new, :create]
+  end
+  resources :teams, except: [:new, :create] do
     member do
       put 'subscribe'
       put 'unsubscribe'
@@ -20,7 +23,6 @@ Baseapp::Application.routes.draw do
       put 'remove_admin'
     end
   end
-  resources :sports
   resources :venues
   resource :account, :controller => :account
 

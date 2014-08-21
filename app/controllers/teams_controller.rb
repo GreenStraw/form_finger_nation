@@ -3,10 +3,12 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :team
   load_and_authorize_resource :user
+  load_and_authorize_resource :sport
+  respond_to :html, :js
 
   # GET /teams
   def index
-    @teams = Team.all
+    respond_with @teams
   end
 
   # GET /teams/1
@@ -20,7 +22,8 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team = Team.new
+    @team.sport = @sport
+    respond_with @team
   end
 
   # GET /teams/1/edit
@@ -31,7 +34,7 @@ class TeamsController < ApplicationController
   # POST /teams
   def create
     if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
+      redirect_to edit_sport_path(@team.sport), notice: 'Team was successfully created.'
     else
       render :new
     end

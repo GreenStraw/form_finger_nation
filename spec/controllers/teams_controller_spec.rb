@@ -6,6 +6,7 @@ describe TeamsController do
     create_new_tenant
     login(:admin)
     @team = Fabricate(:team)
+    @sport = Fabricate(:sport)
   end
 
   let(:valid_attributes) { Fabricate.attributes_for(:team) }
@@ -26,7 +27,7 @@ describe TeamsController do
 
   describe "GET new" do
     it "assigns a new team as @team" do
-      get :new, {}
+      get :new, {sport_id: @sport.id}
       assigns(:team).should be_a_new(Team)
     end
   end
@@ -42,19 +43,19 @@ describe TeamsController do
     describe "with valid params" do
       it "creates a new Team" do
         expect {
-          post :create, {:team => valid_attributes}
+          post :create, {:team => valid_attributes, sport_id: valid_attributes[:sport_id]}
         }.to change(Team, :count).by(1)
       end
 
       it "assigns a newly created team as @team" do
-        post :create, {:team => valid_attributes}
+        post :create, {:team => valid_attributes, sport_id: valid_attributes[:sport_id]}
         assigns(:team).should be_a(Team)
         assigns(:team).should be_persisted
       end
 
       it "redirects to the created team" do
-        post :create, {:team => valid_attributes}
-        response.should redirect_to(Team.last)
+        post :create, {:team => valid_attributes, sport_id: valid_attributes[:sport_id]}
+        response.should redirect_to(edit_sport_path(valid_attributes[:sport_id]))
       end
     end
 
@@ -62,14 +63,14 @@ describe TeamsController do
       it "assigns a newly created but unsaved team as @team" do
         # Trigger the behavior that occurs when invalid params are submitted
         Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => { "name" => "" }}
+        post :create, {:team => { "name" => "" }, sport_id: @sport.id}
         assigns(:team).should be_a_new(Team)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => { "name" => "" }}
+        post :create, {:team => { "name" => "" }, sport_id: @sport.id}
         response.should render_template("new")
       end
     end

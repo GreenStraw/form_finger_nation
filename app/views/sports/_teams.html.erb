@@ -1,13 +1,14 @@
 <table class='table table-hover borderless'>
   <tbody>
-    <% teams.each do |team| %>
+    <% @sport.teams.each do |team| %>
       <tr>
         <td><%= image_tag(team.image_url, size: '30') unless team.image_url.blank? %></td>
         <td><h4><%= link_to(team.name, team) %></h4></td>
-        <td>
-          <%= render partial: 'subscribe_star', locals: { team: team } %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% if current_user.can?(:create, Team) %>
+  <%= link_to 'Add Team', new_sport_teams_path(@sport) %>
+<% end %>

@@ -8,7 +8,7 @@ describe TeamsController do
     end
 
     it "routes to #new" do
-      get("/teams/new").should route_to("teams#new")
+      get("/sports/:sport_id/teams/new").should route_to("teams#new", :sport_id=>':sport_id')
     end
 
     it "routes to #show" do
@@ -16,11 +16,11 @@ describe TeamsController do
     end
 
     it "routes to #edit" do
-      get("/teams/1/edit").should route_to("teams#edit", :id => "1")
+      get("/teams/1/edit").should route_to("teams#edit", id: "1")
     end
 
     it "routes to #create" do
-      post("/teams").should route_to("teams#create")
+      post("/sports/:sport_id/teams").should route_to("teams#create", :sport_id=>':sport_id')
     end
 
     it "routes to #update" do
