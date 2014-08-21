@@ -1,10 +1,12 @@
 
 
 <ul class='nav nav-tabs' role='tablist'>
+
 <li class="tabs-title">Teams</li>
 <li class='active'><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
 <li><a href="#all" role='tab' data-toggle='tab'>All</a></li>
   <% if current_user.try(:managed_teams).try(:any?) %>
+
     <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
   <% end %>
 </ul>

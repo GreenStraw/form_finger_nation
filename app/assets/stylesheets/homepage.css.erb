@@ -1,0 +1,233 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+/**{
+  border: 1px dashed red;
+}*/
+
+/*.jumbotron {
+  margin-top: 40px;
+}*/
+
+#intro {
+  height: 50px;
+}
+
+#app-screenshot { 
+  display: block;
+  margin: 0 auto;
+  margin-top: -25px;
+  max-width: 210px;
+}
+
+.explanation-container .fa {
+  font-size: 2em;
+  text-align: center;
+  display: block;
+  margin-top: 15px; 
+  margin-bottom: 15px;
+}
+
+.explanation-container p {
+  font-size: 1.3em;
+}
+
+
+.explainer-container {
+  padding: 70px 0;
+  background-color: lightgray;
+  margin: 200px auto;
+}
+
+.explainer-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.explainer-paragraph {
+  margin: 0 50px;
+}
+
+.explainer-image {
+    margin: 0 auto;
+    display: block;
+    max-width: 200px;
+}
+
+.hero-container {
+  margin-top: 40px;
+}
+
+.hero-quote {
+  font-style: italic; 
+  margin-top: 40px;
+}
+
+.green-text {
+ color: #B1DA4F;
+ font-size: large;
+ font-weight: bold;
+ line-height: 1.3em;
+ font-size: 1.2em;
+}
+
+.button-container {
+  margin-top: 50px;
+}
+
+.apple-download-button, .android-download-button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  max-width: 200px;
+}
+
+.bg {
+  background: url( <%= asset_path("ffn_background.jpg") %>) no-repeat center center;
+  position: fixed;
+  width: 100%;
+  height: 700px; /*same height as jumbotron */
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+.jumbotron {
+  height: 700px; /*same height as bg*/
+  color: white;
+  text-shadow: #444 0 1px 1px;
+  background-color: transparent;
+  margin-bottom: 20px;
+}
+
+/*.navbar-brand {
+  max-width: 200px;
+  margin-top: -10px;
+}
+*/
+#video-title {
+  text-align: center;
+  font-size: 2em;
+  color: #98C72B;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  margin-top: 5px;
+}
+
+#video-player {
+  width: 700px;
+  display: block;
+  margin: 0 auto;
+}
+
+.testimonial-container {
+  margin: 40px 10px;
+}
+
+.testimonial-container .fa {
+  color: gray;
+}
+
+.testimonial {
+  margin-top: 20px;
+}
+
+.email-signup-form {
+  display: inline-block;
+}
+
+.green-btn, .green-btn-wide { 
+  color: #FFFFFF; 
+  background-color: #98C72B; 
+  border-color: #7CA312; 
+  display: block;
+  margin: 0 auto;
+  width: 170px;
+  margin-top: 35px;
+  height: 40px;
+  font-size: large;
+  vertical-align: middle;
+}
+
+.green-btn-wide {
+  width: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+ 
+.green-btn:hover, 
+.green-btn:focus, 
+.green-btn:active, 
+.green-btn.active, 
+.open .dropdown-toggle.green-btn { 
+  color: #FFFFFF; 
+  background-color: #8AB509; 
+  border-color: #7CA312; 
+} 
+ 
+.green-btn:active, 
+.green-btn.active, 
+.open .dropdown-toggle.green-btn { 
+  background-image: none; 
+} 
+ 
+.green-btn.disabled, 
+.green-btn[disabled], 
+fieldset[disabled] .green-btn, 
+.green-btn.disabled:hover, 
+.green-btn[disabled]:hover, 
+fieldset[disabled] .green-btn:hover, 
+.green-btn.disabled:focus, 
+.green-btn[disabled]:focus, 
+fieldset[disabled] .green-btn:focus, 
+.green-btn.disabled:active, 
+.green-btn[disabled]:active, 
+fieldset[disabled] .green-btn:active, 
+.green-btn.disabled.active, 
+.green-btn[disabled].active, 
+fieldset[disabled] .green-btn.active { 
+  background-color: #98C72B; 
+  border-color: #7CA312; 
+} 
+ 
+.green-btn .badge { 
+  color: #98C72B; 
+  background-color: #FFFFFF; 
+}
+
+@media(max-width:767px){
+  .hero-quote { 
+  display: none;
+  }
+
+  #app-screenshot {
+    display: none;
+  }
+
+  .apple-download-button, .android-download-button {
+  }
+
+  #video-player {
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .testimonial {
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  }
+
+  .explainer-image {
+  display: none;
+  }
+}
+
+@media(max-width:991px){
+  .explainer-image {
+    display: none;
+  }
+}
+@media(min-width:768px){}
+@media(min-width:1200px){}
