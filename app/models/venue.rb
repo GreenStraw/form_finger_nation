@@ -16,6 +16,10 @@ class Venue < ActiveRecord::Base
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end
 
+  def past_parties
+    self.parties.where('scheduled_for < ?', Time.now).order(:scheduled_for)
+  end
+
   def managers
     User.with_role(:venue_manager, self) || []
   end
