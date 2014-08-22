@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :party
-  load_and_authorize_resource :party_package, only: [:purchase_package]
+  load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
 
   # GET /parties
   def index
@@ -47,8 +47,6 @@ class PartiesController < ApplicationController
   end
   
   def purchase_package
-
-    @party_package = PartyPackage.find(params[:party_package_id]) unless params[:party_package_id].blank?
   
   end
   
@@ -61,7 +59,6 @@ class PartiesController < ApplicationController
 
   def zooz_transaction
     if params[:cmd]
-      @party_package = PartyPackage.find(params[:party_package_id])
       #This just tells zooz to initiate the payment process
       post_params = {cmd: "openTrx", amount: @party_package.package.price, currency_code: "USD"}
       result = Package.zooz_submit(post_params)  
