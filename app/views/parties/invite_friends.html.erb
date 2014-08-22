@@ -2,18 +2,17 @@
 
   <%= form_for "invites", url: send_invites_path(@party.id) do |f| %>
 
-    <div id="InputsWrapper">
-      <div class="field">
-        <%= f.label :emails %><br>
-        <%= f.text_field :email_1 %>
-      </div>
-    </div>
+  <div class="field">
+    <%= f.label :emails %><br>
+    <%= f.text_field :email_1 %>
+  </div>
 
-    <div class="field">
-      <%= link_to "Add Another", "#", id: "add-email" %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "Send Invites" %>
-    </div>
+  <div class="field">
+    <%= link_to "Add Another", "" %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Send Invites" %>
+  </div>
   <%end%>
+

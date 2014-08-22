@@ -79,7 +79,6 @@ describe Party do
     end
   end
   
-  
   describe 'search with params values expecting matches' do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -101,6 +100,7 @@ describe Party do
     end
   end
   
+
   describe 'search with params values and geo location expecting matches' do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -135,6 +135,7 @@ describe Party do
       expect(@results.count).to eq(2)
     end
   end
+
   
 
   describe "send invites " do
