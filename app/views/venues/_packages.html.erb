@@ -1,0 +1,26 @@
+<div class='panel panel-default'>
+  <table class='table table-hover borderless'>
+    <% if @venue.packages.any? %>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+    <% else %>
+      <h4>No upcoming parties</h4>
+    <% end %>
+    <tbody>
+      <% @venue.packages.each do |package| %>
+        <tr>
+          <td><%= image_tag(package.image_url, size: '50') unless package.image_url.blank? %></td>
+          <td><%= link_to package.name, package_path(package) %></td>
+          <td><%= package.price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Package', new_venue_packages_path(@venue) %>
+</div>

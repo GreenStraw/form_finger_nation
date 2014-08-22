@@ -1,7 +1,7 @@
 <div class='container'>
   <table class='table table-hover borderless'>
     <tbody>
-      <% @venues.each do |venue| %>
+      <% current_user.managed_venues.each do |venue| %>
         <tr>
           <td><%= image_tag(venue.image_url, size: '80') unless venue.image_url.blank? %></td>
           <td><h4><%= link_to(venue.name, venue) %></h4></td>

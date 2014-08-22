@@ -14,11 +14,10 @@
         </div>
         <div class='row'>
           <div class='pull-left'>
-            <br>
             <%= party.team.name %>
           </div>
           <div class='pull-right'>
-            <%= button_to 'MORE INFO', party_path(party), class: 'btn btn-success btn-xs' %>
+            <%= link_to 'MORE INFO', party_path(party), class: 'btn btn-success btn-xs' %>
           </div>
         </div>
       </div>

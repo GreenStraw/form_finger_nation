@@ -3,9 +3,13 @@ require 'spec_helper'
 describe PackagesController do
 
   before(:each) do
+    create_new_tenant
+    login(:admin)
     @package = Fabricate(:package)
+    @venue = Fabricate(:venue)
+    @party = Fabricate(:party)
   end
-  
+
   let(:valid_attributes) { Fabricate.attributes_for(:package) }
 
   describe "GET index" do
@@ -24,7 +28,7 @@ describe PackagesController do
 
   describe "GET new" do
     it "assigns a new package as @package" do
-      get :new, {}
+      get :new, {venue_id: @venue.id}
       assigns(:package).should be_a_new(Package)
     end
   end
@@ -40,35 +44,19 @@ describe PackagesController do
     describe "with valid params" do
       it "creates a new Package" do
         expect {
-          post :create, {:package => valid_attributes}
+          post :create, {:package => valid_attributes, venue_id: valid_attributes[:venue_id]}
         }.to change(Package, :count).by(1)
       end
 
       it "assigns a newly created package as @package" do
-        post :create, {:package => valid_attributes}
+        post :create, {:package => valid_attributes, venue_id: valid_attributes[:venue_id]}
         assigns(:package).should be_a(Package)
         assigns(:package).should be_persisted
       end
 
       it "redirects to the created package" do
-        post :create, {:package => valid_attributes}
-        response.should redirect_to(Package.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved package as @package" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Package.any_instance.stub(:save).and_return(false)
-        post :create, {:package => { "name" => "" }}
-        assigns(:package).should be_a_new(Package)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Package.any_instance.stub(:save).and_return(false)
-        post :create, {:package => { "name" => "" }}
-        response.should render_template("new")
+        post :create, {:package => valid_attributes, venue_id: valid_attributes[:venue_id]}
+        response.should redirect_to(edit_venue_path(valid_attributes[:venue_id]))
       end
     end
   end
@@ -94,22 +82,6 @@ describe PackagesController do
         response.should redirect_to(@package)
       end
     end
-
-    describe "with invalid params" do
-      it "assigns the package as @package" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Package.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @package.to_param, :package => { "name" => "" }}
-        assigns(:package).should eq(@package)
-      end
-
-      it "re-renders the 'edit' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Package.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @package.to_param, :package => { "name" => "" }}
-        response.should render_template("edit")
-      end
-    end
   end
 
   describe "DELETE destroy" do
@@ -122,6 +94,46 @@ describe PackagesController do
     it "redirects to the packages list" do
       delete :destroy, {:id => @package.to_param}
       response.should redirect_to(packages_url)
+    end
+  end
+
+  describe "PUT assign" do
+    context "user not host" do
+      it "adds package to party" do
+        expect {
+          put :assign, id: @package.id, party_id: @party.id, format: :js
+        }.to change(@package.parties, :count).by(1)
+      end
+    end
+    context "user already host" do
+      before {
+        @package.parties = [@party]
+      }
+      it "does not add user" do
+        expect {
+          put :assign, id: @package.id, party_id: @party.id, format: :js
+        }.to change(@package.parties, :count).by(0)
+      end
+    end
+  end
+
+  describe "PUT unassign" do
+    context "user is host" do
+      before {
+        @package.parties = [@party]
+      }
+      it "removes package from party" do
+        expect {
+          put :unassign, id: @package.id, party_id: @party.id, format: :js
+        }.to change(@package.parties, :count).by(-1)
+      end
+    end
+    context "user not host" do
+      it "does not remove user" do
+        expect {
+          put :unassign, id: @package.id, party_id: @party.id, format: :js
+        }.to change(@package.parties, :count).by(0)
+      end
     end
   end
 
