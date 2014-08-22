@@ -66,15 +66,14 @@ class PartiesController < ApplicationController
       render :json => {:token => result}
     else
       if params[:statusCode] == "0"
-        party_package = PartyPackage.where(id: params[:party_package_id]).first
-        @party = party_package.party
-        @package = party_package.package
+        @party = @party_package.party
+        @package = @party_package.package
         @voucher = Voucher.create(transaction_display_id: params[:transactionDisplayID], transaction_id: params[:trxId], user_id: current_user.id, package_id: @package.id,  party_id: @party.id)
         flash[:notice] = "You have purchased #{@package.name}, Your transaction is #{params[:transactionDisplayID]}"
       else
         flash[:error] = "Error processing the credit card"
       end
-      redirect_to "/purchase_package/#{party_package.id.to_s}"
+      redirect_to "/purchase_package/#{@party_package.id.to_s}"
     end
     
   end
