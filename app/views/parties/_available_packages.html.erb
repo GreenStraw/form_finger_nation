@@ -1,15 +1,15 @@
 <h3>Available Packages</h3>
 <table>
-  <% @party.packages.each do |package| %>
+  <% @party.party_packages.each do |party_package| %>
     <tr>
-      <td><%= image_tag(package.image_url, size: '30') unless package.image_url.blank? %></td>
-      <td><b><%= package.name %></b></td>
-	  <td><%= number_to_currency(package.price)%></td>
+      <td><%= image_tag(party_package.package.image_url, size: '30') unless party_package.package.image_url.blank? %></td>
+      <td><b><%= party_package.package.name %></b></td>
+	  <td><%= number_to_currency(party_package.package.price)%></td>
     </tr>
     <tr>
       <td></td>
-	  <td><%= link_to "More Information", package%></td>
-	  <td><%= link_to "Purchase", purchase_package_path(package_id: package.id)%></td>
+	  <td><%= link_to "More Information", party_package.package%></td>
+	  <td><%= link_to "Purchase", purchase_package_path(party_package_id: party_package.id)%></td>
     </tr>
   <% end %>
 </table>
