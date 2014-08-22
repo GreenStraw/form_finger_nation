@@ -8,7 +8,11 @@ class PartyInvitationMailer < ActionMailer::Base
     @party = invitation.party
     @party_address = nil
     @party.is_private ? @party_address = @party.address : @party_address = @party.venue.address
-    @url = "foamfinger://#{@party.id}"
+    if Rails.env.production?
+      @url = "http://foamfingernation.com/parties/#{@party.id}"
+    else
+      @url = "http://localhost:3000/parties/#{@party.id}"
+    end
     mail(to: @to, subject: 'You have been invited to a watch party on Foam Finger Nation!')
   end
 

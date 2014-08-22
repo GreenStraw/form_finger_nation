@@ -2,10 +2,24 @@
 	margin-left: 200px;
 }
 
-.rsvp-button{
-	border: 1px solid green;
+.rsvp-available-button{
+	border: 1px solid #000;
+	width: 400px !important;
+	background-color: green !important;
 	padding: 10px;
 }
+
+.rsvp-available-button a, .rsvp-available-button a:visited{
+	color: #fff !important;
+	width: 200px !important;
+}
+
+.rsvp-button{
+	border: 1px solid #000;
+	padding: 10px;
+	color: #000 !important;
+}
+
 
 .invite-friends-button{
 	border: 1px solid black;
@@ -13,6 +27,11 @@
 	width: 200px;
 	height: 30px;
 	padding: 10px;
+	margin-left: 20px;
+}
+
+.invite-friends-button a {
+	color: #000 !important;
 }
 
 #details{

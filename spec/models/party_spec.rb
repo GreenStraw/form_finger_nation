@@ -48,6 +48,71 @@ describe Party do
       expect(@party.unregistered_attendees.class).to eq(Array)
     end
   end
+  
+  describe 'search by values expecting no match' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+    }
+    it "no results" do
+      @results = Party.search("test string")
+      expect(@results).to eq([[],[],[]])
+    end
+  end
+  
+  describe 'search blank values expecting matches' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+    }
+    it "no results" do
+      @results = Party.search("")
+      expect(@results.count).to eq(3)
+    end
+  end
+  
+  describe 'search with params values expecting matches' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+    }
+    it "should have results" do
+      @results = Party.search_by_params({search_item: "my test party"})
+      expect(@results[0].count).to eq(1)
+    end
+  end
+  
+  describe 'search with params values and geo location expecting matches' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+    }
+    it "should have results" do
+      @results = Party.search_by_params({search_item: "my test party", search_location: "austin, tx"})
+      expect(@results[0].count).to eq(1)
+    end
+  end
+
+  describe 'search by values expecting match' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+      @test_party = Party.where(name: "my test party")
+    }
+    it "results" do
+      @results = Party.search("my test")
+      expect(@results[0][0]).to eq(@test_party[0])
+    end
+  end
+  
+  describe 'search by location expecting match' do
+    before {
+      @address = Fabricate(:address, street1: "10717 Pall Mall", city: "Austin", state: "TX", zip: "78748")
+      @address.save
+      @venue = Fabricate(:venue, address: @address)
+      @party = Fabricate(:party, name: "my test party", venue: @venue)
+      @test_party = Party.where(name: "my test party")
+    }
+    it "results" do
+      @results = Party.geo_search("Austin, TX", 25)
+      expect(@results.count).to eq(2)
+    end
+  end
 
 end
 

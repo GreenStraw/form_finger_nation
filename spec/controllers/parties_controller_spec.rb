@@ -121,5 +121,40 @@ describe PartiesController do
       response.should redirect_to(parties_url)
     end
   end
+  
+  describe "party RSVP" do
+    it "rsvps the requested party" do
+      expect {
+        get :party_rsvp, {:id => @party.to_param}
+      }.to change(PartyReservation, :count).by(1)
+      expect {
+        get :party_rsvp, {:id => @party.to_param}
+      }.to change(PartyReservation, :count).by(-1)
+    end
+
+    it "redirects to the parties list" do
+      get :party_rsvp, {:id => @party.to_param}
+      response.should redirect_to(party_url(@party.id))
+    end
+  end
+  
+  describe "send invites " do
+    it "rsvps the requested party" do
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "test@user.com"}}
+      }.to change(PartyInvitation, :count).by(1)
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "test@user.com"}}
+      }.to change(PartyInvitation, :count).by(0)
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "user.com"}}
+      }.to change(PartyInvitation, :count).by(0)
+    end
+
+    it "redirects to the parties list" do
+      get :party_rsvp, {:id => @party.to_param}
+      response.should redirect_to(party_url(@party.id))
+    end
+  end
 
 end

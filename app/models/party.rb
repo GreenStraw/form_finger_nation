@@ -71,6 +71,7 @@ class Party < ActiveRecord::Base
   end
   
   def self.search_by_params(party_params)
+
     radius = 50 #set the location search radius
     #search scenarios, we can either have a search_item, search_location, or both
     if party_params.blank? || (party_params[:search_item].blank? && party_params[:search_location].blank?)

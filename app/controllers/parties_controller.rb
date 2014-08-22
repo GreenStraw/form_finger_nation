@@ -51,9 +51,39 @@ class PartiesController < ApplicationController
   end
   
   
-  def zooz_postback
-    #under development with issues from Zooz!
+  def party_rsvp
+    rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first
+    if rsvp.blank?
+      current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
+      flash[:success] = "Created reservation for #{@party.name}!"
+    else
+      rsvp.destroy
+      flash[:success] = "Deleted reservation for #{@party.name}!"
+    end
+    redirect_to party_path(@party)    
+  end
+  
+  def invite_friends
+  end
+  
+  def send_invites
+
+    emails = []
+    invalid_emails = []
+    params[:invites].each do |k,v|
+      if /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/.match(v)
+        emails << v unless emails.include?(v)
+      else
+        invalid_emails << v
+      end
+    end 
+    unless invalid_emails.blank?
+      flash[:warning] = "Invites not sent to these invalid emails: " + invalid_emails.map(&:inspect).join(', ')
+    end
     
+    PartyInvitation.send_invitations(emails, current_user.id, @party.id)
+    flash[:success] = "Invites sent to " + emails.map(&:inspect).join(', ')
+    redirect_to party_path
   end
   
 
