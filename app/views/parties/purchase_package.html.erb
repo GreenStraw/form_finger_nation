@@ -3,44 +3,38 @@
 
 
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$('#checkoutButton').click(function() {
-			$.ajax({
-				url: "/zooz_transaction/<%= @party_package.id.to_s %>/openTrx", // A call to server side to initiate the payment process
-				dataType: 'html',
-				cache: false,
-				success: function(response) {
-					var data = JSON.parse(response);
-					var path = window.location.protocol + "//" + window.location.host ;
-					zoozStartCheckout({
-						token : data.token,									// Session token recieved from server
-						uniqueId : "com.cabforward.foamfinger",				// unique ID as registered in the developer portal
-						isSandbox : <%= Rails.env.production? ? false : true %>,									// true = Sandbox environment
-						returnUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>",					// return page URL
-						cancelUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>"					// cancel page URL						
-					});
-				}
-			});
-			
-		});
-				
-	});
+  $(document).ready(function(){
+    $('#checkoutButton').click(function() {
+      $.ajax({
+        url: "/zooz_transaction/<%= @party_package.id.to_s %>/openTrx", // A call to server side to initiate the payment process
+          dataType: 'html',
+          cache: false,
+          success: function(response) {
+            var data = JSON.parse(response);
+            var path = window.location.protocol + "//" + window.location.host ;
+            zoozStartCheckout({
+              token : data.token, // Session token recieved from server
+              uniqueId : "com.cabforward.foamfinger", // unique ID as registered in the developer portal
+              isSandbox : <%= Rails.env.production? ? false : true %>, // true = Sandbox environment
+              returnUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>", // return page URL
+              cancelUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>" // cancel page URL
+            });
+          }
+        });
+      });
+  });
 </script>
 
-	<div data-role="page" data-theme="b">
-		<div data-role="content" data-contnet-theme="b">
-
-			<table id="wrapper">
-				<tr>
-					<td><h3>Buy <i><%= @party_package.package.name %></i> for <%= number_to_currency(@party_package.package.price)%>!</h3></td>
-				</tr>
-
-				<tr>
-					<td><%= image_tag(@party_package.package.image_url, size: '150') unless @party_package.package.image_url.blank? %></td>
-				</tr>
-			</table>
-			<button id="checkoutButton">Buy now</button>
-
-		</div>
-	</div>
+<div data-role="page" data-theme="b">
+  <div data-role="content" data-contnet-theme="b">
+    <table id="wrapper">
+      <tr>
+        <td><h3>Buy <i><%= @party_package.package.name %></i> for <%= number_to_currency(@party_package.package.price)%>!</h3></td>
+      </tr>
+      <tr>
+        <td><%= image_tag(@party_package.package.image_url, size: '150') unless @party_package.package.image_url.blank? %></td>
+      </tr>
+    </table>
+    <button id="checkoutButton">Buy now</button>
+  </div>
+</div>
