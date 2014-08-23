@@ -45,6 +45,34 @@ class Party < ActiveRecord::Base
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
   
+  def handle_invites(params, user)
+    emails = []
+    invalid_emails = []
+    warning = ""
+    success = ""
+    
+    params[:invites].each do |k,v|
+      if /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/.match(v)
+        emails << v unless emails.include?(v)
+      else
+        invalid_emails << v
+      end
+    end 
+    unless invalid_emails.blank?
+      part = "Invites not sent to these invalid emails: " + invalid_emails.map(&:inspect).join(', ')
+      warning += part
+    end
+    
+    unless emails.blank?
+      PartyInvitation.send_invitations(emails, user, self.id)
+      part = "Invites sent to " + emails.map(&:inspect).join(', ')
+      success += part
+    else
+      warning += "No valid emails were included"
+    end
+    [warning, success]
+  end
+  
   def self.search(search_item)
     if search_item.blank?
       parties = Party.all

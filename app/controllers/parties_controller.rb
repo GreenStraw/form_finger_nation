@@ -67,23 +67,14 @@ class PartiesController < ApplicationController
   end
   
   def send_invites
-
-    emails = []
-    invalid_emails = []
-    params[:invites].each do |k,v|
-      if /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/.match(v)
-        emails << v unless emails.include?(v)
-      else
-        invalid_emails << v
-      end
-    end 
-    unless invalid_emails.blank?
-      flash[:warning] = "Invites not sent to these invalid emails: " + invalid_emails.map(&:inspect).join(', ')
+    warning, success = @party.handle_invites(params, current_user.id)
+    unless warning.blank?
+      flash[:warning] = warning
     end
-    
-    PartyInvitation.send_invitations(emails, current_user.id, @party.id)
-    flash[:success] = "Invites sent to " + emails.map(&:inspect).join(', ')
-    redirect_to party_path
+    unless success.blank?
+      flash[:success] = success
+    end
+    redirect_to party_path(@party)
   end
   
 
