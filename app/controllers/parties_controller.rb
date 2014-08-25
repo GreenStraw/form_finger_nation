@@ -5,11 +5,15 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    @user = current_user   
+    @user = current_user
   end
 
   # GET /parties/1
   def show
+    @map_markers = Gmaps4rails.build_markers(@party) do |party, marker|
+      marker.lat party.venue.address.latitude
+      marker.lng party.venue.address.longitude
+    end
   end
 
   # GET /parties/new
@@ -45,12 +49,12 @@ class PartiesController < ApplicationController
     @party.destroy
     redirect_to parties_url, notice: 'Party was successfully destroyed.'
   end
-  
+
   def purchase_package
-  
+
   end
-  
-  
+
+
   def party_rsvp
     rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first
     if rsvp.blank?
@@ -60,12 +64,12 @@ class PartiesController < ApplicationController
       rsvp.destroy
       flash[:success] = "Deleted reservation for #{@party.name}!"
     end
-    redirect_to party_path(@party)    
+    redirect_to party_path(@party)
   end
-  
+
   def invite_friends
   end
-  
+
   def send_invites
     warning, success = @party.handle_invites(params, current_user)
     unless warning.blank?
@@ -76,14 +80,14 @@ class PartiesController < ApplicationController
     end
     redirect_to party_path(@party)
   end
-  
+
 
   def zooz_transaction
     if params[:cmd]
       #This just tells zooz to initiate the payment process
       post_params = {cmd: "openTrx", amount: @party_package.package.price, currency_code: "USD"}
-      result = Package.zooz_submit(post_params)  
-      #result is the session token 
+      result = Package.zooz_submit(post_params)
+      #result is the session token
       render :json => {:token => result}
     else
       if params[:statusCode] == "0"
@@ -96,7 +100,7 @@ class PartiesController < ApplicationController
       end
       redirect_to "/purchase_package/#{@party_package.id.to_s}"
     end
-    
+
   end
 
   private
@@ -109,6 +113,6 @@ class PartiesController < ApplicationController
     def party_params
       params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item)
     end
-    
-    
+
+
 end
