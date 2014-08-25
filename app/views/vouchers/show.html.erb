@@ -2,18 +2,17 @@
 
 <p>
   <strong>Redeemed:</strong>
-  <%= @voucher.redeemed %>
+  <%= @voucher.redeemed_at %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @voucher.user %>
+  <%= @voucher.user.name %>
 </p>
 
 <p>
   <strong>Package:</strong>
-  <%= @voucher.package %>
+  <%= @voucher.package.name %>
 </p>
 
-<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
 <%= link_to 'Back', vouchers_path %>

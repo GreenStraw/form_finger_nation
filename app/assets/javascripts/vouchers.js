@@ -4,4 +4,5 @@ function toggle_div(id) {
      e.style.display = 'none';
   else
     e.style.display = 'block';
+  return false;
 }

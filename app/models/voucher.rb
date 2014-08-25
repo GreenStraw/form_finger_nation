@@ -4,6 +4,9 @@ class Voucher < ActiveRecord::Base
   belongs_to :package
   belongs_to :user
   belongs_to :party
+  
+  scope :redeemable, lambda { where("redeemed_at is NULL") }
+  scope :redeemed, lambda { where("redeemed_at is not NULL") }
 
   def verify
     req = Zooz::Request::Verify.new

@@ -28,7 +28,9 @@ class Package < ActiveRecord::Base
       token
     end
   
-  
+    def total_purchased
+      vouchers.count.to_s
+    end
   
   
   

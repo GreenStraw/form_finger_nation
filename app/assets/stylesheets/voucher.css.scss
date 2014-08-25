@@ -1,7 +1,9 @@
 .voucher{
+	margin-top:20px;
 	border: 1px solid #cacaca;
-	padding: 20px;
+	padding: 10px;
 	margin-left: 15px;
+	height: 75px;
 }
 
 .voucher_more_info{
@@ -19,12 +21,30 @@
 	color: #cacaca !important;	
 }
 
+.voucher-logo{
+	float: left;
+}
+
 .voucher-party-name{
 	float: left;
-	width: 50%;
+	font-weight: bold;
+	padding-top: 10px;
 }
 
 .voucher-purchased{
+	float: left;
+}
+
+.voucher-purchase{
 	float: right;
-	width: 50%;
+}
+
+.voucher-information{
+
+}
+
+.voucher-description{
+	border: 1px solid #cacaca;
+	margin-left: 15px;
+	padding: 10px;
 }

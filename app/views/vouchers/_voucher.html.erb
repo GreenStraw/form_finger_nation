@@ -1,32 +1,29 @@
 <div class="voucher">
-  
-  
-  <span class="voucher-information">
-	  <span class="voucher-logo">
+ 
+  <div class="voucher-information">
+	  <div class="voucher-logo">
 	    <%= image_tag(voucher.party.team.image_url, size: '50') unless voucher.party.team.image_url.blank? %> 
-	  </span>
-	  <span class="voucher-party-name">
-	    <%= voucher.party.name%> : <%= voucher.package.name %>
-	  </span>
-	  <span class="voucher-purchased">
-	    Purchased - <%= link_to "More information", "#",  :onclick => "toggle_div('hidden_row_#{ voucher.id.to_s}');" %>
-	  </span>
-  </span>
-  
-  <span class="voucher-purchase">
-	  purchase
-  </span>
-	
-  <span id= "hidden_row_<%= voucher.id.to_s%>" style="display: none;">	
-	  <%= voucher.package.description %>
-  </span>
-  
+	  </div>
+	  <div class="voucher-party-name">
+	    <%= voucher.party.name%> : <%= voucher.package.name %><br/>
+	    <%= voucher.package.total_purchased %> Purchased - <%= link_to "More information", "#",  :onclick => "toggle_div('hidden_row_#{ voucher.id.to_s}');" %>
+	  </div>
+	  <div class="voucher-purchase">
+		  <% unless voucher.redeemed_at.blank? %>
+		    <%= link_to "View Voucher", voucher_path(voucher) %>
+		  <% else %>
+		    purchase
+		  <% end %>
+	  </div>	 
+  </div>
+</div>
+
+<div id= "hidden_row_<%= voucher.id.to_s%>"  class="voucher-description" style="display: none;">	
+  <b>Details</b><br/>
+  <%= voucher.package.description %>
 </div>
 
 
-<div>
-	
-	
-	
 
-</div>
+
+

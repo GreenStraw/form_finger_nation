@@ -3,8 +3,8 @@ class VouchersController < ApplicationController
 
   # GET /vouchers
   def index
-    @redeemable_vouchers = Voucher.all
-    @history_vouchers = Voucher.all
+    @redeemable_vouchers = current_user.vouchers.redeemable
+    @history_vouchers = current_user.vouchers.redeemed
   end
 
   # GET /vouchers/1
