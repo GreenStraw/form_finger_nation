@@ -115,7 +115,9 @@ class Party < ActiveRecord::Base
         parties, teams, people = Party.search(party_params[:search_item])
       else
         #both search
-        parties1  = Party.geo_search(party_params[:search_location], radius)
+        parties1 = Party.geo_search(party_params[:search_location], radius)
+        puts "**************parties1************"
+        puts parties1.inspect
         parties2, @teams, @people = Party.search(party_params[:search_item])
         parties = (parties1 & parties2)
         teams = []
