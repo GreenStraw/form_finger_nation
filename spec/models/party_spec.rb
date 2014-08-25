@@ -91,10 +91,6 @@ describe Party do
   end
   
   describe 'search with location params values expecting matches' do
-    before {
-      #@party = Fabricate(:party, name: "my test party")
-      #@address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
-    }
     it "should have results" do
       @results = Party.search_by_params({search_location: "Austin, Tx"})
       expect(@results[0].count).to eq(1)
