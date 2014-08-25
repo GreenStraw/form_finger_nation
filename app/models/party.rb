@@ -64,7 +64,7 @@ class Party < ActiveRecord::Base
     end
     
     unless emails.blank?
-      PartyInvitation.send_invitations(emails, user, self.id)
+      PartyInvitation.send_invitations(emails, user.id, self.id)
       part = "Invites sent to " + emails.map(&:inspect).join(', ')
       success += part
     else

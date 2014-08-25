@@ -67,7 +67,7 @@ class PartiesController < ApplicationController
   end
   
   def send_invites
-    warning, success = @party.handle_invites(params, current_user.id)
+    warning, success = @party.handle_invites(params, current_user)
     unless warning.blank?
       flash[:warning] = warning
     end

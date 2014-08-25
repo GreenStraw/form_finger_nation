@@ -69,12 +69,34 @@ describe Party do
     end
   end
   
+  describe 'search by params with blank values expecting matches' do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+    }
+    it "no results" do
+      @results = Party.search_by_params("")
+      expect(@results.count).to eq(3)
+    end
+  end
+  
+  
   describe 'search with params values expecting matches' do
     before {
       @party = Fabricate(:party, name: "my test party")
     }
     it "should have results" do
       @results = Party.search_by_params({search_item: "my test party"})
+      expect(@results[0].count).to eq(1)
+    end
+  end
+  
+  describe 'search with location params values expecting matches' do
+    before {
+      #@party = Fabricate(:party, name: "my test party")
+      #@address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
+    }
+    it "should have results" do
+      @results = Party.search_by_params({search_location: "Austin, Tx"})
       expect(@results[0].count).to eq(1)
     end
   end
@@ -113,6 +135,49 @@ describe Party do
       expect(@results.count).to eq(2)
     end
   end
+  
+
+  describe "send invites " do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+      @user = Fabricate(:user)
+    }
+    it "sends invite" do
+      count = PartyInvitation.count
+      params = {:invites => {:email => @user.email}}
+      @party.handle_invites(params,  @user)
+      expect(PartyInvitation.count).to eq(count + 1)
+    end
+  end
+  
+  describe "do not send invites if user has already been invited" do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+      @user = Fabricate(:user)
+    }
+    it "sends invite" do
+      params = {:invites => {:email => @user.email}}
+      @party.handle_invites(params,  @user)
+      count = PartyInvitation.count      
+      @party.handle_invites(params,  @user)
+      expect(PartyInvitation.count).to eq(count)
+    end
+  end
+  
+  describe "do not send invites if email is invalid" do
+    before {
+      @party = Fabricate(:party, name: "my test party")
+      @user = Fabricate(:user, email: "test@me")
+    }
+    it "sends invite" do
+      count = PartyInvitation.count
+      params = {:invites => {:email => @user.email}}
+      @party.handle_invites(params,  @user.id)
+      expect(PartyInvitation.count).to eq(count)
+    end
+  end
+  
+
 
 end
 
