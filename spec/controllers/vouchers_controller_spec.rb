@@ -11,7 +11,7 @@ describe VouchersController do
   describe "GET index" do
     it "assigns all vouchers as @vouchers" do
       get :index, {}
-      assigns(:vouchers).should eq([@voucher])
+      assigns(:redeemable_vouchers ).should eq([@voucher])
     end
   end
 
