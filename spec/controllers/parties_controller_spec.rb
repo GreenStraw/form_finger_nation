@@ -121,5 +121,75 @@ describe PartiesController do
       response.should redirect_to(parties_url)
     end
   end
+  
+  describe "party RSVP" do
+    it "RSVPs the requested party" do
+      expect {
+        get :party_rsvp, {:id => @party.to_param}
+      }.to change(PartyReservation, :count).by(1)
+    end
+    
+    it "unRSVPs the requested party" do
+      #create the RSVP so it can be removed
+      get :party_rsvp, {:id => @party.to_param}
+      expect {
+        get :party_rsvp, {:id => @party.to_param}
+      }.to change(PartyReservation, :count).by(-1)
+    end
+
+    it "redirects to party/show" do
+      get :party_rsvp, {:id => @party.to_param}
+      response.should redirect_to(party_url(@party.id))
+    end
+  end
+  
+
+  describe "send invites " do
+    it "Increments the number of invites to the requested party" do
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "test@user.com"}}
+      }.to change(PartyInvitation, :count).by(1)
+    end
+    
+    it "will not increment the invites count for an email that has already been invited" do
+      #create the invite so it should not be created again
+      post :send_invites, {:id => @party.to_param, invites: {email: "test@user.com"}}
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "test@user.com"}}
+      }.to change(PartyInvitation, :count).by(0)
+    end
+    
+    it "will not increment the counter when an invalid email address is submitted" do
+      expect {
+        post :send_invites, {:id => @party.to_param, invites: {email: "user.com"}}
+      }.to change(PartyInvitation, :count).by(0)
+    end
+    
+    it "redirects to party/show" do
+      get :party_rsvp, {:id => @party.to_param}
+      response.should redirect_to(party_url(@party.id))
+    end
+  end
+ 
+  describe "send invites stub" do
+    it "redirects to party/show" do
+      Party.any_instance.should_receive(:handle_invites).with({"invites"=>{"email"=>"test@user.com"}, "id"=>@party.id.to_s,  "controller"=>"parties", "action"=>"send_invites"}, current_user)
+      post :send_invites, {:id => @party.to_param, :invites => {:email => "test@user.com"}}
+      response.should redirect_to(@party)  
+    end
+  end
+
+    
+
+ 
+  describe "send invites stub" do
+    it "redirects to party/show" do
+      Party.any_instance.should_receive(:handle_invites).with({"invites"=>{"email"=>"test@user.com"}, "id"=>@party.id.to_s,  "controller"=>"parties", "action"=>"send_invites"}, current_user)
+      post :send_invites, {:id => @party.to_param, :invites => {:email => "test@user.com"}}
+      response.should redirect_to(@party)  
+    end
+  end
+
+
 
 end

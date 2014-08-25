@@ -7,6 +7,9 @@ Baseapp::Application.routes.draw do
   get 'new_account' => "account#new", :as => 'new_account'
   get 'purchase_package/:party_package_id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
   get 'zooz_transaction/:party_package_id(/:cmd)' => "parties#zooz_transaction", :as => 'zooz_transaction'
+  get 'party_rsvp/:id' => 'parties#party_rsvp', :as => 'party_rsvp'
+  get 'invite_friends/:id' => 'parties#invite_friends', :as => 'invite_friends'
+  post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
 
   resources :vouchers
   resources :packages, except: [:new, :create] do

@@ -1,4 +1,9 @@
 <h2>You have been invited to a watch party on Foam Finger Nation by <%= @inviter.username %></h2>
+
+<p>
+	Are you fan enough? Evidently you are because you’ve been invited to the following watch party
+</p>
+	
 <p>
   <%= @party.name %><br>
   Team: <%= @party.team.name %><br>
@@ -8,12 +13,22 @@
     <%= @party_address.city %>, <%= @party_address.state %> <%= @party_address.zip %><br>
 </p>
 
+
+
+<p>Get your foam finger ready and remember to purchase your watch party voucher to get discounted 
+	food and drink during the game when you RSVP! Go ahead, be a fan, RSVP now, invite others, and 
+	share on Facebook and Twitter!
+</p>
+
+<p>Foam Finger Nation</p>
+
 <% if @member %>
   <p>Follow the link below to download the Foam Finger Nation Mobile App.</p>
 
   <a href="http://thisisfake.com/">http://thisisfake.com/</a>
 <% end %>
 
-<p>Visit the link below to RSVP to this watch party</p>
-
+<p> 
+View this party's information: 
 <a href=<%= @url %>><%= @url %></a>
+</p>
