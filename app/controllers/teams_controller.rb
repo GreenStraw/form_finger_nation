@@ -32,20 +32,14 @@ class TeamsController < ApplicationController
 
   # POST /teams
   def create
-    if @team.save
-      redirect_to edit_sport_path(@team.sport), notice: 'Team was successfully created.'
-    else
-      render :new
-    end
+    flash[:notice] = 'Team was successfully created.' if @team.save
+    respond_with @team, location: edit_sport_path(@team.sport)
   end
 
   # PATCH/PUT /teams/1
   def update
-    if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
-    else
-      render :edit
-    end
+    flash[:notice] = 'Team was successfully updated.' if @team.update(team_params)
+    respond_with @team, location: team_path(@team)
   end
 
   # DELETE /teams/1
@@ -116,7 +110,7 @@ class TeamsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def team_params
-      params.require(:team).permit(:name, :information, :text, :image_url, :sport_id, :references)
+      params.require(:team).permit(:name, :information, :text, :image_url, :sport_id, :references, :twitter_name, :twitter_widget_id, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]])
     end
 
 

@@ -58,22 +58,6 @@ describe TeamsController do
         response.should redirect_to(edit_sport_path(valid_attributes[:sport_id]))
       end
     end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved team as @team" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => { "name" => "" }, sport_id: @sport.id}
-        assigns(:team).should be_a_new(Team)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => { "name" => "" }, sport_id: @sport.id}
-        response.should render_template("new")
-      end
-    end
   end
 
   describe "PUT update" do
@@ -96,24 +80,6 @@ describe TeamsController do
         team = Team.create! valid_attributes
         put :update, {:id => @team.to_param, :team => valid_attributes}
         response.should redirect_to(@team)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the team as @team" do
-        team = Team.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Team.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @team.to_param, :team => { "name" => "" }}
-        assigns(:team).should eq(@team)
-      end
-
-      it "re-renders the 'edit' template" do
-        team = Team.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Team.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @team.to_param, :team => { "name" => "" }}
-        response.should render_template("edit")
       end
     end
   end
