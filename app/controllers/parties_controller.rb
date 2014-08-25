@@ -1,4 +1,5 @@
 class PartiesController < ApplicationController
+  respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :party
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
@@ -10,11 +11,13 @@ class PartiesController < ApplicationController
 
   def search
     search_results = Party.search_by_params(params[:party])
-    parties = search_results[0]
-    @map_markers = Gmaps4rails.build_markers(parties) do |party, marker|
+    # search_by_params returns [parties, teams, people].  We only care about parties here
+    @parties = search_results[0]
+    @map_markers = Gmaps4rails.build_markers(@parties) do |party, marker|
       marker.lat party.venue.address.latitude
       marker.lng party.venue.address.longitude
     end
+    respond_with @parties
   end
 
   # GET /parties/1
@@ -62,7 +65,6 @@ class PartiesController < ApplicationController
   def purchase_package
 
   end
-
 
   def party_rsvp
     rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first

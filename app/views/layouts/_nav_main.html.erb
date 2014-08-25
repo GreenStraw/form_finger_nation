@@ -15,13 +15,17 @@
           <div class="navbar-collapse collapse">
 
         <% if user_signed_in? %>
-          <ul class="nav navbar-nav">    
+          <ul class="nav navbar-nav">
             <li class="<%= 'active' if current_page?("/") %>">
               <% link_to( t("theme.settings", :default => "Settings"), '#' )%>
             </li>
 
             <li class="<%= 'active' if current_page?( parties_path ) %>">
               <%= link_to( t("Watch Parties", :default => "Watch Parties"), parties_path ) %>
+            </li>
+
+            <li class="<%= 'active' if current_page?( search_parties_path ) %>">
+              <%= link_to( t("Find a Watch Party", :default => "Find a Watch Party"), search_parties_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( teams_path ) %>">
@@ -31,7 +35,7 @@
             <li class="<%= 'active' if current_page?( vouchers_path ) %>">
               <%= link_to( t("Vouchers", :default => "Vouchers"), vouchers_path ) %>
             </li>
-          </ul>    
+          </ul>
         <% else %>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
