@@ -19,6 +19,15 @@ class PartiesController < ApplicationController
     respond_with @parties
   end
 
+  def search
+    search_results = Party.search_by_params(params[:party])
+    parties = search_results[0]
+    @map_markers = Gmaps4rails.build_markers(parties) do |party, marker|
+      marker.lat party.venue.address.latitude
+      marker.lng party.venue.address.longitude
+    end
+  end
+
   # GET /parties/1
   def show
     @map_markers = Party.build_markers([@party])
