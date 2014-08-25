@@ -1,0 +1,17 @@
+.fa-square-o {
+  color: #B1DA4F;
+}
+
+.fa-check-square-o {
+  color: #d0e895;
+}
+
+#assign-link .fa-check-square-o,
+#assign-link:hover .fa-square-o {
+  display: none;
+  background: #F6F6F6;
+}
+#assign-link:hover .fa-check-square-o {
+  display: inline;
+  background: #F6F6F6;
+}

@@ -1,0 +1,33 @@
+<table class='table table-hover borderless'>
+  <% if @package.venue.upcoming_parties.any? %>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Assign</th>
+      </tr>
+    </thead>
+  <% else %>
+    <h4>No upcoming parties</h4>
+  <% end %>
+  <tbody>
+    <% @package.venue.upcoming_parties.each do |party| %>
+      <tr>
+        <td><%= party.name %></td>
+        <td><%= party.venue.address.city_state %></td>
+        <td>
+          <% if party.packages.include?(@package) %>
+            <%= link_to(unassign_package_path(party_id: party), remote: true, method: :put) do%>
+              <i class='fa fa-check-square-o fa-4x'></i>
+            <% end %>
+          <% else %>
+            <%= link_to(assign_package_path(party_id: party), remote: true, method: :put, id: 'assign-link') do%>
+              <i class='fa fa-square-o fa-4x'></i>
+              <i class='fa fa-check-square-o fa-4x'></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

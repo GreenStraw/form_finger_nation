@@ -1,6 +1,28 @@
-<h1>Editing package</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <%= render partial: 'details' %>
+    </div>
+    <div class='col-xs-8'>
+      <ul class='nav nav-tabs' role='tablist'>
+        <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+        <li><a href="#party-packages" role='tab' data-toggle='tab'>Manage Party Assignment</a></li>
+      </ul>
 
-<%= render 'form' %>
+      <div class='tab-content'>
+        <div class='tab-pane active' id="info">
+          <%= render 'form' %>
+        </div>
 
-<%= link_to 'Show', @package %> |
-<%= link_to 'Back', packages_path %>
+        <div class='tab-pane' id="party-packages">
+          <%= render partial: 'party_packages' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to 'Show', @package %> |
+  <%= link_to 'Back', packages_path %>
+</div>
+
+

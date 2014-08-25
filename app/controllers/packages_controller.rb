@@ -1,9 +1,13 @@
 class PackagesController < ApplicationController
   before_action :set_package, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
+  load_and_authorize_resource :package
+  load_and_authorize_resource :venue
+  load_and_authorize_resource :party
 
   # GET /packages
   def index
-    @packages = Package.all
+    respond_with @packages
   end
 
   # GET /packages/1
@@ -12,37 +16,43 @@ class PackagesController < ApplicationController
 
   # GET /packages/new
   def new
-    @package = Package.new
-  end
+    respond_with @package
 
+end
   # GET /packages/1/edit
   def edit
   end
 
   # POST /packages
   def create
-    @package = Package.new(package_params)
-
-    if @package.save
-      redirect_to @package, notice: 'Package was successfully created.'
-    else
-      render :new
-    end
+    flash[:notice] = 'Package was successfully created.' if @package.save
+    respond_with @package, location: edit_venue_path(@package.venue)
   end
 
   # PATCH/PUT /packages/1
   def update
-    if @package.update(package_params)
-      redirect_to @package, notice: 'Package was successfully updated.'
-    else
-      render :edit
-    end
+    flash[:notice] = 'Package was successfully updated.' if @package.update(package_params)
+    respond_with @package, location: package_path(@package)
   end
 
   # DELETE /packages/1
   def destroy
     @package.destroy
     redirect_to packages_url, notice: 'Package was successfully destroyed.'
+  end
+
+  def assign
+    if !@package.parties.include?(@party)
+      @package.parties << @party
+    end
+    respond_with @package
+  end
+
+  def unassign
+    if @package.parties.include?(@party)
+      @package.parties.delete(@party)
+    end
+    respond_with @package
   end
 
   private
@@ -53,6 +63,6 @@ class PackagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def package_params
-      params.require(:package).permit(:name, :description, :image_url, :price, :active, :is_public, :start_date, :end_date, :venue, :references)
+      params.require(:package).permit(:name, :description, :image_url, :price, :active, :is_public, :start_date, :end_date, :venue_id, :references)
     end
 end

@@ -8,7 +8,7 @@ describe PackagesController do
     end
 
     it "routes to #new" do
-      get("/packages/new").should route_to("packages#new")
+      get("/venues/:venue_id/packages/new").should route_to("packages#new", :venue_id=>':venue_id')
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ describe PackagesController do
     end
 
     it "routes to #create" do
-      post("/packages").should route_to("packages#create")
+      post("/venues/:venue_id/packages").should route_to("packages#create", :venue_id=>':venue_id')
     end
 
     it "routes to #update" do

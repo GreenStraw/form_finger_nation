@@ -1,0 +1,15 @@
+<div class='row'>
+  <%= image_tag(@package.image_url, height: '200', width: '300') unless @package.image_url.blank? %>
+</div>
+<div class='row'>
+  <h1><%= @package.name.upcase %></h1>
+</div>
+<div class='row'>
+  <h1><%= @package.description %></h1>
+</div>
+<div class='row'>
+  <h1><%= @package.price %></h1>
+</div>
+<div class='row'>
+  <h1><%= @package.venue.name %></h1>
+</div>

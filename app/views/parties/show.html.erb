@@ -1,39 +1,41 @@
-<p id="notice"><%= notice %></p
-<div class="row">
-  <div class="col-md-12 cols">
-    <div id="major-details">
-      <span class="logo-name">
-	    <%= image_tag(@party.team.image_url, size: '50') unless @party.team.image_url.blank? %>
-	    <%= @party.name%><br/>
-	    Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
-      </span>
-      <span class= "rsvp-invite">
-	    <%= link_to "RSVP", "", class: "rsvp-button"%>
-	    <%= link_to "Invite Friends", "", class: "invite-friends-button"%>	  
-      </span>
-    </div>
+<div class='container'>
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-md-12 cols">
+      <div id="major-details">
+        <span class="logo-name">
+  	    <%= image_tag(@party.team.image_url, size: '50') unless @party.team.image_url.blank? %>
+  	    <%= @party.name%><br/>
+  	    Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
+        </span>
+        <span class= "rsvp-invite">
+  	    <%= link_to "RSVP", "", class: "rsvp-button"%>
+  	    <%= link_to "Invite Friends", "", class: "invite-friends-button"%>
+        </span>
+      </div>
 
-    <div id="details" style="margin-right: 20px;">
-	  <h3>Details</h3>
-	
-	  <p>
-	    When?<br/>
-	    <%= @party.scheduled_for %>
-      </p>
-	  <p>
-	    Where?<br/>
-	    <%= @party.venue.name %><br/>
-	    <%= @party.venue.address.street_address %><br/>
-	    <%= @party.venue.address.city_state %>
-      </p>	
-	  <p>
-        <%= @party.party_reservations.count.to_s%> RSVP'd
-	  </p>	
-    </div>
+      <div id="details" style="margin-right: 20px;">
+  	  <h3>Details</h3>
 
-    <div id="available-packages" style="margin-left:30px;">
-	  <%= render :partial => "available_packages" %>
+  	  <p>
+  	    When?<br/>
+  	    <%= @party.scheduled_for %>
+        </p>
+  	  <p>
+  	    Where?<br/>
+  	    <%= @party.venue.name %><br/>
+  	    <%= @party.venue.address.street_address %><br/>
+  	    <%= @party.venue.address.city_state %>
+        </p>
+  	  <p>
+          <%= @party.party_reservations.count.to_s%> RSVP'd
+  	  </p>
+      </div>
+
+      <div id="available-packages" style="margin-left:30px;">
+  	  <%= render :partial => "available_packages" %>
+      </div>
+      <div style="clear:both;"></div>
     </div>
-    <div style="clear:both;"></div>
   </div>
 </div>

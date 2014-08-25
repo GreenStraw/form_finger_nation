@@ -8,9 +8,13 @@ Baseapp::Application.routes.draw do
   get 'purchase_package/:party_package_id(/:cmd)' => "parties#purchase_package", :as => 'purchase_package'
   get 'zooz_transaction/:party_package_id(/:cmd)' => "parties#zooz_transaction", :as => 'zooz_transaction'
 
-
   resources :vouchers
-  resources :packages
+  resources :packages, except: [:new, :create] do
+    member do
+      put 'assign'
+      put 'unassign'
+    end
+  end
   resources :parties
   resources :sports do
     resource :teams, only: [:new, :create]
@@ -32,6 +36,7 @@ Baseapp::Application.routes.draw do
       put 'verify_party'
       put 'unverify_party'
     end
+    resource :packages, only: [:new, :create]
   end
   resource :account, :controller => :account
 
