@@ -123,10 +123,15 @@ describe PartiesController do
   end
   
   describe "party RSVP" do
-    it "rsvps the requested party" do
+    it "RSVPs the requested party" do
       expect {
         get :party_rsvp, {:id => @party.to_param}
       }.to change(PartyReservation, :count).by(1)
+    end
+    
+    it "unRSVPs the requested party" do
+      #create the RSVP so it can be removed
+      get :party_rsvp, {:id => @party.to_param}
       expect {
         get :party_rsvp, {:id => @party.to_param}
       }.to change(PartyReservation, :count).by(-1)
@@ -165,6 +170,16 @@ describe PartiesController do
       response.should redirect_to(party_url(@party.id))
     end
   end
+ 
+  describe "send invites stub" do
+    it "redirects to party/show" do
+      Party.any_instance.should_receive(:handle_invites).with({"invites"=>{"email"=>"test@user.com"}, "id"=>@party.id.to_s,  "controller"=>"parties", "action"=>"send_invites"}, current_user)
+      post :send_invites, {:id => @party.to_param, :invites => {:email => "test@user.com"}}
+      response.should redirect_to(@party)  
+    end
+  end
+
+    
 
  
   describe "send invites stub" do
