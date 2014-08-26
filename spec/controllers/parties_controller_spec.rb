@@ -5,9 +5,9 @@ describe PartiesController do
   before(:each) do
     login(:admin)
     @party = Fabricate(:party)
-    @address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748") 
+    @address = Fabricate(:address,  addressable: @party, street1: "12345 main street", city: "Austin", state: "TX", zip: "78748")
   end
-  
+
   let(:valid_attributes) { Fabricate.attributes_for(:party) }
 
 
@@ -192,4 +192,11 @@ describe PartiesController do
 
 
 
+  describe "GET search" do
+    it "calls Party.search_by_params(params)" do
+      Party.should_receive(:search_by_params).with({"search_item" => 'test_search_item', "search_location" => 'test_search_location'}).and_return(['test_parties', [], []])
+      Gmaps4rails.should_receive(:build_markers).with('test_parties')
+      get :search, {party: {search_item: 'test_search_item', search_location: 'test_search_location'}}
+    end
+  end
 end

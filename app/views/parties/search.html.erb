@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-4'>
+      <%= form_for :search, url: search_parties_path, remote: true, method: :get do |f| %>
+        <div>
+            <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
+        </div>
+
+        <div>
+          <div class="input-group" id="search-where">
+            <%= text_field "party","search_location", class: "form-control input-lg", placeholder: "Where", value: params[:party].blank? ? "" : params[:party][:search_location] %>
+            <span class="input-group-btn">
+              <%= f.submit "Go", :class=>"btn btn-default btn-lg"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class='col-xs-8'>
+      <%= render partial: 'search_results' %>
+    </div>
+  </div>
+</div>

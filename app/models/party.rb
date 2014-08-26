@@ -44,25 +44,25 @@ class Party < ActiveRecord::Base
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
-  
+
   def handle_invites(params, user)
     emails = []
     invalid_emails = []
     warning = ""
     success = ""
-    
+
     params[:invites].each do |k,v|
       if /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/.match(v)
         emails << v unless emails.include?(v)
       else
         invalid_emails << v
       end
-    end 
+    end
     unless invalid_emails.blank?
       part = "Invites not sent to these invalid emails: " + invalid_emails.map(&:inspect).join(', ')
       warning += part
     end
-    
+
     unless emails.blank?
       PartyInvitation.send_invitations(emails, user.id, self.id)
       part = "Invites sent to " + emails.map(&:inspect).join(', ')
@@ -72,7 +72,7 @@ class Party < ActiveRecord::Base
     end
     [warning, success]
   end
-  
+
   def self.search(search_item)
     if search_item.blank?
       parties = Party.all
@@ -81,23 +81,23 @@ class Party < ActiveRecord::Base
     else
       search_item = "%" + search_item + "%"
       parties = Party.joins(:organizer, :team, :venue)
-        .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?", 
-               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])               
+        .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?",
+               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
      teams =  Party.joins(:team)
        .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
-     
+
       people  =  Party.joins(:organizer)
-        .where(["users.email ILIKE ? or users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ?", search_item, search_item, search_item, search_item])    
-    end  
+        .where(["users.email ILIKE ? or users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ?", search_item, search_item, search_item, search_item])
+    end
    [parties, teams, people]
   end
-  
+
   def self.geo_search(address, radius)
     venue_addresses_in_radius = Address.class_within_radius_of_address('Venue', address, radius)
     venues = venue_addresses_in_radius.map(&:addressable)
     @parties = venues.map(&:parties).flatten.uniq
   end
-  
+
   def self.search_by_params(party_params)
 
     radius = 50 #set the location search radius
@@ -115,13 +115,13 @@ class Party < ActiveRecord::Base
         parties, teams, people = Party.search(party_params[:search_item])
       else
         #both search
-        parties1  = Party.geo_search(party_params[:search_location], radius)
+        parties1 = Party.geo_search(party_params[:search_location], radius)
         parties2, @teams, @people = Party.search(party_params[:search_item])
         parties = (parties1 & parties2)
         teams = []
         people = []
       end
-      
+
       [parties,teams,people]
     end
   end

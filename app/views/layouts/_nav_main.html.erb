@@ -13,15 +13,19 @@
             <%= link_to(image_tag("foam_finger_logo.png"), root_path, :class=>"navbar-brand") %>
           </div>
           <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <% if user_signed_in? %>
 
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav">
             <li class="<%= 'active' if current_page?("/") %>">
               <% link_to( t("theme.settings", :default => "Settings"), '#' )%>
             </li>
 
             <li class="<%= 'active' if current_page?( parties_path ) %>">
               <%= link_to( t("Watch Parties", :default => "Watch Parties"), parties_path ) %>
+            </li>
+
+            <li class="<%= 'active' if current_page?( search_parties_path ) %>">
+              <%= link_to( t("Find a Watch Party", :default => "Find a Watch Party"), search_parties_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( teams_path ) %>">
@@ -31,9 +35,9 @@
             <li class="<%= 'active' if current_page?( vouchers_path ) %>">
               <%= link_to( t("Vouchers", :default => "Vouchers"), vouchers_path ) %>
             </li>
-
-          <% else %>
-
+          </ul>
+        <% else %>
+          <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
               <%= link_to( t("theme.signup", :default => "Sign up"), new_account_path ) %>
             </li>
@@ -41,13 +45,13 @@
             <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
               <%= link_to( t("theme.login", :default => "Sign in"), new_user_session_path ) %>
             </li>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <% if user_signed_in? %>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=current_user.username %><b class="caret"></b></a>
-              <ul class="dropdown-menu">
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=current_user.name ? current_user.name : "Menu" %><b class="caret"></b></a>
+              <ul class="dropdown-menu inverse-dropdown">
                 <li>
                   <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
                 </li>
@@ -58,20 +62,19 @@
                 <li>
                   <%= link_to( t("theme.invite", :default => "Invite member"), '#' ) %>
                 </li>
-                <% if user_signed_in? && current_user.managed_venues.any? %>
-                  <li>
-                    <%= link_to( t("theme.invite", default: 'My Venues'), venues_path ) %>
-                  </li>
-                <% end %>
+              <% if user_signed_in? && current_user.managed_venues.any? %>
+                <li>
+                  <%= link_to( t("theme.invite", default: 'My Venues'), venues_path ) %>
+                </li>
+              <% end %>
                 <li class="divider"></li>
                 <li>
                   <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
                 </li>
-              </ul>
-            <% end %>
-          </li>
+              </ul> <!-- end dropdown-menu -->
+            </li> <!-- end dropdown -->
+          <% end %>
         </ul> <!-- end navbar-right -->
-
       </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
   </div><!-- /.navbar -->

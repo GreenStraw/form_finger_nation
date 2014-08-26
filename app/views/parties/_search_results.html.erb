@@ -1,0 +1,30 @@
+<div id='search_results'>
+  <div class='row'>
+    <div id="map" style="height:400px; width: 700px;"></div>
+  </div>
+
+  <table class='table table-hover borderless'>
+    <tbody>
+      <% @parties.each_with_index do |party, index| %>
+        <tr class='search_result' data-result_id=<%= index %>>
+          <td><%= image_tag(party.team.image_url, size: '50') unless party.team.image_url.blank? %></td>
+          <td><%= link_to(party.name, party_path(party)) %></td>
+          <td><%= party.venue.address.city_state %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    $('.search_result').click(function() {
+      var id = $(this).data('result_id');
+      handler.map.centerOn(markers[id]);
+    });
+  });
+</script>

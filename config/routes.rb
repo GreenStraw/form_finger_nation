@@ -18,7 +18,11 @@ Baseapp::Application.routes.draw do
       put 'unassign'
     end
   end
-  resources :parties
+  resources :parties do
+    collection do
+      get 'search'
+    end
+  end
   resources :sports do
     resource :teams, only: [:new, :create]
   end
