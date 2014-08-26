@@ -35,13 +35,28 @@
             <li class="<%= 'active' if current_page?( vouchers_path ) %>">
               <%= link_to( t("Vouchers", :default => "Vouchers"), vouchers_path ) %>
             </li>
+
+            <li class="<%= 'active' if current_page?( faq_path ) %>">
+              <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
+            </li>
+
           </ul>
         <% else %>
+          <ul class="nav navbar-nav">
+            <li class="<%= 'active' if current_page?( about_path ) %>">
+              <%= link_to( t("About", :default => "About"), about_path ) %>
+            </li>
+            <li class="<%= 'active' if current_page?( how_path ) %>">
+              <%= link_to( t("How it Works", :default => "How it Works"), how_path ) %>
+            </li>
+            <li class="<%= 'active' if current_page?( faq_path ) %>">
+              <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
+            </li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
               <%= link_to( t("theme.signup", :default => "Sign up"), new_account_path ) %>
             </li>
-
             <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
               <%= link_to( t("theme.login", :default => "Sign in"), new_user_session_path ) %>
             </li>
@@ -55,19 +70,11 @@
                 <li>
                   <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
                 </li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to( t("theme.invite", :default => "Account Members"), '#' ) %>
-                </li>
-                <li>
-                  <%= link_to( t("theme.invite", :default => "Invite member"), '#' ) %>
-                </li>
               <% if user_signed_in? && current_user.managed_venues.any? %>
                 <li>
                   <%= link_to( t("theme.invite", default: 'My Venues'), venues_path ) %>
                 </li>
               <% end %>
-                <li class="divider"></li>
                 <li>
                   <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
                 </li>

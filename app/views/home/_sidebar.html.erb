@@ -1,18 +1,36 @@
-<div class="block notice">
-  <h3>Simple Block</h3>
-  <div class="content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="col-sm-3">
+  <div class="sidebar-nav">
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse sidebar-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="<%= 'active' if current_page?( how_path ) %>">
+            <%= link_to( t("How it Works", :default => "How it Works"), how_path ) %>
+          </li>
+          <li class="<%= 'active' if current_page?( faq_path ) %>">
+            <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
+          </li>
+          <li class="<%= 'active' if current_page?( about_path ) %>">
+            <%= link_to( t("About", :default => "About"), about_path ) %>
+          </li>
+          <li class="<%= 'active' if current_page?( jobs_path ) %>">
+            <%= link_to( t("About", :default => "Jobs"), jobs_path ) %>
+          </li>
+          <li class="<%= 'active' if current_page?( privacy_path ) %>">
+            <%= link_to( t("Privacy", :default => "Privacy"), privacy_path ) %>
+          </li>
+          <li class="<%= 'active' if current_page?( terms_path ) %>">
+            <%= link_to( t("Terms", :default => "Terms"), terms_path ) %>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
   </div>
-</div>
-
-<div class="block">
-  <h3>Links</h3>
-  <ul class="navigation">
-    <li>
-      <a href="#">Link 1</a>
-    </li>
-    <li>
-      <a href="#">Link 2</a>
-    </li>
-  </ul>
 </div>
