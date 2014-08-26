@@ -179,18 +179,6 @@ describe PartiesController do
     end
   end
 
-    
-
- 
-  describe "send invites stub" do
-    it "redirects to party/show" do
-      Party.any_instance.should_receive(:handle_invites).with({"invites"=>{"email"=>"test@user.com"}, "id"=>@party.id.to_s,  "controller"=>"parties", "action"=>"send_invites"}, current_user)
-      post :send_invites, {:id => @party.to_param, :invites => {:email => "test@user.com"}}
-      response.should redirect_to(@party)  
-    end
-  end
-
-
 
   describe "GET search" do
     it "calls Party.search_by_params(params)" do

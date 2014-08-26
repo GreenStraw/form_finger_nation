@@ -9,33 +9,18 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="redeemable">
-          <h3>Redeemable Vouchers</h1>
-          <% @vouchers.each do |voucher| %>
-           
-              <%= voucher.redeemed %>
-              <%= voucher.user %>
-              <%= voucher.package %>
-              <%= link_to 'Show', voucher %>
-              <%= link_to 'Edit', edit_voucher_path(voucher) %>
-              <%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %>
-            
+          <h3>Redeemable Vouchers</h3>
+          <% @redeemable_vouchers.each do |voucher| %>
+            <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
           <% end %>
         </div>
         <div class="tab-pane" id="history">
-          <h3>History</h1>
-          <% @vouchers.each do |voucher| %>
-           
-              <%= voucher.redeemed %>
-              <%= voucher.user %>
-              <%= voucher.package %>
-              <%= link_to 'Show', voucher %>
-              <%= link_to 'Edit', edit_voucher_path(voucher) %>
-              <%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %>
-            
+          <h3>History</h3>
+          <% @history_vouchers.each do |voucher| %>
+            <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-
-<%= link_to 'New Voucher', new_voucher_path %>
+  

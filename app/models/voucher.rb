@@ -4,6 +4,7 @@ class Voucher < ActiveRecord::Base
   belongs_to :package
   belongs_to :user
   belongs_to :party
+  
 
   def verify
     req = Zooz::Request::Verify.new
@@ -23,7 +24,19 @@ class Voucher < ActiveRecord::Base
     resp = req.request
     [resp.success?, resp.response.try(:errors).try(:first) || nil]
   end
+  
+  def self.redeemable
+    where("redeemed_at is NULL")
+  end
+  
+  def self.redeemed
+    where("redeemed_at is not NULL")
+  end
+  
+  
 end
+
+
 
 
 

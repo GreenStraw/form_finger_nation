@@ -1,7 +1,23 @@
 require 'spec_helper'
 
 describe Package do
-  skip "add some examples to (or delete) #{__FILE__}"
+  
+  describe "check total purchased" do
+    before(:each) do
+      @package = Fabricate(:package)
+    end
+    
+    it "returns 0 vouchers purchased for this package, when none have been created" do
+      expect(@package.total_purchased).to eq("0")
+    end
+    
+    it "returns the correct number of vouchers when some have been created" do
+      (1..5).each do |v|
+        @voucher = Fabricate(:voucher, :package => @package)
+      end
+      expect(@package.total_purchased).to eq("5")
+    end
+  end
 end
 
 # == Schema Information

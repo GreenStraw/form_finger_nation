@@ -1,9 +1,10 @@
 class VouchersController < ApplicationController
-  before_action :set_voucher, only: [:show, :edit, :update, :destroy]
+  before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
 
   # GET /vouchers
   def index
-    @vouchers = Voucher.all
+    @redeemable_vouchers = current_user.vouchers.redeemable
+    @history_vouchers = current_user.vouchers.redeemed
   end
 
   # GET /vouchers/1
@@ -42,6 +43,13 @@ class VouchersController < ApplicationController
   def destroy
     @voucher.destroy
     redirect_to vouchers_url, notice: 'Voucher was successfully destroyed.'
+  end
+  
+  
+  def redeem_voucher
+    @voucher.update_attribute(:redeemed_at, Time.now())
+    flash[:success] = 'Voucher was successfully redeemed.'
+    redirect_to vouchers_url
   end
 
   private
