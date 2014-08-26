@@ -3,6 +3,7 @@ require 'spec_helper'
 describe VouchersController do
   
   before(:each) do
+    login(:admin)
     @voucher = Fabricate(:voucher)
   end
   
@@ -10,8 +11,9 @@ describe VouchersController do
   
   describe "GET index" do
     it "assigns all vouchers as @vouchers" do
+      @voucher = Fabricate(:voucher, :user => current_user)
       get :index, {}
-      assigns(:redeemable_vouchers ).should eq([@voucher])
+      assigns(:redeemable_vouchers).should eq([@voucher])
     end
   end
 
