@@ -20,11 +20,15 @@
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    $('.search_result').click(function() {
-      var id = $(this).data('result_id');
-      handler.map.centerOn(markers[id]);
-    });
+    if (markers.length == 0) {
+      handler.map.centerOn(<%= raw @location %>);
+    } else {
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      $('.search_result').click(function() {
+        var id = $(this).data('result_id');
+        handler.map.centerOn(markers[id]);
+      });
+    }
   });
 </script>
