@@ -39,7 +39,7 @@
 
   <div class="container">
     <div class="row">
-      <h1 id="home-page-search-title">Let's Kick It</h1>
+      <h1 id="large-centered-green-text">Let's Kick It</h1>
       <%= form_for :search, url: search_parties_path, method: :get, html: { id: 'home-page-search'} do |f| %>
       <div class="col-sm-6">     
           <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
