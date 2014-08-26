@@ -2,8 +2,8 @@ class Team < ActiveRecord::Base
   resourcify
   validates_presence_of :name
   validates_presence_of :sport_id
-  before_create :set_default_image_url
   after_create :ensure_address
+  mount_uploader :image_url, TeamImageUploader
 
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"

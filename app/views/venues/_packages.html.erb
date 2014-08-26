@@ -14,7 +14,7 @@
     <tbody>
       <% @venue.packages.each do |package| %>
         <tr>
-          <td><%= image_tag(package.image_url, size: '50') unless package.image_url.blank? %></td>
+          <td><%= image_tag(package.image_url, size: '50') %></td>
           <td><%= link_to package.name, package_path(package) %></td>
           <td><%= package.price %></td>
         </tr>

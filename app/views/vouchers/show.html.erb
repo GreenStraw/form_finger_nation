@@ -7,12 +7,12 @@
 		<%= @voucher.party.team.name %>
 	</span>
 	<br/>
-    <%= image_tag @voucher.party.team.image_url unless @voucher.party.team.image_url.blank?%>
+    <%= image_tag @voucher.party.team.image_url %>
   </span>
   <span id="voucher-venue-info">
     <%= @voucher.party.venue.name %>
 	<br/><br/>
-    <%= image_tag @voucher.party.venue.image_url unless @voucher.party.venue.image_url.blank? %>
+    <%= image_tag @voucher.party.venue.image_url %>
   </span>
 
   <div style="clear:both;"></div>
@@ -31,7 +31,7 @@
     <strong>Package:</strong>
     <%= @voucher.package.name %>
   </div>
-  
+
   <%= link_to 'Back', vouchers_path %>
 </div>
 

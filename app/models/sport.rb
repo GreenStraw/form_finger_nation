@@ -5,6 +5,8 @@ class Sport < ActiveRecord::Base
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"
   has_many :venue_fans, through: :favorites, source: :favoriter, source_type: "Venue"
+
+  mount_uploader :image_url, SportImageUploader
 end
 
 # == Schema Information

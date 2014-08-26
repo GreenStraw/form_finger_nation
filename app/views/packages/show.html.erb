@@ -12,7 +12,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag(@package.image_url,  size: '30') unless @package.image_url.blank?%>
+  <%= image_tag(@package.image_url,  size: '30') %>
 </p>
 
 <p>
@@ -45,7 +45,8 @@
   <%= @package.venue.name %>
 </p>
 
-
-
-<%= link_to 'Edit', edit_package_path(@package) %> |
-<%= link_to 'Back', packages_path %>
+<%= link_to 'Venue', venue_path(@package.venue) %>
+<% if current_user.present? && current_user.can?(:edit, @package) %>
+  | <%= link_to 'Edit', edit_package_path(@package) %>
+  | <%= link_to 'Delete', @package, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

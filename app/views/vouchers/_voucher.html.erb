@@ -1,8 +1,8 @@
 <div class="voucher">
- 
+
   <div class="voucher-information">
 	  <div class="voucher-logo">
-	    <%= image_tag(voucher.party.team.image_url, size: '50') unless voucher.party.team.image_url.blank? %> 
+	    <%= image_tag(voucher.party.team.image_url, size: '50') unless voucher.party.nil? || voucher.party.team.nil? %>
 	  </div>
 	  <div class="voucher-party-name">
 	    <%= voucher.party.name%> : <%= voucher.package.name %><br/>
@@ -14,11 +14,11 @@
 		  <% else %>
 		    <%= link_to "Redeem Voucher", redeem_voucher_path(voucher.id), class: "redeem-voucher-button",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
 		  <% end %>
-	  </div>	 
+	  </div>
   </div>
 </div>
 
-<div id= "hidden_row_<%= voucher.id.to_s%>"  class="voucher-description" style="display: none;">	
+<div id= "hidden_row_<%= voucher.id.to_s%>"  class="voucher-description" style="display: none;">
   <b>Details</b><br/>
   <%= voucher.package.description %>
 </div>

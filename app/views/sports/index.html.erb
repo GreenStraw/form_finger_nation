@@ -4,7 +4,7 @@
   <tbody>
     <% @sports.each do |sport| %>
       <tr>
-        <td><%= image_tag(sport.image_url, size: '30') unless sport.image_url.blank? %></td>
+        <td><%= image_tag(sport.image_url, size: '50') %></td>
         <td><%= link_to sport.name, sport_path(sport) %></td>
         <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
         <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
