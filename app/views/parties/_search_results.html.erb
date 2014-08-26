@@ -21,7 +21,7 @@
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
     if (markers.length == 0) {
-      handler.map.centerOn(<%= raw @location %>);
+      handler.map.centerOn(<%= raw @location.to_json %>);
     } else {
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();

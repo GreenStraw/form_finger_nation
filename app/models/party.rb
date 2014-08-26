@@ -126,6 +126,13 @@ class Party < ActiveRecord::Base
     end
   end
 
+  def self.build_markers(parties)
+    Gmaps4rails.build_markers(parties) do |party, marker|
+      marker.lat party.venue.address.latitude
+      marker.lng party.venue.address.longitude
+    end
+  end
+
   private
 
   def ensure_address
