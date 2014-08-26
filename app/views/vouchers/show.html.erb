@@ -1,18 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Redeemed:</strong>
-  <%= @voucher.redeemed_at %>
-</p>
+<h3>Voucher Information</h3>
+<div id="voucher-show">
+  <span id= "voucher-party-info">
+    <span class="voucher-text">
+		<%= @voucher.party.team.name %>
+	</span>
+	<br/>
+    <%= image_tag @voucher.party.team.image_url unless @voucher.party.team.image_url.blank?%>
+  </span>
+  <span id="voucher-venue-info">
+    <%= @voucher.party.venue.name %>
+	<br/><br/>
+    <%= image_tag @voucher.party.venue.image_url unless @voucher.party.venue.image_url.blank? %>
+  </span>
 
-<p>
-  <strong>User:</strong>
-  <%= @voucher.user.name %>
-</p>
+  <div style="clear:both;"></div>
 
-<p>
-  <strong>Package:</strong>
-  <%= @voucher.package.name %>
-</p>
+  <div id="voucher-redeemed-info">
+    <strong>Redeemed:</strong>
+    <%= @voucher.redeemed_at.to_formatted_s(:long) %>
+  </div>
 
-<%= link_to 'Back', vouchers_path %>
+  <div id="voucher-user-info">
+    <strong>User:</strong>
+    <%= @voucher.user.name %>
+  </div>
+
+  <div id="voucher-package-info">
+    <strong>Package:</strong>
+    <%= @voucher.package.name %>
+  </div>
+  
+  <%= link_to 'Back', vouchers_path %>
+</div>
+
+

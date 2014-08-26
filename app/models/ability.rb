@@ -55,7 +55,7 @@ class Ability
       end
 
       can [:create, :by_user], Voucher
-      can [:show, :update, :redeem], Voucher do |voucher|
+      can [:show, :update, :redeem, :redeem_voucher], Voucher do |voucher|
         user.id == voucher.user_id
       end
       can :show, Voucher do |voucher|

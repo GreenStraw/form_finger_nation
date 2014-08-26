@@ -12,7 +12,7 @@
 		  <% unless voucher.redeemed_at.blank? %>
 		    <%= link_to "View Voucher", voucher_path(voucher) %>
 		  <% else %>
-		    purchase
+		    <%= link_to "Redeem Voucher", redeem_voucher_path(voucher.id), class: "redeem-voucher-button",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
 		  <% end %>
 	  </div>	 
   </div>

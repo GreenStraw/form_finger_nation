@@ -10,6 +10,7 @@ Baseapp::Application.routes.draw do
   get 'party_rsvp/:id' => 'parties#party_rsvp', :as => 'party_rsvp'
   get 'invite_friends/:id' => 'parties#invite_friends', :as => 'invite_friends'
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
+  get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
 
   resources :vouchers
   resources :packages, except: [:new, :create] do

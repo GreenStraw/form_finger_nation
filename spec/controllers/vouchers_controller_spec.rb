@@ -37,6 +37,23 @@ describe VouchersController do
       assigns(:voucher).should eq(@voucher)
     end
   end
+  
+  describe "GET redeem_voucher" do
+    it "assigns the requested voucher as @voucher" do
+      get :redeem_voucher, {:id => @voucher.to_param}
+      assigns(:voucher).should eq(@voucher)
+    end
+    
+    it "redirects to the vouchers path" do
+      get :redeem_voucher, {:id => @voucher.to_param}
+      response.should redirect_to(vouchers_path)
+    end
+    
+    it "updates the voucher redeemed_at" do
+      get :redeem_voucher, {:id => @voucher.to_param}
+      assigns(:voucher).redeemed_at.should_not be_nil
+    end
+  end
 
   describe "POST create" do
     describe "with valid params" do
