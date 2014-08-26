@@ -9,6 +9,11 @@ class Address < ActiveRecord::Base
 
   belongs_to :addressable, polymorphic: true
 
+  def self.get_coords(address)
+    return nil if address.nil?
+    Geocoder.coordinates(address)
+  end
+
   def street
     "#{street1} #{street2 if street2}"
   end
@@ -20,11 +25,11 @@ class Address < ActiveRecord::Base
   def full_street_address
     "#{street1} #{street2} #{city}, #{state} #{zip}"
   end
-  
+
   def street_address
     "#{street1} #{street2}"
   end
-  
+
   def city_state
     "#{city}, #{state} #{zip}"
   end

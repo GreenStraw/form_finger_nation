@@ -17,6 +17,8 @@ class PartiesController < ApplicationController
       marker.lat party.venue.address.latitude
       marker.lng party.venue.address.longitude
     end
+    #get search location so we can show the area even if there are no results
+    @location = Address.get_coords(search_results[3])
     respond_with @parties
   end
 

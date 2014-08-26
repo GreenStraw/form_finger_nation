@@ -122,7 +122,7 @@ class Party < ActiveRecord::Base
         people = []
       end
 
-      [parties,teams,people]
+      [parties,teams,people,party_params[:search_location]]
     end
   end
 
