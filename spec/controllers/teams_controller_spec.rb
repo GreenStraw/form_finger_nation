@@ -55,7 +55,7 @@ describe TeamsController do
 
       it "redirects to the created team" do
         post :create, {:team => valid_attributes, sport_id: valid_attributes[:sport_id]}
-        response.should redirect_to(edit_sport_path(valid_attributes[:sport_id]))
+        response.should redirect_to(team_path(assigns(:team)))
       end
     end
   end

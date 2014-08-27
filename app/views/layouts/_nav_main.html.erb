@@ -75,6 +75,11 @@
                   <%= link_to( t("theme.invite", default: 'My Venues'), venues_path ) %>
                 </li>
               <% end %>
+              <% if user_signed_in? && current_user.admin? %>
+                <li>
+                  <%= link_to( t("theme.invite", default: 'Manage Sports'), sports_path ) %>
+                </li>
+              <% end %>
                 <li>
                   <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
                 </li>

@@ -19,8 +19,8 @@
   </div>
 </div>
 
-<%= link_to 'teams', teams_path %> |
-<%= link_to 'sport', sport_path(@team.sport) %>
+<%= link_to 'Teams', teams_path %> |
+<%= link_to 'Sport', sport_path(@team.sport) %>
 <% if current_user.present? && current_user.can?(:edit, @team) %>
   | <%= link_to 'Edit', edit_team_path(@team) %>
 <% end %>

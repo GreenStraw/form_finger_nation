@@ -15,7 +15,7 @@ class SportsController < ApplicationController
 
   # GET /sports/new
   def new
-    @sport = Sport.new
+    respond_with @sport
   end
 
   # GET /sports/1/edit
@@ -25,21 +25,21 @@ class SportsController < ApplicationController
 
   # POST /sports
   def create
-    @sport = Sport.new(sport_params)
-
     if @sport.save
-      redirect_to @sport, notice: 'Sport was successfully created.'
+      flash[:notice] = 'Sport was successfully created.'
+      respond_with @sport, location: sport_path(@sport)
     else
-      render :new
+      respond_with @sport, location: new_sport_path
     end
   end
 
   # PATCH/PUT /sports/1
   def update
     if @sport.update(sport_params)
-      redirect_to @sport, notice: 'Sport was successfully updated.'
+      flash[:notice] = 'Sport was successfully updated.'
+      respond_with @sport, location: sport_path(@sport)
     else
-      render :edit
+      respond_with @sport, location: edit_sport_path(@sport)
     end
   end
 
