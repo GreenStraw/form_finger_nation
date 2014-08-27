@@ -4,7 +4,12 @@ describe Venue do
   before(:each) do
     @venue = Fabricate(:venue)
   end
-  
+
+  describe "name_and_address" do
+    it 'should return the right stuff' do
+      expect(@venue.name_and_address).to eq("#{@venue.name} (#{@venue.address.street1} #{@venue.address.city}, #{@venue.address.state})")
+    end
+  end
 end
 
 # == Schema Information

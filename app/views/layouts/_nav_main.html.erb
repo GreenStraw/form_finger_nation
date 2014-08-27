@@ -28,6 +28,10 @@
               <%= link_to( t("Find a Watch Party", :default => "Find a Watch Party"), search_parties_path ) %>
             </li>
 
+            <li class="<%= 'active' if current_page?( new_party_path ) %>">
+              <%= link_to( t("Create a Watch Party", :default => "Create a Watch Party"), new_party_path ) %>
+            </li>
+
             <li class="<%= 'active' if current_page?( teams_path ) %>">
               <%= link_to( t("Teams", :default => "Teams"), teams_path ) %>
             </li>

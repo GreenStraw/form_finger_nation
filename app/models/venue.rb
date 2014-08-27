@@ -21,6 +21,10 @@ class Venue < ActiveRecord::Base
     self.parties.where('scheduled_for < ?', Time.now).order(:scheduled_for)
   end
 
+  def name_and_address
+    "#{self.name} (#{self.address.street1} #{self.address.city}, #{self.address.state})"
+  end
+
   def managers
     User.with_role(:venue_manager, self) || []
   end
