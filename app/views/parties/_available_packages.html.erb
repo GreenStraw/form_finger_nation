@@ -1,15 +1,27 @@
 <h3>Available Packages</h3>
-<table>
+<table class="available-packages-table">
   <% @party.party_packages.each do |party_package| %>
     <tr>
-      <td><%= image_tag(party_package.package.image_url, size: '30') unless party_package.package.image_url.blank? %></td>
-      <td><b><%= party_package.package.name %></b></td>
-	  <td><%= number_to_currency(party_package.package.price)%></td>
+      <td class="bottom-margined">
+        <span class="parties-package-image">
+          <%= image_tag(party_package.package.image_url, size: '70') unless party_package.package.image_url.blank? %>
+        </span>
+      </td>
+      <td class="bottom-margined">
+        <span class="parties-package-name">
+          <%= party_package.package.name %>
+        </span>
+      </td>
+      <td class="bottom-margined">
+        <span class="parties-package-price">
+           <%= number_to_currency(party_package.package.price)%>
+        </span>
+      </td>
     </tr>
-    <tr>
-      <td></td>
-	  <td><%= link_to "More Information", party_package.package%></td>
-	  <td><%= link_to "Purchase", purchase_package_path(party_package_id: party_package.id)%></td>
+    <tr  class="row-underlined">
+      <td ><br/><br/></td>
+      <td ><%= link_to "More Information", party_package.package%></td>
+      <td ><%= link_to "Purchase", purchase_package_path(party_package_id: party_package.id)%></td>
     </tr>
   <% end %>
 </table>

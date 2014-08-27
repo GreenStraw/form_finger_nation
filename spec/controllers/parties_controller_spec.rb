@@ -63,7 +63,6 @@ describe PartiesController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Party.any_instance.stub(:save).and_return(false)
         post :create, {:party => { "name" => "" }}
         response.should render_template("new")
       end
@@ -95,14 +94,12 @@ describe PartiesController do
     describe "with invalid params" do
       it "assigns the party as @party" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Party.any_instance.stub(:save).and_return(false)
         put :update, {:id => @party.to_param, :party => { "name" => "" }}
         assigns(:party).should eq(@party)
       end
 
       it "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Party.any_instance.stub(:save).and_return(false)
         put :update, {:id => @party.to_param, :party => { "name" => "" }}
         response.should render_template("edit")
       end

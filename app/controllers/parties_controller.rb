@@ -35,27 +35,20 @@ class PartiesController < ApplicationController
   # POST /parties
   def create
     @party = Party.new(party_params)
-
-    if @party.save
-      redirect_to @party, notice: 'Party was successfully created.'
-    else
-      render :new
-    end
+    flash[:success] = 'Party was successfully created.' if @party.save
+    respond_with @party
   end
 
   # PATCH/PUT /parties/1
   def update
-    if @party.update(party_params)
-      redirect_to @party, notice: 'Party was successfully updated.'
-    else
-      render :edit
-    end
+    flash[:success] = 'Party was successfully updated.' if @party.update(party_params)
+    respond_with @party
   end
 
   # DELETE /parties/1
   def destroy
-    @party.destroy
-    redirect_to parties_url, notice: 'Party was successfully destroyed.'
+    flash[:success] = 'Party was successfully destroyed.' if @party.destroy
+    respond_with @party
   end
 
   def purchase_package

@@ -50,7 +50,7 @@
 	margin-left: 20px;
 	border: 1px solid #cacaca;
 	padding: 5px;
-	width: 250px;
+
 	float: left;
 	margin-right: 20px;
 	margin-top:20px;
@@ -65,9 +65,32 @@
 }
 
 #available-packages{
-	padding: 5px;
-	margin-left: 20px !important;
+	padding: 10px;
 }
 
+.parties-package-image img {
+	padding: 1px;
+}
+
+
+.parties-package-name{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+
+.available-packages-table{
+	width: 100%;
+}
+
+.row-underlined{
+	border-bottom: 1px solid #cacaca;
+	
+}
+
+.bottom-margined{
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
 
 
