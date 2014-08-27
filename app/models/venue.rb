@@ -11,6 +11,7 @@ class Venue < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
+  mount_uploader :image_url, ImageUploader
 
   def upcoming_parties
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)

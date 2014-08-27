@@ -93,7 +93,7 @@ describe PackagesController do
 
     it "redirects to the packages list" do
       delete :destroy, {:id => @package.to_param}
-      response.should redirect_to(packages_url)
+      response.should redirect_to(edit_venue_path(@package.venue))
     end
   end
 

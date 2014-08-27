@@ -2,7 +2,7 @@
   <tbody>
     <% @sport.teams.each do |team| %>
       <tr>
-        <td><%= image_tag(team.image_url, size: '30') unless team.image_url.blank? %></td>
+        <td><%= image_tag(team.image_url, size: '30') %></td>
         <td><h4><%= link_to(team.name, team) %></h4></td>
       </tr>
     <% end %>

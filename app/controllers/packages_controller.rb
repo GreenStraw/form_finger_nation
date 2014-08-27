@@ -16,9 +16,9 @@ class PackagesController < ApplicationController
 
   # GET /packages/new
   def new
+    @package.venue = @venue
     respond_with @package
-
-end
+  end
   # GET /packages/1/edit
   def edit
   end
@@ -37,8 +37,9 @@ end
 
   # DELETE /packages/1
   def destroy
+    venue = @package.venue
     @package.destroy
-    redirect_to packages_url, notice: 'Package was successfully destroyed.'
+    redirect_to edit_venue_path(venue), notice: 'Package was successfully destroyed.'
   end
 
   def assign

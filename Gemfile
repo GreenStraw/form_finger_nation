@@ -41,6 +41,10 @@ gem 'stripe'
 gem 'aws-sdk'
 gem 'httparty'
 
+gem 'carrierwave'
+gem 'fog'
+gem 'mini_magick'
+
 gem "select2-rails"
 
 # Use unicorn as the app server

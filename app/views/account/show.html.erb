@@ -1,8 +1,10 @@
 <h1>View Profile</h1>
 
+<%= image_tag(@user.image_url, size: '100') %>
+
 <p>
   <strong>Name:</strong>
-  <%= @user.name %>
+  <%= @user.username %>
 </p>
 
 <p>
@@ -26,7 +28,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_account_path %> | <%= link_to 'Home', root_path %> 
+<%= link_to 'Edit', edit_account_path %> | <%= link_to 'Home', root_path %>
 
 
 

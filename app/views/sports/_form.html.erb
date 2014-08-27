@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= image_tag(@sport.image_url) if @sport.image_url? %>
+    <%= f.file_field :image_url %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>

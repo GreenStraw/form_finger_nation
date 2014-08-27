@@ -1,5 +1,5 @@
 <div class='row'>
-  <%= image_tag(@team.image_url, size: '100') unless @team.image_url.blank? %>
+  <%= image_tag(@team.image_url, size: '100') %>
   <div class='pull-right' id='subscribe-star'>
     <%= render partial: 'subscribe_star', locals: { team: @team } %>
   </div>

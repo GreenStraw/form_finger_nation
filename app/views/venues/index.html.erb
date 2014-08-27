@@ -3,7 +3,7 @@
     <tbody>
       <% current_user.managed_venues.each do |venue| %>
         <tr>
-          <td><%= image_tag(venue.image_url, size: '80') unless venue.image_url.blank? %></td>
+          <td><%= image_tag(venue.image_url, size: '80') %></td>
           <td><h4><%= link_to(venue.name, venue) %></h4></td>
           <td><%= venue.address.city_state %></td>
         </tr>
