@@ -1,6 +1,17 @@
 <table class='table table-hover borderless'>
   <tbody>
+    <% sport = teams.first.sport.name rescue "No Sport"%>
+	<% last_label = sport %>
+    <tr>
+      <td>
+        <h3> <%= sport %></h3>
+      </td>
+    </tr>
     <% teams.each do |team| %>
+	  <% unless team.sport.name == last_label %>
+	    <tr><td><h3><%= team.sport.name%></h3?</td></tr>
+		<% last_label = team.sport.name %>
+	  <% end %>
       <tr>
         <td><%= image_tag(team.image_url, size: '50') %></td>
         <td><h4><%= link_to(team.name, team) %></h4></td>
