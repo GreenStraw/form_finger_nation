@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   # after logout direct viewer to new user sign in path
   def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path
+    root_path
   end
 
   # later this actions will read from a subdomain value
