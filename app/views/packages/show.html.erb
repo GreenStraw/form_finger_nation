@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+
+<p>
+  <%= image_tag(@package.image_url,  size: '30') %>
+</p>
+
 <p>
   <strong>Name:</strong>
   <%= @package.name %>
@@ -8,11 +13,6 @@
 <p>
   <strong>Description:</strong>
   <%= @package.description %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= image_tag(@package.image_url,  size: '30') %>
 </p>
 
 <p>
