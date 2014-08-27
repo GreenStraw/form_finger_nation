@@ -57,7 +57,6 @@ describe SportsController do
         response.should redirect_to(Sport.last)
       end
     end
-
     describe "with invalid params" do
       it "assigns a newly created but unsaved sport as @sport" do
         # Trigger the behavior that occurs when invalid params are submitted
@@ -70,7 +69,7 @@ describe SportsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Sport.any_instance.stub(:save).and_return(false)
         post :create, {:sport => { "name" => "invalid value" }}
-        response.should render_template("new")
+        response.should redirect_to(new_sport_path)
       end
     end
   end
@@ -96,7 +95,6 @@ describe SportsController do
         response.should redirect_to(@sport)
       end
     end
-
     describe "with invalid params" do
       it "assigns the sport as @sport" do
         # Trigger the behavior that occurs when invalid params are submitted
@@ -109,9 +107,10 @@ describe SportsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Sport.any_instance.stub(:save).and_return(false)
         put :update, {:id => @sport.to_param, :sport => { "name" => "invalid value" }}
-        response.should render_template("edit")
+        response.should redirect_to(edit_sport_path(@sport))
       end
     end
+
   end
 
   describe "DELETE destroy" do

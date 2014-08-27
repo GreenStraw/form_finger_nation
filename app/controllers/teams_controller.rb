@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
   # POST /teams
   def create
     flash[:notice] = 'Team was successfully created.' if @team.save
-    respond_with @team, location: edit_sport_path(@team.sport)
+    respond_with @team, location: team_path(@team)
   end
 
   # PATCH/PUT /teams/1
