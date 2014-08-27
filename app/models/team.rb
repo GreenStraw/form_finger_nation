@@ -16,11 +16,13 @@ class Team < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address
-  
-  default_scope { order('sport_id ASC') } 
 
   def admins
     User.with_role(:team_admin, self) || []
+  end
+  
+  def self.by_sport
+    where(order: "sport_id ASC")
   end
 
   private
