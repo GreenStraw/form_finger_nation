@@ -7,9 +7,9 @@
         <%= @party.name%>
         Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
       </span>
-      <span class= "rsvp-invite">
-        <%= link_to "RSVP", party_rsvp_path(@party), class: reservations_include?(@party, current_user) ? "rsvp-button" : "rsvp-available-button" %>
-        <%= link_to "Invite Friends", invite_friends_path(@party), class: "invite-friends-button"%>
+      <span class= "rsvp-invite" >
+        <%= link_to "RSVP", party_rsvp_path(@party), class: reservations_include?(@party, current_user) ? "rsvp-button btn" : "rsvp-available-button btn" %>
+        <%= link_to "Invite Friends", invite_friends_path(@party), class: "invite-friends-button btn"%>
       </span>
     </div>
     <div style="clear:both;"></div>

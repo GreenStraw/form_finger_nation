@@ -1,49 +1,23 @@
-.rsvp-invite{
-	margin-left: 200px;
-}
-
 .rsvp-available-button{
 	border: 1px solid #000;
-	width: 400px !important;
-	background-color: green !important;
+	width: 150px !important;
+	background-color: green;
 	color: #fff !important;
 	padding: 10px;
 }
-
-.rsvp-available-button a, .rsvp-available-button a:visited{
-	color: #fff !important;
-	width: 200px !important;
-}
-
-.rsvp-available-button a:hover{
-	text-decoration: none !important;
-	background-color:#fff;
-	color: #000 !important;
-}
-
 
 .rsvp-button{
 	border: 1px solid #000;
 	padding: 10px;
-	color: #000 !important;
+	color: #000;
+	width: 150px;
 }
-
 
 .invite-friends-button{
 	border: 1px solid black;
-	background-golor: white;
-	width: 200px;
-	height: 30px;
+	width: 150px;
 	padding: 10px;
 	margin-left: 20px;
-}
-
-.invite-friends-button a {
-	color: #000 !important;
-}
-
-.invite-friends-button a:hover {
-	color: #fff !important;
 }
 
 #details{
@@ -54,10 +28,6 @@
 	float: left;
 	margin-right: 20px;
 	margin-top:20px;
-}
-
-#major-details{
-	
 }
 
 .clear-all{
@@ -72,12 +42,10 @@
 	padding: 1px;
 }
 
-
 .parties-package-name{
 	font-weight: bold;
 	font-size: 14px;
 }
-
 
 .available-packages-table{
 	width: 100%;
@@ -85,7 +53,6 @@
 
 .row-underlined{
 	border-bottom: 1px solid #cacaca;
-	
 }
 
 .bottom-margined{
