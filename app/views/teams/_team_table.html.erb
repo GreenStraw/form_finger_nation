@@ -2,13 +2,16 @@
   <tbody>
     <% sport = teams.first.sport.name rescue "No Sport"%>
 	<% last_label = sport %>
-    <tr>
-      <td>
-        <h3> <%= sport %></h3>
-      </td>
-    </tr>
+	<% unless teams.blank? %>
+      <tr>
+        <td>
+          <h3> <%= sport unless teams.blank? %></h3>
+        </td>
+     </tr>
+	<% end %>
+
     <% teams.each do |team| %>
-      <% unless team.sport.name == last_label %>
+      <% unless team.sport.name == last_label  %>
         <tr>
           <td>
             <h3>
