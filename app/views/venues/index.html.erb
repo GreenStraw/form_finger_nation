@@ -11,3 +11,9 @@
     </tbody>
   </table>
 </div>
+
+<br>
+
+<% if current_user.can?(:create, Venue) %>
+  <%= link_to 'New Venue', new_venue_path %>
+<% end %>
