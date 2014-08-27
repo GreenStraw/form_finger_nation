@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first
 
-# User.all.map(&:destroy)
 Sport.all.map(&:destroy)
 Team.all.map(&:destroy)
 Venue.all.map(&:destroy)
@@ -19,12 +18,10 @@ t = Tenant.first_or_create({
 })
 Tenant.set_current_tenant(t)
 
-# User.create([
-#   { email: 'admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', confirmed_at: DateTime.now, address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') },
-#   { email: 'team_admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'pdtpickle', first_name: 'Rocky', confirmed_at: DateTime.now, last_name: 'Rococo', address: Address.create(city: 'Oklahoma City', state: 'OK', zip: '73105')},
-#   { email: 'venue_manager@test.com', password: '123123123', password_confirmation: '123123123', username: 'rspoilsport', first_name: 'Ralph', confirmed_at: DateTime.now, last_name: 'Spoilsport', address: Address.create(city: 'Austin', state: 'TX', zip: '78726')},
-#   { email: 'user@test.com', password: '123123123', password_confirmation: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', confirmed_at: DateTime.now, address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}
-# ])
+User.create({ email: 'admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'ndanger', first_name: 'Nick', last_name: 'Danger', confirmed_at: DateTime.now, address: Address.create(city: 'Dallas', state: 'TX', zip: '75040') }) if User.find_by_email('admin@test.com').nil?
+User.create({ email: 'team_admin@test.com', password: '123123123', password_confirmation: '123123123', username: 'pdtpickle', first_name: 'Rocky', confirmed_at: DateTime.now, last_name: 'Rococo', address: Address.create(city: 'Oklahoma City', state: 'OK', zip: '73105')}) if User.find_by_email('team_admin@test.com').nil?
+User.create({ email: 'venue_manager@test.com', password: '123123123', password_confirmation: '123123123', username: 'rspoilsport', first_name: 'Ralph', confirmed_at: DateTime.now, last_name: 'Spoilsport', address: Address.create(city: 'Austin', state: 'TX', zip: '78726')}) if User.find_by_email('venue_manager@test.com').nil?
+User.create({ email: 'user@test.com', password: '123123123', password_confirmation: '123123123', username: 'jbeets', first_name: 'Joe', last_name: 'Beets', confirmed_at: DateTime.now, address: Address.create(city: 'Austin', state: 'TX', zip: '78728')}) if User.find_by_email('user@test.com').nil?
 
 s = Sport.create({ name: 'NFL' })
 s.remote_image_url_url = "https://s3.amazonaws.com/foam-finger-nation/images/football.png"
@@ -112,13 +109,12 @@ Package.create([
 Party.find_by_name('FC Dallas SOCCER watch party').update_attribute(:package_ids, [Package.find_by_name("Ten cent wings").id,Package.find_by_name("Bucket of beer $8").id])
 
 u = User.find_by_email('admin@test.com')
-u.add_role(:admin)
+u.add_role(:admin) unless u.has_role?(:admin)
 
 u = User.find_by_email('team_admin@test.com')
-u.add_role(:team_admin, Team.find_by_name('FC Dallas'))
+u.add_role(:team_admin, Team.find_by_name('FC Dallas')) unless u.has_role?(:team_admin, Team.find_by_name('FC Dallas'))
 
 u = User.find_by_email('venue_manager@test.com')
-u.add_role(:manager, Venue.find_by_name('Pluckers'))
-u.add_role(:manager, Venue.find_by_name('Third Base'))
-u.add_role(:manager, Venue.find_by_name('Scholz Garten'))
-u.add_role(:manager, Venue.find_by_name('Bikinis Sports Bar & Grill'))
+u.add_role(:manager, Venue.find_by_name('Pluckers')) unless u.has_role?(:manager, Venue.find_by_name('Pluckers'))
+u.add_role(:manager, Venue.find_by_name('Third Base')) unless u.has_role?(:manager, Venue.find_by_name('Third Base'))
+u.add_role(:manager, Venue.find_by_name('Scholz Garten')) unless u.has_role?(:manager, Venue.find_by_name('Scholz Garten'))
