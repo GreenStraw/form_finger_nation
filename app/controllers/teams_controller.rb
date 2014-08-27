@@ -7,8 +7,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.by_sport
-    respond_with @teams
+    respond_with @teams.order(:sport_id => :desc)
   end
 
   # GET /teams/1

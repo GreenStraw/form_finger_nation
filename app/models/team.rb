@@ -20,10 +20,6 @@ class Team < ActiveRecord::Base
   def admins
     User.with_role(:team_admin, self) || []
   end
-  
-  def self.by_sport
-    where(order: "sport_id ASC")
-  end
 
   private
 
