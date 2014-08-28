@@ -18,6 +18,9 @@ class SportImageUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.image_path("placeholder.png")
   end
 
-  process :resize_to_fit => [800, 800]
+  process :resize_to_fit => [200, 200]
 
+  version :thumb do
+    process :resize_to_fill => [80, 80]
+  end
 end

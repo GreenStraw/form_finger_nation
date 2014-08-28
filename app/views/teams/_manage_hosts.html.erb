@@ -19,7 +19,7 @@
       <tbody>
         <% @team.hosts.each do |host| %>
           <tr>
-            <td><%= image_tag(host.image_url, size: '50') unless host.image_url.blank? %></td>
+            <td><%= image_tag(host.image_url.thumb) unless host.image_url.blank? %></td>
             <td><%= host.username %></td>
             <td><%= host.address.city_state %></td>
             <td>

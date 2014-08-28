@@ -19,7 +19,7 @@
       <tbody>
         <% @team.admins.each do |admin| %>
           <tr>
-            <td><%= image_tag(admin.image_url, size: '50') unless admin.image_url.blank? %></td>
+            <td><%= image_tag(admin.image_url.thumb) unless admin.image_url.blank? %></td>
             <td><%= admin.username %></td>
             <td><%= admin.address.city_state %></td>
             <td>

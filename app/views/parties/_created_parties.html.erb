@@ -2,7 +2,7 @@
   <tbody>
     <% @user.parties.each do |party| %>
       <tr>
-        <td><%= image_tag(party.team.image_url, size: '30') unless party.team.nil? %></td>
+        <td><%= image_tag(party.team.image_url.thumb) unless party.team.nil? %></td>
         <td><h4><%= link_to(party.name, party) %></h4></td>
         <td><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
         <td><%= party.venue.address.city_state %></td>

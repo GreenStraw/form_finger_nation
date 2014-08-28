@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-13 cols">
       <span class="logo-name col-md-7 cols">
-        <%= image_tag(@party.team.image_url, size: '75') unless @party.team.image_url.blank? %>
+        <%= image_tag(@party.team.image_url, size: '80') unless @party.team.nil?%>
         <%= @party.name%>
         Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
       </span>

@@ -19,7 +19,7 @@
       <tbody>
         <% @venue.managers.each do |manager| %>
           <tr>
-            <td><%= image_tag(manager.image_url, size: '50') unless manager.image_url.blank? %></td>
+            <td><%= image_tag(manager.image_url.thumb) unless manager.image_url.blank? %></td>
             <td><%= manager.username %></td>
             <td><%= manager.address.city_state %></td>
             <td>
