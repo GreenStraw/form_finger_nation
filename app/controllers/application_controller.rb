@@ -16,6 +16,19 @@ class ApplicationController < ActionController::Base
   ##    but you can override these if you wish to handle directly
   rescue_from ::Milia::Control::MaxTenantExceeded, :with => :max_tenants
   rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
+  
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    Rails.logger.debug "Access denied for #{current_user} on #{exception.action}: #{exception.subject.inspect}"
+
+    respond_to do |format|
+      format.html { redirect_to new_user_session_url, error: exception.message}
+      format.json { render nothing: true, status: :forbidden }
+     end
+  end
+  
+  
+
 
   private
 
