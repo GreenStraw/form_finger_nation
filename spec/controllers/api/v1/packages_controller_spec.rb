@@ -88,23 +88,22 @@ describe Api::V1::PackagesController do
       before {
         @current_user.roles.clear
       }
-
+      
       it 'access denied' do
-        expect{
-            xhr :put, :update, id: @package.id, package: {name: 'another_name'}
-          }.to raise_error(CanCan::AccessDenied)
+        xhr :put, :update, id: @package.id, package: {name: 'another_name'}, :format=>:json
+        response.response_code.should == 403
       end
     end
+
     context 'current user is manager of another venue' do
       before {
         @current_user.roles.clear
         @current_user.add_role(:manager, Fabricate(:venue))
       }
-
+      
       it 'access denied' do
-        expect{
-            xhr :put, :update, id: @package.id, package: {name: 'another_name'}
-          }.to raise_error(CanCan::AccessDenied)
+        xhr :put, :update, id: @package.id, package: {name: 'another_name'}, :format=>:json
+        response.response_code.should == 403
       end
     end
     context 'current user not admin but is manager of the packages venue' do
@@ -160,11 +159,10 @@ describe Api::V1::PackagesController do
       before {
         @current_user.roles.clear
       }
-
+      
       it 'access denied' do
-        expect{
-            xhr :delete, :destroy, id: @package.id
-          }.to raise_error(CanCan::AccessDenied)
+        xhr :delete, :destroy, id: @package.id, :format=>:json
+        response.response_code.should == 403
       end
     end
     context 'current user is manager of another venue' do
@@ -172,11 +170,10 @@ describe Api::V1::PackagesController do
         @current_user.roles.clear
         @current_user.add_role(:manager, Fabricate(:venue))
       }
-
+      
       it 'access denied' do
-        expect{
-            xhr :delete, :destroy, id: @package.id
-          }.to raise_error(CanCan::AccessDenied)
+        xhr :delete, :destroy, id: @package.id, :format=>:json
+        response.response_code.should == 403
       end
     end
     context 'current user not admin but is the manager of the venue' do
