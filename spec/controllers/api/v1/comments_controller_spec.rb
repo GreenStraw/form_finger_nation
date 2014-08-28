@@ -102,11 +102,9 @@ describe Api::V1::CommentsController do
             @comment.commenter_id = venue.id
 
           }
-
           it 'access denied' do
-            expect{
-              xhr :post, :create, :comment => @comment.attributes.except('id', 'created_at', 'updated_at')
-            }.to raise_error(CanCan::AccessDenied)
+            xhr :post, :create, :comment => @comment.attributes.except('id', 'created_at', 'updated_at'),  :format=>:json
+            response.response_code.should == 403
           end
         end
         context 'current user can comment as commenter' do
@@ -170,12 +168,13 @@ describe Api::V1::CommentsController do
             @comment.commenter_id = venue.id
             @current_user.roles.clear
             Comment.should_receive(:find).with(@comment.id.to_s).and_return(@comment)
+            
           }
 
-          it 'returns error' do
-            expect{
-              xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}
-            }.to raise_error(CanCan::AccessDenied)
+          #should get access denied!
+          it 'returns http 403' do
+            xhr :put, :update, id: @comment.id, :comment => {body: 'Different Body'}, :format=>:json
+            response.response_code.should == 403
           end
         end
 

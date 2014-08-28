@@ -3,6 +3,7 @@ class PartiesController < ApplicationController
   before_action :set_party, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :party
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
+  before_action :authenticate_user!
 
   # GET /parties
   def index
