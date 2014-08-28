@@ -32,6 +32,11 @@ form {
 
 .container {
   padding-top: 10px;
+  background: white;
+}
+
+.transparent {
+  background-color: transparent;
 }
 
  div.alert{
