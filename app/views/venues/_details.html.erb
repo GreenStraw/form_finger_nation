@@ -1,5 +1,5 @@
 <div class='row'>
-  <%= image_tag(@venue.image_url, height: '200', width: '300') unless @venue.image_url.blank? %>
+  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
 </div>
 <div class='row'>
   <h1><%= @venue.name.upcase %></h1>

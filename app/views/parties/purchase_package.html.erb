@@ -32,7 +32,7 @@
         <td><h3>Buy <i><%= @party_package.package.name %></i> for <%= number_to_currency(@party_package.package.price)%>!</h3></td>
       </tr>
       <tr>
-        <td><%= image_tag(@party_package.package.image_url, size: '150') unless @party_package.package.image_url.blank? %></td>
+        <td><%= image_tag(@party_package.package.image_url) unless @party_package.package.image_url.blank? %></td>
       </tr>
     </table>
     <button id="checkoutButton">Buy now</button>

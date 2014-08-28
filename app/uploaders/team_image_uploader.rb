@@ -17,5 +17,9 @@ class TeamImageUploader < CarrierWave::Uploader::Base
     "#{model.sport.image_url}"
   end
 
-  process :resize_to_fit => [800, 800]
+  process :resize_to_fit => [200, 200]
+
+  version :thumb do
+    process :resize_to_fill => [80, 80]
+  end
 end

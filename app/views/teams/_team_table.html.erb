@@ -22,7 +22,7 @@
         <% last_label = team.sport.name %>
       <% end %>
       <tr>
-        <td><%= image_tag(team.image_url, size: '50') %></td>
+        <td><%= image_tag(team.image_url, size: '80') %></td>
         <td><h4><%= link_to(team.name, team) %></h4></td>
         <td>
           <%= render partial: 'subscribe_star', locals: { team: team } %>

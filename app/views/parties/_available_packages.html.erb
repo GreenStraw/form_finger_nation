@@ -4,7 +4,7 @@
     <tr>
       <td class="bottom-margined">
         <span class="parties-package-image">
-          <%= image_tag(party_package.package.image_url, size: '70') unless party_package.package.image_url.blank? %>
+          <%= image_tag(party_package.package.image_url.thumb) unless party_package.package.nil? %>
         </span>
       </td>
       <td class="bottom-margined">
