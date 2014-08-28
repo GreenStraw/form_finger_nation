@@ -31,12 +31,12 @@
 
   <div class="field">
     <%= f.label :team %><br>
-    <%= select_tag 'party', 'team_id', options_from_collection_for_select(Team.all, 'id', 'name'), include_blank: false, class: 'select2', style: 'width: 250px;' %>
+    <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.all, 'id', 'name'), include_blank: false, class: 'select2', style: 'width: 250px;' %>
   </div>
 
   <div class="field">
     <%= f.label :venue %><br>
-    <%= select_tag 'party', 'venue_id', options_from_collection_for_select(Venue.all, 'id', 'name_and_address'), include_blank: false, class: 'select2', style: 'width: 400px;' %>
+    <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.all, 'id', 'name_and_address'), include_blank: false, class: 'select2', style: 'width: 400px;' %>
   </div>
   <div class="actions">
     <%= f.submit %>
