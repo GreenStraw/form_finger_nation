@@ -2,7 +2,7 @@
   <tbody>
     <% @user.party_reservations.each do |party_reservation| %>
       <tr>
-        <td><%= image_tag(party_reservation.party.team.image_url.thumb) unless party_reservation.party.nil? || party_reservation.party.team.nil? %></td>
+        <td><%= image_tag(party_reservation.party.team.image_url, size: '80') unless party_reservation.party.nil? || party_reservation.party.team.nil? %></td>
         <td><h4><%= link_to(party_reservation.party.name, party_reservation.party) %></h4></td>
         <td><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
         <td><%= party_reservation.party.venue.address.city_state %></td>
