@@ -1,0 +1,97 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap_and_overrides
+ *= require select2
+ *= require select2-bootstrap
+ *= require_self
+ *= require_tree .
+ */
+
+ /* Move down content because we have a fixed navbar that is 50px tall */
+ body {
+   padding-top: 50px;
+   padding-bottom: 20px;
+ }
+
+form {
+  padding-top: 30px;
+}
+
+ /* Override Rail's default error calls with Bootstrap 3 */
+ .field_with_errors {
+   @extend .has-error;
+ }
+
+.container {
+  padding-top: 10px;
+  background: white;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+ div.alert{
+   margin: 10px;
+ }
+ form div.alert{
+   margin:0px;
+ }
+ div.alert h2 {
+   margin-top: 5px;
+ }
+
+ div#totals-breakdown{
+	 float:left;
+	 width:20%;
+	 padding:20px;
+ }
+
+ div#search{
+	 float:left;
+	 width:80%;
+	 padding: 10px;
+ }
+
+ div#search table td{
+	 padding:5px;
+ }
+
+.bg-static {
+  background: url( <%= asset_path("ffn_background.jpg") %>) center center;
+  position: fixed;
+  width: 120%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+
+
+/*********Moved to team.css***********/
+/*.borderless tbody tr td, .borderless thead tr th {
+  border: none;
+}*/
+
+/*.fa-star {
+  color: #E6E600;
+}
+
+#subscribe-link .fa-star,
+#subscribe-link:hover .fa-star-o {
+  display: none;
+  background: #F6F6F6;
+}
+#subscribe-link:hover .fa-star {
+  display: inline;
+  background: #F6F6F6;
+}*/

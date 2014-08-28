@@ -18,8 +18,8 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <%unless current_page?(root_path) %>
-     <div class="bg-static"></div> %>
+    <% unless current_page?(root_path)  %>
+     <div class="bg-static"></div>
     <% end %>
     <%= render 'layouts/nav_main' %>
 
