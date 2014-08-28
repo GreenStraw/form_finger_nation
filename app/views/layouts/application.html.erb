@@ -23,8 +23,6 @@
     <% end %>
     <%= render 'layouts/nav_main' %>
 
-    <%= render 'layouts/flash' %>
-
     <% if current_page?(root_path) %>
       <% if content_for?(:jumbotron) %>
         <div class="jumbotron">
@@ -36,6 +34,7 @@
     <% end %>
 
     <div class="container <%= "transparent" if current_page?( root_path ) %>">
+      <%= render 'layouts/flash' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>
