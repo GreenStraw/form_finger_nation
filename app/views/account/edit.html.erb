@@ -1,55 +1,18 @@
-<h1>Edit Profile</h1>
+<ul class='nav nav-tabs' role='tablist'>
+  <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+  <li><a href="#password" role='tab' data-toggle='tab'>Change Password</a></li>
+</ul>
 
-<%= form_for(@user, url: update_account_path, method: :post) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= f.hidden_field :id%>
-
-  <div class="field">
-    <%= image_tag(@user.image_url) %>
-    <%= f.file_field :image_url %>
+<div class='tab-content'>
+  <div class='tab-pane active' id="info">
+    <%= render partial: 'info' %>
   </div>
 
-  <div class="field">
-    <%= f.label :name %> (From Facebook)<br>
-    <%= f.text_field :name %>
+  <div class='tab-pane' id="password">
+    <%= render partial: 'password' %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, value: "" %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation, value: "" %>
-  </div>
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+
+
 
 <%= link_to 'Show', account_path %> | <%= link_to 'Home', root_path %>
