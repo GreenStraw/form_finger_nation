@@ -38,7 +38,6 @@ module Zooz
 
     # Whether the request will be sent to sandbox.
     def is_sandbox?
-      #we are now reading this from the ENV variable which returns a string
       @sandbox == true
     end
 
