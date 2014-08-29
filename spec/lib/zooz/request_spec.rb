@@ -35,7 +35,7 @@ describe Zooz::Request do
   
   describe "is_sandbox?" do
     it "returns false" do
-      expect(@request.is_sandbox?).to eq(false)
+      expect(@request.is_sandbox?).to eq(true)
     end
   end
   
@@ -115,7 +115,7 @@ describe Zooz::Request do
           @request.response_type="NVP"
         end
         it "sends request via HTTParty" do
-          HTTParty.should_receive(:post).with("https://app.zooz.com/mobile/SecuredWebServlet", {:format=>:plain, :query=>{:cmd=>nil}, :headers=>{"ZooZ-Unique-ID"=>"zooz_unique_id", "ZooZ-App-Key"=>'zooz_app_key', "ZooZ-Response-Type"=>"NVP"}}).and_return('response')
+          HTTParty.should_receive(:post).with("https://sandbox.zooz.co/mobile/SecuredWebServlet", {:format=>:plain, :query=>{:cmd=>nil}, :headers=>{"ZooZ-Unique-ID"=>"zooz_unique_id", "ZooZ-App-Key"=>'zooz_app_key', "ZooZ-Response-Type"=>"NVP"}}).and_return('response')
           response = double(:response)
           response.should_receive(:request=).with(@request)
           response.should_receive(:http_response=).with('response')
@@ -126,7 +126,7 @@ describe Zooz::Request do
       end
       describe "when response type is JSON" do
         it "sends request via HTTParty" do
-          HTTParty.should_receive(:post).with("https://app.zooz.com/mobile/ExtendedServerAPI", {:format=>:json, :body=>{:cmd=>nil}, :headers=>{"ZooZDeveloperId"=>"zooz_developer_id", "ZooZServerAPIKey"=>"zooz_app_key"}}).and_return('response')
+          HTTParty.should_receive(:post).with("https://sandbox.zooz.co/mobile/ExtendedServerAPI", {:format=>:json, :body=>{:cmd=>nil}, :headers=>{"ZooZDeveloperId"=>"zooz_developer_id", "ZooZServerAPIKey"=>"zooz_app_key"}}).and_return('response')
           response = double(:response)
           response.should_receive(:request=).with(@request)
           response.should_receive(:http_response=).with('response')

@@ -38,7 +38,7 @@ module Zooz
 
     # Whether the request will be sent to sandbox.
     def is_sandbox?
-      ENV['ZOOZ_SANDBOX'] == "true" ? true : false
+       @sandbox == "true" ? true : false
     end
 
     # Get the URL of the API, based on whether in sandbox mode or not.
