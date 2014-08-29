@@ -15,7 +15,7 @@ class AccountController < ApplicationController
       redirect_to root_path
     else
       flash[:warning] = "errors occurred!"
-      render :new, layout: "sign"
+      render :new
     end
   end
 
