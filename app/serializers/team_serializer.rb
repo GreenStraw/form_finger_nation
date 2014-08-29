@@ -15,9 +15,9 @@ class TeamSerializer < BaseSerializer
 
   def image_url
     if object.image_url.present?
-      object.image_url_url
+      object.image_url_url.split('?').first
     else
-      object.sport.image_url_url
+      object.sport.image_url_url.split('?').first
     end
   end
 end
