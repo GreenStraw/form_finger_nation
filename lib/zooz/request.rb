@@ -14,7 +14,6 @@ module Zooz
       @params = {}
       @errors = []
       @response_type = 'JSON'
-      @sandbox = false
       @headers = {}
       @url = ''
     end
@@ -39,7 +38,7 @@ module Zooz
 
     # Whether the request will be sent to sandbox.
     def is_sandbox?
-      @sandbox == true
+       @sandbox == "true" ? true : false
     end
 
     # Get the URL of the API, based on whether in sandbox mode or not.
