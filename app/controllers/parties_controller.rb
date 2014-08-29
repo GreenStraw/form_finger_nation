@@ -11,6 +11,13 @@ class PartiesController < ApplicationController
   end
 
   def search
+    if params[:party].nil?
+      params[:party] = {}
+    end
+    if params[:party][:search_location].nil?
+      ip_lat_lng = location.data['zipcode']
+      params[:party][:search_location] = ip_lat_lng
+    end
     search_results = Party.search_by_params(params[:party])
     # search_by_params returns [parties, teams, people].  We only care about parties here
     @parties = search_results[0]
@@ -112,7 +119,7 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item)
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location)
     end
 
 

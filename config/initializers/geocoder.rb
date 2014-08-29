@@ -7,7 +7,7 @@ Geocoder.configure(
   :ip_lookup => :freegeoip,
 
   # to use an API key:
-  #:api_key => "...",
+  # :api_key => "",
 
   # geocoding service request timeout, in seconds (default 3):
   :timeout => 5,
@@ -16,7 +16,7 @@ Geocoder.configure(
   :units => :mi,
 
   # caching (see below for details):
-  # :cache => Redis.new,
+  :cache => Rails.cache
   # :cache_prefix => "..."
 
 )

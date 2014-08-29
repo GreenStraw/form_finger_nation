@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   ##    but you can override these if you wish to handle directly
   rescue_from ::Milia::Control::MaxTenantExceeded, :with => :max_tenants
   rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
-  
-  
+
+
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied for #{current_user} on #{exception.action}: #{exception.subject.inspect}"
 
@@ -26,9 +26,20 @@ class ApplicationController < ActionController::Base
       format.json { render nothing: true, status: :forbidden }
      end
   end
-  
-  
 
+  def location
+    if params[:location].blank?
+      if Rails.env.test? || Rails.env.development?
+        @location ||= Geocoder.search("172.1.72.242").first
+      else
+        @location ||= request.location
+      end
+    else
+      params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
+      @location ||= Geocoder.search(params[:location]).first
+      @location
+    end
+  end
 
   private
 
