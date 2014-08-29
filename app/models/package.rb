@@ -10,7 +10,9 @@ class Package < ActiveRecord::Base
   def self.zooz_submit(zooz_params)
     req = Zooz::Request.new
     req.response_type = 'NVP' #override the default JSON for the web app submission (because of the sandbox account created to handle the requests)
+    req.sandbox =  ENV['ZOOZ_SANDBOX'] == "true" ? true : false
     req.cmd=zooz_params[:cmd]
+   
     req.set_param("amount", zooz_params[:amount])
     req.set_param("currencyCode", zooz_params[:currency_code])
     req.set_param("cmd", zooz_params[:cmd])
