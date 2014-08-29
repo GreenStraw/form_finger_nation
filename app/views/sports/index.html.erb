@@ -6,8 +6,10 @@
       <tr>
         <td><%= image_tag(sport.image_url.thumb) %></td>
         <td><%= link_to sport.name, sport_path(sport) %></td>
-        <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
-        <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if user_signed_in? && current_user.admin? %>
+          <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
+          <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
