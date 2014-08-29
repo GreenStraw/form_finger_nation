@@ -15,7 +15,7 @@
             zoozStartCheckout({
               token : data.token, // Session token recieved from server
               uniqueId : "com.cabforward.foamfinger", // unique ID as registered in the developer portal
-              isSandbox : <%= Rails.env.production? ? false : true %>, // true = Sandbox environment
+              isSandbox : <%= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
               returnUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>", // return page URL
               cancelUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>" // cancel page URL
             });
@@ -24,6 +24,7 @@
       });
   });
 </script>
+
 
 <div data-role="page" data-theme="b">
   <div data-role="content" data-contnet-theme="b">
