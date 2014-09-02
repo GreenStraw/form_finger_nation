@@ -2,6 +2,13 @@
   margin-top: -20px;
 }
 
+.navbar li {
+  font-size: 1.2em;
+  font: helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
 .dropdown-menu>li>a { 
   color: #999999;
 }
@@ -23,5 +30,5 @@
 
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
  background-color: #222222;
- color: #FFFFFF;
+ color: #B1DA4F;
 }
