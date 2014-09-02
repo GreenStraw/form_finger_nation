@@ -32,6 +32,15 @@ form {
 
 .container {
   padding-top: 10px;
+  background: white;
+}
+
+.details-container {
+  margin: 20px;
+}
+
+.transparent {
+  background-color: transparent;
 }
 
  div.alert{
@@ -60,7 +69,40 @@ form {
 	 padding:5px;
  }
 
+.bg-static {
+  background: url( <%= asset_path("ffn_background.jpg") %>) center center;
+  position: fixed;
+  width: 120%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: -1;
+}
 
+#map {
+  width: 300px;
+  height: 200px;
+  padding-left: 50px;
+}
+
+@media(max-width:767px){
+  #map {
+    display: none;
+  }
+}
+@media(min-width:991px){
+  #map {
+    width: 600px;
+    height: 400px;
+  }
+}
+/*@media(min-width:768px){
+  #map {
+    width: 600px;
+    height: 400px;
+  }
+}*/
+@media(min-width:1200px){}
 
 /*********Moved to team.css***********/
 /*.borderless tbody tr td, .borderless thead tr th {

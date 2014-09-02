@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container <%= "transparent" if current_page?( root_path ) %>">
 
       <!-- Static navbar -->
       <div class="navbar navbar-inverse" role="navigation">
@@ -59,7 +59,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
-              <%= link_to( t("theme.signup", :default => "Sign up"), new_account_path ) %>
+              <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
             </li>
             <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
               <%= link_to( t("theme.login", :default => "Sign in"), new_user_session_path ) %>

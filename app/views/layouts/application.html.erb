@@ -18,22 +18,23 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-
+    <% unless current_page?(root_path)  %>
+     <div class="bg-static"></div>
+    <% end %>
     <%= render 'layouts/nav_main' %>
-
-    <%= render 'layouts/flash' %>
 
     <% if current_page?(root_path) %>
       <% if content_for?(:jumbotron) %>
         <div class="jumbotron">
-          <div class="container">
+          <div class="container transparent">
             <%= yield :jumbotron %>
           </div>
         </div>
       <% end %>
     <% end %>
 
-    <div class="container">
+    <div class="container <%= "transparent" if current_page?( root_path ) %>">
+      <%= render 'layouts/flash' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>
