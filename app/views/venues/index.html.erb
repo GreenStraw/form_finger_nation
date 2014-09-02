@@ -1,17 +1,14 @@
-<div class='container'>
-  <table class='table table-hover borderless'>
-    <tbody>
-      <% current_user.managed_venues.each do |venue| %>
-        <tr>
-          <td><%= image_tag(venue.image_url.thumb) %></td>
-          <td><h4><%= link_to(venue.name, venue) %></h4></td>
-          <td><%= venue.address.city_state %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
+<table class='table table-hover borderless'>
+  <tbody>
+    <% current_user.managed_venues.each do |venue| %>
+      <tr>
+        <td><%= image_tag(venue.image_url.thumb) %></td>
+        <td><h4><%= link_to(venue.name, venue) %></h4></td>
+        <td><%= venue.address.city_state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <br>
 
 <% if current_user.can?(:create, Venue) %>
