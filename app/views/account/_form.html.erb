@@ -22,34 +22,21 @@
  </div>
  </br>
 
- <div class="input-group">
-   <span class="input-group-addon">P</span>
-   <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation' %>
- </div>
- </br>
- 
- <div class="input-group">
-   <span class="input-group-addon">P</span>
-   <%= f.text_field :username, :class => "form-control", :placeholder =>'Username' %>
- </div>
- </br>
- 
- <% if ::Milia.use_coupon %>
-<!--
-- @coupon ||= {}
- = label_tag( 'coupon', 'Coupon code', :class => "label" )
- = text_field_tag( "coupon[coupon]", @coupon['coupon'].to_s, :size => 8, :class => "text_field" )
--->
- <% end %>
+<div class="input-group">
+  <span class="input-group-addon">P</span>
+  <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation' %>
+</div>
+</br>
 
- <% if ::Milia.use_recaptcha %>
- <!--
- = recaptcha_tags( :display => { :theme => 'clean', :tabindex => 0 } )
- -->
- <% end %>
- 
- <div class="input-group">
-   <button class="btn btn-primary" type="submit">Sign up</button>
- </div>
+<div class="input-group">
+  <span class="input-group-addon">P</span>
+  <%= f.text_field :username, :class => "form-control", :placeholder =>'Username' %>
+</div>
+</br>
+
+<div class="input-group">
+  <button class="btn btn-primary" type="submit">Sign up</button>
+</div>
+
 <% end %>
 </br>

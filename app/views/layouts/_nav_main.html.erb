@@ -20,24 +20,16 @@
               <% link_to( t("theme.settings", :default => "Settings"), '#' )%>
             </li>
 
-            <li class="<%= 'active' if current_page?( parties_path ) %>">
-              <%= link_to( t("Watch Parties", :default => "Watch Parties"), parties_path ) %>
-            </li>
-
             <li class="<%= 'active' if current_page?( search_parties_path ) %>">
-              <%= link_to( t("Find a Watch Party", :default => "Find a Watch Party"), search_parties_path ) %>
+              <%= link_to( t("Find a Watch Party", :default => "Find Watch Party"), search_parties_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( new_party_path ) %>">
-              <%= link_to( t("Create a Watch Party", :default => "Create a Watch Party"), new_party_path ) %>
+              <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( teams_path ) %>">
               <%= link_to( t("Teams", :default => "Teams"), teams_path ) %>
-            </li>
-
-            <li class="<%= 'active' if current_page?( vouchers_path ) %>">
-              <%= link_to( t("Vouchers", :default => "Vouchers"), vouchers_path ) %>
             </li>
 
             <li class="<%= 'active' if current_page?( faq_path ) %>">
@@ -74,14 +66,20 @@
                 <li>
                   <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
                 </li>
+                <li>
+                  <%= link_to "My Vouchers", vouchers_path %>
+                </li>
+                <li>
+                  <%= link_to "My Watch Parties", parties_path %>
+                </li>
               <% if user_signed_in? && current_user.managed_venues.any? %>
                 <li>
-                  <%= link_to( t("theme.invite", default: 'My Venues'), venues_path ) %>
+                  <%= link_to "My Venues", venues_path %>
                 </li>
               <% end %>
               <% if user_signed_in? && current_user.admin? %>
                 <li>
-                  <%= link_to( t("theme.invite", default: 'Manage Sports'), sports_path ) %>
+                  <%= link_to 'Manage Sports', sports_path %>
                 </li>
               <% end %>
                 <li>
