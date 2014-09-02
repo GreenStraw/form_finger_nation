@@ -1,28 +1,32 @@
-<div class='row'>
-  <div class='col-xs-3'>
-    <%= render partial: 'details' %>
-  </div>
-  <div class='col-xs-8'>
-    <div class='row'>
-      <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
-        <div id="map" style='width: 775px; height: 400px;'></div>
-      <% end %>
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <div class="details-container">
+        <%= render partial: 'details' %>
+      </div>
     </div>
-    <div class='row' style='padding-top: 10px;'>
-      <h3>Upcoming Parties</h3>
-      <% if @venue.upcoming_parties.any? %>
-        <%= render partial: 'parties', locals: { parties: @venue.upcoming_parties } %>
-      <% else %>
-        <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
-      <% end %>
+    <div class='col-xs-8'>
+      <div class='row'>
+        <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
+          <div id="map"></div>
+        <% end %>
+      </div>
+      <div class='row' style='padding-top: 10px;'>
+        <h3>Upcoming Parties</h3>
+        <% if @venue.upcoming_parties.any? %>
+          <%= render partial: 'parties', locals: { parties: @venue.upcoming_parties } %>
+        <% else %>
+          <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<%= link_to 'Venues', venues_path %>
-<% if current_user.present? && current_user.can?(:edit, @venue) %>
-  | <%= link_to 'Edit', edit_venue_path(@venue) %>
-<% end %>
+  <%= link_to 'Venues', venues_path %>
+  <% if current_user.present? && current_user.can?(:edit, @venue) %>
+    | <%= link_to 'Edit', edit_venue_path(@venue) %>
+  <% end %>
+</div>
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');
