@@ -3,21 +3,20 @@
 }
 
 .navbar li {
-  font-size: 1.2em;
-  font: helvetica, sans-serif;
+  font-size: 1.75em;
+  font-family: 'TradeGothicLTStdBdCnNo.20';
   text-transform: uppercase;
-  letter-spacing: -1px;
 }
 
-.dropdown-menu>li>a { 
+.dropdown-menu>li>a {
   color: #999999;
 }
-.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { 
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
   color: #080808;
 }
 
-.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { 
-  background-image: none; 
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+  background-image: none;
 }
 
 .dropdown-menu {
