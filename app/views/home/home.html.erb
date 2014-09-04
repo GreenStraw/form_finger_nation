@@ -45,7 +45,7 @@
       <h1 id="large-centered-green-text">Find a Watch Party</h1>
       <%= form_for :search, url: search_parties_path, method: :get, html: { id: 'home-page-search'} do |f| %>
       <div class="col-sm-6">
-          <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
+          <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team or Venue", value: params[:party].blank? ? "" : params[:party][:search_item] %>
       </div><!-- /.col-lg-6 -->
 
       <div class="col-sm-6">
