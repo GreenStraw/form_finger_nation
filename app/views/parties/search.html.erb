@@ -2,7 +2,7 @@
     <div class='col-xs-4'>
       <%= form_for :search, url: search_parties_path, remote: true, method: :get do |f| %>
         <div>
-            <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
+            <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team or Venue", value: params[:party].blank? ? "" : params[:party][:search_item] %>
         </div>
 
         <div>
