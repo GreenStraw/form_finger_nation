@@ -1,5 +1,10 @@
 .navbar-brand {
-  margin-top: -20px;
+  margin-top: -30px;
+}
+
+.navbar-brand img {
+  width: 250px;
+  height: auto;
 }
 
 .navbar li {
