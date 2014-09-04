@@ -7,17 +7,20 @@
   margin-top: 40px;
 }*/
 
+body {
+   margin-top: 30px;
+}
 
 .where-my-fans {
     display: block;
     font-family: 'TradeGothicLTStdBdCnNo.20', sans-serif;
-    font-size: 66px;
+    font-size: 50px;
     line-height: 1;
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: #98c72b ;
     text-align: center;
-    margin-bottom: 6px;
+    margin-bottom: 15px;
 }
 
 .subtitle {
@@ -58,8 +61,9 @@
   font-size: 160%;
   color: white;
   letter-spacing: 0.03em;
-  margin-top: 30px;
+  margin-top: 15px;
   text-transform: none;
+  margin-bottom: 0;
 }
 
 .home-page-list {
@@ -104,11 +108,11 @@
 .explainer-container {
   padding: 30px 0;
   background-color: lightgray;
-  margin: 20px auto;
+  margin: 70px auto;
 }
 
 .explainer-wrapper {
-  margin-top: -600px;
+  margin-top: -500px;
 }
 
 .explainer-title {
@@ -151,12 +155,13 @@
 
 .button-container {
   margin-top: 50px;
+  width: 400px;
+  margin: 0 auto;
 }
 
 .apple-download-button, .android-download-button {
-  display: block;
+  display: inline-block;
   margin: 0 auto;
-  margin-top: 10px;
   max-width: 190px;
 }
 
@@ -164,19 +169,18 @@
   background: url( <%= asset_path("ffn_background.jpg") %>) center center;
   position: fixed;
   width: 100%;
-  height: 1600px; /*same height as jumbotron */
+  height: 1400px; /*same height as jumbotron */
   top:0;
   left:0;
   z-index: -1;
 }
 
 .jumbotron {
-  height: 1600px; /*same height as bg*/
+  height: 1400px; /*same height as bg*/
   color: white;
   text-shadow: #444 0 1px 1px;
   background-color: transparent;
-  margin-bottom: 20px;
-  margin-top: 50px;
+  margin-top: -15px;
 }
 
 /*.navbar-brand {
@@ -195,7 +199,8 @@
 #large-centered-green-text {
   text-align: center;
   font-size: 4em;
-  color: #B1DA4F ;
+  color: #B1DA4F;
+  margin-top: 0;
 }
 
 #video-player {
