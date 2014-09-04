@@ -1,7 +1,70 @@
 <div class="bg"></div>
+<div class="transparent container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="logo-container">
+        <%= image_tag "logo_firstpage.png", id: "hero-logo" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container transparent">
+  <div class="row">
+    <div class="col-lg-3">
+      <hr id="left">
+    </div>
+
+    <div class="col-lg-6">
+      <div class="where-my-fans">Where my fans at?</div>
+      <div class="where-my-fans subtitle">Watch Parties & Promos</div>
+    </div>
+    
+    <div class="col-lg-3">
+      <hr id="right">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8">
+      <p class="where-my-fans hero-paragraph">
+        Connect with sports fans, discover watch parties in your area, 
+        and redeem valuable promotions from your favorite local sports bars.
+      </p>
+      <p class="where-my-fans hero-paragraph">
+        Connect with sports fans, discover watch parties in your area, 
+        and redeem valuable promotions from your favorite local sports bars.
+      </p>
+    </div>
+    
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
 <!-- Main jumbotron -->
 <div class="jumbotron">
   <div class="transparent container">
+    <div class="row">
+      <h1 id="large-centered-green-text">Find a Watch Party</h1>
+      <%= form_for :search, url: search_parties_path, method: :get, html: { id: 'home-page-search'} do |f| %>
+      <div class="col-sm-6">     
+          <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
+      </div><!-- /.col-lg-6 -->
+
+      <div class="col-sm-6">
+        <div class="input-group" id="search-where">
+          <%= text_field "party","search_location", class: "form-control input-lg", placeholder: "Where", value: params[:party].blank? ? "" : params[:party][:search_location] %>
+          <span class="input-group-btn">
+            <%= f.submit "Go", :class=>"btn btn-default btn-lg"%>
+            <!-- <button class="btn btn-default" type="button">Go!</button> -->
+        </div><!-- /input-group -->
+      </div>
+      <% end %>
+    </div>
+  </div> <!-- end form container -->
+
+  <div class="transparent container intro-container">
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-6">
@@ -13,7 +76,7 @@
         </p>
 
         <p class="hero-quote">
-        <i class="fa fa-quote-left fa-md"></i> Love, love, love the idea of Foam Finger Nation!<i class="fa fa-quote-right fa-md"></i> -&nbsp;P.&nbsp;Bridgett
+        "Love, love, love the idea of Foam Finger Nation!" -&nbsp;P.&nbsp;Bridgett
         </p>
         <div class="transparent container button-container">
           <div class="row">
@@ -36,173 +99,134 @@
       </div>
     </div>
   </div>
-
-  <div class="transparent container">
-    <div class="row">
-      <h1 id="large-centered-green-text">Let's Kick It</h1>
-      <%= form_for :search, url: search_parties_path, method: :get, html: { id: 'home-page-search'} do |f| %>
-      <div class="col-sm-6">     
-          <%= text_field "party","search_item", class: 'form-control input-lg', placeholder: "Team, Venue, or Fanmark", value: params[:party].blank? ? "" : params[:party][:search_item] %>
-      </div><!-- /.col-lg-6 -->
-
-      <div class="col-sm-6">
-        <div class="input-group" id="search-where">
-          <%= text_field "party","search_location", class: "form-control input-lg", placeholder: "Where", value: params[:party].blank? ? "" : params[:party][:search_location] %>
-          <span class="input-group-btn">
-            <%= f.submit "Go", :class=>"btn btn-default btn-lg"%>
-            <!-- <button class="btn btn-default" type="button">Go!</button> -->
-        </div><!-- /input-group -->
-      </div>
-      <% end %>
-    </div>
-  </div> <!-- end form container -->
 </div> <!-- end jumbotron -->
 
+<div class="explainer-wrapper">
+  <div class="container transparent explainer-container">
 
-<div class="transparent container">
-  <div class="row explanation-container">
-    <div class="col-sm-4">
-      <span class="green-text"><i class="text-center fa fa-car fa-lg"></i></span>
-      <p>Whether you're out of town, or just want to find some fans to watch a game with, the Foam Finger Nation app will help you quickly locate watch parties in your area. </p>
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <h1 class="explainer-title">Sports Fans</h1>
+        <hr class="explainer-title-rule">
+      </div>
+      <div class="col-xs-1"></div>
     </div>
-    <div class="col-sm-4">
-      <span class="green-text"><i class="text-center fa fa-bullhorn fa-lg"></i></span>
-      <p>Schedule a watch party and invite your friends, or make the watch party public for even more excitement! </p>
-   </div>
-    <div class="col-sm-4">
-      <span class="green-text"><i class="text-center fa fa-beer fa-lg"></i></span>
-      <p>Getting access to exclusive discounts on food and beverages available only to watch parties is a great way to make sure your game day is a success.</p>
+
+    <div class="row">
+
+      <div class="col-xs-12 col-md-9">
+        <p class="explainer-paragraph">
+          Foam Finger Nation makes it easy to find where your team’s games are playing no matter where you are so you can enjoy the thrill of victory or the agony of defeat with your fans. Search for watch parties, RSVP, purchase discounted food and drink packages, and enjoy the game! 
+
+          Only 3 simple steps to be part of the NATION!
+          <span class="home-page-list">Sign up, create a profile, and subscribe to teams</span>
+          <span class="home-page-list">Browse for watch parties and RSVP, purchase food and drink packages  at  a discount</span>
+          <span class="home-page-list">Attend watch parties at awesome venues and enjoy games with your fans!</span>
+        </p>
+      </div>
+
+      <div class="col-md-3">
+          <%= image_tag("ffn_fans_200x200.png", class: "explainer-image") %>
+      </div>
+    </div> <!-- end row -->
+
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <hr class="explainer-title-rule">
+        <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
+        <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
+      </div>
+      <div class="col-xs-1"></div>
     </div>
-  </div>
+  </div> <!-- end explainer-container -->
+
+  <div class="container transparent explainer-container">
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <h1 class="explainer-title">Alumni Groups</h1>
+        <hr class="explainer-title-rule">
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+          <%= image_tag("ffn_alumni.png", class: "explainer-image") %>
+      </div>
+      <div class="col-xs-12 col-md-9">
+        <p class="explainer-paragraph">
+          Generate revenue from your school’s watch parties. Foam Finger Nation makes it easy for alumni groups to organize and promote watch parties. 
+
+          Best of all we make it easy for alumni groups to generate revenue without changing their current game watching parties!
+
+          Only 4 simple steps to be part of the NATION!
+
+          <span class="home-page-list">Sign up and create an alumni page</span>
+          <span class="home-page-list">Invite alumni members to Foam Finger Nation</span>
+          <span class="home-page-list">Post watch parties and encourage members to pre-purchase watch party vouchers for discounted food and drink during the game</span>
+          <span class="home-page-list">Fan up and get paid from Foam Finger Nation!
+        </p>
+      </div>
+    </div><!-- end row -->
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <hr class="explainer-title-rule">
+        <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
+        <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+  </div> <!-- end explainer-container -->
+
+  <div class="container transparent explainer-container">
+
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <h1 class="explainer-title">Venues</h1>
+        <hr class="explainer-title-rule">
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <p class="explainer-paragraph">
+          Easily find sports fans and create watch parties. Attract and retain large groups of college and pro sports fans game after game. 
+
+          Use Foam Finger Nation to create food and drink specials for fans and know how many fans are coming to each watch party or what they want to eat or drink. Make those expensive sports subscription packages generate revenue for you by knowing exactly what game fans want to see.
+
+          Your life just got easier on Game Day!
+
+          Only 4 simple steps to join the NATION!
+
+          <span class="home-page-list">Sign up and create a profile</span>
+          <span class="home-page-list">Create watch parties and special food and drink packages to be ordered by fans through Foam Finger Nation</span>
+          <span class="home-page-list">Use our multigame scheduler to create more than one watch party at a time</span>
+          <span class="home-page-list">Enjoy attracting a new and dedicated fan base game after game!</span>
+        </p>
+      </div>
+
+      <div class="col-md-3">
+          <%= image_tag("ffn_venues.png", class: "explainer-image") %>
+      </div>
+
+    </div> <!-- end row -->
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <hr class="explainer-title-rule">
+        <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
+        <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+  </div> <!-- end explainer-container -->
 </div>
-
-<br/>
-
-<div class="container transparent explainer-container">
-
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <h1 class="explainer-title">Fans</h1>
-      <hr class="explainer-title-rule">
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-
-  <div class="row">
-
-    <div class="col-xs-12 col-md-9">
-      <p class="explainer-paragraph">
-        Foam Finger Nation makes it easy to find where your team’s games are playing no matter where you are so you can enjoy the thrill of victory or the agony of defeat with your fans. Search for watch parties, RSVP, purchase discounted food and drink packages, and enjoy the game! 
-
-        Only 3 simple steps to be part of the NATION!
-        <span class="home-page-list">Sign up, create a profile, and subscribe to teams</span>
-        <span class="home-page-list">Browse for watch parties and RSVP, purchase food and drink packages  at  a discount</span>
-        <span class="home-page-list">Attend watch parties at awesome venues and enjoy games with your fans!</span>
-      </p>
-    </div>
-
-    <div class="col-md-3">
-        <%= image_tag("ffn_fans_200x200.png", class: "explainer-image") %>
-    </div>
-  </div> <!-- end row -->
-
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <hr class="explainer-title-rule">
-      <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
-      <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-</div> <!-- end explainer-container -->
-
-<div class="container transparent explainer-container">
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <h1 class="explainer-title">Alumni Groups</h1>
-      <hr class="explainer-title-rule">
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3">
-        <%= image_tag("ffn_alumni.png", class: "explainer-image") %>
-    </div>
-    <div class="col-xs-12 col-md-9">
-      <p class="explainer-paragraph">
-        Generate revenue from your school’s watch parties. Foam Finger Nation makes it easy for alumni groups to organize and promote watch parties. 
-
-        Best of all we make it easy for alumni groups to generate revenue without changing their current game watching parties!
-
-        Only 4 simple steps to be part of the NATION!
-
-        <span class="home-page-list">Sign up and create an alumni page</span>
-        <span class="home-page-list">Invite alumni members to Foam Finger Nation</span>
-        <span class="home-page-list">Post watch parties and encourage members to pre-purchase watch party vouchers for discounted food and drink during the game</span>
-        <span class="home-page-list">Fan up and get paid from Foam Finger Nation!
-      </p>
-    </div>
-  </div><!-- end row -->
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <hr class="explainer-title-rule">
-      <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
-      <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-</div> <!-- end explainer-container -->
-
-<div class="container transparent explainer-container">
-
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <h1 class="explainer-title">Venues</h1>
-      <hr class="explainer-title-rule">
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12 col-md-9">
-      <p class="explainer-paragraph">
-        Easily find sports fans and create watch parties. Attract and retain large groups of college and pro sports fans game after game. 
-
-        Use Foam Finger Nation to create food and drink specials for fans and know how many fans are coming to each watch party or what they want to eat or drink. Make those expensive sports subscription packages generate revenue for you by knowing exactly what game fans want to see.
-
-        Your life just got easier on Game Day!
-
-        Only 4 simple steps to join the NATION!
-
-        <span class="home-page-list">Sign up and create a profile</span>
-        <span class="home-page-list">Create watch parties and special food and drink packages to be ordered by fans through Foam Finger Nation</span>
-        <span class="home-page-list">Use our multigame scheduler to create more than one watch party at a time</span>
-        <span class="home-page-list">Enjoy attracting a new and dedicated fan base game after game!</span>
-      </p>
-    </div>
-
-    <div class="col-md-3">
-        <%= image_tag("ffn_venues.png", class: "explainer-image") %>
-    </div>
-
-  </div> <!-- end row -->
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-10">
-      <hr class="explainer-title-rule">
-      <span class="sounds-awesome">Sounds pretty awesome, huh?</span>
-      <%= link_to("Sign Up", new_user_registration_path, class: "btn green-btn")%>
-    </div>
-    <div class="col-xs-1"></div>
-  </div>
-</div> <!-- end explainer-container -->
-
 <hr class="wide-hr signup-hr" style="width: 100%; margin-top: 60px;">
 
 <div class="row">
