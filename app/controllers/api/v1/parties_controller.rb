@@ -5,7 +5,7 @@ class Api::V1::PartiesController < Api::V1::BaseController
   load_and_authorize_resource :user
 
   def index
-    respond_with @parties
+    respond_with @parties.includes(:party_invitations, :attendees, :packages, :vouchers, :organizer, :team, :sport, :venue)
   end
 
   def show

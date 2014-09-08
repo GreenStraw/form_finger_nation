@@ -3,7 +3,6 @@ class PartySerializer < BaseSerializer
   has_many :party_invitations, embed: :ids
   has_many :unregistered_attendees, embed: :ids
   has_many :attendees, embed: :ids
-  has_many :comments, embed: :ids
   has_many :packages, embed: :ids
   has_many :vouchers, embed: :ids
   has_one :organizer, embed: :ids

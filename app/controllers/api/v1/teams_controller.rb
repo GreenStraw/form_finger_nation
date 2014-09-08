@@ -4,7 +4,7 @@ class Api::V1::TeamsController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
 
   def index
-    respond_with @teams
+    respond_with @teams.includes(:address, :fans, :venue_fans, :hosts, :endorsement_requests, :sport)
   end
 
   def show
