@@ -41,8 +41,6 @@ gem 'stripe'
 gem 'aws-sdk'
 gem 'httparty'
 
-gem 'dalli'
-
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
