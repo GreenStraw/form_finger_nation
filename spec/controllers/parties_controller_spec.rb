@@ -185,22 +185,27 @@ describe PartiesController do
   end
 
   describe "GET search" do
-    before {
-      Party.should_receive(:build_markers).with('test_parties')
-    }
     context 'no party param' do
       it 'should create party param and get location from ip' do
         location = OpenStruct.new()
         location.data = {'zipcode'=> 'geocode_response'}
         controller.should_receive(:location).and_return(location)
-        Party.should_receive(:search_by_params).with({"search_location" => 'geocode_response'}).and_return(['test_parties', [], []])
+        parties = double(:parties)
+        Party.should_receive(:search_by_params).with({"search_location" => 'geocode_response'}).and_return([parties, [], []])
+        venues = double(:venues)
+        parties.should_receive(:map).once.and_return(venues)
+        Gmaps4rails.should_receive(:build_markers).once
         get :search
       end
     end
     context 'location is sent' do
       it "calls Party.search_by_params(params)" do
         controller.should_not_receive(:location)
-        Party.should_receive(:search_by_params).with({"search_item" => 'test_search_item', "search_location" => 'test_search_location'}).and_return(['test_parties', [], []])
+        parties = double(:parties)
+        Party.should_receive(:search_by_params).with({"search_item" => 'test_search_item', "search_location" => 'test_search_location'}).and_return([parties, [], []])
+        venues = double(:venues)
+        parties.should_receive(:map).once.and_return(venues)
+        Gmaps4rails.should_receive(:build_markers).once
         get :search, {party: {search_item: 'test_search_item', search_location: 'test_search_location'}}
       end
     end

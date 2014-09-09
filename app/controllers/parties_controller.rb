@@ -21,7 +21,12 @@ class PartiesController < ApplicationController
     search_results = Party.search_by_params(params[:party])
     # search_by_params returns [parties, teams, people].  We only care about parties here
     @parties = search_results[0]
-    @map_markers = Party.build_markers(@parties)
+    @venues = @parties.map(&:venue)
+    @map_markers = Gmaps4rails.build_markers(@venues) do |venue, marker|
+      marker.lat venue.address.latitude
+      marker.lng venue.address.longitude
+      marker.infowindow render_to_string(partial: '/venues/parties_info_window', locals: { venue: venue, parties: venue.upcoming_parties } )
+    end
     #get search location so we can show the area even if there are no results
     @location = Address.get_coords(search_results[3])
     respond_with @parties
