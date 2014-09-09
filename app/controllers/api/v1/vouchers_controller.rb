@@ -24,13 +24,10 @@ class Api::V1::VouchersController < Api::V1::BaseController
   def redeem
     if @voucher.redeemed_at.present?
       @voucher.errors.add(:base, 'has already been redeemed')
+    elsif @voucher.transaction_id.nil?
+      @voucher.errors.add(:base, 'is not valid (no transaction id)')
     else
-      verification_response, verification_errors = @voucher.verify
-      if verification_response
-        @voucher.update_attribute(:redeemed_at, DateTime.now)
-      else
-        @voucher.errors.add(:base, verification_errors)
-      end
+      @voucher.update_attribute(:redeemed_at, DateTime.now)
     end
     respond_with @voucher, :location=>api_v1_vouchers_path
   end

@@ -2,6 +2,7 @@ Fabricator(:voucher) do
   user { Fabricate(:user) }
   package { Fabricate(:package) }
   party { Fabricate(:party) }
+  transaction_id '123'
   redeemed_at nil
 end
 

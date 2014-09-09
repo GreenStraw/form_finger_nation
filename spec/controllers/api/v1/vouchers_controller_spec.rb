@@ -77,7 +77,6 @@ describe Api::V1::VouchersController do
     context "not already redeemed" do
       before(:each) do
         Voucher.should_receive(:find).and_return(@voucher)
-        @voucher.should_receive(:verify).and_return([true, nil])
       end
       it "returns 200" do
         put :redeem, id: @voucher.id, format: :json
@@ -102,11 +101,13 @@ describe Api::V1::VouchersController do
         response.body.should eq("{\"errors\":{\"base\":[\"has already been redeemed\"]}}")
       end
     end
-    context "transaction not verified" do
+    context "transaction_id nil" do
+      before {
+        @voucher.stub(:transaction_id).and_return(nil)
+      }
       it "returns 422" do
         @voucher.should_receive(:redeemed_at).and_return(nil)
         Voucher.should_receive(:find).and_return(@voucher)
-        @voucher.should_receive(:verify).and_return([false, "error"])
         put :redeem, id: @voucher.id, format: :json
         expect(response.status).to eq(422)
       end
