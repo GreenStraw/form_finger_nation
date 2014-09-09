@@ -106,7 +106,7 @@ class PartiesController < ApplicationController
       else
         flash[:error] = "Error processing the credit card"
       end
-      redirect_to "/purchase_package/#{@party_package.id.to_s}"
+      redirect_to "/parties/#{@party.id.to_s}"
     end
 
   end
