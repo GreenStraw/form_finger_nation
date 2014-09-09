@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validates_length_of :username, within: 1..12, too_long: 'username is too long', too_short: 'username is too short'
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
+  REQUESTED_ROLES = ['Sports Fan', 'Alumni Group', 'Venue']
+
   attr_accessor :current_password, :access_token
 
   # Include default devise modules. Others available are:
@@ -141,6 +143,16 @@ class User < ActiveRecord::Base
       authorization.save
     end
     authorization.user
+  end
+
+  def send_welcome_email
+    if self.requested_role == 'Sports Fan'
+      UserMailer.welcome_email(self).deliver
+    elsif self.requested_role == 'Alumni Group'
+      UserMailer.alumni_group_email(self).deliver
+    else
+      UserMailer.venue_email(self).deliver
+    end
   end
 
   private
