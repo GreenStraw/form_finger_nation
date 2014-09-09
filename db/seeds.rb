@@ -69,11 +69,6 @@ if Sport.find_by_name('TENNIS').nil?
   s.save!
 end
 
-if Sport.find_by_name('NHL').nil?
-  s = Sport.create(({ name: 'NHL' }))
-  s.save!
-end
-
 Team.create({ name: 'FC Dallas',                           sport: Sport.find_by_name('SOCCER'), address: Address.create(city: 'Dallas', state: 'TX'), twitter_name: 'FCDallas', twitter_widget_id: '356614379791319040'})             if Team.find_by_name('FC Dallas'             ).nil?
 Team.create({ name: 'Houston Dynamo',                      sport: Sport.find_by_name('SOCCER'), address: Address.create(city: 'Houston', state: 'TX'), twitter_name: 'HoustonDynamo', twitter_widget_id: '356615556335542273'})       if Team.find_by_name('Houston Dynamo'        ).nil?
 Team.create({ name: 'Chicago Fire',                        sport: Sport.find_by_name('SOCCER'), address: Address.create(city: 'Chicago', state: 'IL'), twitter_name: 'ChicagoFire', twitter_widget_id: '356614509118492672'})         if Team.find_by_name('Chicago Fire'          ).nil?
@@ -544,39 +539,6 @@ Team.create({ name: 'St. Louis Rams',       sport: Sport.find_by_name('NFL'), ad
 Team.create({ name: 'Tampa Bay Buccaneers', sport: Sport.find_by_name('NFL'), address: Address.create(city: '', state: ''), twitter_name: 'TBBuccaneers'    , twitter_widget_id: "356149812464340992" }) if Team.find_by_name('Tampa Bay Buccaneers').nil?
 Team.create({ name: 'Tennessee Titans',     sport: Sport.find_by_name('NFL'), address: Address.create(city: '', state: ''), twitter_name: 'TennesseeTitans' , twitter_widget_id: "356494079892283392" }) if Team.find_by_name('Tennessee Titans').nil?
 Team.create({ name: 'Washington Redskins',  sport: Sport.find_by_name('NFL'), address: Address.create(city: '', state: ''), twitter_name: 'Redskins'        , twitter_widget_id: "356494264999505920" }) if Team.find_by_name('Washington Redskins').nil?
-
-
-
-Team.create({ name: 'Anaheim Ducks',         sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'AnaheimDucks'    , twitter_widget_id: "356597688596299777" }) if Team.find_by_name('Anaheim Ducks').nil?
-Team.create({ name: 'Boston Bruins',         sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLBruins'       , twitter_widget_id: "356591573598892032" }) if Team.find_by_name('Boston Bruins').nil?
-Team.create({ name: 'Buffalo Sabres',        sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'BuffaloSabres'   , twitter_widget_id: "356597249523986432" }) if Team.find_by_name('Buffalo Sabres').nil?
-Team.create({ name: 'Calgary Flames',        sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLFlames'       , twitter_widget_id: "356591115895443460" }) if Team.find_by_name('Calgary Flames').nil?
-Team.create({ name: 'Carolina Hurricanes',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'Canes_Gameday'   , twitter_widget_id: "356591282598060033" }) if Team.find_by_name('Carolina Hurricanes').nil?
-Team.create({ name: 'Chicago Blackhawks',    sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLBlackhawks'   , twitter_widget_id: "356599094677995520" }) if Team.find_by_name('Chicago Blackhawks').nil?
-Team.create({ name: 'Colorado Avalanche',    sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'Avalanche'       , twitter_widget_id: "356596879087243264" }) if Team.find_by_name('Colorado Avalanche').nil?
-Team.create({ name: 'Columbus Blue Jackets', sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'BlueJacketsNHL'  , twitter_widget_id: "356596998419394561" }) if Team.find_by_name('Columbus Blue Jackets').nil?
-Team.create({ name: 'Dallas Stars',          sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'DallasStars'     , twitter_widget_id: "356595930117586944" }) if Team.find_by_name('Dallas Stars').nil?
-Team.create({ name: 'Detroit Red Wings',     sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'DetroitRedWings' , twitter_widget_id: "356598494317912064" }) if Team.find_by_name('Detroit Red Wings').nil?
-Team.create({ name: 'Edmonton Oilers',       sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'EdmontonOilers'  , twitter_widget_id: "356598739428864000" }) if Team.find_by_name('Edmonton Oilers').nil?
-Team.create({ name: 'Florida Panthers',      sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'FlaPanthers'     , twitter_widget_id: "356596083004170240" }) if Team.find_by_name('Florida Panthers').nil?
-Team.create({ name: 'Los Angeles Kings',     sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'LAKings'         , twitter_widget_id: "356598111868682243" }) if Team.find_by_name('Los Angeles Kings').nil?
-Team.create({ name: 'Minnesota Wild',        sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'mnwild'          , twitter_widget_id: "356598223839838208" }) if Team.find_by_name('Minnesota Wild').nil?
-Team.create({ name: 'Montreal Canadiens',    sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'CanadiensMTL'    , twitter_widget_id: "356597872646582272" }) if Team.find_by_name('Montreal Canadiens').nil?
-Team.create({ name: 'Nashville Predators',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'PredsNHL'        , twitter_widget_id: "356596491885899777" }) if Team.find_by_name('Nashville Predators').nil?
-Team.create({ name: 'New Jersey Devils',     sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLDevils'       , twitter_widget_id: "356596357793984514" }) if Team.find_by_name('New Jersey Devils').nil?
-Team.create({ name: 'New York Islanders',    sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NYIslanders'     , twitter_widget_id: "356598616359579648" }) if Team.find_by_name('New York Islanders').nil?
-Team.create({ name: 'New York Rangers',      sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NYRangers'       , twitter_widget_id: "356597379316727809" }) if Team.find_by_name('New York Rangers').nil?
-Team.create({ name: 'Ottawa Senators',       sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHL_Sens'        , twitter_widget_id: "356596211702181888" }) if Team.find_by_name('Ottawa Senators').nil?
-Team.create({ name: 'Philadelphia Flyers',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLFlyers'       , twitter_widget_id: "356597989973831680" }) if Team.find_by_name('Philadelphia Flyers').nil?
-Team.create({ name: 'Phoenix Coyotes',       sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'phoenixcoyotes'  , twitter_widget_id: "356597534493380608" }) if Team.find_by_name('Phoenix Coyotes').nil?
-Team.create({ name: 'Pittsburgh Penguins',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'penguins'        , twitter_widget_id: "356598861613125632" }) if Team.find_by_name('Pittsburgh Penguins').nil?
-Team.create({ name: 'San Jose Sharks',       sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'SanJoseSharks'   , twitter_widget_id: "356596736472514560" }) if Team.find_by_name('San Jose Sharks').nil?
-Team.create({ name: 'St. Louis Blues',       sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'StLouisBlues'    , twitter_widget_id: "356597130569334785" }) if Team.find_by_name('St. Louis Blues').nil?
-Team.create({ name: 'Tampa Bay Lightning',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'TBLightning'     , twitter_widget_id: "356596606545588224" }) if Team.find_by_name('Tampa Bay Lightning').nil?
-Team.create({ name: 'Toronto Maple Leafs',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'MapleLeafs'      , twitter_widget_id: "356591430174654464" }) if Team.find_by_name('Toronto Maple Leafs').nil?
-Team.create({ name: 'Vancouver Canucks',     sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'VanCanucks'      , twitter_widget_id: "356598340873486338" }) if Team.find_by_name('Vancouver Canucks').nil?
-Team.create({ name: 'Washington Capitals',   sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'washcaps'        , twitter_widget_id: "356598958300209153" }) if Team.find_by_name('Washington Capitals').nil?
-Team.create({ name: 'Winnipeg Jets',         sport: Sport.find_by_name('NHL'), address: Address.create(city: '', state: ''), twitter_name: 'NHLJets'         , twitter_widget_id: "356590959041060864" }) if Team.find_by_name('Winnipeg Jets').nil?
 
 
 Venue.create({ name: 'Pluckers', description: 'Sports bar & grill offering wings, burgers & more, plus trivia & bingo nights.', address: Address.create(street1: '11066 Pecan Park Blvd', city: 'Cedar Park', state: 'TX', zip: '78613')}) if Venue.find_by_name('Pluckers').nil?
