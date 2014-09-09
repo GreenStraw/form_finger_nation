@@ -1,5 +1,5 @@
 class AccountController < ApplicationController
-  
+
   def show
     @user = current_user
   end
@@ -11,6 +11,7 @@ class AccountController < ApplicationController
   def create
     @account = User.new(user_params)
     if @account.save_and_invite_member()
+      @account.send_welcome_email
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
       redirect_to root_path
     else
@@ -24,12 +25,12 @@ class AccountController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:user][:id]) 
-     
-    unless params[:user][:password].blank?      
+    @user = User.find(params[:user][:id])
+
+    unless params[:user][:password].blank?
       result = @user.update_attributes(user_params)
     else
-      result = @user.update_attributes(user_params.except(:password, :password_confirmation))      
+      result = @user.update_attributes(user_params.except(:password, :password_confirmation))
     end
     if result == true && params[:user][:password].blank?
       flash[:success] = "Your account details have been updated."
@@ -43,12 +44,12 @@ class AccountController < ApplicationController
       render :edit
     end
   end
-    
+
   private
-  
+
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:id, :name, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation)
+    params.require(:user).permit(:id, :name, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
   end
-  
+
 end

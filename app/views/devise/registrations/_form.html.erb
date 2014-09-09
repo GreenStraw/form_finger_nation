@@ -6,7 +6,7 @@
     <%= f.text_field :username, :class => "form-control", :placeholder =>'Username' %>
   </div>
   </br>
-  
+
   <div class="input">
     <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address' %>
   </div>
@@ -21,6 +21,13 @@
     <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation' %>
   </div>
   </br>
+
+  <div class="input">
+    <%= f.label 'Requested Role (Please use Sports Fan unless you are a Venue Manager or Alumni Group Coordinator )' %>
+    <%= f.select :requested_role, User::REQUESTED_ROLES %>
+  </div>
+  </br>
+
   <div class="input">
     <button class="btn green-btn" type="submit">Sign up</button>
   </div>

@@ -194,6 +194,42 @@ describe User do
     end
   end
 
+  describe "send_welcome_email" do
+    context "user is sports fan" do
+      before {
+        @user.stub(:requested_role).and_return("Sports Fan")
+      }
+      it "should send welcome email" do
+        email = double(:email)
+        UserMailer.should_receive(:welcome_email).once.and_return(email)
+        email.should_receive(:deliver).once
+        @user.send_welcome_email
+      end
+    end
+    context "user is alumni group" do
+      before {
+        @user.stub(:requested_role).and_return("Alumni Group")
+      }
+      it "should send welcome email" do
+        email = double(:email)
+        UserMailer.should_receive(:alumni_group_email).once.and_return(email)
+        email.should_receive(:deliver).once
+        @user.send_welcome_email
+      end
+    end
+    context "user is venue" do
+      before {
+        @user.stub(:requested_role).and_return("Venue")
+      }
+      it "should send welcome email" do
+        email = double(:email)
+        UserMailer.should_receive(:venue_email).once.and_return(email)
+        email.should_receive(:deliver).once
+        @user.send_welcome_email
+      end
+    end
+  end
+
 end
 
 # == Schema Information
