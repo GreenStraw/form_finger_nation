@@ -1,0 +1,10 @@
+<h4><%= "Upcoming parties at #{venue.name}" %></h4>
+<table class='table table-hover borderless'>
+  <tbody>
+    <% parties.each do |party| %>
+      <tr>
+        <td><%= link_to(party.name, party_path(party)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

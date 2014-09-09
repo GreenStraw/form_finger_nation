@@ -75,14 +75,14 @@ class Party < ActiveRecord::Base
 
   def self.search(search_item)
     if search_item.blank?
-      parties = Party.all
+      parties = Party.where("parties.scheduled_for > ?", DateTime.now.beginning_of_day)
       teams = Team.all
       people = User.all
     else
       search_item = "%" + search_item + "%"
       parties = Party.joins(:organizer, :team, :venue)
-        .where(["parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?",
-               search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
+        .where(["parties.scheduled_for > ? AND (parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?)",
+               DateTime.now.beginning_of_day, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
      teams =  Party.joins(:team)
        .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
 
@@ -95,7 +95,7 @@ class Party < ActiveRecord::Base
   def self.geo_search(address, radius)
     venue_addresses_in_radius = Address.class_within_radius_of_address('Venue', address, radius)
     venues = venue_addresses_in_radius.map(&:addressable)
-    @parties = venues.map(&:parties).flatten.uniq
+    @parties = venues.map(&:upcoming_parties).flatten.uniq
   end
 
   def self.search_by_params(party_params)
