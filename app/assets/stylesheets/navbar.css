@@ -13,6 +13,14 @@
   text-transform: uppercase;
 }
 
+.navbar {
+  border-bottom: 3px solid #B1DA4F;
+}
+
+.sidebar-nav .navbar{
+  border-bottom: none;
+}
+
 .dropdown-menu>li>a {
   color: #999999;
 }
