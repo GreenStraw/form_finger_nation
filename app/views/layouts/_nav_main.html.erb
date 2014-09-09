@@ -54,8 +54,7 @@
               <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
             </li>
             <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
-              <%= link_to( t("theme.login", :default => "Log in"), new_user_session_path ) %>
-              <%= link_to(image_tag("fb_navbar_icon.png"), new_user_session_path, :class=>"fb-navbar-login-icon") %>
+              <a href="<%= new_user_session_path %>">Log In <%= image_tag("fb_navbar_icon.png", :class=>"fb-navbar-login-icon") %></a>
             </li>
           </ul>
         <% end %>
