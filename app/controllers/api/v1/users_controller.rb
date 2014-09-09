@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   load_and_authorize_resource
 
   def index
-    respond_with @users
+    respond_with @users.includes(:followed_sports, :followed_teams, :reservations, :invitations, :parties, :endorsing_teams, :user_purchased_packages, :followees, :followers, :vouchers)
   end
 
   def show

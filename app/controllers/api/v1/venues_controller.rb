@@ -3,7 +3,7 @@ class Api::V1::VenuesController < Api::V1::BaseController
   load_and_authorize_resource :venue
 
   def index
-    respond_with @venues
+    respond_with @venues.includes(:followed_teams, :followed_sports, :parties, :packages)
   end
 
   def show
