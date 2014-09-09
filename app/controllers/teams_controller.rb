@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
+    @has_favorites = user_signed_in? && current_user.followed_teams.any?
     respond_with @teams.order(:sport_id => :desc)
   end
 
