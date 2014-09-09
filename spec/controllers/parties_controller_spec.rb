@@ -51,6 +51,11 @@ describe PartiesController do
         post :create, {:party => valid_attributes}
         response.should redirect_to(Party.last)
       end
+
+      it "rsvps the current user to the party" do
+        post :create, {:party => valid_attributes}
+        expect(current_user.reservation_ids).to include(Party.last.id)
+      end
     end
 
     describe "with invalid params" do
