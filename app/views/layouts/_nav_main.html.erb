@@ -39,15 +39,21 @@
           </ul>
         <% else %>
           <ul class="nav navbar-nav">
-            <li class="<%= 'active' if current_page?( about_path ) %>">
-              <%= link_to( t("About", :default => "About"), about_path ) %>
+            <% if current_page?( root_path ) %>
+            <li>
+              <%= link_to( "Sports Fans", "#sports-fans" ) %>
             </li>
-            <li class="<%= 'active' if current_page?( how_path ) %>">
-              <%= link_to( t("How it Works", :default => "How it Works"), how_path ) %>
+            <li>
+              <%= link_to( "Alumni Groups", "#alumni-groups" ) %>
             </li>
-            <li class="<%= 'active' if current_page?( faq_path ) %>">
-              <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
+            <li>
+              <%= link_to( "Venues", "#venues" ) %>
             </li>
+            <li>
+              <%= link_to( "FAQ", faq_path ) %>
+            </li>
+            <% end %>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">

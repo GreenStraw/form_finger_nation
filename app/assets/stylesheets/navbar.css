@@ -7,6 +7,25 @@
   height: auto;
 }
 
+/*CSS hack for navbar jumplink positioning*/
+
+#sports-fans {
+  margin-top: -200px;
+  padding-top: 200px;
+}
+
+#venues {
+  margin-top: -160px;
+  padding-top: 160px;
+}
+
+#alumni-groups {
+  margin-top: -178px;
+  padding-top: 178px;
+}
+
+/*end jumplinks*/
+
 .navbar li {
   font-size: 1.75em;
   font-family: 'TradeGothicLTStdBdCnNo.20';
