@@ -14,7 +14,7 @@
             var path = window.location.protocol + "//" + window.location.host ;
             zoozStartCheckout({
               token : data.token, // Session token recieved from server
-              uniqueId : <%= ENV['ZOOZ_UNIQUE_ID'] %>, // unique ID as registered in the developer portal
+              uniqueId : '<%= ENV['ZOOZ_UNIQUE_ID'] %>', // unique ID as registered in the developer portal
               isSandbox : <%= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
               returnUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>", // return page URL
               cancelUrl : path + "/zooz_transaction/<%= @party_package.id.to_s %>" // cancel page URL
