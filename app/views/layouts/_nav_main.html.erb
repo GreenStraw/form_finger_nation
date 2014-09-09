@@ -55,7 +55,6 @@
             </li>
             <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
               <%= link_to( t("theme.login", :default => "Log in"), new_user_session_path ) %>
-              <%= link_to(image_tag("fb_navbar_icon.png"), new_user_session_path, :class=>"fb-navbar-login-icon") %>
             </li>
           </ul>
         <% end %>
