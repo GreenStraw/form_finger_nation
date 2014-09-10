@@ -10,17 +10,25 @@
       <div class="tab-content">
         <div class="tab-pane active" id="redeemable">
           <h3>Redeemable Vouchers</h3>
-          <% @redeemable_vouchers.each do |voucher| %>
-            <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+          <% if @redeemable_vouchers.any? %>
+            <% @redeemable_vouchers.each do |voucher| %>
+              <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+            <% end %>
+          <% else %>
+            <h5 class='text-muted'>No Redeemable Vouchers</h5>
           <% end %>
         </div>
         <div class="tab-pane" id="history">
           <h3>History</h3>
-          <% @history_vouchers.each do |voucher| %>
-            <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+          <% if @history_vouchers.any? %>
+            <% @history_vouchers.each do |voucher| %>
+              <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+            <% end %>
+          <% else %>
+            <h5 class='text-muted'>No Redeemed Vouchers</h5>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-  
+
