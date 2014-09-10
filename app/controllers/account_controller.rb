@@ -15,8 +15,8 @@ class AccountController < ApplicationController
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
       redirect_to root_path
     else
-      flash[:warning] = "errors occurred!"
-      render :new
+      flash[:warning] = @account.errors.full_messages
+      redirect_to new_user_registration_path
     end
   end
 
