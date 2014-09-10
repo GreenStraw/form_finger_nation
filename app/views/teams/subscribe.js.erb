@@ -2,3 +2,4 @@ $('#team-tabs-followed').html("<%= escape_javascript(render(partial: 'teams_tabl
 $('#team-tabs-all').html("<%= escape_javascript(render(partial: 'teams_table_all')).html_safe %>")
 $('#team-tabs-managed').html("<%= escape_javascript(render(partial: 'teams_table_managed')).html_safe %>")
 $('#subscribe-star').html("<%= escape_javascript(render(partial: 'subscribe_star', locals: { team: @team})).html_safe %>")
+$('#notice').html("<%= escape_javascript(render :partial => 'layouts/flash' , :locals => { :flash => flash }).html_safe  %>")
