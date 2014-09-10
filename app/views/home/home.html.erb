@@ -52,7 +52,7 @@
 
       <div class="col-sm-6">
         <div class="input-group" id="search-where">
-          <%= text_field "party","search_location", class: "form-control input-lg", placeholder: "Where", value: params[:party].blank? ? "" : params[:party][:search_location] %>
+          <%= text_field "party","search_location", class: "form-control input-lg", placeholder: "City, State, or Zip", value: params[:party].blank? ? "" : params[:party][:search_location] %>
           <span class="input-group-btn">
             <%= f.submit "Go", :class=>"btn btn-default btn-lg"%>
             <!-- <button class="btn btn-default" type="button">Go!</button> -->
