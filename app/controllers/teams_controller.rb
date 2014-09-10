@@ -53,6 +53,7 @@ class TeamsController < ApplicationController
     if !@team.fans.include?(current_user)
       @team.fans << current_user
     end
+    flash.now[:notice] = "#{@team.name} added to favotites"
     respond_to do |format|
       format.js { render action: 'subscribe' }
     end
@@ -62,6 +63,7 @@ class TeamsController < ApplicationController
     if @team.fans.include?(current_user)
       @team.fans.delete(current_user)
     end
+    flash.now[:notice] = "#{@team.name} removed from favotites"
     respond_to do |format|
       format.js { render action: 'subscribe' }
     end
