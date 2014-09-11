@@ -1,5 +1,6 @@
 Baseapp::Application.routes.draw do
 
+  get 'accounts' => "account#index", :as => 'accounts'
   get 'account' => "account#show", :as => 'account'
   get 'account/edit' => 'account#edit', :as => 'edit_account'
   post 'account/update' => 'account#update', :as => 'update_account'
@@ -63,6 +64,10 @@ Baseapp::Application.routes.draw do
   # Authentication
   devise_for :users,  controllers: { omniauth_callbacks: 'omniauth_callbacks'}, skip: [:sessions, :passwords, :confirmations, :recoverable, :registerable]
   as :user do
+    #admins
+    get   '/index' => 'users#index',                    as: 'users'
+    put   '/add_admin' => 'users#add_admin',           as: 'add_admin_user'
+    put   '/remove_admin' => 'users#remove_admin',     as: 'remove_admin_user'
     # session handling
     get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
     post  '/login'  => 'milia/sessions#create',  as: 'user_session'

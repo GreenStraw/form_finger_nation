@@ -1,0 +1,30 @@
+<%= form_tag( "/add_admin", method: :put, remote: true) %>
+<%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', 'username'), include_blank: true, prompt: 'select a user to add as an', class: 'select2', style: 'width: 300px;' %>
+<%= submit_tag 'Add Admin', class: 'btn btn-success btn-sm' %>
+<br>
+<div id='admin-table'>
+  <table class='table table-hover borderless'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% User.admins.each do |admin| %>
+        <tr>
+          <td><%= image_tag(admin.image_url.thumb) unless admin.image_url.blank? %></td>
+          <td><%= admin.username %></td>
+          <td><%= admin.address.city_state %></td>
+          <td>
+            <%= link_to(remove_admin_user_path({user_id: admin}), remote: true, method: :put) do%>
+              <i class='fa fa-times fa-2x' style='color: red;'></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
