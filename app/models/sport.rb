@@ -13,10 +13,10 @@ class Sport < ActiveRecord::Base
   def self.ordered_sports
     sport_order = Sport::SPORT_ORDER
     sport_order += Sport.all.reject{|s| sport_order.include?(s.name)}.map(&:name)
-    sport_names_with_teams = []
+    sport_names_with_teams = {}
     sport_order.each do |sport_name|
       sport = Sport.find_by_name(sport_name)
-      sport_names_with_teams << sport_name if sport.present? && sport.teams.any?
+      sport_names_with_teams[sport_name] = sport.teams if sport.present? && sport.teams.any?
     end
     sport_names_with_teams
   end

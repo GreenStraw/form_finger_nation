@@ -9,5 +9,5 @@
       </div>
     </div>
   </div>
-  <%= render partial: 'team_table', locals: {all: true, teams_by_sport: Team.ordered_teams(Team.all) } %>
+  <%= render partial: 'team_table', locals: { all: false, teams_by_sport: Team.ordered_teams(Team.all), tab: 'all' } %>
 </div>
