@@ -19,14 +19,11 @@ class Team < ActiveRecord::Base
 
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
-    sport_order = Sport.ordered_sports
+    sport_names_with_teams = Sport.ordered_sports
     ordered_teams = {}
-    sport_order.each do |sport_name|
-      ordered_teams[sport_name] = grouped_teams[sport_name] || []
+    sport_names_with_teams.each do |sport_name, teams|
+      ordered_teams[sport_name] = teams
     end
-    # sport_order.each do |sport_name|
-    #   ordered_teams += grouped_teams[sport_name] || []
-    # end
     ordered_teams
   end
 
