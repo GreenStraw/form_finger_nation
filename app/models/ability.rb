@@ -27,6 +27,7 @@ class Ability
     if user.has_role?(:admin)
       can :manage, :all
     else
+      cannot [:add_admin, :remove_admin], User
       can :read, :all
       can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe], Team
       can [:subscribe_user, :unsubscribe_user], Sport

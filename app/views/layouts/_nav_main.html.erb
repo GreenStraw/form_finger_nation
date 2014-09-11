@@ -53,7 +53,7 @@
               <%= link_to( "FAQ", faq_path ) %>
             </li>
             <% end %>
-            
+
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
@@ -89,6 +89,9 @@
                 </li>
               <% end %>
               <% if user_signed_in? && current_user.admin? %>
+                <li>
+                  <%= link_to 'Manage Admins', users_path %>
+                </li>
                 <li>
                   <%= link_to 'Manage Sports', sports_path %>
                 </li>
