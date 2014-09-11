@@ -23,6 +23,34 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
+
+  <%= f.fields_for :address_attributes do |a| %>
+    <div class='field'>
+      <%= a.label :street1 %><br>
+      <%= a.text_field :street1 %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :street2 %><br>
+      <%= a.text_field :street2 %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :city %><br>
+      <%= a.text_field :city %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :state %><br>
+      <%= a.text_field :state %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :zip %><br>
+      <%= a.text_field :zip %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
