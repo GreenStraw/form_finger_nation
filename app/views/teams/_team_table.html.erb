@@ -1,33 +1,22 @@
 <table class='table table-hover borderless'>
   <tbody>
-    <% sport = teams.first.sport.name rescue "No Sport"%>
-	<% last_label = sport %>
-	<% unless teams.blank? %>
-      <tr>
-        <td>
-          <h3> <%= sport unless teams.blank? %></h3>
-        </td>
-     </tr>
-	<% end %>
-
-    <% teams.each do |team| %>
-      <% unless team.sport.name == last_label  %>
+    <% teams_by_sport.each do |sport_name, teams| %>
+      <% unless teams.empty? %>
         <tr>
           <td>
-            <h3>
-              <%= team.sport.name %>
-            </h3>
+            <h3 id="<%= sport_name.underscore if all %>"><a href="#Top"><span class="glyphicon-class glyphicon glyphicon-chevron-up"></span></a><%= sport_name %></h3>
           </td>
         </tr>
-        <% last_label = team.sport.name %>
+        <% teams.each do |team| %>
+          <tr>
+            <td><%= image_tag(team.image_url, size: '80') %></td>
+            <td><h4><%= link_to(team.name, team) %></h4></td>
+            <td>
+              <%= render partial: 'subscribe_star', locals: { team: team } %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
-      <tr>
-        <td><%= image_tag(team.image_url, size: '80') %></td>
-        <td><h4><%= link_to(team.name, team) %></h4></td>
-        <td>
-          <%= render partial: 'subscribe_star', locals: { team: team } %>
-        </td>
-      </tr>
     <% end %>
   </tbody>
 </table>

@@ -13,14 +13,14 @@
 </ul>
 
 <div class='tab-content'>
-  <div class='tab-pane <%= "active" if @has_favorites %>' id="favorites">
-    <%= render partial: 'teams_table_followed' %>
-  </div>
-
   <div class='tab-pane <%= "active" if !@has_favorites %>' id="all">
     <%= render partial: 'teams_table_all' %>
   </div>
-
+  
+  <div class='tab-pane <%= "active" if @has_favorites %>' id="favorites">
+    <%= render partial: 'teams_table_followed' %>
+  </div>
+  
   <div class='tab-pane' id="managed">
     <%= render partial: 'teams_table_managed' %>
   </div>
