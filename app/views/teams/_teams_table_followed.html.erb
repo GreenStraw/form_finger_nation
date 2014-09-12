@@ -1,3 +1,0 @@
-<div id="team-tabs-followed">
-  <%= render partial: 'team_table', locals: { all:false, teams_by_sport: Team.ordered_teams(current_user.followed_teams) || [], tab: 'followed' } %>
-</div>

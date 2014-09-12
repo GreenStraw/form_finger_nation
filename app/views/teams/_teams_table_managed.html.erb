@@ -1,3 +1,0 @@
-<div id="team-tabs-managed">
-  <%= render partial: 'team_table', locals: { all: false, teams_by_sport: Team.ordered_teams(current_user.managed_teams) || [], tab: 'managed' } %>
-</div>
