@@ -48,7 +48,7 @@ class PartiesController < ApplicationController
   # POST /parties
   def create
     @party.save
-    current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
+    current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party
   end
 
