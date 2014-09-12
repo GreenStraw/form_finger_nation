@@ -1,6 +1,6 @@
 <h2 class="form-title">Forgot your password?</h2>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :class => "form login signup-form" }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name, format: :html), :html => { :class => "form login signup-form" }) do |f| %>
 
   <%= devise_error_messages! %>
 
@@ -8,7 +8,7 @@
     <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address', :autofocus => true %>
   </div>
   </br>
-  
+
   <div class="input">
     <button class="btn btn-primary green-btn green-btn-wide" type="submit">Reset Password</button>
   </div>
