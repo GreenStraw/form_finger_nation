@@ -22,6 +22,7 @@ class Api::V1::PartiesController < Api::V1::BaseController
 
   def create
     @party.save
+    current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party, :location=>api_v1_parties_path
   end
 

@@ -107,6 +107,9 @@ describe Api::V1::PartiesController do
       it "responds with json" do
         expect(JSON.parse(response.body)).to have_key('party')
       end
+      it "rsvps the current user to the party" do
+        expect(current_user.reservation_ids).to include(Party.last.id)
+      end
     end
 
     describe "with invalid params" do
