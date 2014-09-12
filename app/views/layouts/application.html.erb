@@ -22,6 +22,7 @@
      <div class="bg-static"></div>
     <% end %>
     <%= render 'layouts/nav_main' %>
+    <div style='display:none' id='messageDiv'></div>
 
     <% if current_page?(root_path) %>
       <% if content_for?(:jumbotron) %>

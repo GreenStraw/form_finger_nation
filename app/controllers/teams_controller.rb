@@ -8,7 +8,8 @@ class TeamsController < ApplicationController
   # GET /teams
   def index
     @has_favorites = user_signed_in? && current_user.followed_teams.any?
-    respond_with @teams.order(:sport_id => :desc)
+    @teams_by_sport = Team.ordered_teams(Team.all)
+    respond_with @teams_by_sport
   end
 
   # GET /teams/1
@@ -52,20 +53,25 @@ class TeamsController < ApplicationController
   def subscribe
     if !@team.fans.include?(current_user)
       @team.fans << current_user
+    else
+      return render json: {}, status: 409
     end
+    @favorites = current_user.followed_teams || []
     flash.now[:notice] = "#{@team.name} added to favotites"
     respond_to do |format|
-      format.js { render action: 'subscribe' }
+      format.js { render json: {}, status: 200 }
     end
   end
 
   def unsubscribe
     if @team.fans.include?(current_user)
       @team.fans.delete(current_user)
+    else
+      return render json: {}, status: 409
     end
     flash.now[:notice] = "#{@team.name} removed from favotites"
     respond_to do |format|
-      format.js { render action: 'subscribe' }
+      format.js { render json: {}, status: 200 }
     end
   end
 

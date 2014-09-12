@@ -1,33 +1,87 @@
 <table class='table table-hover borderless'>
   <tbody>
-    <% sport = teams.first.sport.name rescue "No Sport"%>
-	<% last_label = sport %>
-	<% unless teams.blank? %>
-      <tr>
-        <td>
-          <h3> <%= sport unless teams.blank? %></h3>
-        </td>
-     </tr>
-	<% end %>
-
-    <% teams.each do |team| %>
-      <% unless team.sport.name == last_label  %>
-        <tr>
-          <td>
-            <h3>
-              <%= team.sport.name %>
-            </h3>
-          </td>
-        </tr>
-        <% last_label = team.sport.name %>
+    <% favorites = (current_user.try(:followed_teams) || []) %>
+    <% managed = (current_user.try(:managed_teams) || []) %>
+    <% @teams_by_sport.each do |sport_name, teams| %>
+      <% if tab=='followed' %>
+        <tr class='<%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>'>
+      <% elsif tab=='managed' %>
+        <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'>
+      <% else %>
+        <tr class='<%= sport_name %>'>
       <% end %>
-      <tr>
-        <td><%= image_tag(team.image_url, size: '80') %></td>
-        <td><h4><%= link_to(team.name, team) %></h4></td>
         <td>
-          <%= render partial: 'subscribe_star', locals: { team: team } %>
+          <h3 id="<%= sport_name.underscore if all %>"><a href="#Top"><span class="glyphicon-class glyphicon glyphicon-chevron-up"></span></a><%= sport_name %></h3>
         </td>
       </tr>
+      <% teams.each do |team| %>
+        <% if tab=='followed' %>
+          <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'>
+        <% elsif tab=='managed' %>
+          <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'>
+        <% else %>
+          <tr class='<%= team.id %>'>
+        <% end %>
+          <td><%= image_tag(team.image_url, size: '80') %></td>
+          <td><h4><%= link_to(team.name, team) %></h4></td>
+          <td>
+            <div data-tab="<%= tab %>">
+            <% if user_signed_in? %>
+              <i class="fa fa-4x subscribe-star <%= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+
+<script type='text/javascript'>
+  $('.subscribe-star').on('click', function() {
+    console.log($(this));
+    var teamId = $(this).data('team-id');
+    var teamName = $(this).data('team-name');
+    var sportName = $(this).data('sport-name');
+    var subscribed = $(this).hasClass('fa-star-o');
+    var url = '';
+    if (subscribed) {
+      url = "/teams/" + teamId + "/subscribe";
+    } else {
+      url = "/teams/" + teamId + "/unsubscribe";
+    };
+    var div = $(this).closest('div').data('tab');
+    var teamIdClass = '.team-' + teamId + '';
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: {'id': teamId},
+      success: function() {
+        if ($(teamIdClass).hasClass('fa-star')) {
+          var teamRow = $('tr.followed.' + teamId);
+          var sportRow = $('tr.followed.' + sportName);
+          $(teamIdClass).removeClass('fa-star');
+          $(teamIdClass).addClass('fa-star-o');
+          teamRow.addClass('hidden');
+          displayMessage('Subscribed to ' + teamName)
+        } else {
+          var teamRow = $('tr.followed.' + teamId);
+          var sportRow = $('tr.followed.' + sportName);
+          sportRow.removeClass('hidden');
+          teamRow.removeClass('hidden');
+          $(teamIdClass).removeClass('fa-star-o');
+          $(teamIdClass).addClass('fa-star');
+          displayMessage('Unsubscribed from ' + teamName )
+        };
+      },
+      error: function(){
+        //do nothing
+      }
+    })
+  });
+
+  function displayMessage(message) {
+    $('#messageDiv').text(message);
+    $('#messageDiv').fadeIn("slow");
+    setTimeout(function() {$('#messageDiv').fadeOut("slow")}, 5000);
+  }
+</script>

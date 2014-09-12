@@ -19,12 +19,10 @@ class Team < ActiveRecord::Base
 
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
-    sport_order = ['NFL', 'NCAA-FOOTBALL', 'MLB', 'NCAA-BASEBALL', 'NBA', 'NCAA-BASKETBALL', 'SOCCER']
-    #add sports that are not in the specified order to the end
-    sport_order += Sport.all.reject{|s| sport_order.include?(s.name)}.map(&:name)
-    ordered_teams = []
-    sport_order.each do |sport_name|
-      ordered_teams += grouped_teams[sport_name] || []
+    sport_names_with_teams = Sport.ordered_sports
+    ordered_teams = {}
+    sport_names_with_teams.each do |sport_name, teams|
+      ordered_teams[sport_name] = teams
     end
     ordered_teams
   end

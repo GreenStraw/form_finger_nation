@@ -20,5 +20,14 @@
   background: #F6F6F6;
 }
 
+.team-jumplink-btn {
+  display: inline;
+}
+
+.team-jumplink-container {
+  line-height: 50px;
+  text-align: center;
+}
+
 /*******.tabs-title css found in bootstrap-tabs.css*******/
 
