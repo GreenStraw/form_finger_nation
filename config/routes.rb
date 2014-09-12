@@ -77,7 +77,7 @@ Baseapp::Application.routes.draw do
       # password reset
       get   '/password'        => 'milia/passwords#new',    as: 'new_user_password'
       put   '/password'        => 'milia/passwords#update', as: 'user_password'
-      post  '/password'        => 'milia/passwords#create'
+      post  '/password'        => 'passwords#create'
       get   '/password/change' => 'milia/passwords#edit',   as: 'edit_user_password'
 
       # confirmation
