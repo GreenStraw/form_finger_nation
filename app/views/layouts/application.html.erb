@@ -22,8 +22,14 @@
      <div class="bg-static"></div>
     <% end %>
     <%= render 'layouts/nav_main' %>
-    <div style='display:none' id='messageDiv'></div>
-
+      <div class="static-height-wrapper">
+        <div class="message-div-wrapper col-lg-6 col-xs-offset-3">
+          <div id='message-div' class="alert alert-dismissable alert-success"role="alert">
+            <span id="alert-message-text">&nbsp;</span>
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+          </div>
+        </div>
+      </div>
     <% if current_page?(root_path) %>
       <% if content_for?(:jumbotron) %>
         <div class="jumbotron">
