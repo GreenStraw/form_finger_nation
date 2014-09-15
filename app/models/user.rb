@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
   validates_uniqueness_of :username
-  validates_length_of :username, within: 1..12, too_long: 'username is too long', too_short: 'username is too short'
+  validates_length_of :username, within: 1..12, too_long: 'is too long', too_short: 'is too short'
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   REQUESTED_ROLES = ['Sports Fan', 'Alumni Group', 'Venue']
