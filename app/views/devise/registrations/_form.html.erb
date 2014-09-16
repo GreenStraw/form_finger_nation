@@ -1,9 +1,7 @@
 <%= form_for(@user, :url => account_path, method: :post, :html => { :class => "form login signup-form" }) do |f| %>
 
-  <%= devise_error_messages! %>
-
   <div class="input">
-    <%= f.text_field :username, :class => "form-control", :placeholder =>'Username' %>
+    <%= f.text_field :username, :class => "form-control #{'error' if @user.errors[:username]}", :placeholder =>'Username' %>
   </div>
   </br>
 
