@@ -33,7 +33,7 @@ describe UserMailer do
       expect(mail.header['Bcc'].to_s).to eql('alumnigroups@foamfingernation.com')
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('alumnigroups@foamfingernation.com')
     end
   end
 
@@ -52,7 +52,7 @@ describe UserMailer do
       expect(mail.header['Bcc'].to_s).to eql('Sportsbars@foamfingernation.com')
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('Sportsbars@foamfingernation.com')
     end
   end
 
