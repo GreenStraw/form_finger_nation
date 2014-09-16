@@ -25,6 +25,28 @@ form {
   padding-top: 30px;
 }
 
+#message-div {
+  display: none;
+}
+
+.static-height-wrapper {
+  min-height: 80px;
+  margin-top: -27px;
+  position: absolute;
+  width: 100%
+}
+
+.message-div-wrapper.affix {
+    top:0;
+    z-index: 999;
+    display: block;
+}
+
+#alert-message-text {
+  margin: 0 auto;
+}
+
+
  /* Override Rail's default error calls with Bootstrap 3 */
  .field_with_errors {
    @extend .has-error;

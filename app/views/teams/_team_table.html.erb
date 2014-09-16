@@ -38,7 +38,6 @@
 
 <script type='text/javascript'>
   $('.subscribe-star').on('click', function() {
-    console.log($(this));
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');
@@ -62,7 +61,7 @@
           $(teamIdClass).removeClass('fa-star');
           $(teamIdClass).addClass('fa-star-o');
           teamRow.addClass('hidden');
-          displayMessage('Subscribed to ' + teamName)
+          displayMessage('Unsubscribed from ' + teamName)
         } else {
           var teamRow = $('tr.followed.' + teamId);
           var sportRow = $('tr.followed.' + sportName);
@@ -70,7 +69,7 @@
           teamRow.removeClass('hidden');
           $(teamIdClass).removeClass('fa-star-o');
           $(teamIdClass).addClass('fa-star');
-          displayMessage('Unsubscribed from ' + teamName )
+          displayMessage('Subscribed to ' + teamName )
         };
       },
       error: function(){
@@ -80,8 +79,14 @@
   });
 
   function displayMessage(message) {
-    $('#messageDiv').text(message);
-    $('#messageDiv').fadeIn("slow");
-    setTimeout(function() {$('#messageDiv').fadeOut("slow")}, 5000);
+    $('#alert-message-text').text(message);
+    $('#message-div').fadeIn("slow");
+    setTimeout(function() {$('#message-div').fadeOut("slow")}, 3000);
   }
+
+  $('.message-div-wrapper').affix({
+      offset: {
+        top: 185
+      }
+  });
 </script>
