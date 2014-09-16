@@ -1,4 +1,5 @@
 class PartyMailer < ActionMailer::Base
+  default from: 'watchparty@foamfingernation.com'
 
   def watch_party_verified_email(party)
     @to = party.organizer.email

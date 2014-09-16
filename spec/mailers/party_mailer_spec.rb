@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe PartyMailer do
-  
+
   describe "watch_party_verified_email" do
     let(:party) { Fabricate(:party) }
     let(:mail) { PartyMailer.watch_party_verified_email(party) }
@@ -12,10 +12,10 @@ describe PartyMailer do
       expect(mail.header['To'].to_s).to eql(party.organizer.email)
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('watchparty@foamfingernation.com')
     end
   end
-  
+
   describe "host_fourty_eight_hour_notification_email" do
     let(:party) { Fabricate(:party) }
     let(:mail) { PartyMailer.host_fourty_eight_hour_notification_email(party) }
@@ -26,7 +26,7 @@ describe PartyMailer do
       expect(mail.header['To'].to_s).to eql(party.organizer.email)
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('watchparty@foamfingernation.com')
     end
   end
 
@@ -47,7 +47,7 @@ describe PartyMailer do
     it 'renders the sender email' do
       user = Fabricate(:user)
       user.add_role(:manager, party.venue)
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('watchparty@foamfingernation.com')
     end
   end
 
@@ -61,8 +61,8 @@ describe PartyMailer do
       expect(mail.header['To'].to_s).to eql(reservation.email)
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('watchparty@foamfingernation.com')
     end
   end
-  
+
 end
