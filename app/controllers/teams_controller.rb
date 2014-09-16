@@ -57,7 +57,7 @@ class TeamsController < ApplicationController
       return render json: {}, status: 409
     end
     @favorites = current_user.followed_teams || []
-    flash.now[:notice] = "#{@team.name} added to favotites"
+    flash.now[:notice] = "#{@team.name} added to favorites"
     respond_to do |format|
       format.js { render json: {}, status: 200 }
     end
@@ -69,7 +69,7 @@ class TeamsController < ApplicationController
     else
       return render json: {}, status: 409
     end
-    flash.now[:notice] = "#{@team.name} removed from favotites"
+    flash.now[:notice] = "#{@team.name} removed from favorites"
     respond_to do |format|
       format.js { render json: {}, status: 200 }
     end
