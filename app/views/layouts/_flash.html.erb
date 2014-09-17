@@ -1,5 +1,5 @@
 <% flash.each do |type, message| %>
-<div class="alert alert-<%= flash_type_to_alert(type).to_s == "notice" ? 'success' : 'danger' -%> alert-dismissable">
+<div class="alert alert-<%= flash_type_to_alert(type).to_s == "notice" || "success" ? 'success' : 'danger' -%> alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   <p><strong><%= flash_type_to_alert(type).capitalize -%>!</strong> <%= message.is_a?(Array) ? message[0] : message -%></p>
 </div>

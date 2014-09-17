@@ -61,7 +61,7 @@
           $(teamIdClass).removeClass('fa-star');
           $(teamIdClass).addClass('fa-star-o');
           teamRow.addClass('hidden');
-          displayMessage('Unsubscribed from ' + teamName)
+          displayMessage("The " + teamName + " are no longer a favorite")
         } else {
           var teamRow = $('tr.followed.' + teamId);
           var sportRow = $('tr.followed.' + sportName);
@@ -69,7 +69,7 @@
           teamRow.removeClass('hidden');
           $(teamIdClass).removeClass('fa-star-o');
           $(teamIdClass).addClass('fa-star');
-          displayMessage('Subscribed to ' + teamName )
+          displayMessage("The " + teamName + " are now a favorite")
         };
       },
       error: function(){
