@@ -1,22 +1,40 @@
 .rsvp-available-button{
-	border: 1px solid #000;
+	border: 1px solid #7CA312;
 	width: 150px !important;
-	background-color: green;
+	background-color: #B1DA4F;
 	color: #fff !important;
 	padding: 10px;
+	position: relative;
+	z-index: 999;
 }
 
-.rsvp-button{
-	border: 1px solid #000;
+.invite-friends-button {
+	border: 1px solid #7CA312;
 	padding: 10px;
 	color: #000;
+	color: #fff !important;
 	width: 150px;
+	background-color: #B1DA4F;
+	position: relative;
+	z-index: 999;
 }
 
+
+.rsvp-available-button:hover,
+.rsvp-available-button:focus,
+.rsvp-available-button:active,
+.rsvp-available-button.active,
+.invite-friends-button:hover,
+.invite-friends-button:focus,
+.invite-friends-button:active,
+.invite-friends-button.active {
+  color: #FFFFFF;
+  background-color: #8AB509;
+  border-color: #7CA312;
+}
+
+
 .invite-friends-button{
-	border: 1px solid black;
-	width: 150px;
-	padding: 10px;
 	margin-left: 20px;
 }
 
