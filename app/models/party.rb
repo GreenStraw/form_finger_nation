@@ -2,7 +2,6 @@ class Party < ActiveRecord::Base
   acts_as_commentable
   validates :name, presence: true
   validates :scheduled_for, presence: true
-  validates :venue_id, presence: true
 
   after_update :send_notification_when_verified
   after_create :ensure_address
@@ -21,8 +20,13 @@ class Party < ActiveRecord::Base
   belongs_to :venue
 
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :venue, :reject_if => :no_new_venue
 
   attr_accessor :user_ids, :emails
+
+  def self.no_new_venue(attributes)
+    attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
+  end
 
   def scheduled_for=(value)
     if value.is_a?(String)

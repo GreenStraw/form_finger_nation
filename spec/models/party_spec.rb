@@ -5,13 +5,28 @@ describe Party do
   before(:each) do
     @party = Fabricate(:party)
   end
-  
+
+  describe "no_new_venue(attributes)" do
+    it "returns true if all attributes are not present" do
+      bad_attributes = {name: 'test', address_attributes: {street1: 'test_street1'}}
+      expect(Party.no_new_venue(bad_attributes)).to eq(true)
+    end
+    it "returns true if all attributes are not present" do
+      bad_attributes = {name: 'test'}
+      expect(Party.no_new_venue(bad_attributes)).to eq(true)
+    end
+    it "retruns false is all attributes are present" do
+      good_attributes = {name: 'test', address_attributes: {street1: 'test_street1', city: 'test_city', state: 'test_state', zip: 'test_zip'}}
+      expect(Party.no_new_venue(good_attributes)).to eq(false)
+    end
+  end
+
   describe 'completed_purchases' do
     it 'returns voucher records' do
       expect(@party.completed_purchases.class).to eq(Voucher::ActiveRecord_AssociationRelation)
     end
   end
-  
+
   describe "send_notification_when_verified" do
     context "verified changed and true" do
       before {
@@ -48,7 +63,7 @@ describe Party do
       expect(@party.unregistered_attendees.class).to eq(Array)
     end
   end
-  
+
   describe 'search by values expecting no match' do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -58,7 +73,7 @@ describe Party do
       expect(@results).to eq([[],[],[]])
     end
   end
-  
+
   describe 'search blank values expecting matches' do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -68,7 +83,7 @@ describe Party do
       expect(@results.count).to eq(3)
     end
   end
-  
+
   describe 'search by params with blank values expecting matches' do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -78,7 +93,7 @@ describe Party do
       expect(@results.count).to eq(3)
     end
   end
-  
+
 
   describe 'search with params values expecting matches' do
     before {
@@ -89,14 +104,14 @@ describe Party do
       expect(@results[0].count).to eq(1)
     end
   end
-  
+
   describe 'search with location params values expecting matches' do
     it "should have results" do
       @results = Party.search_by_params({search_location: "Austin, Tx"})
       expect(@results[0].count).to eq(1)
     end
   end
-  
+
 
   describe 'search with params values and geo location expecting matches' do
     before {
@@ -118,7 +133,7 @@ describe Party do
       expect(@results[0][0]).to eq(@test_party[0])
     end
   end
-  
+
   describe 'search by location expecting match' do
     before {
       @address = Fabricate(:address, street1: "10717 Pall Mall", city: "Austin", state: "TX", zip: "78748")
@@ -132,7 +147,7 @@ describe Party do
       expect(@results.count).to eq(2)
     end
   end
-  
+
 
   describe "send invites " do
     before {
@@ -146,7 +161,7 @@ describe Party do
       expect(PartyInvitation.count).to eq(count + 1)
     end
   end
-  
+
   describe "do not send invites if user has already been invited" do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -155,12 +170,12 @@ describe Party do
     it "sends invite" do
       params = {:invites => {:email => @user.email}}
       @party.handle_invites(params,  @user)
-      count = PartyInvitation.count      
+      count = PartyInvitation.count
       @party.handle_invites(params,  @user)
       expect(PartyInvitation.count).to eq(count)
     end
   end
-  
+
   describe "do not send invites if email is invalid" do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -173,10 +188,10 @@ describe Party do
       expect(PartyInvitation.count).to eq(count)
     end
   end
-  
 
 
-  
+
+
 
   describe "send invites " do
     before {
@@ -190,7 +205,7 @@ describe Party do
       expect(PartyInvitation.count).to eq(count + 1)
     end
   end
-  
+
   describe "do not send invites if user has already been invited" do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -199,12 +214,12 @@ describe Party do
     it "sends invite" do
       params = {:invites => {:email => @user.email}}
       @party.handle_invites(params,  @user)
-      count = PartyInvitation.count      
+      count = PartyInvitation.count
       @party.handle_invites(params,  @user)
       expect(PartyInvitation.count).to eq(count)
     end
   end
-  
+
   describe "do not send invites if email is invalid" do
     before {
       @party = Fabricate(:party, name: "my test party")
@@ -217,7 +232,7 @@ describe Party do
       expect(PartyInvitation.count).to eq(count)
     end
   end
-  
+
 
 
 end
