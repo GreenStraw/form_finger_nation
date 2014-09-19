@@ -1,0 +1,99 @@
+
+<%= form_for(@party) do |f| %>
+  <% if @party.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h2>
+
+      <ul>
+      <% @party.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, cols: 80, rows: 2 %>
+  </div>
+  <div class="field">
+    <%= f.label :scheduled_for %><br>
+    <%= f.datetime_select :scheduled_for %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :organizer_id, value: current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :team %><br>
+    <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.all, 'id', 'name'), include_blank: false, class: 'select2', style: 'width: 250px;' %>
+  </div>
+
+  <div class="field" id='venue-select'>
+    <%= f.label :venue %><br>
+    <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.all, 'id', 'name_and_address'), include_blank: false, class: 'select2', style: 'width: 400px;' %>
+  </div><br>
+
+  <%= check_box_tag "new_venue" %> Create New Venue
+  <br><br>
+
+  <div class='new_venue hidden' id='venue-create'>
+    <%= f.fields_for :venue_attributes do |v| %>
+      <%= v.label :name %><br>
+      <%= v.text_field :name %><br><br>
+      <%= v.fields_for :address_attributes do |a| %>
+        <div class='field'>
+          <%= a.label :street1 %><br>
+          <%= a.text_field :street1 %>
+        </div>
+
+        <div class='field'>
+          <%= a.label :street2 %><br>
+          <%= a.text_field :street2 %>
+        </div>
+
+        <div class='field'>
+          <%= a.label :city %><br>
+          <%= a.text_field :city %>
+        </div>
+
+        <div class='field'>
+          <%= a.label :state %><br>
+          <%= a.text_field :state %>
+        </div>
+
+        <div class='field'>
+          <%= a.label :zip %><br>
+          <%= a.text_field :zip %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type='text/javascript'>
+  $('#new_venue').on('click', function() {
+    if ($(this).is(':checked')) {
+      $('#venue-create').removeClass('hidden');
+      $('#venue-select').addClass('hidden');
+    } else {
+      $('#venue-create').addClass('hidden');
+      $('#party_venue_attributes_name').val('');
+      $('#party_venue_attributes_address_attributes_street1').val('');
+      $('#party_venue_attributes_address_attributes_street2').val('');
+      $('#party_venue_attributes_address_attributes_city').val('');
+      $('#party_venue_attributes_address_attributes_state').val('');
+      $('#party_venue_attributes_address_attributes_zip').val('');
+      $('#venue-select').removeClass('hidden');
+    }
+  });
+
+</script>
