@@ -15,7 +15,23 @@ describe Api::V1::TeamsController do
   let(:valid_attributes) { Fabricate.attributes_for(:team) }
 
   describe 'GET index' do
-    context 'index' do
+    context "date passed in" do
+      before {
+        Team.all.map(&:destroy)
+        @t1 = Fabricate(:team, updated_at: (DateTime.now - 5.days))
+        @t2 = Fabricate(:team, updated_at: (DateTime.now - 1.days))
+        get :index, format: :json, date: (DateTime.now - 3.days).to_i.to_s
+      }
+
+      it "only returns t2" do
+        response.body.should eq("{\"teams\":[{\"id\":3,\"created_at\":#{@t2.created_at.to_i},\"updated_at\":#{@t2.updated_at.to_i},\"name\":\"test_team\",\"information\":null,\"sport_id\":3,\"college\":false,\"website\":null,\"image_url\":\"/assets/placeholder.png\",\"address\":{\"id\":4,\"created_at\":#{@t2.address.created_at.to_i},\"updated_at\":#{@t2.address.updated_at.to_i},\"street1\":null,\"street2\":null,\"city\":null,\"state\":null,\"zip\":null,\"addressable_id\":3,\"addressable_type\":\"Team\",\"latitude\":null,\"longitude\":null},\"admin_ids\":[],\"fan_ids\":[],\"venue_fan_ids\":[],\"host_ids\":[],\"endorsement_request_ids\":[]}]}")
+      end
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
+    end
+
+    context 'no date passed in' do
       before do
         get :index, format: :json
       end
