@@ -4,7 +4,12 @@ class Api::V1::TeamsController < Api::V1::BaseController
   before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
 
   def index
-    respond_with @teams.includes(:address, :fans, :venue_fans, :hosts, :endorsement_requests, :sport)
+    if params[:date].present? && params[:date].is_a?(String) && params[:date].to_i.is_a?(Integer)
+      date = params[:date]
+      respond_with @teams.includes(:address, :fans, :venue_fans, :hosts, :endorsement_requests, :sport).select{|t| t.updated_at.to_i > date.to_i}
+    else
+      respond_with @teams.includes(:address, :fans, :venue_fans, :hosts, :endorsement_requests, :sport)
+    end
   end
 
   def show
