@@ -12,22 +12,23 @@
   <% end %>
 
   <div class="field">
+    <%= f.label "Logo" %><br>
     <%= image_tag(@venue.image_url) if @venue.image_url? %>
     <%= f.file_field :image_url %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label "Name*" %><br>
+    <%= f.text_field :name, class: 'required' %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.label raw("Description*") %><br>
+    <%= f.text_field :description, class: 'required' %>
   </div>
 
   <%= f.fields_for :address_attributes do |a| %>
     <div class='field'>
-      <%= a.label :street1 %><br>
-      <%= a.text_field :street1 %>
+      <%= a.label "Street1*" %><br>
+      <%= a.text_field :street1, class: 'required' %>
     </div>
 
     <div class='field'>
@@ -36,18 +37,18 @@
     </div>
 
     <div class='field'>
-      <%= a.label :city %><br>
+      <%= a.label "City*", class: 'required' %><br>
       <%= a.text_field :city %>
     </div>
 
     <div class='field'>
-      <%= a.label :state %><br>
-      <%= a.text_field :state %>
+      <%= a.label "State*" %><br>
+      <%= a.text_field :state, class: 'required' %>
     </div>
 
     <div class='field'>
-      <%= a.label :zip %><br>
-      <%= a.text_field :zip %>
+      <%= a.label "Zip*" %><br>
+      <%= a.text_field :zip, class: 'required' %>
     </div>
   <% end %>
 

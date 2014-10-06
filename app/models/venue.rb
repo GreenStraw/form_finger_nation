@@ -1,5 +1,7 @@
 class Venue < ActiveRecord::Base
   resourcify
+  validates_presence_of :name, :description
+  validate :address_has_fields
   after_create :ensure_address
 
   has_many :comments, as: :commenter
@@ -12,6 +14,18 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
   mount_uploader :image_url, ImageUploader
+
+  def address_has_fields
+    if !address.street1.present?
+      errors.add(:street1, "can't be blank")
+    end
+
+    if !address.zip.present?
+      if !address.city.present? || !address.state.present? 
+        errors.add(:city, "and state must both be included if no zip code is provided")
+      end
+    end
+  end
 
   def upcoming_parties
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
