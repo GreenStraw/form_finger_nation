@@ -12,7 +12,7 @@ describe PartyInvitationMailer do
       expect(mail.header['To'].to_s).to eql(party_invitation.email)
     end
     it 'renders the sender email' do
-      expect(mail.header['From'].to_s).to eql('test@ffn.com')
+      expect(mail.header['From'].to_s).to eql('watchparty@foamfingernation.com')
     end
   end
   
