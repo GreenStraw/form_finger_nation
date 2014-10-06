@@ -57,7 +57,7 @@ describe Api::V1::VenuesController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        post :create, :venue => valid_attributes, :format => :json
+        post :create, :venue => {:name => "Venue", :description => 'test', :address_attributes => {:city => "Florence", :state => "Alabama", :street1 => "123 Monroe St."}}, :format => :json
       end
       it "assigns a newly created venue as @venue" do
         assigns(:venue).should be_a(Venue)

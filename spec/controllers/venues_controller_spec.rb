@@ -40,20 +40,22 @@ describe VenuesController do
 
   describe "POST create" do
     describe "with valid params" do
+      before {
+        @venue_attributes = {:name => "Venue", :description => 'test', :address_attributes => {:city => "Florence", :state => "Alabama", :street1 => "123 Monroe St."}}
+      }
       it "creates a new Venue" do
         expect {
-          post :create, {:venue => valid_attributes}
+          post :create, {:venue => @venue_attributes}
         }.to change(Venue, :count).by(1)
       end
 
       it "assigns a newly created venue as @venue" do
-        post :create, {:venue => valid_attributes}
-        assigns(:venue).should be_a(Venue)
+        post :create, {:venue => @venue_attributes}
         assigns(:venue).should be_persisted
       end
 
       it "redirects to the created venue" do
-        post :create, {:venue => valid_attributes}
+        post :create, {:venue => @venue_attributes}
         response.should redirect_to(Venue.last)
       end
     end
