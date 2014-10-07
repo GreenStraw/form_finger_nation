@@ -24,7 +24,7 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
-  def self.no_new_venue(attributes)
+  def no_new_venue(attributes)
     attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
   end
 
