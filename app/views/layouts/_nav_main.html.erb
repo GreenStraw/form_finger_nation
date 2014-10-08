@@ -36,21 +36,30 @@
           </ul>
         <% else %>
           <ul class="nav navbar-nav">
-            <% if current_page?( root_path ) %>
-            <li>
-              <%= link_to( "Sports Fans", "#sports-fans" ) %>
-            </li>
-            <li>
-              <%= link_to( "Alumni Groups", "#alumni-groups" ) %>
-            </li>
-            <li>
-              <%= link_to( "Venues", "#venues" ) %>
-            </li>
-            <li>
-              <%= link_to( "FAQ", faq_path ) %>
-            </li>
+            <% if current_page?( root_path )%>
+              <li>
+                <%= link_to( "Sports Fans", "#sports-fans" ) %>
+              </li>
+              <li>
+                <%= link_to( "Alumni Groups", "#alumni-groups" ) %>
+              </li>
+              <li>
+                <%= link_to( "Venues", "#venues" ) %>
+              </li>
+              <li>
+                <%= link_to( "FAQ", faq_path ) %>
+              </li>
+            <% elsif current_page?( faq_path ) %>
+              <li>
+                <%= link_to( "Sports Fans", "#{root_path}#sports-fans" ) %>
+              </li>
+              <li>
+                <%= link_to( "Alumni Groups", "#{root_path}#alumni-groups" ) %>
+              </li>
+              <li>
+                <%= link_to( "Venues", "#{root_path}#venues" ) %>
+              </li>
             <% end %>
-
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
