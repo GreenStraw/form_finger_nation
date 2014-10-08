@@ -9,15 +9,15 @@ describe Party do
   describe "no_new_venue(attributes)" do
     it "returns true if all attributes are not present" do
       bad_attributes = {name: 'test', address_attributes: {street1: 'test_street1'}}
-      expect(Party.no_new_venue(bad_attributes)).to eq(true)
+      expect(@party.no_new_venue(bad_attributes)).to eq(true)
     end
     it "returns true if all attributes are not present" do
       bad_attributes = {name: 'test'}
-      expect(Party.no_new_venue(bad_attributes)).to eq(true)
+      expect(@party.no_new_venue(bad_attributes)).to eq(true)
     end
     it "retruns false is all attributes are present" do
       good_attributes = {name: 'test', address_attributes: {street1: 'test_street1', city: 'test_city', state: 'test_state', zip: 'test_zip'}}
-      expect(Party.no_new_venue(good_attributes)).to eq(false)
+      expect(@party.no_new_venue(good_attributes)).to eq(false)
     end
   end
 
