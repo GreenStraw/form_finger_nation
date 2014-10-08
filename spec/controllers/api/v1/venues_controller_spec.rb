@@ -17,14 +17,33 @@ describe Api::V1::VenuesController do
   let(:valid_attributes) { Fabricate.attributes_for(:venue) }
 
   describe "GET index" do
-    before(:each) do
-      get :index, :format => :json
+    context "date passed in" do
+      before {
+        Venue.all.map(&:destroy)
+        @t1 = Fabricate(:venue, updated_at: (DateTime.now - 5.days))
+        @t2 = Fabricate(:venue, updated_at: (DateTime.now - 1.days))
+        get :index, format: :json, date: (DateTime.now - 3.days).to_i.to_s
+      }
+
+      it "only returns t2" do
+        response.body.should eq("{\"packages\":[],\"venues\":[{\"id\":3,\"created_at\":#{@t2.created_at.to_i},\"updated_at\":#{@t2.updated_at.to_i},\"image_url\":null,\"name\":\"test_bar\",\"description\":\"it's an established venue\",\"phone\":null,\"email\":null,\"hours_sunday\":null,\"hours_monday\":null,\"hours_tuesday\":null,\"hours_wednesday\":null,\"hours_thursday\":null,\"hours_friday\":null,\"hours_saturday\":null,\"website\":null,\"address\":{\"id\":4,\"created_at\":#{@t2.address.created_at.to_i},\"updated_at\":#{@t2.address.updated_at.to_i},\"street1\":\"#{@t2.address.street1}\",\"street2\":\"St. 200\",\"city\":\"Austin\",\"state\":\"TX\",\"zip\":\"78728\",\"addressable_id\":3,\"addressable_type\":\"Venue\",\"latitude\":30.4705029,\"longitude\":-97.7996912},\"followed_team_ids\":[],\"followed_sport_ids\":[],\"party_ids\":[],\"manager_ids\":[],\"package_ids\":[]}]}")
+      end
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
     end
-    it "returns https status 200" do
-      response.status.should eq(200)
-    end
-    it "assigns all venues as @venues" do
-      assigns(:venues).should_not be_nil
+
+    context 'no date passed in' do
+      before {
+        get :index, format: :json
+      }
+
+      it 'returns http 200' do
+        response.response_code.should == 200
+      end
+      it "assigns all venues as @venues" do
+        assigns(:venues).should_not be_nil
+      end
     end
   end
 

@@ -3,7 +3,12 @@ class Api::V1::VenuesController < Api::V1::BaseController
   load_and_authorize_resource :venue
 
   def index
-    respond_with @venues.includes(:followed_teams, :followed_sports, :parties, :packages)
+    if params[:date].present? && params[:date].is_a?(String) && params[:date].to_i.is_a?(Integer)
+      date = params[:date]
+      respond_with @venues.includes(:followed_teams, :followed_sports, :parties, :packages).select{|t| t.updated_at.to_i > date.to_i}
+    else
+      respond_with @venues.includes(:followed_teams, :followed_sports, :parties, :packages)
+    end
   end
 
   def show
