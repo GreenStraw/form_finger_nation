@@ -32,6 +32,7 @@ class Ability
       can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe], Team
       can [:subscribe_user, :unsubscribe_user], Sport
       can :packages, Venue
+      can :create, Venue
 
       can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee, :purchase_package, :zooz_transaction, :party_rsvp, :invite_friends, :send_invites], Party
 
