@@ -23,6 +23,7 @@
 <p>
   <strong>Venue:</strong>
   <%= @package.venue.name %>
+  <%= link_to 'Back to Purchase', :back, class: 'btn green-btn', id: "voucher-back-button" %>
 </p>
 
 <%= link_to 'Venue', venue_path(@package.venue) %>
