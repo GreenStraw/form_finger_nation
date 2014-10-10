@@ -1,4 +1,5 @@
 class PartyInvitationMailer < ActionMailer::Base
+  default from: 'watchparty@foamfingernation.com'
 
   def invitation_email(invitation)
     @member = invitation.user_id.present?
