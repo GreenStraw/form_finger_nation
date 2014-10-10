@@ -85,7 +85,7 @@ describe User do
   describe 'managed_teams' do
     context 'no managed venue' do
       before {
-        @venue = Fabricate(:venue)
+        @venue = Venue.create(address: Address.new(zip: "35630", city: "Florence", state: "Alabama", street1: "123 Monroe St."), name: "venue", description: "description")
       }
 
       it "should return venue" do
@@ -94,7 +94,7 @@ describe User do
     end
     context 'one managed venue' do
       before {
-        @venue = Fabricate(:venue)
+        @venue = Venue.create(address: Address.new(zip: "35630", city: "Florence", state: "Alabama", street1: "123 Monroe St."), name: "venue", description: "description")
         @user.add_role(:manager, @venue)
       }
 
@@ -104,7 +104,7 @@ describe User do
     end
     context 'user is admin' do
       before {
-        @venue = Fabricate(:venue)
+        @venue = Venue.create(address: Address.new(zip: "35630", city: "Florence", state: "Alabama", street1: "123 Monroe St."), name: "venue", description: "description")
         @user.add_role(:admin)
       }
 
@@ -133,7 +133,7 @@ describe User do
   describe 'User.new_with_session' do
     context 'when devise.user_attributes exists in session' do
       it 'returns a new user populated with session date' do
-        params = Fabricate.attributes_for(:user)
+        params = {"tenant_id"=>nil, "confirmed_at"=>@user.confirmed_at, "first_name"=>"Test", "last_name"=>"User", "password"=>"password", "password_confirmation"=>"password", "followed_sports"=>[], "followed_teams"=>[], "username"=>"foo13", "email"=>"foo13@example.com"}
         sess = { "devise.user_attributes" => params }
         expect(User.new_with_session(params, sess).class).to eq(User)
       end

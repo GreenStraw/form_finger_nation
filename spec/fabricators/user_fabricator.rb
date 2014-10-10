@@ -9,6 +9,7 @@ Fabricator(:user) do
   password_confirmation 'password'
   followed_sports []
   followed_teams []
+  address {Fabricate(:address, addressable_type: "User")}
 end
 
 # == Schema Information

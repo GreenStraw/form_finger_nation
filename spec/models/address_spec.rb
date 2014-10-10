@@ -10,6 +10,32 @@ describe Address do
       expect(@address.full_street_address).to eq(fmt)
     end
   end
+
+  describe "zip_or_city_and_state" do
+    context "street1 is empty" do
+      it "should fail" do
+        expect(Address.new(street1: nil, city: "Florence", state: "Alabama", zip: "35630")).to_not be_valid
+      end
+    end
+
+    context "state and zip are empty" do
+      it 'should fail' do
+        expect(Address.new(street1: "123 Monroe St.", city: "Florence", state: nil, zip: nil)).to_not be_valid
+      end
+    end
+
+    context "zip is empty" do
+      it 'should not fail' do
+        expect(Address.new(street1: "123 Monroe St.", city: "Florence", state: "Alabama", zip: nil)).to be_valid
+      end
+    end
+
+    context "city and zip are empty" do
+      it 'should fail' do
+        expect(Address.new(street1: "123 Monroe St.", city: nil, state: "Alabama", zip: nil)).to_not be_valid
+      end
+    end
+  end
 end
 
 # == Schema Information
