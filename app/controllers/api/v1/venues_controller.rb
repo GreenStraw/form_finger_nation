@@ -47,7 +47,7 @@ class Api::V1::VenuesController < Api::V1::BaseController
   private
 
   def venue_params
-    params.require(:venue).permit(:name, :image_url, :description, :address, :phone, :email, :hours_monday, :hours_tuesday, :hours_wednesday, :hours_thursday, :hours_friday, :hours_saturday, :hours_sunday, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[], :package_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:venue).permit(:name, :website, :image_url, :description, :address, :phone, :email, :hours_monday, :hours_tuesday, :hours_wednesday, :hours_thursday, :hours_friday, :hours_saturday, :hours_sunday, {:favorite_team_ids=>[], :favorite_sport_ids=>[], :party_ids=>[], :package_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
 end
