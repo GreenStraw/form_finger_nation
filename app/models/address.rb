@@ -1,6 +1,8 @@
 class Address < ActiveRecord::Base
   geocoded_by :full_street_address
   after_validation :geocode
+  validates_presence_of :street1
+  validate :zip_or_city_and_state
   reverse_geocoded_by :latitude, :longitude
   acts_as_mappable :default_units   => :miles,
                    :default_formula => :sphere,
@@ -8,6 +10,18 @@ class Address < ActiveRecord::Base
                    :lng_column_name => :longitude
 
   belongs_to :addressable, polymorphic: true
+
+  def zip_or_city_and_state
+    if !self.street1.present?
+      errors.add(:street1, "can't be blank")
+    end
+
+    if !self.zip.present?
+      if !self.city.present? || !self.state.present? 
+        errors.add(:city, "and state must both be included if no zip code is provided")
+      end
+    end
+  end
 
   def self.get_coords(address)
     return nil if address.nil?

@@ -10,6 +10,40 @@ describe Venue do
       expect(@venue.name_and_address).to eq("#{@venue.name} (#{@venue.address.street1} #{@venue.address.city}, #{@venue.address.state})")
     end
   end
+
+  describe "address_has_fields" do
+    context "street1 is empty" do
+      it 'returns an error' do
+        Venue.new(address: Address.new(street1: nil, city: "Florence", state: "Alabama", zip: "35630"), name: "venue", description: "description").should_not be_valid
+      end
+    end
+
+    context "zip is empty" do
+
+      it 'requires both state and city' do
+        Venue.create(address: Address.new(zip: nil, city: "Florence", state: "Alabama", street1: "123 Monroe St."), name: "venue", description: "description").should be_valid
+      end
+
+      it 'fails if no city' do
+        Venue.create(address: Address.new(zip: nil, city: nil, state: "Alabama", street1: "123 Monroe St."), name: "venue", description: "description").should_not be_valid
+      end
+
+      it 'fails if no state' do
+        Venue.create(address: Address.new(zip: nil, city: "Florence", state: nil, street1: "123 Monroe St.")).should_not be_valid
+      end
+
+    end
+
+    context "city and state are empty" do
+      it 'requires a zip' do
+        Venue.create(address: Address.new(zip: nil, city: nil, state: nil, street1: "123 Monroe St."), name: "venue", description: "description").should_not be_valid
+      end
+
+      it 'requires a zip' do
+        Venue.create(address: Address.new(zip: "35630", city: nil, state: nil, street1: "123 Monroe St."), name: "venue", description: "description").should be_valid
+      end
+    end
+  end
 end
 
 # == Schema Information
