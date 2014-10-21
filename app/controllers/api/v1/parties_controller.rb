@@ -20,6 +20,10 @@ class Api::V1::PartiesController < Api::V1::BaseController
     respond_with Party.where(organizer_id: @user.id)
   end
 
+  def by_user_favorites
+    respond_with Party.where(team_id: @user.followed_team_ids)
+  end
+
   def create
     @party.save
     current_user.party_reservations.create(party_id: @party.id, email: current_user.email)

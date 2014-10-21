@@ -34,7 +34,7 @@ class Ability
       can :packages, Venue
       can :create, Venue
 
-      can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee, :purchase_package, :zooz_transaction, :party_rsvp, :invite_friends, :send_invites], Party
+      can [:create, :rsvp, :unrsvp, :search, :invite, :by_organizer, :by_attendee, :by_user_favorites, :purchase_package, :zooz_transaction, :party_rsvp, :invite_friends, :send_invites], Party
 
       can [:update, :destroy, :invite], Party do |party|
         user.id == party.organizer_id || user.has_role?(:manager, party)

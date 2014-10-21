@@ -138,6 +138,7 @@ Baseapp::Application.routes.draw do
           get 'search'
           get 'by_attendee'
           get 'by_organizer'
+          get 'by_user_favorites'
         end
         member do
           put 'add_package'
