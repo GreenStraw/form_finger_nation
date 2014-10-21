@@ -1,5 +1,5 @@
 class Address < ActiveRecord::Base
-  geocoded_by :full_street_address
+  geocoded_by :full_or_partial_address
   after_validation :geocode
   validates_presence_of :street1
   validate :zip_or_city_and_state
@@ -17,7 +17,7 @@ class Address < ActiveRecord::Base
     end
 
     if !self.zip.present?
-      if !self.city.present? || !self.state.present? 
+      if !self.city.present? || !self.state.present?
         errors.add(:city, "and state must both be included if no zip code is provided")
       end
     end
@@ -46,6 +46,14 @@ class Address < ActiveRecord::Base
 
   def city_state
     "#{city}, #{state} #{zip}"
+  end
+
+  def full_or_partial_address
+    if city.present? && state.present?
+      "#{street1}, #{city} #{state}"
+    else #zip
+      "#{street}, #{zip}"
+    end
   end
 
   def self.class_within_radius_of(klass, lat, lng, radius)
