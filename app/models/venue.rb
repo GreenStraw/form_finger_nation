@@ -4,7 +4,7 @@ class Venue < ActiveRecord::Base
   after_create :ensure_address
 
   has_many :comments, as: :commenter
-  has_many :parties
+  has_many :parties, dependent: :destroy
   has_many :favorites, as: :favoriter, dependent: :destroy
   has_many :followed_sports, through: :favorites, source: :favoritable, source_type: "Sport"
   has_many :followed_teams, through: :favorites, source: :favoritable, source_type: "Team"

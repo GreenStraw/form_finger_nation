@@ -68,6 +68,16 @@ describe Api::V1::PartiesController do
     end
   end
 
+  describe 'GET by_user_favorites' do
+    before do
+      get :by_user_favorites, user_id: @current_user.id, format: :json
+    end
+
+    it "should return 200" do
+      response.status.should eq(200)
+    end
+  end
+
   describe "GET search" do
     context "no radius" do
       before do
