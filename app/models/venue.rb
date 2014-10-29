@@ -1,6 +1,6 @@
 class Venue < ActiveRecord::Base
   resourcify
-  validates_presence_of :name, :description
+  validates_presence_of :name
   after_create :ensure_address
 
   has_many :comments, as: :commenter

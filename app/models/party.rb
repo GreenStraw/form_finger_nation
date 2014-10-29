@@ -2,6 +2,7 @@ class Party < ActiveRecord::Base
   acts_as_commentable
   validates :name, presence: true
   validates :scheduled_for, presence: true
+  validate :venue_exists
 
   after_update :send_notification_when_verified
   after_create :ensure_address
@@ -23,6 +24,13 @@ class Party < ActiveRecord::Base
   accepts_nested_attributes_for :venue, :reject_if => :no_new_venue
 
   attr_accessor :user_ids, :emails
+
+  def venue_exists
+    venue = Venue.where(id: venue_id)
+    if venue.blank?
+      errors.add(:venue_id, "must be an existing venue.")
+    end
+  end
 
   def no_new_venue(attributes)
     attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
