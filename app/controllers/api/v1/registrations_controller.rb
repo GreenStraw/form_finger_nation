@@ -21,6 +21,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       end
       resource.confirm!
       resource.ensure_authentication_token
+      resource.send_welcome_email
       return render json: RegistrationUserSerializer.new(resource).to_json, status: 201
     else
       render json: { :errors => resource.errors.full_messages }, status: 422
