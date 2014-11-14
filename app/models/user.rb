@@ -150,12 +150,12 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    if self.requested_role == 'Sports Fan'
-      UserMailer.welcome_email(self).deliver
+    if self.requested_role == 'Venue'
+      UserMailer.venue_email(self).deliver
     elsif self.requested_role == 'Alumni Group'
       UserMailer.alumni_group_email(self).deliver
     else
-      UserMailer.venue_email(self).deliver
+      UserMailer.welcome_email(self).deliver
     end
   end
 

@@ -62,6 +62,6 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params[:user].delete(:current_password)
-    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :uid, :provider, :address, :access_token, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :uid, :provider, :address, :access_token, :requested_role, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 end
