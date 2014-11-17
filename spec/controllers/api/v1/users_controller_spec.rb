@@ -88,6 +88,7 @@ describe Api::V1::UsersController do
           'followed_team_ids' => [],
           'followed_sport_ids'=> [],
           'party_ids' => [],
+          'requested_role' => "Sports Fan",
           'reservation_ids' => [],
           'invitation_ids' => [],
           'managed_team_ids' => [],
