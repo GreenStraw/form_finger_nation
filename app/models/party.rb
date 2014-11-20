@@ -27,7 +27,7 @@ class Party < ActiveRecord::Base
 
   def venue_exists
     venue = Venue.where(id: venue_id)
-    if venue.blank?
+    if (self.venue.present? && !self.venue.new_record?) && venue.blank?
       errors.add(:venue_id, "must be an existing venue.")
     end
   end
