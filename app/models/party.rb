@@ -7,13 +7,13 @@ class Party < ActiveRecord::Base
   after_update :send_notification_when_verified
   after_create :ensure_address
 
-  has_many :party_reservations
+  has_many :party_reservations, dependent: :destroy
   has_many :attendees, through: :party_reservations, source: :user
-  has_many :party_invitations
+  has_many :party_invitations, dependent: :destroy
   has_many :invitees, through: :party_invitations, source: :user
-  has_many :party_packages
+  has_many :party_packages, dependent: :destroy
   has_many :packages, through: :party_packages
-  has_many :vouchers
+  has_many :vouchers, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   belongs_to :organizer, class_name: 'User', foreign_key: 'organizer_id'
   belongs_to :team
@@ -27,7 +27,7 @@ class Party < ActiveRecord::Base
 
   def venue_exists
     venue = Venue.where(id: venue_id)
-    if venue.blank?
+    if (self.venue.present? && !self.venue.new_record?) && venue.blank?
       errors.add(:venue_id, "must be an existing venue.")
     end
   end

@@ -21,6 +21,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       end
       resource.confirm!
       resource.ensure_authentication_token
+      resource.send_welcome_email
       return render json: RegistrationUserSerializer.new(resource).to_json, status: 201
     else
       render json: { :errors => resource.errors.full_messages }, status: 422
@@ -61,6 +62,6 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params[:user].delete(:current_password)
-    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :uid, :provider, :address, :access_token, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation, :uid, :provider, :address, :access_token, :requested_role, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 end
