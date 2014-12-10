@@ -194,7 +194,7 @@ describe PartiesController do
       it 'should create party param and get location from ip' do
         location = OpenStruct.new()
         location.data = {'zipcode'=> 'geocode_response'}
-        controller.should_receive(:location).and_return(location)
+        controller.should_receive(:location).twice.and_return(location)
         parties = double(:parties)
         Party.should_receive(:search_by_params).with({"search_location" => 'geocode_response'}).and_return([parties, [], []])
         venues = double(:venues)
