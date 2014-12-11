@@ -95,7 +95,7 @@ class Party < ActiveRecord::Base
       parties = Party.joins(:organizer, :team, :venue)
         .where(["parties.scheduled_for > ? AND (parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?)",
                DateTime.now.beginning_of_day, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
-     teams =  Party.joins(:team)
+      teams = Party.joins(:team)
        .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
 
       people  =  Party.joins(:organizer)

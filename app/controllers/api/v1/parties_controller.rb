@@ -90,8 +90,8 @@ class Api::V1::PartiesController < Api::V1::BaseController
 
   def search_parties(lat, lng, radius)
     addresses_in_radius = Address.class_within_radius_of('Venue', lat, lng, radius)
-    venues = addresses_in_radius.map(&:addressable)
-    venues.map(&:parties).flatten.uniq
+    venues = addresses_in_radius.map(&:addressable).compact
+    venues.map(&:upcoming_parties).flatten.uniq
   end
 
   def rsvp_params
