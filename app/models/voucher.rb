@@ -4,14 +4,14 @@ class Voucher < ActiveRecord::Base
   belongs_to :package
   belongs_to :user
   belongs_to :party
-  
+
 
   def verify
     req = Zooz::Request::Verify.new
 
     # Run in sandbox mode
     # TODO MAKE THIS DEPENDENT ON ENVIRONMENT
-    req.sandbox = true#Rails.env != "production"
+    req.sandbox = ENV['ZOOZ_SANDBOX'] == "true" ? true : false
 
     # Enter your details
     req.developer_id = ENV['ZOOZ_DEVELOPER_ID']
@@ -24,16 +24,16 @@ class Voucher < ActiveRecord::Base
     resp = req.request
     [resp.success?, resp.response.try(:errors).try(:first) || nil]
   end
-  
+
   def self.redeemable
     where("redeemed_at is NULL")
   end
-  
+
   def self.redeemed
     where("redeemed_at is not NULL")
   end
-  
-  
+
+
 end
 
 
@@ -41,7 +41,7 @@ end
 
 
 
- 
+
 # == Schema Information
 #
 # Table name: vouchers
