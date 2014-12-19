@@ -1,12 +1,13 @@
 class Sport < ActiveRecord::Base
   validates :name, presence: true
 
-  has_many :teams
+  has_many :teams, dependent: :destroy
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"
   has_many :venue_fans, through: :favorites, source: :favoriter, source_type: "Venue"
 
   mount_uploader :image_url, SportImageUploader
+  skip_callback :commit, :after, :remove_image_url!
 
   SPORT_ORDER = ['NFL', 'NCAA-FOOTBALL', 'MLB', 'NCAA-BASEBALL', 'NBA', 'NCAA-BASKETBALL', 'SOCCER']
 
