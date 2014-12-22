@@ -126,4 +126,13 @@ describe SportsController do
     end
   end
 
+  describe "DELETE delete_team" do
+    it "destroys the requested team" do
+      @sport.teams << Team.create(sport_id: @sport_id, name: 'test_team')
+      expect {
+        delete :delete_team, { format: :js, id: @sport.id, team_id: @sport.teams.first.id }
+      }.to change(Team, :count).by(-1)
+    end
+  end
+
 end

@@ -49,6 +49,12 @@ class SportsController < ApplicationController
     redirect_to sports_url, notice: 'Sport was successfully destroyed.'
   end
 
+  def delete_team
+    team = Team.find(params[:team_id])
+    team.destroy
+    render action: 'destroy_team'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sport

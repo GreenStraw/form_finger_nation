@@ -26,6 +26,9 @@ Baseapp::Application.routes.draw do
     end
   end
   resources :sports do
+    member do
+      delete 'delete_team'
+    end
     resource :teams, only: [:new, :create]
   end
   resources :teams, except: [:new, :create] do
