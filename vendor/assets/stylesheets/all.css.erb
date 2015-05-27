@@ -1,24 +1,4 @@
-@font-face {
-    font-family: 'proxima_novasemibold';
-    src: url('proxima_nova_sbold.eot');
-    src: url('proxima_nova_sbold.eot?#iefix') format('embedded-opentype'), url('proxima_nova_sbold.woff2') format('woff2'), url('proxima_nova_sbold.woff') format('woff'), url('proxima_nova_sbold.ttf') format('truetype'), url('proxima_nova_sbold.svg#proxima_novasemibold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'proxima_novathin';
-    src: url('proxima_nova_thin.eot');
-    src: url('proxima_nova_thin.eot?#iefix') format('embedded-opentype'), url('proxima_nova_thin.woff2') format('woff2'), url('proxima_nova_thin.woff') format('woff'), url('proxima_nova_thin.ttf') format('truetype'), url('proxima_nova_thin.svg#proxima_novathin') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'proxima_novaextrabold';
-    src: url('proxima_novaextrabold_nova_xbold.eot');
-    src: url('proxima_novaextrabold_nova_xbold.eot?#iefix') format('embedded-opentype'), url('proxima_novaextrabold_nova_xbold.woff2') format('woff2'), url('proxima_novaextrabold_nova_xbold.woff') format('woff'), url('proxima_novaextrabold_nova_xbold.ttf') format('truetype'), url('proxima_novaextrabold_nova_xbold.svg#proxima_novaextrabold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+
 html {
     box-sizing: border-box;
 }
@@ -35,9 +15,10 @@ body {
     overflow-y: scroll;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: none;
-    /*font-family: 'proxima_novaextrabold';*/
+    font-family: 'Montserrat', sans-serif;
     background: #fff;
     color: #fff;
+    font-size: 14px;
 }
 article,
 aside,
@@ -156,9 +137,11 @@ a {
 .mb15 {
     margin: 0 0 10px;
 }
-/*h2 {
-    font-family: ' proxima_nova_rgbold';
-}*/
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #a8d039;
+  background-color: transparent;
+}
 #wrapper {
     position: relative;
     margin: 0 auto;
@@ -189,17 +172,46 @@ a {
 #alumni_groups h2{
        color: #fff;
     margin: 0 0 53px 0;
-    font-size: 44px;
+    font-size: 40px;
     font-weight: bold;
-    font-family: ' proxima_nova_rgbold';
+    font-family: Rockwell, "Courier New", Courier, Georgia,
+                 Times, "Times New Roman", serif;
+    position: relative;
+}
+
+#alumni_groups h2:before{ 
+    content: "";
+    display: block;
+    background: url(<%= asset_path 'vendor/bar_blue.png' %>) no-repeat;
+    width: 50px;
+    height: 5px;
+    float: left;
+    margin: 0;
+    position: absolute;
+    top: 51px;
+    left: 0;
+}
+#sports h2:before,
+#Venues h2:before{ 
+    content: "";
+    display: block;
+    background: url(<%= asset_path 'vendor/bar_green.png' %>) no-repeat;
+    width: 50px;
+    height: 5px;
+    float: left;
+    margin: 0;
+    position: absolute;
+    top: 52px;
+    left: 12%;
 }
 #Venues h2,
 #sports h2{
     color: #fff;
     margin: 0 0 53px 10%;
-    font-size: 44px;
+    font-size: 40px;
     font-weight: bold;
-    font-family: ' proxima_nova_rgbold';
+font-family: Rockwell, "Courier New", Courier, Georgia,
+                 Times, "Times New Roman", serif;
 }
 .text-areaa{
         margin:0 0 25px 14.5%;
@@ -212,6 +224,7 @@ a {
     padding: 10px;
     background: #fff;
     color: #000;
+    font-size: 13px;
     border-radius: 16px;
 }
 .btn-box .btn{
@@ -250,7 +263,9 @@ a {
     line-height: 13px;
     font-size: 15px;
 }
-
+.banner .navbar-nav > li > a i{
+    margin: 0 5px;
+}
 .banner .navbar-nav > li > a:hover {
     color: #fff;
 }
@@ -312,10 +327,11 @@ a {
     margin: 24px 0 0;
 }
 .caption h2 {
-    font-size: 30px;
+    font-size: 29px;
     color: #FFF;
+    font-family: 'Montserrat', sans-serif;
     margin: 0px 0px 5px;
-    line-height: 31px;
+    line-height: 33px;
     word-spacing: 0;
     font-weight: bold;
 }
@@ -359,32 +375,34 @@ a {
     overflow: hidden;
     padding: 89px 0 110px;
 }
-.sider-bar {
+.side-bar {
     position: absolute;
     top: 33px;
     left: 0;
     z-index: 1;
 }
-.sider-bar ul {
+.side-bar ul {
     padding: 0;
     margin: 0;
     list-style: none;
     text-align: center;
     background: #272727;
 }
-.sider-bar ul li {
+.side-bar ul li {
     border-bottom: 1px solid #979797;
 }
-.sider-bar ul li:last-child {
+.side-bar ul li:last-child {
     border: 0;
 }
-.sider-bar ul li a {
-    padding: 15px 0;
-    color: #979797;
-    display: block;
+.side-bar ul li a {
+     padding: 20px 10px;
+     text-align: right;
+  color: #979797;
+  display: block;
+  text-transform: uppercase;
 }
 .active a {
-    border-right: 2px solid #A8D039;
+    border-right: 4px solid #A8D039;
     color: #A8D039 !important;
 }
 .image-holder img {
@@ -394,7 +412,7 @@ a {
     background: #fff;
     width: 80px;
     height: 80px;
-    padding: 20px;
+    padding: 20px 0;
     border-radius: 50%;
     margin: 0 auto 10px; 
 }
@@ -406,8 +424,8 @@ a {
     overflow: hidden;
     margin: 0 0 10px;
 }
-.bootom_img {
-    margin-bottom: -2px;
+.bottom_img {
+    margin-bottom: -4px;
 }
 #footer {
     background: #272727;
@@ -428,6 +446,9 @@ a {
 }
 #footer input {
     border-radius: 0;
+}
+.Privacy{
+    text-align: right;
 }
 @media (max-width: 1200px) {
     .caption_img img {
@@ -455,6 +476,22 @@ a {
     }
 }
 @media (max-width: 768px) {
+.side-bar{
+    display: none;
+}
+
+    .bottom_img {
+    margin-bottom: -1px;
+}
+    #sports h2::before, #Venues h2::before{
+        left: 5%;
+    }
+    #Venues h2,
+    #sports h2,
+    #alumni_groups h2{
+        font-size: 36px;
+        margin-left: 0;
+    }
     .btn-green { margin: 0 0 10px;}
     .banner .navbar-nav > li > a {
         padding: 10px 0;
@@ -494,6 +531,10 @@ a {
     }
     .text-areaa {
     margin: 0 0 25px 0;
+}
+#footer,
+.Privacy{
+    text-align: center;
 }
 }
 @media (max-width: 440px) {

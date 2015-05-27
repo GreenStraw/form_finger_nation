@@ -13,8 +13,10 @@
                      </div>
                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                           <li><a href="#"><i class="fa fa-user"></i>Login</a></li>
+                           <li><a href="#"><i class="fa fa-user"></i>Login</a>
+                           </li>
                            <li><a href="#">Signup</a></li>
+                           <li><a href="#">About</a></li>
                            <li><a href="#">How It Works</a></li>
                            <li><a href="#">FAQ</a></li>
                         </ul>
@@ -64,7 +66,7 @@
             </div>
          </div>
          <section id="Venues">
-            <div class="sider-bar col-md-2 row">
+            <div class="side-bar col-md-2 row">
                <ul>
                   <li class="active"><a href="#">Venues</a></li>
                   <li><a href="#">Alumni Groups</a></li>
@@ -72,7 +74,7 @@
                </ul>
             </div>
             <div class="container main">
-               <div class="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-8 col-xs-offset-2 col-xs-10">
+               <div class="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-8  col-xs-12">
                   <h2>Venues</h2>
                </div>
                <div class=" col-md-5  col-sm-5  col-xs-12 text-areaa">
@@ -119,11 +121,11 @@
          <section id="alumni_groups">
             <div class="container main">
                <div class=" col-md-5  col-sm-5  col-xs-12 text-areaa">
-                  <h2>Venues</h2>
-                  <p>Attract and retain sports fans of all kind. Create food and drink specials for fans, know the RSVP count and what 
+                  <h2>Alumni Groups</h2>
+                  <p>Generate revenue from your school's watch parties by organizing  and promoting watch parties.
                   </p>
                   <div>
-                     <button type="button" class="btn btn-black btn-default">START YOUR PROFILE NOW</button>
+                     <button type="button" class="btn btn-black btn-default">CREATE YOUR ALUMNI PAGE</button>
                   </div>
                </div>
 
@@ -149,7 +151,7 @@
                      </div>
                   </li>
                   <li>
-                   <div class="col-md-2 col-sm-2 col-xs-2"><%= image_tag "vendor/icon-amt.png"%></div>
+                   <div class="col-md-2 col-sm-2 col-xs-2"><%= image_tag "vendor/icon-amt.png" %></div>
                    <div class="text col-md-9 col-sm-9 col-xs-9 pull-right">Fan up and get paid from Foam
                      Finger Nation!
                   </div>
@@ -157,30 +159,28 @@
             </ul>
          </div>
          <div class="clearfix"></div>
-         <div class="col-md-8 col-md-offset-2 bootom_img">
+         <div class="col-md-8 col-md-offset-2 bottom_img">
             <%= image_tag "vendor/bottom_bgv.png", class: "img-responsive" %>
          </div>
       </div>
    </section>
    <section id="sports">
       <div class="container main">
-         <div class="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-8 col-xs-offset-2 col-xs-10">
+         <div class="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-8  col-xs-12">
             <h2>Sports Fans</h2>
          </div>
-         <div class=" col-md-5 1 col-sm-5  col-xs-10 text-areaa">
-            <p>Attract and retain sports fans of all kind. Create food and drink specials for fans, know the RSVP count and what 
-               they're craving. Make those sports subscription
-               packages generate revenue for you by knowing exactly what game fans want to see. Your life just got easier on Game Day!
+         <div class=" col-md-4 col-sm-5  col-xs-10 text-areaa">
+            <p>Find your favorite teams and where they're playing based on your location and don't miss a single play with your other fans.
             </p>
          </div>
-         <div class="col-md-3 col-sm-3 text-center">
+         <div class="col-md-offset-1 col-md-3 col-sm-3 text-center">
             <button type="button" class="btn btn-green btn-default">START YOUR PROFILE NOW</button>
          </div>
          <div class="col-md-offset-2 col-sm-offset-2 col-md-10 col-sm-10">
-            <div class="four-col">
+            <div class="four-col row">
                <div class="col-md-3 col-sm-3 text-center mb15">
                   <div class="image-holder">
-                     <%= image_tag "vendor/icon1.png", class: "img-responsive", alt: "icon"  %>
+                     <%= image_tag "vendor/icon_write.png", class: "img-responsive", alt: "icon"  %>
                   </div>
                   <p>Sign up and create
                      a profile
@@ -188,15 +188,15 @@
                </div>
                <div class="col-md-3 col-sm-3 text-center mb15">
                   <div class="image-holder">
-                     <%= image_tag "vendor/icon2.png", class: "img-responsive", alt: "icon"  %>
+                     <%= image_tag "vendor/icon_search.png", class: "img-responsive", alt: "icon"  %>
                   </div>
-                  <p>Create watch parties and special food and drink packages to be ordered by fans through Foam Finger Nation</p>
+                  <p>Browse and RSVP to watch parties meal packages at a discount</p>
                </div>
                <div class="col-md-3 col-sm-3 text-center mb15">
                   <div class="image-holder">
-                     <%= image_tag "vendor/icon3.png", class: "img-responsive", alt: "icon" %>
+                     <%= image_tag "vendor/icon4.png", class: "img-responsive", alt: "icon"  %>
                   </div>
-                  <p>Use our multigame scheduler to create more than one watch party at a time</p>
+                  <p>Attend watch parties at venues and enjoy games with your fans!</p>
                </div>
             </div>
          </div>
@@ -206,9 +206,10 @@
       <div class="container">
          <div class="row">
             <div class="col-md-4 col-sm-12">
-               <p>Copyright 2015 Foam Fingear Nation, LLC</p>
+               <p><i class="fa fa-copyright"></i> Copyright 2015 Foam Fingear Nation, LLC</p>
             </div>
             <div class="col-md-4 col-sm-12 ">
+               <label>Subscribe Up For Our Newsletter</label>
                <div class="input-group">
                  <input type="text"  class="form-control input-lg" id="search-church" placeholder="Email Address">
                  <span class="input-group-btn">
@@ -217,43 +218,41 @@
 
               </div>
            </div>
-           <div class="col-md-4 col-sm-12 ">
+           <div class="col-md-4 col-sm-12 Privacy">
             <a href="#">Privacy * Terms</a>
          </div>
       </div>
    </div>
 </footer>
 </div>
-<!--
-<script type="text/javascript">
-   $(function() {
-     $('.picZoomer').picZoomer();
-
-     $('.piclist li').on('click',function(event){
-       var $pic = $(this).find('img');
-       $('.picZoomer-pic').attr('src',$pic.attr('src'));
-    });
-  });
-</script>
-<script type="text/javascript">
-   if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-      var msViewportStyle = document.createElement('style')
-      msViewportStyle.appendChild(
+<!--     <script type="text/javascript">
+         $(function() {
+             $('.picZoomer').picZoomer();
+         
+             $('.piclist li').on('click',function(event){
+                 var $pic = $(this).find('img');
+                 $('.picZoomer-pic').attr('src',$pic.attr('src'));
+             });
+         });
+      </script>
+      <script type="text/javascript">
+         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+         var msViewportStyle = document.createElement('style')
+         msViewportStyle.appendChild(
          document.createTextNode(
             '@-ms-viewport{width:auto!important}'
             )
          )
-      document.querySelector('head').appendChild(msViewportStyle)
-   }
-   $('#accordion').on('hidden.bs.collapse', function () {
+         document.querySelector('head').appendChild(msViewportStyle)
+         }
+         $('#accordion').on('hidden.bs.collapse', function () {
          //do something...
-      })
-
-   $('#accordion .accordion-toggle').click(function (e){
-      var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down  glyphicon-chevron-right');
-      $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
-   });
-
-</script>
--->
+         })
+         
+         $('#accordion .accordion-toggle').click(function (e){
+         var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down  glyphicon-chevron-right');
+         $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+         });
+         
+      </script> -->
 
