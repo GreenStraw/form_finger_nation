@@ -1,0 +1,5 @@
+<%= form_for @klass.constantize, :html => {:multipart => true} do |f| %>
+  <p>
+    <%= f.file_field :image_url %>
+  </p>
+<% end %>

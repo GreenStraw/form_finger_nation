@@ -1,0 +1,58 @@
+<%= form_for(@venue) do |f| %>
+  <% if @venue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
+
+      <ul>
+      <% @venue.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Logo" %><br>
+    <%= image_tag(@venue.image_url) if @venue.image_url? %>
+    <%= f.file_field :image_url %>
+  </div>
+  <div class="field">
+    <%= f.label "Name*" %><br>
+    <%= f.text_field :name, class: 'required' %>
+  </div>
+  <div class="field">
+    <%= f.label raw("Description*") %><br>
+    <%= f.text_field :description, class: 'required' %>
+  </div>
+
+  <%= f.fields_for :address_attributes do |a| %>
+    <div class='field'>
+      <%= a.label "Street1*" %><br>
+      <%= a.text_field :street1, class: 'required' %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :street2 %><br>
+      <%= a.text_field :street2 %>
+    </div>
+
+    <div class='field'>
+      <%= a.label "City*", class: 'required' %><br>
+      <%= a.text_field :city %>
+    </div>
+
+    <div class='field'>
+      <%= a.label "State*" %><br>
+      <%= a.text_field :state, class: 'required' %>
+    </div>
+
+    <div class='field'>
+      <%= a.label "Zip*" %><br>
+      <%= a.text_field :zip, class: 'required' %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

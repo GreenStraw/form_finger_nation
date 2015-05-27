@@ -1,0 +1,55 @@
+<!-- Include the ZooZ script that contains the zoozStartCheckout() function -->
+<script src="https://app.zooz.com/mobile/js/zooz-ext-web.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.checkout').click(function() {
+      var party_package_id = $(this).data('partyPackageId');
+      $.ajax({
+        url: "/zooz_transaction/" + party_package_id + "/openTrx", // A call to server side to initiate the payment process
+          dataType: 'html',
+          cache: false,
+          success: function(response) {
+            var data = JSON.parse(response);
+            var path = window.location.protocol + "//" + window.location.host ;
+            zoozStartCheckout({
+              token : data.token, // Session token recieved from server
+              uniqueId : '<%= ENV['ZOOZ_UNIQUE_ID'] %>', // unique ID as registered in the developer portal
+              isSandbox : <%= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
+              returnUrl : path + "/zooz_transaction/" + party_package_id + "", // return page URL
+              cancelUrl : path + "/zooz_transaction/" + party_package_id + "" // cancel page URL
+            });
+          }
+        });
+      });
+  });
+</script>
+
+<h3>Available Packages</h3>
+<table class="available-packages-table">
+  <% @party.party_packages.each do |party_package| %>
+    <tr>
+      <td class="bottom-margined">
+        <span class="parties-package-image">
+          <%= image_tag(party_package.package.image_url.thumb) unless party_package.package.nil? %>
+        </span>
+      </td>
+      <td class="bottom-margined">
+        <span class="parties-package-name">
+          <%= party_package.package.name %>
+        </span>
+      </td>
+      <td class="bottom-margined">
+        <span class="parties-package-price">
+           <%= number_to_currency(party_package.package.price)%>
+        </span>
+      </td>
+    </tr>
+    <tr  class="row-underlined">
+      <td ><br/><br/></td>
+      <td ><%= link_to "More Information", party_package.package%></td>
+      <td ><%= link_to "Purchase", "#", class: 'checkout', data: {party_package_id: party_package.id} %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,90 @@
+.voucher{
+	margin-top:20px;
+	border: 1px solid #cacaca;
+	padding: 10px;
+	margin-left: 15px;
+	height: 75px;
+}
+
+.voucher_more_info{
+  border: 1px solid #cacaca;
+  width:100%;
+}
+
+.package-name{
+	font-weight: bold !important;
+	font-size: 14px !important;
+	color: #000 !important;
+}
+
+.number-purchased{
+	color: #cacaca !important;	
+}
+
+.voucher-logo{
+	float: left;
+}
+
+.voucher-party-name{
+	float: left;
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+.voucher-purchased{
+	float: left;
+}
+
+.voucher-purchase{
+	float: right;
+}
+
+#voucher-back-button {
+	margin-left: 0;
+	width: 200px;
+}
+
+#voucher-show{
+
+}
+
+.voucher-description{
+	border: 1px solid #cacaca;
+	margin-left: 15px;
+	padding: 10px;
+}
+
+#voucher-venue-info{
+	float: left;
+	width: 40%;
+	font-size: 20px;
+	text-align: center;
+}
+
+#voucher-party-info{
+	margin-left: 10px;
+	float:left;
+	width: 40%;
+	font-size: 20px;
+	text-align: center;
+}
+
+#voucher-redeemed-info{
+	padding: 20px;
+}
+
+#voucher-user-info{
+	padding: 20px;
+}
+
+#voucher-package-info{
+	padding: 20px;
+}
+
+.redeem-voucher-button{
+	border: 1px solid #000;
+	width: 150px;
+	background-color: green;
+	color: #fff !important;
+}
+

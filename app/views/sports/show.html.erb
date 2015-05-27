@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @sport.name %></h1>
+
+<ul class='nav nav-tabs' role='tablist'>
+<li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+<li><a href="#teams-list" role='tab' data-toggle='tab'>Teams</a></li>
+</ul>
+
+<div class='tab-content'>
+  <div class='tab-pane active' id="info">
+    <%= render partial: 'info' %>
+  </div>
+
+  <div class='tab-pane' id="teams-list">
+    <%= render partial: 'teams' %>
+  </div>
+</div>
+
+<% if current_user.can?(:edit, @sport) %>
+  <%= link_to 'Edit', edit_sport_path(@sport) %> |
+<% end %>
+<%= link_to 'Back', sports_path %>

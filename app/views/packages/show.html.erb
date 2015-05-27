@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <%= image_tag(@package.image_url) %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @package.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @package.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= number_to_currency(@package.price) %>
+</p>
+
+<p>
+  <strong>Venue:</strong>
+  <%= @package.venue.name %>
+  <%= link_to 'Back to Purchase', :back, class: 'btn green-btn', id: "voucher-back-button" %>
+</p>
+
+<%= link_to 'Venue', venue_path(@package.venue) %>
+<% if current_user.present? && current_user.can?(:edit, @package) %>
+  | <%= link_to 'Edit', edit_package_path(@package) %>
+  | <%= link_to 'Delete', @package, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

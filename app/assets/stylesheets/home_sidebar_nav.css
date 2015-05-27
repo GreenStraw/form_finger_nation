@@ -1,0 +1,39 @@
+.info-page-title {
+  text-align: center;
+  font-size: 3em;
+  color: #4b4b4b;
+  margin-top: 30px;
+  margin-bottom: 25px;
+  text-decoration: underline;
+}
+
+.faq-header {
+  text-align: left;
+  font-size: 1.75em;
+  color: #4b4b4b;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}

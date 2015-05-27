@@ -1,0 +1,81 @@
+.rsvp-available-button{
+	border: 1px solid #7CA312;
+	width: 150px !important;
+	background-color: #B1DA4F;
+	color: #fff !important;
+	padding: 10px;
+	position: relative;
+	z-index: 999;
+}
+
+.invite-friends-button {
+	border: 1px solid #7CA312;
+	padding: 10px;
+	color: #000;
+	color: #fff !important;
+	width: 150px;
+	background-color: #B1DA4F;
+	position: relative;
+	z-index: 999;
+}
+
+
+.rsvp-available-button:hover,
+.rsvp-available-button:focus,
+.rsvp-available-button:active,
+.rsvp-available-button.active,
+.invite-friends-button:hover,
+.invite-friends-button:focus,
+.invite-friends-button:active,
+.invite-friends-button.active {
+  color: #FFFFFF;
+  background-color: #8AB509;
+  border-color: #7CA312;
+}
+
+
+.invite-friends-button{
+	margin-left: 20px;
+}
+
+#details{
+	margin-left: 20px;
+	border: 1px solid #cacaca;
+	padding: 5px;
+
+	float: left;
+	margin-right: 20px;
+	margin-top:20px;
+}
+
+.clear-all{
+	clear: all;
+}
+
+#available-packages{
+	padding: 10px;
+}
+
+.parties-package-image img {
+	padding: 1px;
+}
+
+.parties-package-name{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.available-packages-table{
+	width: 100%;
+}
+
+.row-underlined{
+	border-bottom: 1px solid #cacaca;
+}
+
+.bottom-margined{
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+

@@ -1,0 +1,65 @@
+<div class='panel panel-default'>
+  <div class='panel-heading'>
+    Upcoming Parties
+  </div>
+  <div class='panel-body'>
+    <table class='table table-hover borderless'>
+      <% if @venue.upcoming_parties.any? %>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Verify</th>
+          </tr>
+        </thead>
+      <% else %>
+        <h4>No upcoming parties</h4>
+      <% end %>
+      <tbody>
+        <% @venue.upcoming_parties.each do |party| %>
+          <tr>
+            <td><%= party.name %></td>
+            <td><%= party.venue.address.city_state %></td>
+            <td>
+              <% if party.verified? %>
+                <%= link_to(unverify_party_venue_path(party_id: party), remote: true, method: :put) do%>
+                  <i class='fa fa-check-square-o fa-4x'></i>
+                <% end %>
+              <% else %>
+                <%= link_to(verify_party_venue_path(party_id: party), remote: true, method: :put, id: 'verify-link') do%>
+                  <i class='fa fa-square-o fa-4x'></i>
+                  <i class='fa fa-check-square-o fa-4x'></i>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class='panel-heading'>
+    Past Parties
+  </div>
+  <div class='panel-body'>
+    <table class='table table-hover borderless'>
+      <% if @venue.past_parties.any? %>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+      <% else %>
+        <h4>No upcoming parties</h4>
+      <% end %>
+      <tbody>
+        <% @venue.past_parties.each do |party| %>
+          <tr>
+            <td><%= party.name %></td>
+            <td><%= party.venue.address.city_state %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

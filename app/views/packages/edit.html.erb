@@ -1,0 +1,28 @@
+<div class='row'>
+  <div class='col-xs-3'>
+    <div class="details-container">
+      <%= render partial: 'details' %>
+    </div>
+  </div>
+  <div class='col-xs-8'>
+    <ul class='nav nav-tabs' role='tablist'>
+      <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+      <li><a href="#party-packages" role='tab' data-toggle='tab'>Manage Party Assignment</a></li>
+    </ul>
+
+    <div class='tab-content'>
+      <div class='tab-pane active' id="info">
+        <%= render 'form' %>
+      </div>
+
+      <div class='tab-pane' id="party-packages">
+        <%= render partial: 'party_packages' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Show', @package %> |
+<%= link_to 'Back', packages_path %>
+
+

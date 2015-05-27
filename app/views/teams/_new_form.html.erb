@@ -1,0 +1,71 @@
+<%= form_for([@team.sport,@team]) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= image_tag(@team.image_url) %>
+    <%= f.file_field :image_url %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :information %><br>
+    <%= f.text_area :information, cols: 80, rows: 2 %>
+  </div>
+
+  <%= f.fields_for :address_attributes do |a| %>
+    <div class='field'>
+      <%= a.label :street1 %><br>
+      <%= a.text_field :street1 %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :street2 %><br>
+      <%= a.text_field :street2 %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :city %><br>
+      <%= a.text_field :city %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :state %><br>
+      <%= a.text_field :state %>
+    </div>
+
+    <div class='field'>
+      <%= a.label :zip %><br>
+      <%= a.text_field :zip %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :twitter_name %><br>
+    <%= f.text_field :twitter_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :twitter_widget_id %><br>
+    <%= f.text_field :twitter_widget_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sport %><br>
+    <%= f.select :sport_id, sport_selects %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<div class='row'>
+  <div class='col-xs-3'>
+    <div class="details-container">
+      <%= render partial: 'details' %>
+    </div>
+  </div>
+  <div class='col-xs-8'>
+    <div class='row'>
+      <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
+        <div id="map"></div>
+      <% end %>
+    </div>
+    <div class='row' style='padding-top: 10px;'>
+      <h3>Upcoming Parties</h3>
+      <% if @venue.upcoming_parties.any? %>
+        <%= render partial: 'parties', locals: { parties: @venue.upcoming_parties } %>
+      <% else %>
+        <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Venues', venues_path %>
+<% if current_user.present? && current_user.can?(:edit, @venue) %>
+  | <%= link_to 'Edit', edit_venue_path(@venue) %>
+<% end %>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    handler.getMap().setZoom(11)
+  });
+</script>

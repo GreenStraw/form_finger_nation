@@ -1,0 +1,43 @@
+<ul class='nav nav-tabs' role='tablist'>
+<div id='notice'>
+  <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+</div>
+
+<li class="tabs-title">Teams</li>
+<li class="<%= @has_favorites ? 'active' : '' %>"><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
+<li class="<%= @has_favorites ? '' : 'active' %>"> <a href="#all" role='tab' data-toggle='tab'>All</a></li>
+  <% if current_user.try(:managed_teams).try(:any?) %>
+    <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
+  <% end %>
+</ul>
+
+<div class='tab-content'>
+
+  <div class='tab-pane <%= "active" if @has_favorites %>' id="favorites">
+    <div id="team-tabs-followed">
+      <%= render partial: 'team_table', locals: { all:false, tab: 'followed' } %>
+    </div>
+  </div>
+
+  <div class='tab-pane' id="managed">
+    <div id="team-tabs-managed">
+      <%= render partial: 'team_table', locals: { all: false, tab: 'managed' } %>
+    </div>
+  </div>
+
+  <div class='tab-pane <%= "active" if !@has_favorites %>' id="all">
+    <div id="team-tabs-all">
+      <div class="row">
+        <div class="col-lg-12">
+          <br>
+          <div class="team-jumplink-container">
+            <% Sport.ordered_sports.each do |sport_name,_| %>
+            <a class="btn green-btn team-jumplink-btn" href="#<%= sport_name.underscore %>"><%= sport_name %></a>
+          <% end %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'team_table', locals: { all: true, tab: 'all' } %>
+    </div>
+  </div>
+</div>

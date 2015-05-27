@@ -1,0 +1,44 @@
+
+<%= form_for(@party) do |f| %>
+  <% if @party.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h2>
+
+      <ul>
+      <% @party.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, cols: 80, rows: 2 %>
+  </div>
+  <div class="field">
+    <%= f.label :scheduled_for %><br>
+    <%= f.datetime_select :scheduled_for %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :organizer_id, value: current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :team %><br>
+    <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.all, 'id', 'name'), include_blank: false, class: 'select2', style: 'width: 250px;' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :venue %><br>
+    <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.all, 'id', 'name_and_address'), include_blank: false, class: 'select2', style: 'width: 400px;' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

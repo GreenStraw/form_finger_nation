@@ -1,0 +1,20 @@
+<% provide(:title, 'Watch Parties') %>
+<div class="row">
+  <div class="col-md-12 cols">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="tabs-title"> Watch Parties</li>
+      <li><a href="#created" role="tab" data-toggle="tab">Created</a></li>
+      <li class="<%= 'active' if current_page?( parties_path ) %>"><a href="#rsvp" role="tab" data-toggle="tab">RSVP</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="created">
+        <%= render "created_parties" %>
+      </div>
+      <div class="tab-pane" id="rsvp">
+	      <%= render "rsvp_parties" %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= link_to "New Party", new_party_path %>

@@ -1,0 +1,34 @@
+<h1>View Profile</h1>
+
+<%= image_tag(@user.image_url) %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <strong>Last Name:</strong>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_path %> | <%= link_to 'Home', root_path %>
+
+
+

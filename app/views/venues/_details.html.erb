@@ -1,0 +1,13 @@
+<div class='row'>
+  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
+</div>
+<div class='row'>
+  <h1><%= @venue.name.upcase %></h1>
+</div>
+<div class='row'>
+  <%= @venue.address.street %><br>
+  <%= @venue.address.city_state %><br>
+  <%= @venue.phone %>
+  <%= mail_to @venue.email %>
+  <%= link_to 'Visit Website', @venue.website if @venue.website %>
+</div>

@@ -1,0 +1,69 @@
+.navbar-brand {
+  margin-top: -30px;
+}
+
+.navbar-brand img {
+  width: 250px;
+  height: auto;
+}
+
+/*CSS hack for navbar jumplink positioning*/
+
+#sports-fans {
+  margin-top: -200px;
+  padding-top: 200px;
+}
+
+#venues {
+  margin-top: -160px;
+  padding-top: 160px;
+}
+
+#alumni-groups {
+  margin-top: -178px;
+  padding-top: 178px;
+}
+
+/*end jumplinks*/
+
+.navbar li {
+  font-size: 1.75em;
+  font-family: 'TradeGothicLTStdBdCnNo.20';
+  text-transform: uppercase;
+}
+
+.fb-navbar-login-icon {
+  margin-top: -4px;
+}
+
+.navbar {
+  border-bottom: 3px solid #B1DA4F;
+}
+
+.sidebar-nav .navbar{
+  border-bottom: none;
+}
+
+.dropdown-menu>li>a {
+  color: #999999;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+  color: #080808;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+  background-image: none;
+}
+
+.dropdown-menu {
+ background-color: #222222;
+}
+
+.dropdown-menu>li.divider {
+  color: #222222;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+ background-color: #222222;
+ color: #B1DA4F;
+}
