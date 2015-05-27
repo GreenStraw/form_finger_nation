@@ -11,6 +11,10 @@ class HomeController < ApplicationController
   def about
   end
 
+  def home_theme
+    # render :layout => false
+  end
+
   def contact
   end
 
