@@ -11,7 +11,8 @@
         <div class="form-group">
           <input type="password" class="form-control" id="exampleInputName2" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-green btn-default">Sign Up</button>
+        <!-- <button type="submit" class="btn btn-green btn-default">Sign Up</button> -->
+        <%= link_to( t("theme.signup", :default => "Sign Up"), new_user_registration_path, class: "btn btn-green btn-default" ) %>
       </form>
     </div>
   </div>
