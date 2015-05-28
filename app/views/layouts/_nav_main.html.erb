@@ -1,5 +1,5 @@
 <div class="<%= "transparent" if current_page?( root_path ) %>">
-  <header id="header">
+  <header id="<%= current_page?( root_path ) ? 'header' : 'inner-header'%>">
     <div class="container banner">
     <%#= 'navbar-fixed-top' if current_page?(root_path)%>
       <nav class="navbar navbar-default">
@@ -50,11 +50,11 @@
                   <%# end %>
                 <!-- </ul> -->
               <% end %>
-              <li>
-                <%= link_to( "About", faq_path ) %>
+              <li class="<%= 'active' if current_page?( about_path )%>" >
+                <%= link_to( "About", about_path ) %>
               </li>
-              <li>
-                <%= link_to( "How It Works", faq_path ) %>
+              <li class="<%= 'active' if current_page?( how_path ) %>">
+                <%= link_to( "How It Works", how_path ) %>
               </li>
               <li class="<%= 'active' if current_page?( faq_path ) %>">
                 <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
@@ -103,7 +103,11 @@
       </div>
     </nav>
     <div class="logo">
-      <%= link_to(image_tag("vendor/logo.png"), root_path, :class=>"#{"homepage-logo" if current_page?( root_path )} navbar-brand") %>
+      <% if current_page?( root_path )%>
+        <%= link_to(image_tag("vendor/logo.png"), root_path, :class=>"#{"homepage-logo" if current_page?( root_path )} navbar-brand") %>
+      <% else %>
+        <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
+      <% end %>
     </div>
     <div class="top-btn col-lg-6 col-md-6 col-sm-12 pull-right">
       <% if user_signed_in? %>
@@ -112,20 +116,22 @@
       <% end %>
     </div>
     <div class="clearfix"></div>
-    <div class="col-md-5 col-sm-6 col-xs-12 caption_img">
-      <%= image_tag "vendor/banner_app.png", class: "img-responsive" %>
-    </div>
-    <div class="col-md-6 col-sm-6 col-xs-12 caption">
-      <h2>Connect with sports fans,</h2>
-      <h2> discover local watch parties,</h2>
-      <h2> and <span>get promotions</span> from local sports bars.</h2>
-      <button type="button" class="btn ">
-        <%= image_tag( "vendor/ios_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on iTunes")%>
-      </button>
-      <button type="button" class="btn ">
-        <%= image_tag( "vendor/android_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on Google Play")%>
-      </button>
-    </div>
+    <% if current_page?( root_path )%>
+      <div class="col-md-5 col-sm-6 col-xs-12 caption_img">
+        <%= image_tag "vendor/banner_app.png", class: "img-responsive" %>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 caption">
+        <h2>Connect with sports fans,</h2>
+        <h2> discover local watch parties,</h2>
+        <h2> and <span>get promotions</span> from local sports bars.</h2>
+        <button type="button" class="btn ">
+          <%= image_tag( "vendor/ios_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on iTunes")%>
+        </button>
+        <button type="button" class="btn ">
+          <%= image_tag( "vendor/android_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on Google Play")%>
+        </button>
+      </div>
+    <% end %>
   </div>
 </header>
 </div>

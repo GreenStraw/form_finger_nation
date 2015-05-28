@@ -169,13 +169,13 @@ a {
     padding: 89px 0 100px;
 }
 #alumni_groups h2{
-       color: #fff;
-    margin: 0 0 53px 0;
-    font-size: 40px;
-    font-weight: bold;
-    font-family: Rockwell, "Courier New", Courier, Georgia,
-                 Times, "Times New Roman", serif;
-    position: relative;
+ color: #fff;
+ margin: 0 0 53px 0;
+ font-size: 40px;
+ font-weight: bold;
+ font-family: Rockwell, "Courier New", Courier, Georgia,
+ Times, "Times New Roman", serif;
+ position: relative;
 }
 
 #alumni_groups h2:before{ 
@@ -209,11 +209,11 @@ a {
     margin: 0 0 53px 10%;
     font-size: 40px;
     font-weight: bold;
-font-family: Rockwell, "Courier New", Courier, Georgia,
-                 Times, "Times New Roman", serif;
+    font-family: Rockwell, "Courier New", Courier, Georgia,
+    Times, "Times New Roman", serif;
 }
 .text-areaa{
-        margin:0 0 25px 14.5%;
+    margin:0 0 25px 14.5%;
 }
 .text-areaa p{
     font-size: 21px;
@@ -238,38 +238,56 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
     background: #a8d039;
     padding: 89px 0 0;
 }
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus
+{
+    color: #a8d039 !important;
+}
 .navbar-default .navbar-toggle {
     border-color: #a8d039;
 }
 .form-control:focus {
     border-color: #a8d039;
 }
-.banner .navbar {
+.navbar {
     margin-bottom: 0;
 }
-.banner .navbar-default {
+.navbar-default {
     background: transparent;
 }
-.banner .navbar-nav > li {
+
+.navbar-nav > li {
     border-right: 1px solid #fff;
 }
-.banner .navbar-nav > li:last-child {
+#inner-header .navbar-nav > li {
+    border-right: 1px solid #919191;
+}
+#inner-header  .navbar-nav > li:last-child ,
+.navbar-nav > li:last-child {
     border: 0;
 }
-.banner .navbar-nav > li > a {
-    padding: 0 14px 0 7px;
+.wrapper-home .navbar-nav > li > a {
+    padding: 0 11px 0 6px;
     color: #fff;
+    line-height: 13px;
+    font-size: 14px;
+}
+.navbar-nav {
+    padding: 0 8px 0 0;
+}
+.navbar-nav > li > a {
+    padding: 0 11px 0 6px;
+    color: #474747;
     line-height: 13px;
     font-size: 15px;
 }
-.banner .navbar-nav > li > a i{
+.navbar-nav > li > a i{
     margin: 0 5px;
 }
-.banner .navbar-nav > li > a:hover {
-    color: #fff;
+.navbar-nav > li > a:hover {
+    color: #a8d039;
 }
-.banner .navbar-collapse {
-    padding: 19px 0px 0px;
+.navbar-collapse {
+    padding: 22px 0px 0px;
 }
 .logo {
     width: 264px;
@@ -305,6 +323,10 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
     background-color: #272727;
     border-color: #272727;
     padding: 14px 8%;
+}
+.mrl-0{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 .btn-black:hover,
 .btn-black:focus,
@@ -394,11 +416,11 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
     border: 0;
 }
 .side-bar ul li a {
-     padding: 20px 10px;
-     text-align: right;
-  color: #979797;
-  display: block;
-  text-transform: uppercase;
+   padding: 20px 10px;
+   text-align: right;
+   color: #979797;
+   display: block;
+   text-transform: uppercase;
 }
 .active a {
     border-right: 4px solid #A8D039;
@@ -446,6 +468,95 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
 .Privacy{
     text-align: right;
 }
+.footer_pt{
+ color: #A8D039; 
+}
+.how-it-work p{
+    font-size: 18px;
+    line-height: 26px;
+}
+#how-it-work {
+    background: url(<%= asset_path 'vendor/bg-h-it-work.jpg' %>) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    padding: 181px 0 117px;
+}
+
+.how-it-work #food {
+    background: url(<%= asset_path 'vendor/bg-food.jpg' %>) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    padding: 81px 0 65px;
+}
+#how-it-work:after {
+ content: "";
+ position: absolute;
+ bottom: -57px;
+ left: 49.3%;
+ margin-left: -49.3px;
+ width: 115px;
+ height: 59px;
+ background: url(<%= asset_path 'vendor/bottom-arrow.png' %>) no-repeat center center;
+}
+
+#food h2,
+.how-it-work #sports h2{
+    font-size: 36px;
+    margin: 0 0 24px 10%;
+    line-height: 52px;
+    color: #fff;
+    font-weight: bold;
+    font-family: Rockwell, "Courier New", Courier, Georgia,
+    Times, "Times New Roman", serif;
+}
+#how-it-work h2{
+    color: #fff;
+    margin: 0 0 53px 10%;
+    font-size: 60px;
+    font-weight: normal;
+    font-family: 'Montserrat', sans-serif;
+
+}
+.how-it-work #sports{
+    padding: 79px 0 63px;
+}
+#how-it-work h2:before,
+.how-it-work #sports h2:before,
+.how-it-work #alumni_groups h2:before{
+    background: none;
+}
+#inner-header{
+    padding: 0px 0 30px;
+}
+.how-it-work .image-holder {
+    width: 100px;
+    height: 100px;
+    padding: 31px 0;
+    margin: 0 auto 20px;
+}
+.how-it-work  #alumni_groups {
+  background: #a8d039;
+  padding: 69px 0 62px;
+  color: #707561;
+}
+.how-it-work  #alumni_groups h2{
+    font-size: 36px;
+    color: #676767;
+    padding: 12px 0 0;
+    margin: 0 0 31px;
+}
+.how-it-work #food .image-holder{
+    margin: 0 auto 23px;
+}
+.inner-header{
+  padding: 0 0 30px;
+}
 @media (max-width: 1200px) {
     .caption_img img {
         margin: 64px 0 0;
@@ -472,24 +583,11 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
     }
 }
 @media (max-width: 768px) {
-.side-bar{
-    display: none;
-}
-
-    .bottom_img {
-    margin-bottom: -1px;
-}
-    #sports h2::before, #Venues h2::before{
-        left: 5%;
-    }
-    #Venues h2,
-    #sports h2,
-    #alumni_groups h2{
-        font-size: 36px;
-        margin-left: 0;
+    #inner-header .navbar-nav > li {
+        border-right: 0;
     }
     .btn-green { margin: 0 0 10px;}
-    .banner .navbar-nav > li > a {
+    .navbar-nav > li > a {
         padding: 10px 0;
         border: 0;
     }
@@ -497,21 +595,21 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
         background: #000;
         margin: 8px 0;
         padding: 0 10px;
-        /*border: 1px solid #A8D039;*/
+        border: 1px solid #A8D039;
     }
     .navbar-default .navbar-toggle:hover,
     .navbar-default .navbar-toggle:focus {
         background: #000;
     }
-    .banner .navbar-collapse {
+    .navbar-collapse {
         padding: 0px;
     }
     .caption_img {
         display: none;
     }
-   .caption {
-    margin: 66px 0 26px;
-}
+    .caption {
+        margin: 66px 0 26px;
+    }
     .caption h2 {
         font-size: 25px;
         line-height: 31px;
@@ -526,27 +624,32 @@ font-family: Rockwell, "Courier New", Courier, Georgia,
         text-align: center;
     }
     .text-areaa {
-    margin: 0 0 25px 0;
-}
-#footer,
-.Privacy{
-    text-align: center;
-}
+        margin: 0 0 25px 0;
+    }
+    #footer,
+    .Privacy{
+        text-align: center;
+        padding: 20px 0;
+    }
 }
 @media (max-width: 440px) {
-   .caption{
-        text-align: center;
-    }
-    .top-btn .btn {
-        width: 100%;
-        float: left;
-        margin: 6px 0px;
-    }
-    .caption {
-        margin: 20px 0px 0px;
-    }
-    .caption h2 {
-        font-size: 20px;
-        line-height: 25px;
-    }
+ .caption{
+    text-align: center;
+}
+.top-btn .btn {
+    width: 100%;
+    float: left;
+    margin: 6px 0px;
+}
+.caption {
+    margin: 20px 0px 0px;
+}
+.caption h2 {
+    font-size: 20px;
+    line-height: 25px;
+}
+.no-p{
+    padding-left: 0;
+    padding-right: 0;
+}
 }
