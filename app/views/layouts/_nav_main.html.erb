@@ -1,115 +1,131 @@
-<div class="container <%= "transparent" if current_page?( root_path ) %>">
-
-      <!-- Static navbar -->
-      <div class="navbar navbar-inverse <%= 'navbar-fixed-top' if current_page?(root_path)%>" role="navigation">
+<div class="<%= "transparent" if current_page?( root_path ) %>">
+  <header id="header">
+    <div class="container banner">
+    <%#= 'navbar-fixed-top' if current_page?(root_path)%>
+      <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <%= link_to(image_tag("foam_finger_logo.png"), root_path, :class=>"#{"homepage-logo" if current_page?( root_path )} navbar-brand") %>
           </div>
-          <div class="navbar-collapse collapse">
-
-        <% if user_signed_in? %>
-          <ul class="nav navbar-nav">
-
-            <li class="<%= 'active' if current_page?( search_parties_path ) %>">
-              <%= link_to( t("Find a Watch Party", :default => "Find Watch Party"), search_parties_path ) %>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+            <!-- <li>
+              <a href="#"><i class="fa fa-user"></i>Login</a>
             </li>
-
-            <li class="<%= 'active' if current_page?( new_party_path ) %>">
-              <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path ) %>
-            </li>
-
-            <li class="<%= 'active' if current_page?( teams_path ) %>">
-              <%= link_to( t("Teams", :default => "Teams"), teams_path ) %>
-            </li>
-
-            <li class="<%= 'active' if current_page?( faq_path ) %>">
-              <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
-            </li>
-
-          </ul>
-        <% else %>
-          <ul class="nav navbar-nav">
-            <% if current_page?( root_path )%>
-              <li>
-                <%= link_to( "Sports Fans", "#sports-fans" ) %>
-              </li>
-              <li>
-                <%= link_to( "Alumni Groups", "#alumni-groups" ) %>
-              </li>
-              <li>
-                <%= link_to( "Venues", "#venues" ) %>
-              </li>
-              <li>
-                <%= link_to( "FAQ", faq_path ) %>
-              </li>
-            <% elsif current_page?( faq_path ) %>
-              <li>
-                <%= link_to( "Sports Fans", "#{root_path}#sports-fans" ) %>
-              </li>
-              <li>
-                <%= link_to( "Alumni Groups", "#{root_path}#alumni-groups" ) %>
-              </li>
-              <li>
-                <%= link_to( "Venues", "#{root_path}#venues" ) %>
-              </li>
-            <% end %>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
-              <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
-            </li>
-            <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
-              <a href="<%= new_user_session_path %>">Log In <%= image_tag("fb_navbar_icon.png", :class=>"fb-navbar-login-icon") %></a>
-            </li>
-          </ul>
-        <% end %>
-        <ul class="nav navbar-nav navbar-right">
-          <% if user_signed_in? %>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=current_user.username ? current_user.username : "Menu" %><b class="caret"></b></a>
-              <ul class="dropdown-menu inverse-dropdown">
-                <li>
-                  <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
+            <li><a href="#">Signup</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">Faq</a></li> -->
+              <% unless user_signed_in? %>
+                <li class="<%= 'active' if current_page?( new_user_session_path ) %>">
+                  <a href="<%= new_user_session_path %>"><i class="fa fa-user"></i>Login</a>
                 </li>
-                <li>
-                  <%= link_to "My Vouchers", vouchers_path %>
-                </li>
-                <li>
-                  <%= link_to "My Watch Parties", parties_path %>
-                </li>
-              <% if user_signed_in? && current_user.managed_venues.any? %>
-                <li>
-                  <%= link_to "My Venues", venues_path %>
+                <li class="<%= 'active' if current_page?( new_user_registration_path ) %>">
+                  <%= link_to( t("theme.signup", :default => "Sign up"), new_user_registration_path ) %>
                 </li>
               <% end %>
-              <% if user_signed_in? && current_user.followed_teams.present? && current_user.followed_teams.any? %>
-                <li>
-                  <%= link_to "My Teams", teams_path %>
-                </li>
+              <% if user_signed_in? %>
+                  <li class="<%= 'active' if current_page?( teams_path ) %>">
+                    <%= link_to( t("Teams", :default => "Teams"), teams_path ) %>
+                  </li>
+              <% else %>
+                <!-- <ul class="nav navbar-nav"> -->
+                  <%# if current_page?( root_path )%>
+                  <!-- <li>
+                    <%#= link_to( "Sports Fans", "#sports-fans" ) %>
+                  </li>
+                  <li>
+                    <%#= link_to( "Alumni Groups", "#alumni-groups" ) %>
+                  </li>
+                  <li>
+                    <%#= link_to( "Venues", "#venues" ) %>
+                  </li> -->
+                  <%# elsif current_page?( faq_path ) %>
+                    <%#= link_to( "Sports Fans", "#{root_path}#sports-fans" ) %>
+                  <%# end %>
+                <!-- </ul> -->
               <% end %>
-              <% if user_signed_in? && current_user.admin? %>
-                <li>
-                  <%= link_to 'Manage Admins', users_path %>
-                </li>
-                <li>
-                  <%= link_to 'Manage Sports', sports_path %>
-                </li>
+              <li>
+                <%= link_to( "About", faq_path ) %>
+              </li>
+              <li>
+                <%= link_to( "How It Works", faq_path ) %>
+              </li>
+              <li class="<%= 'active' if current_page?( faq_path ) %>">
+                <%= link_to( t("FAQ", :default => "FAQ"), faq_path ) %>
+              </li>
+              <% if user_signed_in? %>
+              <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=current_user.username ? current_user.username : "Menu" %><b class="caret"></b></a>
+                <ul class="dropdown-menu inverse-dropdown">
+                  <li>
+                    <%= link_to( t("theme.profile", :default => "Profile"), account_path ) %>
+                  </li>
+                  <li>
+                    <%= link_to "My Vouchers", vouchers_path %>
+                  </li>
+                  <li>
+                    <%= link_to "My Watch Parties", parties_path %>
+                  </li>
+                  <% if user_signed_in? && current_user.managed_venues.any? %>
+                  <li>
+                    <%= link_to "My Venues", venues_path %>
+                  </li>
+                  <% end %>
+                  <% if user_signed_in? && current_user.followed_teams.present? && current_user.followed_teams.any? %>
+                  <li>
+                    <%= link_to "My Teams", teams_path %>
+                  </li>
+                  <% end %>
+                  <% if user_signed_in? && current_user.admin? %>
+                  <li>
+                    <%= link_to 'Manage Admins', users_path %>
+                  </li>
+                  <li>
+                    <%= link_to 'Manage Sports', sports_path %>
+                  </li>
+                  <% end %>
+                  <li>
+                    <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
+                  </li>
+                </ul> <!-- end dropdown-menu -->
+              </li> <!-- end dropdown -->
+              </ul>
               <% end %>
-                <li>
-                  <%= link_to( t("theme.logout", :default => "Sign out"), destroy_user_session_path, :method => :get ) %>
-                </li>
-              </ul> <!-- end dropdown-menu -->
-            </li> <!-- end dropdown -->
-          <% end %>
-        </ul> <!-- end navbar-right -->
-      </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-  </div><!-- /.navbar -->
-</div><!-- /.container -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="logo">
+      <%= link_to(image_tag("vendor/logo.png"), root_path, :class=>"#{"homepage-logo" if current_page?( root_path )} navbar-brand") %>
+    </div>
+    <div class="top-btn col-lg-6 col-md-6 col-sm-12 pull-right">
+      <% if user_signed_in? %>
+        <%= link_to( t("Find a Watch Party", :default => "Find Watch Party"), search_parties_path, class: "btn btn-green btn-default" ) %>
+        <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-5 col-sm-6 col-xs-12 caption_img">
+      <%= image_tag "vendor/banner_app.png", class: "img-responsive" %>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 caption">
+      <h2>Connect with sports fans,</h2>
+      <h2> discover local watch parties,</h2>
+      <h2> and <span>get promotions</span> from local sports bars.</h2>
+      <button type="button" class="btn ">
+        <%= image_tag( "vendor/ios_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on iTunes")%>
+      </button>
+      <button type="button" class="btn ">
+        <%= image_tag( "vendor/android_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on Google Play")%>
+      </button>
+    </div>
+  </div>
+</header>
+</div>

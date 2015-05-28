@@ -1,6 +1,5 @@
 Baseapp::Application.routes.draw do
 
-  get 'home_theme' => "home#home_theme", :as => 'theme'
   get 'accounts' => "account#index", :as => 'accounts'
   get 'account' => "account#show", :as => 'account'
   get 'account/edit' => 'account#edit', :as => 'edit_account'
