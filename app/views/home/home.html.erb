@@ -1,4 +1,4 @@
-<div class="form-area">
+<section class="form-area">
   <div class="container">
     <div class="col-md-4">
       <span>Sign up For an FFN Account</span>
@@ -16,13 +16,13 @@
       </form>
     </div>
   </div>
-</div>
+</section>
 <section id="Venues">
-  <div class="side-bar col-md-2 row scroll_to_div">
+  <div class="side-bar col-md-2 row scroll_to_div" id="side_bar_fx">
     <ul>
-      <li class="active"><%= link_to( "Venues", "#Venues", class: "scroll_to" ) %></li>
-      <li><%= link_to( "Alumni Groups", "#alumni_groups", class: "active scroll_to" ) %></li>
-      <li><%= link_to( "Sports Fans", "#sports", class: "scroll_to" ) %></li>
+      <li class="side_active" id="ven"><%= link_to( "Venues", "#Venues", class: "scroll_to" ) %></li>
+      <li id="al"><%= link_to( "Alumni Groups", "#alumni_groups", class: "active scroll_to" ) %></li>
+      <li id="sp"><%= link_to( "Sports Fans", "#sports", class: "scroll_to" ) %></li>
     </ul>
   </div>
   <div class="container main">

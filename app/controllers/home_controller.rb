@@ -33,4 +33,7 @@ class HomeController < ApplicationController
   def terms
   end
 
+  def about2
+  end
+
 end

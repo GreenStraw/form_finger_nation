@@ -245,7 +245,7 @@ a {
     color: #fff;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
- .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #a8d039 !important;
     background-color: transparent;
 }
@@ -406,7 +406,7 @@ a {
 }
 .side-bar {
     position: absolute;
-    top: 33px;
+    top: 95px;
     left: 0;
     z-index: 1;
 }
@@ -431,6 +431,9 @@ a {
    text-transform: uppercase;
 }
 .active a {
+    color: #A8D039 !important;
+}
+.side_active a {
     border-right: 4px solid #A8D039;
     color: #A8D039 !important;
 }
@@ -565,6 +568,129 @@ a {
 .inner-header{
   padding: 0 0 30px;
 }
+#about {
+  background: url(<%= asset_path 'vendor/bg-about.jpg' %>) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  padding: 140px 0 0 ;
+  font-size: 18px;
+  line-height: 26px;
+}
+#about .text-area{
+  margin: 0 0 0 11.7%;
+}
+#about .image-box{  margin: 0 0 0 6%;}
+#about h2:before {
+    content: "";
+    display: block;
+    background: url(<%= asset_path 'vendor/bar_green.png' %>) no-repeat;
+    width: 50px;
+    height: 5px;
+    float: left;
+    margin: 0;
+    position: absolute;
+    top: 65px;
+    left: 4%;
+
+}
+#about:after {
+  content: "";
+  position: absolute;
+  bottom: -56.5px;
+  left: 49.2%;
+  margin-left: -49.3px;
+  width: 136px;
+  height: 71px;
+  background: url(<%= asset_path 'vendor/bottom_arrow2_03.png' %>) no-repeat center center;
+}
+#watch_parties h2,
+#about h2 {
+    color: #fff;
+    margin: 0 0 71px 0;
+    font-size: 36px;
+    font-weight: bold;
+    font-family: Rockwell, "Courier New", Courier, Georgia,
+    Times, "Times New Roman", serif;
+}
+#watch_parties {
+    background: #3e95ba;
+    padding: 89px 0 0px;
+}
+#watch_parties .bootom_img{
+  margin: 46px 0 0 13%;
+}
+#watch_parties h2:before {
+  content: "";
+  display: block;
+  background: url(<%= asset_path 'vendor/bar_green.png' %>) no-repeat;
+  width: 50px;
+  height: 5px;
+  float: left;
+  margin: 0;
+  position: absolute;
+  top: 65px;
+  left: 47%;
+}
+#Promotions {
+  background: #a8d039;
+  padding: 163px 0 117px;
+}
+#Promotions_about h2,
+#Promotions h2 {
+    color: #565656;
+    margin: 0 0 71px 0;
+    font-size: 36px;
+    font-weight: bold;
+    font-family: Rockwell, "Courier New", Courier, Georgia,
+    Times, "Times New Roman", serif;
+}
+#Promotions h2:before {
+  content: "";
+  display: block;
+  background: url(<%= asset_path 'vendor/bar_blue.png' %>) no-repeat;
+  width: 50px;
+  height: 5px;
+  float: left;
+  margin: 0;
+  position: absolute;
+  top: 65px;
+  left: 47%;
+}
+.mt60{
+    margin-top: 60px;
+}
+.about_two #Promotions{
+    padding: 163px 0 0;
+}
+.about_two #Promotions h2{
+    color: #fff;
+}
+.about_two #Promotions_about{
+   padding: 163px 0 117px;
+   background: #a8d039;
+   color: #707561;
+}
+.about_two #watch_parties{
+    padding: 89px 0 89px;
+}
+.about_two #Promotions_about h2:before {
+  content: "";
+  display: block;
+  background: url(<%= asset_path 'vendor/bar_blue.png' %>) no-repeat;
+  width: 50px;
+  height: 5px;
+  float: left;
+  margin: 0;
+  position: absolute;
+  top: 65px;
+  left: 47%;
+}
+.none{
+    display: block;
+}
 @media (max-width: 1200px) {
     .caption_img img {
         margin: 64px 0 0;
@@ -589,96 +715,146 @@ a {
     .form-area span {
         padding: 8px 0px 8px;
     }
+    #about .image-box {
+    margin: 91px 0 0;
+}
+#about .text-area {
+    margin: 0px;
+}
 }
 @media (max-width: 768px) {
-    .navbar-nav .navbar-nav{
-        border: 0;
+    #about .image-box img{
+        margin: 0 auto;
     }
+    .none{
+        display: none;
+    }
+    #watch_parties h2::before,
+    .about_two #Promotions_about h2::before, 
+    #Promotions h2::before {
+        left: 43%;
+    }
+    #about .text-area {
+        margin: 0px 0px 0px 0;
+    }
+    #watch_parties .bootom_img{
+        margin:46px 0px 0px 0;
+    }
+    #about{
+        padding: 60px 0 0;
+    }
+    #watch_parties h2, #about h2{
+        font-size: 26px;
+    }
+    .about_two #Promotions {
+        padding: 80px 0 0;
+    }
+    #Promotions_about h2, #Promotions h2{
+        font-size: 26px;
+    }
+    .about_two #Promotions_about{
+        padding: 60px 0 60px;
+    }
+    #Promotions h2{
+        font-size: 30px;
+    }
+    #Promotions h2::before{
+     top: 77px;
+ }
+ #Promotions {
+    padding: 60px 0 60px;
+}
+.bootom_img{
+    margin: 0;
+}
+.navbar-nav .navbar-nav{
+    border: 0;
+}
 
 .form-area .btn {
     padding: 14px 28%;
 }
-    .caption .btn{
-        margin: 24px 0 ;
-    }
-    .side-bar{
-        display: none;
-    }
-    .navbar-nav > li {
+.caption .btn{
+    margin: 24px 0 ;
+}
+.side-bar{
+    display: none;
+}
+.navbar-nav > li {
     border-right: 0;
 }
-    .top-btn {
+.top-btn {
     margin: 37px -5px 0px;
-    }
-    #inner-header .navbar-nav > li {
-        border-right: 0;
-    }
-    .btn-green { margin: 0 0 10px;}
-    .navbar-nav > li > a {
-        padding: 10px 0;
-        border: 0;
-    }
-    .navbar-nav {
-        background: #000;
-        margin: 8px 0;
-        padding: 0 10px;
-        border: 1px solid #A8D039;
-    }
-    .navbar-default .navbar-toggle:hover,
-    .navbar-default .navbar-toggle:focus {
-        background: #000;
-    }
-    .navbar-collapse {
-        padding: 0px;
-    }
-    .caption_img {
-        display: none;
-    }
-    .caption {
-        margin: 66px 0 26px;
-    }
-    .caption h2 {
-        font-size: 25px;
-        line-height: 31px;
-    }
-    .form-area .email.form-group {
-        width: 100%;
-    }
-    .form-area .form-group .email.form-control {
-        margin: 10px 0;
-    }
-    .form-area {
-        text-align: center;
-    }
-    .text-areaa {
-        margin: 0 0 25px 0;
-    }
-    #footer,
-    .Privacy{
-        text-align: center;
-        padding: 20px 0;
-    }
 }
-@media (max-width: 440px) {
-#Venues h2, #sports h2{
-    margin: 0px 0px 53px 0;
+#inner-header .navbar-nav > li {
+    border-right: 0;
 }
-.top-btn .btn {
-    width: 100%;
-    float: left;
-    margin: 6px 0px;
+.btn-green { margin: 0 0 10px;}
+.navbar-nav > li > a {
+    padding: 10px 0;
+    border: 0;
+}
+.navbar-nav {
+    background: #000;
+    margin: 8px 0;
+    padding: 0 10px;
+    border: 1px solid #A8D039;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background: #000;
+}
+.navbar-collapse {
+    padding: 0px;
+}
+.caption_img {
+    display: none;
 }
 .caption {
-    margin: 25px 0px 0px;
-    text-align: center;
-
+    margin: 66px 0 26px;
 }
 .caption h2 {
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 25px;
+    line-height: 31px;
 }
-.no-p{
-    padding-left: 0;
-    padding-right: 0;
+.form-area .email.form-group {
+    width: 100%;
 }
+.form-area .form-group .email.form-control {
+    margin: 10px 0;
+}
+.form-area {
+    text-align: center;
+}
+.text-areaa {
+    margin: 0 0 25px 0;
+}
+#footer,
+.Privacy{
+    text-align: center;
+    padding: 20px 0;
+}
+}
+@media (max-width: 440px) {
+    #Venues h2, #sports h2{
+        margin: 0px 0px 53px 0;
+    }
+    .top-btn .btn {
+        width: 100%;
+        float: left;
+        margin: 6px 0px;
+    }
+    .caption {
+        margin: 25px 0px 0px;
+        text-align: center;
+
+    }
+    .caption h2 {
+        font-size: 20px;
+        line-height: 25px;
+    }
+    .no-p{
+        padding-left: 0;
+        padding-right: 0;
+    }
 }

@@ -53,6 +53,7 @@ Baseapp::Application.routes.draw do
   resource :account, :controller => :account
 
   get "/about" => "home#about"
+  get "/about2" => "home#about2"
   get "/contact" => "home#contact"
   get "/faq" => "home#faq"
   get "/home" => "home#home"
