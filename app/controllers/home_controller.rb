@@ -18,7 +18,11 @@ class HomeController < ApplicationController
   end
 
   def home
-    @user = current_user
+    if current_user
+      @user = current_user
+    else
+      @user = User.new
+    end
   end
 
   def how
