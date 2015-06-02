@@ -4,9 +4,11 @@
       <div class="cancle_icon">
         <i class="fa fa-times"></i>
       </div>
-      <%= image_tag(party.team.image_url, size: '80', class: "img-responsive") unless party.team.nil? %>
+      <%= image_tag(party.team.image_url, class: "img-responsive") unless party.team.nil? %>
       <div class="caption">
-        <h3><%= link_to(party.name, party) %></h3>
+        <%= link_to party do %>
+          <h3> <%= party.name %> </h3>
+        <% end %>
         <ul class="list-inline">
           <li><a href="#"><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></a></li>
           <li><a href="#"><%= party.venue.address.city_state %></a></li>
