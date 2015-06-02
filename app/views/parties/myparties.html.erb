@@ -11,7 +11,7 @@
           <% if current_user && current_user.image_url.present? %>
             <%= image_tag current_user.image_url, class: "img-responsive" %>
           <% else %>
-            <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+            <%= image_tag "vendor/profile.png", class: "img-responsive"%>
           <% end %>
         </div>
         <span class="user_name">
@@ -48,15 +48,14 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="banner row">
-           <div class="mobile_header  ">
-      
-      <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
-      <div class="logo pull-right">
-                 
-                  <%= image_tag "vendor/logo2.png", class: "img-responsive", alt: "icon" %>
-               </div>
+          <!-- <div class="mobile_header  ">
 
-    </div>
+          <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+          <div class="logo pull-left">
+          <img src="images/logo2.png" class="img-responsive">
+          </div>
+
+        </div> -->
         <div class="input-area row col-md-offset-1 col-md-10">
           <div class="right-inner-addon ">
             <i class="fa fa-search fa-6"></i>
@@ -80,10 +79,10 @@
         </div>
         <div class="clearfix"></div>
         <div class="row caption">
-          <div class="col-sm-7 col-md-7 col-lg-7 box-hide">
+          <div class="col-sm-7 col-md-7 col-lg-7">
             <%= image_tag "vendor/banner_img.png", class: "img-responsive", alt: "icon" %>
           </div>
-          <div class="col-sm-12 col-md-5 col-lg-5">
+          <div class="col-sm-4 col-md-4 col-md-4">
             <h1>MY PARTIES</h1>
             <p>Keep track of when and where you
               may have to start a bar fight</p>

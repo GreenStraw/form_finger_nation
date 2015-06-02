@@ -1,12 +1,21 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% @user.party_reservations.each do |party_reservation| %>
-      <tr>
-        <td><%= image_tag(party_reservation.party.team.image_url, size: '80') unless party_reservation.party.nil? || party_reservation.party.team.nil? %></td>
-        <td><h4><%= link_to(party_reservation.party.name, party_reservation.party) %></h4></td>
-        <td><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
-        <td><%= party_reservation.party.venue.address.city_state %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% current_user.party_reservations.each do |party_reservation| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="cancle_icon">
+        <a href="#"><i class="fa fa-times"></i></a>
+      </div>
+      <div class="holder">
+      <%= image_tag(party_reservation.party.team.image_url, size: '80', class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.team.nil? %>
+      </div>
+      <div class="caption">
+        <h3><%= link_to(party_reservation.party.name, party_reservation.party) %></h3>
+        <ul class="list-inline">
+          <li><a href="#"><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></a></li>
+          <li><a href="#"><%= party_reservation.party.venue.address.city_state %></a></li>
+        </ul>
+        <p><%= party_reservation.party.description %></p>
+
+      </div>
+    </div>
+  </div>
+<% end %>

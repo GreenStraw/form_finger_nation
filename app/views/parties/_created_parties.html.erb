@@ -1,12 +1,19 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% @user.parties.each do |party| %>
-      <tr>
-        <td><%= image_tag(party.team.image_url, size: '80') unless party.team.nil? %></td>
-        <td><h4><%= link_to(party.name, party) %></h4></td>
-        <td><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
-        <td><%= party.venue.address.city_state %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% current_user.parties.each do |party| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="cancle_icon">
+        <i class="fa fa-times"></i>
+      </div>
+      <%= image_tag(party.team.image_url, size: '80', class: "img-responsive") unless party.team.nil? %>
+      <div class="caption">
+        <h3><%= link_to(party.name, party) %></h3>
+        <ul class="list-inline">
+          <li><a href="#"><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></a></li>
+          <li><a href="#"><%= party.venue.address.city_state %></a></li>
+        </ul>
+        <p><%= party.description %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
+

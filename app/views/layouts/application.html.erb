@@ -11,11 +11,18 @@
     <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script> -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
+
     <title>FFN</title>
     <%= favicon_link_tag "favicon.ico" %>
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
+    <% if params[:controller] == "parties" %>
+      <%= stylesheet_link_tag "theme" %>
+    <% else %>
+      <%= stylesheet_link_tag "all" %>
+    <% end %>
+
   </head>
   <body>
     <% unless current_page?(root_path)  %>
@@ -43,10 +50,14 @@
 
     <!-- <div class="<%#= "transparent" if current_page?( root_path ) %>"> -->
       <div class="wrapper">
-        <%= render 'layouts/nav_main' %>
+        <% unless params[:controller] == "parties" %>
+          <%= render 'layouts/nav_main' %>
+        <% end %>
         <%= render 'layouts/flash' %>
         <%= yield %>
-        <%= render 'layouts/footer' %>
+        <% unless params[:controller] == "parties" %>
+          <%= render 'layouts/footer' %>
+        <% end %>
       </div>
     <!-- </div> -->
  

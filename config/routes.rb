@@ -53,6 +53,8 @@ Baseapp::Application.routes.draw do
 
   get "/about" => "home#about"
   get "/become" => "home#become"
+  get "/myparties" => "parties#myparties"
+  get "/n_sign_up" => "parties#n_sign_up"
   get "/about2" => "home#about2"
   get "/contact" => "home#contact"
   get "/faq" => "home#faq"

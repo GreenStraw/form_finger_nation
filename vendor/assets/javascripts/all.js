@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+  $(".my_party").click(function() {
+    $('.product_area div').removeClass("hidden_p");
+    $('.my_Parties li a').removeClass("active_p");
+
+    var str = this.href.split("#")[1];
+    if( str == "RSVPs")
+      str = "create_parties"
+    else
+      str = "rsvp_party"
+    $(this).addClass('active_p');
+    document.getElementById(str).className += " hidden_p";
+  });
+
+
   $(".scroll_to").click(function() {
     $('.scroll_to_div ul li').removeClass("side_active");
     var str = this.href.split("#")[1];
