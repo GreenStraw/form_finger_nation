@@ -12,7 +12,6 @@ Baseapp::Application.routes.draw do
   get 'invite_friends/:id' => 'parties#invite_friends', :as => 'invite_friends'
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
   get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
-
   resources :vouchers
   resources :packages, except: [:new, :create] do
     member do
@@ -53,6 +52,7 @@ Baseapp::Application.routes.draw do
   resource :account, :controller => :account
 
   get "/about" => "home#about"
+  get "/become" => "home#become"
   get "/about2" => "home#about2"
   get "/contact" => "home#contact"
   get "/faq" => "home#faq"

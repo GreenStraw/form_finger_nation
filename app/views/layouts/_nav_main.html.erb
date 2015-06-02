@@ -78,7 +78,7 @@
                     <%= link_to "My Venues", venues_path %>
                   </li>
                   <% end %>
-                  <% if user_signed_in? && current_user.followed_teams.any? && current_user.followed_teams.present? %>
+                  <% if user_signed_in? && current_user.followed_teams.count > 0%>
                   <li>
                     <%= link_to "My Teams", teams_path %>
                   </li>
