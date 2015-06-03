@@ -9,18 +9,18 @@
       <li class="profile-area">
         <div class="image-holder">
           <% if current_user && current_user.image_url.present? %>
-            <%= image_tag current_user.image_url, class: "img-responsive" %>
+          <%= image_tag current_user.image_url, class: "img-responsive" %>
           <% else %>
-            <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+          <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
           <% end %>
         </div>
         <span class="user_name">
           <strong><a href="#"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
         </span>
         <span class="sign_up">
-            <%= link_to n_sign_up_path do %>
-              <i class="fa fa-user"> Not You? Sign Up</i>
-            <% end %>
+          <%= link_to n_sign_up_path do %>
+          <i class="fa fa-user"> Not You? Sign Up</i>
+          <% end %>
         </span>
         <span class="Settings">
           <a href="#"></a>
@@ -31,7 +31,7 @@
         <a href="#"><i class="fa fa-map-marker"></i>Austin, TX  <small>(change)</small></a>
       </li>
       <li class="Watch_Parties">
-        <a href="#"><i class="fa fa-desktop"></i><strong>Watch Parties</strong> </a>
+        <a href="#wparties" class="w_parties"><i class="fa fa-desktop"></i>Watch Parties</a>
         <ul class="my_Parties">
           <li><a href="#my_parties" class="my_party active_p">My Parties</a></li>
           <li><a href="#RSVPs" class="my_party">RSVPs</a></li>
@@ -48,72 +48,113 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="banner row">
-           <div class="mobile_header  ">
-      
-      <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
-      <div class="logo pull-right">
-                 
-                  <%= image_tag "vendor/logo2.png", class: "img-responsive", alt: "icon" %>
-               </div>
+       <div class="mobile_header  ">
 
-    </div>
-        <div class="input-area row col-md-offset-1 col-md-10">
-          <div class="right-inner-addon ">
-            <i class="fa fa-search fa-6"></i>
-            <input type="search" class="form-control" placeholder="">
-          </div>
+        <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+        <div class="logo pull-right">
 
-          <!-- Small button group -->
-          <div class="btn-group">
-            <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-              Filter<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">RSVPs</a></li>
-              <li><a href="#">RSVPs</a></li>
-              <li><a href="#">RSVPs</a></li>
-              <li><a href="#">RSVPs</a></li>
-
-            </ul>
-          </div>
-
+          <%= image_tag "vendor/logo2.png", class: "img-responsive", alt: "icon" %>
         </div>
-        <div class="clearfix"></div>
-        <div class="row caption">
-          <div class="col-sm-7 col-md-7 col-lg-7 box-hide">
-            <%= image_tag "vendor/banner_img.png", class: "img-responsive", alt: "icon" %>
-          </div>
-          <div class="col-sm-12 col-md-5 col-lg-5">
-            <h1>MY PARTIES</h1>
-            <p>Keep track of when and where you
-              may have to start a bar fight</p>
-              <%= link_to "Find More Parties", search_parties_path, class: "btn btn-primary" %>
+
+      </div>
+      <div class="input-area row col-md-offset-1 col-md-10">
+        <div class="right-inner-addon ">
+          <i class="fa fa-search fa-6"></i>
+          <input type="search" class="form-control" placeholder="">
+        </div>
+
+        <!-- Small button group -->
+        <div class="btn-group">
+          <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            Filter<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu pull-right slide-box" role="menu">
+            <li>
+              <div class="col-md-4">
+                <h4>Miles from you</h4>
+              </div>
+              <div class="col-md-8 ">
+                <span class="pull-right">50</span>
+                <%= text_field_tag "ex1", nil, type: 'text',
+                data: {'slider-id' => 'ex1Slider',
+                  'slider-min' => '0',
+                  'slider-max' => '50',
+                  'slider-step' => '1' }
+                  %>
+
+                </div>
+              </li>
+              <div class="clearfix"></div>
+              <li>
+                <div class="col-md-4">
+                  <h4>RSVP number</h4>
+                </div>
+                <div class="col-md-8 ">
+                  <span class="pull-right">100</span>
+                  <%= text_field_tag "ex2", nil, type: 'text',
+                  data: {'slider-id' => 'ex2Slider',
+                    'slider-min' => '0',
+                    'slider-max' => '100',
+                    'slider-step' => '1' }
+                    %>
+
+                  </div>
+                </li>
+                <div class="clearfix"></div>
+                <li>
+                  <div class="col-md-4">
+                    <h4>Teams</h4>
+                  </div>
+                  <div class="col-md-8 mt15">
+                    <input type="radio" name="iCheck"> <label>Your Favorites</label>
+                    <input type="radio" name="iCheck" checked> <label>Other Teams</label>
+                  </div>
+                </li>
+
+              </ul>
             </div>
-          </div>
-        </div>
-        <div class="main-area">
-          <ul class="nav nav-pills">
-            <li role="presentation" class=""><a href="#">TEAMS</a></li>
-            <li role="presentation"><a href="#">Dallas Cowboys</a></li>
-            <li role="presentation"><a href="#">Texas Longhorns</a></li>
-            <li role="presentation"><a href="#">San Antonio Spurs</a></li>
-            <li role="presentation"><a href="#">Dallas Stars</a></li>                  </ul>
+
           </div>
           <div class="clearfix"></div>
-          <div class="product_area">
-            <div class="row" id="create_parties">
-              <%= render "created_parties" %>
+          <div class="row caption">
+            <div class="col-sm-7 col-md-7 col-lg-7 box-hide">
+              <%= image_tag "vendor/banner_img.png", class: "img-responsive", alt: "icon" %>
             </div>
-            <div class="row hidden_p" id="rsvp_party">
-              <%= render "rsvp_parties" %>
+            <div class="col-sm-12 col-md-5 col-lg-5">
+              <h1 id="p_heading">MY PARTIES</h1>
+              <p>Keep track of when and where you
+                may have to start a bar fight</p>
+                <%= link_to "Find More Parties", search_parties_path, class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+          <div class="main-area">
+            <ul class="nav nav-pills">
+              <li role="presentation" class=""><a href="#">TEAMS</a></li>
+              <li role="presentation"><a href="#">Dallas Cowboys</a></li>
+              <li role="presentation"><a href="#">Texas Longhorns</a></li>
+              <li role="presentation"><a href="#">San Antonio Spurs</a></li>
+              <li role="presentation"><a href="#">Dallas Stars</a></li>                  </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="product_area">
+              <div class="row" id="create_parties">
+                <%= render "created_parties" %>
+              </div>
+              <div class="row hidden_p" id="rsvp_party">
+                <%= render "rsvp_parties" %>
+              </div>
+              <div class="row hidden_p" id="wparties">
+                <%= render "created_parties" %>
+                <%= render "rsvp_parties" %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <script>
-      $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-      });
-    </script>
+      <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+      </script>

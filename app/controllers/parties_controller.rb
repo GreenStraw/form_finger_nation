@@ -10,10 +10,6 @@ class PartiesController < ApplicationController
     @user = current_user
   end
 
-  def myparties
-    
-  end
-
   def n_sign_up
     sign_out current_user
     redirect_to new_user_registration_path

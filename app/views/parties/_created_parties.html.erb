@@ -4,7 +4,9 @@
       <div class="cancle_icon">
         <i class="fa fa-times"></i>
       </div>
-      <%= image_tag(party.team.image_url, class: "img-responsive") unless party.team.nil? %>
+      <div class="holder">
+        <%= image_tag(party.team.image_url, class: "img-responsive") unless party.team.nil? %>
+      </div>
       <div class="caption">
         <%= link_to party do %>
           <h3> <%= party.name %> </h3>

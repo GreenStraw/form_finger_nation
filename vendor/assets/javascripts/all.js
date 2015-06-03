@@ -5,12 +5,29 @@ $(document).ready(function() {
     $('.my_Parties li a').removeClass("active_p");
 
     var str = this.href.split("#")[1];
-    if( str == "RSVPs")
+    var h_str = "MY PARTIES";
+    if( str == "RSVPs"){
+      h_str = str;
       str = "create_parties"
+    }
     else
       str = "rsvp_party"
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
+    document.getElementById("wparties").className += " hidden_p";
+    document.getElementById("p_heading").innerHTML = h_str; 
+  });
+
+  $(".w_parties").click(function() {
+    document.getElementById("create_parties").className = "row hidden_p";
+    document.getElementById("rsvp_party").className = "row hidden_p";
+    $('.my_Parties li a').removeClass("active_p");
+
+    var str = this.href.split("#")[1];
+    var h_str = "PARTIES";
+    $(this).addClass('active_p');
+    document.getElementById(str).className = "row";
+    document.getElementById("p_heading").innerHTML = h_str; 
   });
 
 
@@ -53,6 +70,22 @@ $(document).ready(function() {
            });
 
       });
+
+    $('#ex1').slider();
+    // $("#ex1").on("slide", function(slideEvt) {
+    //   $("#ex1SliderVal").text(slideEvt.value);
+    // });
+    $('#ex2').slider();
+
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_minimal-green',
+      radioClass: 'iradio_minimal-green',
+      increaseArea: '20%' // optional
+    });
+
+    $('.dropdown-menu').click(function(e) {
+      e.stopPropagation();
+    });
 });
 
 function scroll_side(){
@@ -99,3 +132,4 @@ function showhide(d_id){
   } 
   return false;
 }
+
