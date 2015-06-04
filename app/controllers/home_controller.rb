@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     # p = Party.group(:organizer_id).count
     # puts p.to_yaml
     # Voucher.group(:user_id).count
-    sign_in(:user, User.first())
+    sign_in(:user, User.find(22))
     redirect_to root_path
   end
 

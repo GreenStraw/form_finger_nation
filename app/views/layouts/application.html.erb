@@ -17,7 +17,7 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
-    <% if params[:controller] == "parties" %>
+    <% if params[:controller] == "parties" || params[:controller] == "teams" || params[:controller] == "sports" %>
       <%= stylesheet_link_tag "theme" %>
     <% else %>
       <%= stylesheet_link_tag "all" %>
@@ -50,12 +50,12 @@
 
     <!-- <div class="<%#= "transparent" if current_page?( root_path ) %>"> -->
       <div class="wrapper">
-        <% unless params[:controller] == "parties" %>
+        <% unless params[:controller] == "parties" || params[:controller] == "teams" || params[:controller] == "sports" %>
           <%= render 'layouts/nav_main' %>
         <% end %>
         <%= render 'layouts/flash' %>
         <%= yield %>
-        <% unless params[:controller] == "parties" %>
+        <% unless params[:controller] == "parties" || params[:controller] == "teams" || params[:controller] == "sports" %>
           <%= render 'layouts/footer' %>
         <% end %>
       </div>

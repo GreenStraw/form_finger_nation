@@ -1,44 +1,68 @@
-<table class='table table-hover borderless'>
-  <tbody>
     <% favorites = (current_user.try(:followed_teams) || []) %>
     <% managed = (current_user.try(:managed_teams) || []) %>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <% @teams_by_sport.each do |sport_name, teams| %>
-      <% if tab=='followed' %>
-        <tr class='<%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>'>
+    <div class="panel panel-default">
+      <% if tab == 'followed' %>
+        <div class="panel-heading <%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>" role="tab" id="headingOne">
+        <!-- <tr class='<%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>'> -->
       <% elsif tab=='managed' %>
-        <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'>
+        <div class="panel-heading <%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>" role="tab" id="headingOne">
+
+        <!-- <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'> -->
       <% else %>
-        <tr class='<%= sport_name %>'>
+        <div class="panel-heading <%= sport_name %>" role="tab" id="headingOne">
+
+        <!-- <tr class='<%= sport_name %>'> -->
       <% end %>
-        <td>
+        <!-- <td>
           <h3 id="<%= sport_name.underscore if all %>"><a href="#Top"><span class="glyphicon-class glyphicon glyphicon-chevron-up"></span></a><%= sport_name %></h3>
-        </td>
-      </tr>
+        </td> -->
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+               <div class="col-md-12 row">
+                  <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
+                     <img src="images/ball_icon.png" class="img-responsive">
+                  </div>
+                  <div class="col-md-3 col-sm-6 col-xs-12 text-center">
+                     <h3><%= sport_name %></h3>
+                  </div>
+               </div>
+            </a>
+         </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+                     <div class="panel-body">
       <% teams.each do |team| %>
         <% if tab=='followed' %>
-          <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'>
+          <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-md-offset-1 col-md-5 col-sm-6 col-xs-12">
+          <!-- <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'> -->
         <% elsif tab=='managed' %>
-          <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'>
+          <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-md-offset-1 col-md-5 col-sm-6 col-xs-12">
+
+          <!-- <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'> -->
         <% else %>
-          <tr class='<%= team.id %>'>
+          <div class="<%= team.id %> col-md-offset-1 col-md-5 col-sm-6 col-xs-12">
+
+          <!-- <tr class='<%= team.id %>'> -->
         <% end %>
-          <td><%= image_tag(team.image_url, size: '80') %></td>
-          <td><h4><%= link_to(team.name, team) %></h4></td>
-          <td>
+          <div>
+          <%= image_tag(team.image_url, size: '80') %>
+          <h4><%= link_to(team.name, team) %></h4>
+          
             <div data-tab="<%= tab %>">
             <% if user_signed_in? %>
               <i class="fa fa-4x subscribe-star <%= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i>
             <% end %>
-          </td>
-        </tr>
+          </div>
+        </div>
       <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+    </div>
 
 <script type='text/javascript'>
   $('.subscribe-star').on('click', function() {
-    alert("hi");
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');

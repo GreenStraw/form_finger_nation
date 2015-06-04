@@ -9,13 +9,13 @@ h1{
     font-weight: bold;
     color: #fff;
 }
+a,
 a:hover{ color: #a8d039; }
 .thumbnail{
     border-radius: 0;
     padding: 0;
-    min-height: 400px;
+    min-height: 340px;
     background: #fff;
-    border:0;
     position: relative;
 
 }
@@ -37,11 +37,10 @@ a:hover{ color: #a8d039; }
     font-size: 28px;
 }
 .thumbnail .caption{
-    border-color: #484848;
-    border-width: 0 1px 1px;
-    border-style: solid;
     margin: 0;
-    min-height: 140px;
+}
+.thumbnail .caption a{
+    color: #696969;
 }
 .hidden_p{
     display: none;
@@ -315,7 +314,7 @@ a:hover{ color: #a8d039; }
   color: #fff;
 }
 .dropdown-menu{
-    left: -420px !important;
+    left: -420px ;
     border-radius: 0;
 
 }
@@ -387,6 +386,88 @@ a:hover{ color: #a8d039; }
 .mt15{
     margin: 15px 0 0;
 }
+ /*sport_pages start*/
+.sport_header{
+    background: url(<%= asset_path 'vendor/Sports_banner.jpg' %>) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.sport_header .sport_caption {
+  padding: 133px 0;
+}
+.sport_header .sport_caption h2{
+    font-family: 'Fjalla One', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    color: #484848;
+    font-size: 30px;
+}
+.ptb15{
+    padding-bottom:15px;
+    padding-top: 15px;
+}
+.main-area .panel-group .panel{
+    border-radius: 0;
+}
+.main-area .panel-default>.panel-heading{
+    overflow: hidden;
+    background-color: #686867;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+}
+.main-area .panel-default>.panel-heading h3{
+        color: #fff;
+}
+.main-area .panel{
+    border:0;
+}
+.main-area .panel-heading {
+  padding: 30px 15px;
+  }
+ .main-area .panel-group {
+  margin-bottom: 18px;
+}
+ .main-area .panel-group .panel+.panel{
+    margin-top: 0;
+}
+.main-area .list-group li{
+  
+    background-color: #686867;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+    font-size: 16px;
+    padding: 20px 0;
+}
+.main-area .list-group h4{
+    color: #fff;
+    font-weight: bold;
+    margin: 28px 0 0;
+}
+.main-area .list-group .list-group-item{
+    border: 0;
+}
+.main-area .list-group .list-group-item .btn{
+    padding: 8px 25%;
+     color: #696969;
+    
+}
+
+.mtb25{
+    margin: 26px 0;
+}
+.main-area .list-group .list-group-item .image-holder {
+  float: left;
+  margin: 5px 0 0 10px;
+  border-radius: 100%;
+  width: 109px;
+  height: 109px;
+  overflow: hidden;
+}
+.main-area .list-group .list-group-item .image-holder img {
+    height: 100%;
+}
+/*sport_pages end*/
 @media(max-width:1200px) {
      .banner .caption h1 {
         font-size: 43px;
@@ -435,9 +516,16 @@ a:hover{ color: #a8d039; }
     font-size: 36px;
     margin: 14px 0px;
 }
+ .slider.slider-horizontal {
+    width: 150px !important;
+}
+.dropdown-menu.pull-right {
+    right: 0px !important;
+    left: auto;
+}
 }
 @media(min-width:768px) {
- 
+
     #wrapper {
         padding-left: 250px;
     }

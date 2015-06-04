@@ -1,0 +1,46 @@
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <li class="sidebar-brand">
+      <div class="logo">
+        <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
+      </div>
+    </li>
+    <li class="profile-area">
+      <div class="image-holder">
+        <% if current_user && current_user.image_url.present? %>
+        <%= image_tag current_user.image_url, class: "img-responsive" %>
+        <% else %>
+        <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+        <% end %>
+      </div>
+      <span class="user_name">
+        <strong><a href="#"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
+      </span>
+      <span class="sign_up">
+        <%= link_to n_sign_up_path do %>
+        <i class="fa fa-user"> Not You? Sign Up</i>
+        <% end %>
+      </span>
+      <span class="Settings">
+        <a href="#"></a>
+        <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path %>
+      </span>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-map-marker"></i>Austin, TX  <small>(change)</small></a>
+    </li>
+    <li class="Watch_Parties">
+      <a href="#wparties" class="w_parties"><i class="fa fa-desktop"></i>Watch Parties</a>
+      <ul class="my_Parties">
+        <li><a href="#my_parties" class="my_party active_p">My Parties</a></li>
+        <li><a href="#RSVPs" class="my_party">RSVPs</a></li>
+      </ul>
+    </li>
+    <li>
+      <!-- <img src="images/hand_icon.png"> -->
+      <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, teams_path %>
+    </li>
+    <div class="clearfix"></div>
+    <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+  </ul>
+</div>

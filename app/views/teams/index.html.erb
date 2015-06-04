@@ -1,3 +1,44 @@
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+   <div class="container-fluid">
+      <div class="sport_header row">
+         <div class="container ">
+            <div class="sport_caption col-md-4 pull-right text-center">
+               <h2>Sports</h2>
+            </div>
+            <div class="mobile_header  ">
+               <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+               <div class="logo pull-left">
+                  <%= image_tag "vendor/logo2.png", class: "img-responsive" %>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="banner row ptb15">
+         <div class="input-area row col-md-offset-1 col-md-11">
+            <div class="right-inner-addon ">
+               <i class="fa fa-search fa-6"></i>
+               <input type="search" class="form-control" placeholder="">
+            </div>
+            <div class="btn-group">
+               <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+               Filter<span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">RSVPs</a>
+                  </li>
+                  <li><a href="#">RSVPs</a></li>
+                  <li><a href="#">RSVPs</a></li>
+                  <li><a href="#">RSVPs</a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="main-area">
+         <div class="row">
+
 <ul class='nav nav-tabs' role='tablist'>
 <div id='notice'>
   <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
@@ -40,4 +81,9 @@
       <%= render partial: 'team_table', locals: { all: true, tab: 'all' } %>
     </div>
   </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>

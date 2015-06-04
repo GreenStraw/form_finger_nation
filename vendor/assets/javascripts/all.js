@@ -18,6 +18,15 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
+  $(".teams_sh").click(function() {
+    $('.panel-group').addClass("hidden_p");
+    $('.teams_sh').removeClass("active_p");
+
+    var str = this.href.split("#")[1];
+    $(this).addClass('active_p');
+    document.getElementsByClassName(str)[0].className = "panel-group " + str;
+  });
+
   $(".w_parties").click(function() {
     document.getElementById("create_parties").className = "row hidden_p";
     document.getElementById("rsvp_party").className = "row hidden_p";
