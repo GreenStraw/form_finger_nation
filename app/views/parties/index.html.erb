@@ -75,7 +75,7 @@
               <%= image_tag "vendor/banner_img.png", class: "img-responsive", alt: "icon" %>
             </div>
             <div class="col-sm-12 col-md-5 col-lg-5">
-              <h1 id="p_heading">MY PARTIES</h1>
+              <h1 id="p_heading">PARTIES</h1>
               <p>Keep track of when and where you
                 may have to start a bar fight</p>
                 <%= link_to "Find More Parties", search_parties_path, class: "btn btn-primary" %>
@@ -95,13 +95,13 @@
               <div class="row" id="create_parties">
                 <%= render "created_parties" %>
               </div>
-              <div class="row hidden_p" id="rsvp_party">
+              <div class="row" id="rsvp_party">
                 <%= render "rsvp_parties" %>
-              </div>
+              </div><!-- 
               <div class="row hidden_p" id="wparties">
                 <%= render "created_parties" %>
                 <%= render "rsvp_parties" %>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

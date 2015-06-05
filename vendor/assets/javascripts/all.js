@@ -14,31 +14,16 @@ $(document).ready(function() {
       str = "rsvp_party"
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
-    document.getElementById("wparties").className += " hidden_p";
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
-  $(".teams_sh").click(function() {
-    $('.panel-group').addClass("hidden_p");
+  $('.teams_sh').on('ifChecked', function(event){
     $('.teams_sh').removeClass("active_p");
-
-    var str = this.href.split("#")[1];
+    var str = $(this).val();
     $(this).addClass('active_p');
-    document.getElementsByClassName(str)[0].className = "panel-group " + str;
+    $('.sp_contents').addClass("hidden_p");
+    $('#'+str).removeClass("hidden_p");
   });
-
-  $(".w_parties").click(function() {
-    document.getElementById("create_parties").className = "row hidden_p";
-    document.getElementById("rsvp_party").className = "row hidden_p";
-    $('.my_Parties li a').removeClass("active_p");
-
-    var str = this.href.split("#")[1];
-    var h_str = "PARTIES";
-    $(this).addClass('active_p');
-    document.getElementById(str).className = "row";
-    document.getElementById("p_heading").innerHTML = h_str; 
-  });
-
 
   $(".scroll_to").click(function() {
     $('.scroll_to_div ul li').removeClass("side_active");
@@ -92,7 +77,7 @@ $(document).ready(function() {
       increaseArea: '20%' // optional
     });
 
-    $('.dropdown-menu').click(function(e) {
+    $('.dropdown-menu.slide-box').click(function(e) {
       e.stopPropagation();
     });
 });
@@ -142,3 +127,8 @@ function showhide(d_id){
   return false;
 }
 
+function set_teams(){
+  alert("hi");
+  // alert(this.val());
+  
+}

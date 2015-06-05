@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
+
   def become
     # p = Party.group(:organizer_id).count
     # puts p.to_yaml

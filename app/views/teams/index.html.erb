@@ -1,89 +1,140 @@
 <div id="wrapper">
   <%= render "layouts/black_side" %>
   <div id="page-content-wrapper">
-   <div class="container-fluid">
+    <div class="container-fluid">
       <div class="sport_header row">
-         <div class="container ">
-            <div class="sport_caption col-md-4 pull-right text-center">
-               <h2>Sports</h2>
+        <div class="container ">
+          <div class="sport_caption col-md-3 pull-right ">
+            <h2>Sports</h2>
+          </div>
+          <div class="mobile_header  ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo pull-left">
+              <%= image_tag "vendor/logo2.png", class: "img-responsive" %>
+
             </div>
-            <div class="mobile_header  ">
-               <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
-               <div class="logo pull-left">
-                  <%= image_tag "vendor/logo2.png", class: "img-responsive" %>
-
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="banner row ptb15">
-         <div class="input-area row col-md-offset-1 col-md-11">
-            <div class="right-inner-addon ">
-               <i class="fa fa-search fa-6"></i>
-               <input type="search" class="form-control" placeholder="">
-            </div>
-            <div class="btn-group">
-               <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-               Filter<span class="caret"></span>
-               </button>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">RSVPs</a>
-                  </li>
-                  <li><a href="#">RSVPs</a></li>
-                  <li><a href="#">RSVPs</a></li>
-                  <li><a href="#">RSVPs</a></li>
-               </ul>
-            </div>
-         </div>
-      </div>
-      <div class="main-area">
-         <div class="row">
-
-<ul class='nav nav-tabs' role='tablist'>
-<div id='notice'>
-  <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
-</div>
-
-<li class="tabs-title">Teams</li>
-<li class="<%= @has_favorites ? 'active' : '' %>"><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
-<li class="<%= @has_favorites ? '' : 'active' %>"> <a href="#all" role='tab' data-toggle='tab'>All</a></li>
-  <% if current_user.try(:managed_teams).try(:any?) %>
-    <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
-  <% end %>
-</ul>
-
-<div class='tab-content'>
-
-  <div class='tab-pane <%= "active" if @has_favorites %>' id="favorites">
-    <div id="team-tabs-followed">
-      <%= render partial: 'team_table', locals: { all:false, tab: 'followed' } %>
-    </div>
-  </div>
-
-  <div class='tab-pane' id="managed">
-    <div id="team-tabs-managed">
-      <%= render partial: 'team_table', locals: { all: false, tab: 'managed' } %>
-    </div>
-  </div>
-
-  <div class='tab-pane <%= "active" if !@has_favorites %>' id="all">
-    <div id="team-tabs-all">
-      <div class="row">
-        <div class="col-lg-12">
-          <br>
-          <div class="team-jumplink-container">
-            <% Sport.ordered_sports.each do |sport_name,_| %>
-            <a class="btn green-btn team-jumplink-btn" href="#<%= sport_name.underscore %>"><%= sport_name %></a>
-          <% end %>
           </div>
         </div>
       </div>
-      <%= render partial: 'team_table', locals: { all: true, tab: 'all' } %>
+      <div class="banner row ptb15">
+        <div class="input-area row col-md-offset-1 col-md-11">
+          <div class="right-inner-addon ">
+            <i class="fa fa-search fa-6"></i>
+            <input type="search" class="form-control" placeholder="">
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              Filter<span class="caret"></span>
+            </button>
+            <ul class="radio_search dropdown-menu" role="menu">
+              <li>
+                <div class="col-md-12 mt15">
+                  <input type="radio" name="iCheck" value="all" class="teams_sh <%= @has_favorites ? '' : 'active_p' %>" <%= @has_favorites ? '' : 'checked' %> > <label>All</label>
+                  <input type="radio" name="iCheck" value="favorites" class="teams_sh <%= @has_favorites ? 'active_p' : '' %>" <%= @has_favorites ? 'checked' : '' %> > <label>Favorites</label>
+                  <% if current_user.try(:managed_teams).try(:any?) %>
+                    <input type="radio" name="iCheck" value="managed"  class="teams_sh"> <label>Managed</label>
+                  <% end %>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+
+          <ul class='nav nav-tabs' role='tablist'>
+            <div id='notice'>
+              <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+            </div>
+
+            <!-- <li class="tabs-title">Teams</li>
+            <li class="<%= @has_favorites ? 'active' : '' %>"><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
+            <li class="<%= @has_favorites ? '' : 'active' %>"> <a href="#all" role='tab' data-toggle='tab'>All</a></li>
+            <% if current_user.try(:managed_teams).try(:any?) %>
+            <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
+            <% end %> -->
+          </ul>
+
+          <div class='tab-content'>
+            <div class='sp_contents <%= @has_favorites ? '' : 'hidden_p' %>' id="favorites">
+              <div id="team-tabs-followed">
+                <%= render partial: 'team_table', locals: { all:false, tab: 'followed', acc: "accordion1" } %>
+              </div>
+            </div>
+            <% if current_user.try(:managed_teams).try(:any?) %>
+              <div class='sp_contents hidden_p' id="managed">
+                <div id="team-tabs-managed">
+                  <%= render partial: 'team_table', locals: { all: false, tab: 'managed', acc: "accordion2" } %>
+                </div>
+              </div>
+            <% end %>
+
+            <div class='sp_contents <%= @has_favorites ? 'hidden_p' : '' %>' id="all">
+              <div id="team-tabs-all">
+                <%= render partial: 'team_table', locals: { all: true, tab: 'all', acc: "accordion3" } %>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<script type='text/javascript'>
+  $('.subscribe-star').on('click', function() {
+    var teamId = $(this).data('team-id');
+    var teamName = $(this).data('team-name');
+    var sportName = $(this).data('sport-name');
+    var subscribed = $(this).hasClass('fa-star-o');
+    var url = '';
+    if (subscribed) {
+      url = "/teams/" + teamId + "/subscribe";
+    } else {
+      url = "/teams/" + teamId + "/unsubscribe";
+    };
+    var div = $(this).closest('div').data('tab');
+    var teamIdClass = '.team-' + teamId + '';
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: {'id': teamId,
+             'ajax': true},
+      success: function() {
+        if ($(teamIdClass).hasClass('fa-star')) {
+          var teamRow = $('tr.followed.' + teamId);
+          var sportRow = $('tr.followed.' + sportName);
+          $(teamIdClass).removeClass('fa-star');
+          $(teamIdClass).addClass('fa-star-o');
+          teamRow.addClass('hidden');
+          displayMessage("The " + teamName + " are no longer a favorite")
+        } else {
+          var teamRow = $('tr.followed.' + teamId);
+          var sportRow = $('tr.followed.' + sportName);
+          sportRow.removeClass('hidden');
+          teamRow.removeClass('hidden');
+          $(teamIdClass).removeClass('fa-star-o');
+          $(teamIdClass).addClass('fa-star');
+          displayMessage("The " + teamName + " are now a favorite")
+        };
+      },
+      error: function(){
+        //do nothing
+      }
+    })
+  });
+
+  function displayMessage(message) {
+    $('#alert-message-text').text(message);
+    $('#message-div').fadeIn("slow");
+    setTimeout(function() {$('#message-div').fadeOut("slow")}, 3000);
+  }
+
+  $('.message-div-wrapper').affix({
+      offset: {
+        top: 185
+      }
+  });
+</script>
