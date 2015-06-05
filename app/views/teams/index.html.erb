@@ -4,15 +4,15 @@
     <div class="container-fluid">
       <div class="sport_header row">
         <div class="col-md-12">
-        <div class="clearfix"></div>
-          <div class="sport_caption col-md-3 col-xs-12 pull-right ">
-            <h2>Sports</h2>
+        <div class="mobile_header  ">
+          <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
+          <div class="logo pull-right">
+            <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
           </div>
-          <div class="mobile_header  ">
-            <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
-            <div class="logo pull-right">
-              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
-            </div>
+        </div>
+        <div class="clearfix"></div>
+          <div class="sport_caption col-md-3 col-xs-8 pull-right ">
+            <h2>Sports</h2>
           </div>
         </div>
       </div>
