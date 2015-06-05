@@ -50,10 +50,10 @@
 
     <!-- <div class="<%#= "transparent" if current_page?( root_path ) %>"> -->
       <div class="wrapper">
+        <%= render 'layouts/flash' %>
         <% unless params[:controller] == "parties" || params[:controller] == "teams" || params[:controller] == "sports" %>
           <%= render 'layouts/nav_main' %>
         <% end %>
-        <%= render 'layouts/flash' %>
         <%= yield %>
         <% unless params[:controller] == "parties" || params[:controller] == "teams" || params[:controller] == "sports" %>
           <%= render 'layouts/footer' %>

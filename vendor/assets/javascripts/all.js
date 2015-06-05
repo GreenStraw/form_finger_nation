@@ -17,6 +17,17 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
+  $(".menu-toggled").click(function() {
+    var w = document.getElementById("wrapper");
+    var className = ' ' + w.className + ' ';
+
+    if ( ~className.indexOf(' toggled ') ) {
+        w.className = className.replace(' toggled ', ' ');
+    } else {
+        w.className += ' toggled';
+    } 
+  });
+
   $('.teams_sh').on('ifChecked', function(event){
     $('.teams_sh').removeClass("active_p");
     var str = $(this).val();
@@ -125,10 +136,4 @@ function showhide(d_id){
     document.getElementById(d_id+"d").className += " faq_active";
   } 
   return false;
-}
-
-function set_teams(){
-  alert("hi");
-  // alert(this.val());
-  
 }
