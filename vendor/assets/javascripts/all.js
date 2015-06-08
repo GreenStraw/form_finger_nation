@@ -17,15 +17,9 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
-  $(".menu-toggled").click(function() {
-    var w = document.getElementById("wrapper");
-    var className = ' ' + w.className + ' ';
-
-    if ( ~className.indexOf(' toggled ') ) {
-        w.className = className.replace(' toggled ', ' ');
-    } else {
-        w.className += ' toggled';
-    } 
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
   });
 
   $('.teams_sh').on('ifChecked', function(event){

@@ -1,34 +1,71 @@
-<div class="row">
-    <div class="col-md-12 cols">
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="tabs-title">Vouchers</li>
-        <li class="<%= 'active' if current_page?( vouchers_path ) %>"><a href="#redeemable" role="tab" data-toggle="tab">Redeemable</a></li>
-        <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane active" id="redeemable">
-          <h3>Redeemable Vouchers</h3>
-          <% if @redeemable_vouchers.any? %>
-            <% @redeemable_vouchers.each do |voucher| %>
-              <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
-            <% end %>
-          <% else %>
-            <h5 class='text-muted'>No Redeemable Vouchers</h5>
-          <% end %>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="sport_header row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right text-center">
+            <h2>Vouchers</h2>
+          </div>
+          <div class="mobile_header  ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo pull-left">
+              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+            </div>
+          </div>
         </div>
-        <div class="tab-pane" id="history">
-          <h3>History</h3>
-          <% if @history_vouchers.any? %>
-            <% @history_vouchers.each do |voucher| %>
-              <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+      </div>
+      <div class="banner row ptb15">
+        <div class="input-area row col-md-offset-1 col-md-11">
+          <div class="right-inner-addon ">
+            <i class="fa fa-search fa-6"></i>
+            <input type="search" class="form-control" placeholder="">
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              Filter<span class="caret"></span>
+            </button>
+            <ul class="radio_search dropdown-menu" role="menu">
+              <li>
+                <div class="col-md-12 mt15">
+                <!-- <li class="active_p"><a href="#redeemable">Redeemable</a></li>
+                <li><a href="#history"></a></li> -->
+                  <label>
+                    <input type="radio" name="iCheck" value="redeemable" class="teams_sh active_p" checked> Redeemable
+                  </label>
+                  <label>
+                    <input type="radio" name="iCheck" value="history" class="teams_sh"> History
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row sp_contents" id="redeemable">
+          <ul class="list-group">
+            <% if @redeemable_vouchers.any? %>
+              <% @redeemable_vouchers.each do |voucher| %>
+                <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+              <% end %>
+            <% else %>
+              <h5 class='text-muted'>No Redeemable Vouchers</h5>
             <% end %>
-          <% else %>
-            <h5 class='text-muted'>No Redeemed Vouchers</h5>
-          <% end %>
+          </ul>
+        </div>
+        <div class="row hidden_p sp_contents" id="history">
+          <ul class="list-group">
+            <% if @history_vouchers.any? %>
+              <% @history_vouchers.each do |voucher| %>
+                <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+              <% end %>
+            <% else %>
+              <h5 class='text-muted'>No Redeemed Vouchers</h5>
+            <% end %>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-
+</div>

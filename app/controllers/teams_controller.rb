@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource :team
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
-
+  skip_before_filter  :verify_authenticity_token
   # GET /teams
   def index
     @has_favorites = user_signed_in? && current_user.followed_teams.any?
@@ -53,14 +53,15 @@ class TeamsController < ApplicationController
   def subscribe
     if !@team.fans.include?(current_user)
       @team.fans << current_user
+      puts "=======\n"*12
     else
       return render json: {}, status: 409
     end
     @favorites = current_user.followed_teams || []
-    flash.now[:notice] = "#{@team.name} added to favorites"
-    respond_to do |format|
-      format.js { render json: {}, status: 200 }
-    end
+    # flash.now[:notice] = " added to favorites"
+    # respond_to do |format|
+    #   format.js { render json: {}, status: 200 }
+    # end
   end
 
   def unsubscribe
