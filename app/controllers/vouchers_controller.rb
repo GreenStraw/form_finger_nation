@@ -1,6 +1,7 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
-
+  before_action :authenticate_user!
+  
   # GET /vouchers
   def index
     @redeemable_vouchers = current_user.vouchers.redeemable
