@@ -1,43 +1,117 @@
-<p id="notice"><%= notice %></p>
-<div class="row" style="color: black">
-  <div class="col-md-13 cols">
-    <span class="logo-name col-md-7 cols">
-      <%= image_tag(@party.team.image_url, size: '80') unless @party.team.nil?%>
-      <%= @party.name%>
-      Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>)
-    </span>
-    <span class= "rsvp-invite" >
-      <%= link_to reservations_include?(@party, current_user) ? "UnRSVP" : "RSVP", party_rsvp_path(@party), class: "rsvp-available-button btn" %>
-      <%= link_to "Invite Friends", invite_friends_path(@party), class: "invite-friends-button btn"%>
-    </span>
-  </div>
-  <div style="clear:both;"></div>
-  <div class="col-md-13 cols" style="margin-top: 20px;">
-    <div id="details" class="col-md-3">
-      <h3>Details</h3>
-      <p>
-        When?<br/>
-        <%= @party.scheduled_for.to_formatted_s(:long) %>
-      </p>
-      <p>
-        Where?<br/>
-        <%= @party.venue.name %><br/>
-        <%= @party.venue.address.street_address %><br/>
-        <%= @party.venue.address.city_state %>
-      </p>
-      <p>
-        <%= @party.party_reservations.count.to_s%> RSVP'd
-      </p>
-      <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-        <div id="map" style='width: 100%; height: 200px;'></div>
-      <% end %>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="Following_header sport_header row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-5 pull-right ">
+            <h2><%= @party.name%></h2>
+            <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
+              <%= @party.party_reservations.count.to_s%> RSVP'd</h4>
+              <% if reservations_include?(@party, current_user) %>
+                <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
+                <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+              <% else %>
+                <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+              <% end %>
+            </div>
+            <div class="mobile_header  ">
+              <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+              <div class="logo pull-left">
+                <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main-area">
+          <p id="notice"><%= notice %></p>
+          <div class="row">
+            <div class="follow companylisting ">
+              <div class="col-md-5">
+                <p><div id="available-packages" >
+                  <%= render :partial => "available_packages" %>
+                </div></p>
+                <!-- <div class="user_msg row">
+                  <ul class="list-inline">
+                    <li>
+                      <div class=" col-md-3 col-sm-3 col-xs-12">
+                        <div class="image-holder">
+                          <img src="images/profile.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="user_details">
+                        <h3> Dixon.ATX</h3>
+                        <p>Zoinks! I hope they have Scooby snacks!</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class=" col-md-3 col-sm-3 col-xs-12">
+                        <div class="image-holder">
+                          <img src="images/profile.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="user_details">
+                        <h3> Dixon.ATX</h3>
+                        <p>Zoinks! I hope they have Scooby snacks!</p>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="msg_area text-center">
+                    <textarea class="form-control"></textarea>
+                    <button type="button" class="btn btn-green btn-default">Comment</button>
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-md-offset-2 col-md-5 col-sm-6">
+                <h2><%= @party.venue.name %></h2>
+                <ul class="list-unstyled address">
+                  <li><%= @party.venue.address.street_address %></li>
+                  <li><%= @party.venue.address.city_state %></li>
+                  <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
+                </ul>
+                <p><%= @party.venue.description %></p>
+                  <ul class="list-inline social_icon">
+                    <li><a href="#">
+                      <span class="fa-stack fa-1x">
+                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                        <i class="fa fa-twitter fa-stack-1x"></i>
+                      </span>
+                    </a></li>
+                    <li><a href="#">
+                      <span class="fa-stack fa-1x">
+                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                        <i class="fa fa-facebook fa-stack-1x"></i>
+                      </span>
+                    </a></li>
+                    <li><a href="#">
+                      <span class="fa-stack fa-1x">
+                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                        <i class="fa fa-linkedin fa-stack-1x"></i>
+                      </span>
+                    </a></li>
+                    <li><a href="#">
+                      <span class="fa-stack fa-1x">
+                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                        <i class="fa fa-google-plus fa-stack-1x"></i>
+                      </span>
+                    </a></li>
+                  </ul>
+                  <div class="map_holder">
+                    <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                    <div id="map" style='width: 100%; height: 200px;'></div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <!-- Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>) -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="available-packages" class="col-md-8">
-      <%= render :partial => "available_packages" %>
-    </div>
-    <div style="clear:both;"></div>
-  </div>
-</div>
+
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');

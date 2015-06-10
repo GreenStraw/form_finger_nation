@@ -5,6 +5,7 @@
         <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
       </div>
     </li>
+    <% if current_user %>
     <li class="profile-area">
       <div class="image-holder">
         <% if current_user && current_user.image_url.present? %>
@@ -44,5 +45,6 @@
     </li>
     <div class="clearfix"></div>
     <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+    <% end %>
   </ul>
 </div>

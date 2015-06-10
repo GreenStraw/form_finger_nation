@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 // require twitter/bootstrap
-// require select2
-// require underscore
-// require gmaps/google
-// require initialize
-// require_tree .
+//= require select2
+//= require underscore
+//= require gmaps/google
+//= require initialize
+//= require_tree .
 //= require vendor
