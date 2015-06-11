@@ -6,45 +6,62 @@
       </div>
     </li>
     <% if current_user %>
-    <li class="profile-area">
-      <div class="image-holder">
-        <% if current_user && current_user.image_url.present? %>
-          <%= image_tag current_user.image_url, class: "img-responsive" %>
-        <% else %>
+      <li class="profile-area">
+        <div class="image-holder">
+          <% if current_user && current_user.image_url.present? %>
+            <%= image_tag current_user.image_url, class: "img-responsive" %>
+          <% else %>
+            <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+          <% end %>
+        </div>
+        <span class="user_name">
+          <strong><a href="#"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
+        </span>
+        <span class="sign_up">
+          <%= link_to n_sign_up_path do %>
+          <i class="fa fa-user"> Not You? Sign Up</i>
+          <% end %>
+        </span>
+        <span class="Settings">
+          <a href="#"></a>
+          <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path %>
+        </span>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-map-marker"></i>Austin, TX  <small>(change)</small></a>
+      </li>
+      <li class="Watch_Parties">
+        <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
+        <!-- <a href="#wparties" class="w_parties"> --><%= link_to '<i class="fa fa-desktop"></i>Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
+        <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
+          <li><a href="#my_parties" class="my_party">My Parties</a></li>
+          <li><a href="#RSVPs" class="my_party">RSVPs</a></li>
+        </ul>
+      </li>
+      <li>
+        <% css1_class = current_page?( teams_path ) ? "active_p" : "" %>
+        <!-- <img src="images/hand_icon.png"> -->
+        <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, teams_path, class: "#{css1_class}" %>
+      </li>
+      <div class="clearfix"></div>
+      <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+
+    <% else %>
+      <li class="profile-area">
+        <div class="image-holder">
           <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
-        <% end %>
-      </div>
-      <span class="user_name">
-        <strong><a href="#"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
-      </span>
-      <span class="sign_up">
-        <%= link_to n_sign_up_path do %>
-        <i class="fa fa-user"> Not You? Sign Up</i>
-        <% end %>
-      </span>
-      <span class="Settings">
-        <a href="#"></a>
-        <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path %>
-      </span>
-    </li>
-    <li>
-      <a href="#"><i class="fa fa-map-marker"></i>Austin, TX  <small>(change)</small></a>
-    </li>
-    <li class="Watch_Parties">
-      <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
-      <!-- <a href="#wparties" class="w_parties"> --><%= link_to '<i class="fa fa-desktop"></i>Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
-      <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
-        <li><a href="#my_parties" class="my_party">My Parties</a></li>
-        <li><a href="#RSVPs" class="my_party">RSVPs</a></li>
-      </ul>
-    </li>
-    <li>
-      <% css1_class = current_page?( teams_path ) ? "active_p" : "" %>
-      <!-- <img src="images/hand_icon.png"> -->
-      <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, teams_path, class: "#{css1_class}" %>
-    </li>
-    <div class="clearfix"></div>
-    <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+        </div>
+        <span class="user_name">
+          <a class="<%= 'active_p' if current_page?( new_user_session_path ) %>" href="<%= new_user_session_path %>" >Login</a>
+        </span>
+        <span class="">
+          <a href="<%= new_registration_path(resource_name) %>" class="<%= 'active_p' if current_page?( new_registration_path(resource_name) ) %>">Sign Up</a>
+        </span>
+        <span class="">
+          <a  href="<%= new_password_path(resource_name) %>" class="<%= 'active_p' if current_page?( new_password_path(resource_name) ) %>">Forgot password</a>
+        </span>
+        
+      </li>
     <% end %>
   </ul>
 </div>

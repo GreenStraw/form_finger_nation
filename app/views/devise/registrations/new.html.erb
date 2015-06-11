@@ -1,5 +1,14 @@
-<h2 class="form-title">Sign Up</h2>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="signup_box ">
+          <%= render "devise/registrations/form" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= render "devise/registrations/form" %>
-
-<%= render "devise/shared/links" %>
+<%#= render "devise/shared/links" %>

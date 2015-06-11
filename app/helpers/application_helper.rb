@@ -16,6 +16,7 @@ module ApplicationHelper
                             "sessions/new",
                             "registrations",
                             "milia/sessions",
+                            "milia/passwords",
                             "devise/registrations",
                             "parties",
                             "sports",

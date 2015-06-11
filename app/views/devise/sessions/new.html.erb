@@ -1,32 +1,47 @@
-<!-- <div id="wrapper">
-  <%#= render "layouts/black_side" %>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="sport_header row">
+      <div class="  row">
         <div class="col-md-12">
-        <div class="mobile_header  ">
-          <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
-          <div class="logo pull-right">
-            <%#= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+          <div class="sport_caption  ">
+            <div class="mobile_header  ">
+              <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
+              <div class="logo pull-right">
+                <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="main-area">
-        <div class="row">
-          <h2 class="form-title">Sign In</h2>
+          <div class="login-area col-md-5 col-md-offset-4">
+            <div class="login_box ">
+              <%= render "devise/sessions/form" %>
+            </div>
+            <div class="social_area">
+              <strong>SIGN UP WITH</strong>
+                <ul class="list-inline social_icon">
+                  <% resource_class.omniauth_providers.each do |provider| %>
+                    <li><%= link_to omniauth_authorize_path(resource_name, provider) , :id => "sign_in" do %>
+                      <span class="fa-stack fa-1x">
+                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                        <i class="fa fa-facebook fa-stack-1x"></i>
+                      </span>
+                    <% end %><p>Facebook</p></li>
+                  <% end %>
+                  <li><a href="#">
+                    <span class="fa-stack fa-1x">
+                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                      <i class="fa fa-twitter fa-stack-1x"></i>
+                    </span>
 
-          <%#= render "devise/sessions/form" %>
-
-          <%#= render "devise/shared/links" %>
+                  </a><p>Twitter</p></li>
+                </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div> -->
 
-<h2 class="form-title">Sign In</h2>
 
-          <%= render "devise/sessions/form" %>
-
-          <%= render "devise/shared/links" %>
+  
