@@ -17,6 +17,11 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
+  def become2
+    sign_in(:user, User.find(22))
+    redirect_to root_path
+  end
+
   def about
   end
 
