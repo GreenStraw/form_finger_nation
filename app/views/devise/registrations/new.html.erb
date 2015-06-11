@@ -3,6 +3,12 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
+        <div class="mobile_header  ">
+          <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
+          <div class="logo pull-right">
+            <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+          </div>
+        </div>
         <div class="signup_box ">
           <%= render "devise/registrations/form" %>
         </div>

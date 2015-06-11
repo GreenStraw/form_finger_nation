@@ -43,9 +43,27 @@
         </label>
       </div>
     </div>
-    <button type="submit" class="btn btn-green btn-default">Sign up</button>
-  <% end %>
 </div>
+  <button type="submit" class="btn btn-green btn-default">Sign up</button>
+  <strong>SIGN UP WITH</strong>
+  <ul class="list-inline social_icon">
+    <% resource_class.omniauth_providers.each do |provider| %>
+      <li><%= link_to omniauth_authorize_path(resource_name, provider) , :id => "sign_in" do %>
+        <span class="fa-stack fa-1x">
+          <i class="fa fa-circle fa-stack-2x icon-background"></i>
+          <i class="fa fa-facebook fa-stack-1x"></i>
+        </span>
+      <% end %><p>Facebook</p></li>
+    <% end %>
+    <li><a href="#">
+      <span class="fa-stack fa-1x">
+        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+        <i class="fa fa-twitter fa-stack-1x"></i>
+      </span>
+
+    </a><p>Twitter</p></li>
+  </ul>
+<% end %>
 
 <%#= f.label 'Requested Role (Please use Sports Fan unless you are a Venue Manager or Alumni Group Coordinator )' %>
 <%#= f.select :requested_role, User::REQUESTED_ROLES %>
