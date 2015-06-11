@@ -1,34 +1,46 @@
-<h1>View Profile</h1>
-
-<%= image_tag(@user.image_url) %>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>First Name:</strong>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last Name:</strong>
-  <%= @user.last_name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-
-<%= link_to 'Edit', edit_account_path %> | <%= link_to 'Home', root_path %>
-
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="sport_caption">
+            <div class="mobile_header">
+              <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+              <div class="logo pull-left">
+                <img src="images/logo2.png" class="img-responsive">
+              </div>
+            </div>
+          </div>
+          <div style="color:black;">
+            <h1>View Profile</h1>
+            <%= image_tag(@user.image_url) %>
+            <p>
+              <strong>Name:</strong>
+              <%= @user.username %>
+            </p>
+            <p>
+              <strong>First Name:</strong>
+              <%= @user.first_name %>
+            </p>
+            <p>
+              <strong>Last Name:</strong>
+              <%= @user.last_name %>
+            </p>
+            <p>
+              <strong>Email:</strong>
+              <%= @user.email %>
+            </p>
+            <p>
+              <strong>Username:</strong>
+              <%= @user.username %>
+            </p>
+          </div>
+          <%= link_to 'Edit', edit_account_path %> | <%= link_to 'Home', root_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 

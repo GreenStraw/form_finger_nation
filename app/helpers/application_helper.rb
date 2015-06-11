@@ -9,7 +9,7 @@ module ApplicationHelper
     action_name     = params[:action]
     
     puts "-----------------\n"*2
-    puts controller_name
+    puts controller_name + "/" + action_name
     puts "1111111111111111111\n"*2
     
     restrict_controllers = [
@@ -20,6 +20,7 @@ module ApplicationHelper
                             "devise/registrations",
                             "parties",
                             "sports",
+                            "account",
                             "vouchers",
                             "teams"
 
