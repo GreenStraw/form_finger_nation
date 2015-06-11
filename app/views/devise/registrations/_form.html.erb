@@ -31,7 +31,7 @@
         <label for="exampleInputFile">Last Name  </label>
         <%= f.text_field :last_name, :class => "form-control", :placeholder =>'Last name' %>
       </div>
-      <div class="form-group">
+      <div class="form-group radio_area">
         <label class="radio-inline">
           <input name="user[requested_role]" type="radio" value="Sports Fan" checked="checked" />  Sports Fan
         </label>
@@ -44,9 +44,13 @@
       </div>
     </div>
 </div>
+<div class="col-md-12 text-center">
   <button type="submit" class="btn btn-green btn-default">Sign up</button>
-  <strong>SIGN UP WITH</strong>
+</div>
+<div class="clearfix"></div>
+<div class="social_area">
   <ul class="list-inline social_icon">
+      <li><strong>SIGN UP WITH</strong></li>
     <% resource_class.omniauth_providers.each do |provider| %>
       <li><%= link_to omniauth_authorize_path(resource_name, provider) , :id => "sign_in" do %>
         <span class="fa-stack fa-1x">
@@ -63,6 +67,7 @@
 
     </a><p>Twitter</p></li>
   </ul>
+</div>
 <% end %>
 
 <%#= f.label 'Requested Role (Please use Sports Fan unless you are a Venue Manager or Alumni Group Coordinator )' %>

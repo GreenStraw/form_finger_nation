@@ -26,6 +26,9 @@ a:hover{ color: #a8d039; }
     width: 200px;
     margin: 0 auto;
 }
+.form-control{
+    color: #484848;
+}
 .cancle_icon{
     position: absolute;
     right: 10px;
@@ -208,6 +211,7 @@ a:hover{ color: #a8d039; }
     background: #686867;
     overflow: hidden;
     margin: 0 0 25px;
+    padding: 5px 0px 7px;
 }
 .profile-area .image-holder {
     border-radius: 100%;
@@ -223,7 +227,7 @@ a:hover{ color: #a8d039; }
 }
 .profile-area .user_name{
     overflow: hidden;
-    padding: 14px 0 5px;
+    padding: 7px 0 0px;
     font-size: 16px;
 }
 .profile-area .user_name a{
@@ -234,8 +238,8 @@ a:hover{ color: #a8d039; }
 }
 .profile-area span{
     overflow: hidden;
-    padding: 0 0 4px;
-    float: left;
+    padding: 4px 0 0px;
+    display: inherit;
 }
 .sidebar-nav .fa{
  margin: 0 5px 0 0;
@@ -552,8 +556,8 @@ a.col_black{
 }
 .social_icon .fa-stack-1x{
       font-size: 22px;
-  color: #fff;
-  padding: 8px 10px;
+  color: #484848;
+  padding: 4px 10px;
 }
 .social_icon .fa-stack-2x {
   font-size: 3.3em;
@@ -616,9 +620,9 @@ a.col_black{
 .fa-twitter{
     color: #fff;
 }
-.social_icon .fa-stack-1x{
+.login-area .social_icon .fa-stack-1x{
       font-size: 22px;
-  color: #fff;
+  color: #484848;
   padding: 8px 10px;
 }
 .social_icon .fa-stack-2x {
@@ -685,7 +689,7 @@ a.col_black{
 }
 .signup_box{
     background: #484848;
-    margin: 185px 10% 0;
+    margin: 185px 10% 90px;
     position: absolute;
     padding:5% 50px;
     font-size: 20px;
@@ -705,11 +709,17 @@ position: relative;
     color: #fff;
     margin: 15px 0;
 }
+.signup_box .radio_area{
+    padding: 19px 0 0;
+}
+.signup_box .radio_area .radio-inline{
+    padding: 0;
+}
 .signup_box .form-group .radio-inline{
-      margin: 15px 20px 0 0;
+      margin: 0 40px 11px 0;
 }
 .signup_box .social_icon .fa-stack-2x {
-  font-size: 2.4em;
+  font-size: 2.2em;
 }
 .signup_box .social_icon strong{
     margin: 10px 0 0;
@@ -735,6 +745,7 @@ position: relative;
     font-size: 35px;
     text-transform: uppercase;
     color: #fff;
+    text-align: center;
     margin-bottom: 50px;
 }
 .main_block p{
@@ -783,7 +794,8 @@ position: relative;
     margin-top: 20px;
 }
 .login-area{
-    margin-top: 203px;
+    margin-top: 118px;
+    margin-bottom: 118px;
 }
 .login_box{
     background: #484848;
@@ -812,6 +824,7 @@ position: relative;
     color: #fff;
     padding: 25px 15px 5px;
     margin-top: 20px;
+    text-align: center;
 }
 .social_text{
     float: right;
@@ -822,15 +835,20 @@ position: relative;
 }
 .social_area p{
     float: right;
-    padding: 10px 20px;
+    padding: 10px 12px;
+    font-size: 16px;
+}
+.login-area .social_area p{
+    padding: 10px 16px;   
 }
 .social_area .fa-stack{
     vertical-align: top !important;
 }
 .social_area strong{
-    float: left;
-    margin: 12px 10px 0;
-    font-size: 18px;
+    margin: 22px 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 /*sport_pages end*/
 @media(max-width:1200px) {
@@ -901,6 +919,10 @@ position: relative;
     .dropdown-menu.pull-right {
         right: 0px !important;
         left: auto;
+    }
+    .signup_box{
+        padding: 5% 20px; 
+        margin: 60px 2% 60px;  
     }
 }
 @media(min-width:768px) {

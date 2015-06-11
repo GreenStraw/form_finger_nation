@@ -16,10 +16,12 @@ GAME!</h2>
 
   <% if devise_mapping.rememberable? %>
     <div class="form-group">
-      <span class="input-group-addon">
-        <%= f.check_box :remember_me %>
-      </span>
-      <%= f.label :remember_me, :class => "form-control" %>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <%= f.check_box :remember_me %>
+        </span>
+        <%= f.label :remember_me, :class => "form-control" %>
+      </div>
     </div>
   <% end %>
 
