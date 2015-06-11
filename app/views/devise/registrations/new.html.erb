@@ -1,16 +1,18 @@
 <div id="wrapper">
   <%= render "layouts/black_side" %>
   <div id="page-content-wrapper">
-    <div class="container-fluid">
+    <div class="container-fluid signup_header">
       <div class="main-area">
         <div class="row">
           <div id='notice'>
             <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
-          <div class="mobile_header  ">
-            <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
-            <div class="logo pull-right">
-              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+          <div class="col-md-12">
+            <div class="mobile_header  ">
+              <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
+              <div class="logo pull-right">
+                <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+              </div>
             </div>
           </div>
           <div class="signup_box ">
