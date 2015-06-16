@@ -51,6 +51,7 @@ class TeamsController < ApplicationController
   end
 
   def subscribe
+    puts "b=======\n"*12
     if !@team.fans.include?(current_user)
       @team.fans << current_user
       puts "=======\n"*12
@@ -58,10 +59,10 @@ class TeamsController < ApplicationController
       return render json: {}, status: 409
     end
     @favorites = current_user.followed_teams || []
-    # flash.now[:notice] = " added to favorites"
-    # respond_to do |format|
-    #   format.js { render json: {}, status: 200 }
-    # end
+    flash.now[:notice] = "#{@team.name} added to favorites"
+    respond_to do |format|
+      format.js { render json: {}, status: 200 }
+    end
   end
 
   def unsubscribe

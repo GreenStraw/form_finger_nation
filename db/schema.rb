@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911220441) do
+ActiveRecord::Schema.define(version: 20150616112900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "addresses", force: true do |t|
     t.integer  "addressable_id"
@@ -215,7 +214,7 @@ ActiveRecord::Schema.define(version: 20140911220441) do
   add_index "tenants", ["name"], name: "index_tenants_on_name", using: :btree
   add_index "tenants", ["tenant_id"], name: "index_tenants_on_tenant_id", using: :btree
 
-  create_table "tenants_users", id: false, force: true do |t|
+  create_table "tenants_users", force: true do |t|
     t.integer "tenant_id", null: false
     t.integer "user_id",   null: false
   end
