@@ -17,6 +17,21 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
+  $("#locHref").click(function(e) {
+    $("#locHref").toggleClass("active_p");
+  });
+
+  $(".changeLoc").click(function(e) {
+    var v = $("#newLocVal").val();
+    document.getElementById("NewlocUp").innerHTML = v;
+    document.getElementById("curLoc").innerHTML = v;
+    $("#locHref").removeClass("active_p");
+  });
+
+  $('#loc').on('hidden.bs.modal', function () {
+    $('#locHref').removeClass("active_p");
+  });
+
   $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
