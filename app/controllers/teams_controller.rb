@@ -51,10 +51,8 @@ class TeamsController < ApplicationController
   end
 
   def subscribe
-    puts "b=======\n"*12
     if !@team.fans.include?(current_user)
       @team.fans << current_user
-      puts "=======\n"*12
     else
       return render json: {}, status: 409
     end
