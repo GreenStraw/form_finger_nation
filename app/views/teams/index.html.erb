@@ -132,7 +132,10 @@
   function displayMessage(message) {
     $('#alert-message-text').text(message);
     $('#message-div').removeClass('hidden');
+    $('#message-div').fadeIn("slow");
     setTimeout(function() {$('#message-div').fadeOut("slow")}, 2000);
+    // $('#message-div').addClass('hidden');
+
   }
 
   $('.message-div-wrapper').affix({
