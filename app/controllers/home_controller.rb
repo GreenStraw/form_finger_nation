@@ -32,5 +32,9 @@ class HomeController < ApplicationController
 
   def terms
   end
+
+  def landing_page
+    render :layout => false
+  end
   
 end

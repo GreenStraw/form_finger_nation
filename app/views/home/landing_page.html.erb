@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag "bootstrap_and_overrides" %>
+  <%= stylesheet_link_tag "landing" %>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= meta_description %>">
+  <meta name="author" content="<%= meta_author %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+  <title>FFN</title>
+  <%= favicon_link_tag "favicon.ico" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div class="main_wrapper">
+    <%#= image_tag "Landing_bg.jpg" %>
+    <div class="container">
+      <div class="main_area text-center  col-md-4">
+        <div class="logo">
+          <%= image_tag "Landing_logo.png", class: "img-responsive" %>
+        </div>
+        <h1>LET THE GAMES BEGIN.</h1>
+        <p>It's almost Gametime. Leave us your email and 
+          we'll contact you when you need to be in your seat.</p>
+          <div class="signup_area text-center">
+            <h3>Sign Up For an Alert</h3>
+            <div class="form_area">
+      <form action="//FoamFingerNation.us3.list-manage.com/subscribe/post?u=239690fc056aa6ada314a97e9&amp;id=ed89fb5b2c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline validate" target="_blank">
+        <div class="input-group">
+          <input type="email" value="" name="EMAIL" class="required email form-control input-lg" id="mce-EMAIL" placeholder="Email Address">
+          <span class="input-group-btn">
+            <!-- <button class="btn btn-lg" type="button">SIGN UP</button> -->
+            <div style="position: absolute; left: -5000px;">
+              <input type="text" name="b_239690fc056aa6ada314a97e9_ed89fb5b2c" tabindex="-1" value="">
+            </div>
+            <div class="clear">
+              <input type="submit" value="SIGN UP" name="subscribe" id="mc-embedded-subscribe" class="btn btn-lg">
+            </div>
+          </span>
+        </div>
+       
+      </form>
+
+              <!-- <div class="form-group">
+                <input class="email form-control" id="user_email" name="user[email]" placeholder="Email Address" type="email" value="">
+                <button class="btn btn-green btn-default" type="submit">Sign up</button>
+              </div> -->
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-lg-12 ">
+            <div id="mce-responses " class="clear ">
+              <div class="response mce-response" id="mce-error-response" style="display:none"></div>
+              <div class="response mce-response" id="mce-success-response" style="display:none"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+     <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+  </body>
+</html>
+
+<style type="text/css">
+  
+</style>

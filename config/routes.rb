@@ -60,7 +60,8 @@ Baseapp::Application.routes.draw do
   get "/jobs" => "home#jobs"
   get "/privacy" => "home#privacy"
   get "/terms" => "home#terms"
-  root :to => "home#home"
+  # root :to => "home#home"
+  root :to => "home#landing_page"
 
 
 
