@@ -12,7 +12,11 @@
               </div>
             </div>
           </div>
-          <div style="color:black;">
+          <div class="main-area" style="color:black;">
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
             <h1>View Profile</h1>
             <%= image_tag(@user.image_url) %>
             <p>
@@ -41,6 +45,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

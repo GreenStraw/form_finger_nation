@@ -1,20 +1,44 @@
-<h1>Manage sports</h1>
-
-<table class='table borderless table-hover'>
-  <tbody>
-    <% @sports.each do |sport| %>
-      <tr>
-        <td><%= image_tag(sport.image_url.thumb) %></td>
-        <td><%= link_to sport.name, sport_path(sport) %></td>
-        <% if user_signed_in? && current_user.admin? %>
-          <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
-          <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Sport', new_sport_path %>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="sport_header row">
+        <div class="col-md-12">
+        <div class="mobile_header  ">
+          <a href="#menu-toggle" class="btn btn-default pull-left menu-toggled" id="menu-toggle"><i class="fa fa-bars"></i> </a>
+          <div class="logo pull-right">
+            <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+          <div class="sport_caption col-md-3 col-xs-8 pull-right ">
+            <h2>Sports</h2>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div id='message-div' class="alert alert-success hidden" role="alert">
+            <span id="alert-message-text"></span>
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <table class='table borderless table-hover'>
+            <tbody>
+              <% @sports.each do |sport| %>
+                <tr>
+                  <td><%= image_tag(sport.image_url.thumb) %></td>
+                  <td><%= link_to sport.name, sport_path(sport) %></td>
+                  <% if user_signed_in? && current_user.admin? %>
+                    <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
+                    <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= link_to 'New Sport', new_sport_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

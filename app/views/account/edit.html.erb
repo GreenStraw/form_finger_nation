@@ -13,9 +13,12 @@
             </div>
           </div>
           <div class="main-area">
-          <%= render partial: 'info' %>
-          <a href="#"  data-toggle="modal" data-target="#myModal" >Change password</a>
-          <%= render partial: 'password' %>
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
+              <%= render partial: 'info' %>
+            </div>
           </div>
         </div>
       </div>
