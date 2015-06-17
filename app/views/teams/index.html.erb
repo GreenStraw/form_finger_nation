@@ -42,7 +42,14 @@
       </div>
       <div class="main-area">
         <div class="row">
-
+          <div class="static-height-wrapper">
+            <div class="message-div-wrapper col-lg-6 col-lg-offset-3">
+              <div id='message-div' class="alert alert-success"role="alert">
+                <span id="alert-message-text">&nbsp;</span>
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+              </div>
+            </div>
+          </div>
           <ul class='nav nav-tabs' role='tablist'>
             <div id='notice'>
               <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
@@ -104,17 +111,17 @@
              'ajax': true},
       success: function() {
         if ($(teamIdClass).hasClass('fa-star')) {
-          // var teamRow = $('tr.followed.' + teamId);
-          // var sportRow = $('tr.followed.' + sportName);
+          var teamRow = $('div.followed.' + teamId);
+          var sportRow = $('div.followed.' + sportName);
           $(teamIdClass).removeClass('fa-star');
           $(teamIdClass).addClass('fa-star-o');
-          // teamRow.addClass('hidden');
+          teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {
-          // var teamRow = $('tr.followed.' + teamId);
-          // var sportRow = $('tr.followed.' + sportName);
-          // sportRow.removeClass('hidden');
-          // teamRow.removeClass('hidden');
+          var teamRow = $('div.followed.' + teamId);
+          var sportRow = $('div.followed.' + sportName);
+          sportRow.removeClass('hidden');
+          teamRow.removeClass('hidden');
           $(teamIdClass).removeClass('fa-star-o');
           $(teamIdClass).addClass('fa-star');
           displayMessage("The " + teamName + " are now a favorite")
