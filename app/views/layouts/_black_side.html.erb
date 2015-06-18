@@ -15,7 +15,7 @@
           <% end %>
         </div>
         <span class="user_name">
-          <strong><a href="#"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
+          <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
         </span>
         <span class="sign_up">
           <%= link_to n_sign_up_path do %>
@@ -23,7 +23,7 @@
           <% end %>
         </span>
         <span class="Settings">
-          <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account'}" %>
+          <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
         </span>
       </li>
       <li>

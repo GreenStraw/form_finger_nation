@@ -20,6 +20,10 @@ class AccountController < ApplicationController
     end
   end
 
+  def user
+    @u = User.find(params[:id])   
+  end
+  
   def edit
     @user = current_user
   end

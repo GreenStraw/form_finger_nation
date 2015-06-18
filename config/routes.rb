@@ -12,6 +12,8 @@ Baseapp::Application.routes.draw do
   get 'invite_friends/:id' => 'parties#invite_friends', :as => 'invite_friends'
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
   get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
+  get 'user/:id' => 'account#user', :as => 'user'
+
   resources :vouchers
   resources :packages, except: [:new, :create] do
     member do
@@ -22,6 +24,7 @@ Baseapp::Application.routes.draw do
   resources :parties do
     collection do
       get 'search'
+      get 'cant_find'
     end
   end
   resources :sports do

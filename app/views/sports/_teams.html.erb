@@ -1,20 +1,18 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% @sport.teams.each do |team| %>
-      <tr>
-        <td><%= image_tag(team.image_url, size: '30') %></td>
-        <td><h4><%= link_to(team.name, team) %></h4></td>
-        <td>
-          <% if current_user.can?(:destroy, team) %>
-            <%= link_to 'Delete', delete_team_sport_path(@sport.id, team_id: team.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<% if current_user.can?(:create, Team) %>
-  <%= link_to 'Add Team', new_sport_teams_path(@sport) %>
+<% @sport.teams.each do |team| %>
+  <li class=" col-md-12 ">
+    <div class="col-md-12 row">
+      <div class=" col-md-offset-1 col-md-1 col-sm-2 col-xs-12">
+        <div class="image-holder">
+          <%= image_tag(team.image_url, class: "img-responsive") %>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 row">
+        <h4><%= link_to(team.name, team) %></h4>
+      </div>
+      <% if current_user.can?(:destroy, team) %>
+        <%= link_to 'Delete', delete_team_sport_path(@sport.id, team_id: team.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+      <% end %>
+    </div>
+  </li>
 <% end %>
 

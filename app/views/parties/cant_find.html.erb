@@ -1,0 +1,27 @@
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="cant_header row">
+        <div class="col-md-12">
+          <div class="mobile_header ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo pull-left">
+              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+            </div>
+          </div>
+        </div>
+        <div class="main_block text-center">
+          <h2>CAN'T BEAT EM? LEAD EM!</h2>
+          <p>Before each game, there is a moment where leaders are born. Where those brave enough to expect excelllence ensure it. There are games then there are victories and today, you will give a performance for the ages.
+          </p>
+          <p>Others are looking to you for the spectacular when they 
+            cant find it themselves. By creating your own Watch Party, you're agreeing to give it to them.
+          </p>
+          <p>Rally the troops and taste the spoils.</p>
+          <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

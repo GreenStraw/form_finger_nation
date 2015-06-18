@@ -16,6 +16,7 @@
                 <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
                 <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
               <% end %>
+              Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
             </div>
             <div class="mobile_header  ">
               <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
@@ -105,7 +106,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Created By <%= @party.organizer.full_name %> (<%= @party.organizer.username %>) -->
+                
             </div>
           </div>
         </div>

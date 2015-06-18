@@ -17,6 +17,8 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str; 
   });
 
+
+
   $("#locHref").click(function(e) {
     $("#locHref").toggleClass("active_p");
   });
@@ -112,6 +114,23 @@ $(document).ready(function() {
     //     reader.readAsDataURL(input.files[0]);
     //   }
     // });
+
+  $('#new_venue').on('ifChecked', function() {
+    console.log("if");
+    $('#venue-create').removeClass('hidden');
+    $('#venue-select').addClass('hidden');
+  });
+  $('#new_venue').on('ifUnchecked', function() {
+    console.log("else");
+    $('#venue-create').addClass('hidden');
+    $('#party_venue_attributes_name').val('');
+    $('#party_venue_attributes_address_attributes_street1').val('');
+    $('#party_venue_attributes_address_attributes_street2').val('');
+    $('#party_venue_attributes_address_attributes_city').val('');
+    $('#party_venue_attributes_address_attributes_state').val('');
+    $('#party_venue_attributes_address_attributes_zip').val('');
+    $('#venue-select').removeClass('hidden');
+  });
 
 });
 

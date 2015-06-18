@@ -14,133 +14,23 @@
               <div class="mobile_header  ">
                 <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
                 <div class="logo pull-left">
-                  <img src="images/logo2.png" class="img-responsive">
+                  <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
                 </div>
               </div>
             </div>
           </div>
           <div class="main-area">
             <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
               <div class=" create col-md-12">
-                <div class="col-md-6">
-                  <form>
-                    <div class="form-group">
-                      <label for="exampleInputName1">Party Title  </label>
-                      <input type="text" class="form-control" id="exampleInputName1">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName2">Friendly URL  </label>
-                      <input type="text" class="form-control" id="exampleInputName2">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName3">Business Name </label>
-                      <input type="text" class="form-control" id="exampleInputName3">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName4">Address </label>
-                      <input type="text" class="form-control" id="exampleInputName4">
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputName5">city </label>
-                          <input type="text" class="form-control" id="exampleInputName5">
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="exampleInputName6">State  </label>
-                          <input type="text" class="form-control" id="exampleInputName6">
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="exampleInputName7">Zip Code</label>
-                          <input type="text" class="form-control" id="exampleInputName7">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputName8">Date </label>
-                          <input type="text" class="form-control" id="exampleInputName8">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <h2>silder</h2>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputName9">Watch Party Picture</label>
-                          <button type="button" class="btn btn-green btn_full" data-toggle="modal" data-target="#myModal">
-                            Choose
-                          </button>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <img src="images/tag_logo.png" class="img-responsive">
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <h5><strong>Number of People</strong></h5>
-                    <p>Choose a minimum and maximum of available RSVPs by 
-                      dragging the sliders (10-100)</p>
-                      <h2>silder</h2>
-                      <div class="text-center">
-                        <h2><strong>100 RSVPs</strong></h2>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName10">Party Team  </label>
-                      <input type="text" class="form-control" id="exampleInputName10">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName11">Watch Party Description  </label>
-                      <textarea class="form-control" id="exampleInputName11" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputName12">Tags  </label>
-                      <input type="text" class="form-control" id="exampleInputName12">
-                    </div>
-                    <div class="form-group">
-                      <h6><label for="exampleInputName13">Party Type  </label></h6>
-                      <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">  Open Invite
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">Invite Only
-                      </label>
-                    </div>
-                  </div>
-                  <div class="text-center col-md-12 btn_area">
-                    <button type="button" class="btn btn-green btn-default">Cancle</button>
-                    <button type="button" class="btn btn-green btn-default">Save</button>
-                  </div>
                 <p id="notice"><%= notice %></p>
-                <div class="row">
-                  <div class="col-md-12 cols">
-                    <div id="new-party-details" class="col-md-8">
-                      <h1>New party</h1>
-                      <%= render 'new_form' %>
-                      <%= link_to 'Back', parties_path %>
-                    </div>
-                  </div>
-                </div>
-                </div>
+                <%= render 'new_form' %>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 

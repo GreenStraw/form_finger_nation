@@ -691,7 +691,7 @@ a.col_black{
   color: #fff;
 }
 .cant_header{
-    background: url(../images/cantfind.jpg) no-repeat center center;
+    background: url(<%= asset_path 'vendor/cantfind.jpg'%>) no-repeat center center;
     text-align: center;
     height: 1015px;
     display: block;
@@ -749,7 +749,7 @@ position: relative;
     margin: 185px 10% 0;
     position: absolute;
     padding:5% 15%;
-    font-size: 20px;
+    font-size: 19px;
 position: relative;
 }
 .signup_box h2,
@@ -915,6 +915,7 @@ position: relative;
 .create .btn_area .btn{
     padding: 8px 4%;
     margin:65px 15px 15px;
+    color: #fff;
 }
 .create_header{
   background: url(<%= asset_path 'vendor/Create_bg.jpg' %>) no-repeat center center;
@@ -933,6 +934,46 @@ position: relative;
     font-size: 30px;
     color: #fff;
     font-weight: bold;
+}
+.your_team{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.your_team li{
+    margin: 8px 0;
+}
+.your_team .btn{
+    color: #fff;
+    padding: 8px 30px;
+}
+.your_team li a,
+.your_team li h4{
+      margin: 20px 0 0;
+      display: block;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.footer{
+    padding: 25px 0;
+    color: #484848;
+}
+.footer a{
+    color: #000;
 }
 /*sport_pages end*/
 @media(max-width:1200px) {
@@ -960,6 +1001,13 @@ position: relative;
 }
 }
 @media(max-width:768px) {
+    .your_team li{
+        text-align: center;
+        margin: 8px 0 35px;
+    }
+    .your_team li img{
+        margin: 0 auto;
+    }
     .companylisting_header #map {
     height: 368px;
 }
@@ -967,7 +1015,7 @@ position: relative;
         width: 100%;
     }
     .mobile_header .logo {
-        margin: 0px 33px;
+        margin: 0px 20px;
     }
 .panel-heading .image-holder{
     float: none;

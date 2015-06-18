@@ -12,8 +12,8 @@
           <h3> <%= party.name %> </h3>
         <% end %>
         <ul class="list-inline">
-          <li><a href="#"><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></a></li>
-          <li><a href="#"><%= party.venue.address.city_state %></a></li>
+          <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+          <li><%= party.venue.address.city_state %></li>
         </ul>
         <p><%= party.description %></p>
       </div>

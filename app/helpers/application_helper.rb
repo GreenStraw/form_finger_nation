@@ -22,6 +22,7 @@ module ApplicationHelper
                             "sports",
                             "account",
                             "vouchers",
+                            "users",
                             "teams"
 
                             ]

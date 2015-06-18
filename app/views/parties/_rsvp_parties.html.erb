@@ -9,13 +9,13 @@
       </div>
       <div class="caption">
         <%= link_to party_reservation.party do %>
-          <h3> <%= party_reservation.party.name %> </h3>
+          <h3> <%= party_reservation.party.name rescue "" %> </h3>
         <% end %>
         <ul class="list-inline">
-          <li><a href="#"><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></a></li>
-          <li><a href="#"><%= party_reservation.party.venue.address.city_state %></a></li>
+          <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+          <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
         </ul>
-        <p><%= party_reservation.party.description %></p>
+        <p><%= party_reservation.party.description rescue "" %></p>
 
       </div>
     </div>

@@ -54,6 +54,10 @@ class PartiesController < ApplicationController
   def new
   end
 
+  def cant_find
+    
+  end
+
   # GET /parties/1/edit
   def edit
   end

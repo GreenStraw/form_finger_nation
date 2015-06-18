@@ -34,10 +34,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="form-group">
-        <%#= f.label :name %> (From Facebook)
-        <%#= f.text_field :name,class: "form-control" %>
-      </div> -->
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -81,10 +77,11 @@
                     <input type="text" class="form-control" id="exampleInputName6">
                   </div>
                   <div class="form-group">
-                    <button type="button" class="btn btn-green btn_full" >
-                      Upload photo form Computer
-                    </button>
-                    <%= f.file_field :image_url, class: "btn btn-green btn_full" %>
+                  <div class="fileUpload btn btn-green btn_full">
+                      <span>Upload Photo from Computer</span>
+                      <%= f.file_field :image_url, class: "upload" %>
+                  </div>
+                    
                   </div>
                   <div class="form-group">
                     <button type="button" class="btn btn-green btn_full" data-dismiss="modal" id="acc_ph_change">

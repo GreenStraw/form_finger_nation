@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def edit
   end
 
-
   # PATCH/PUT /users/1
   def update
     if @user.update_attributes(params[:user])
