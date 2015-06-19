@@ -14,6 +14,7 @@
 //= require jquery_ujs
 // require twitter/bootstrap
 //= require select2
+//= require bootstrap-datepicker
 //= require underscore
 //= require gmaps/google
 //= require initialize

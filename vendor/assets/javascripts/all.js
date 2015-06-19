@@ -88,11 +88,21 @@ $(document).ready(function() {
       });
 
     $('#ex1').slider();
-    // $("#ex1").on("slide", function(slideEvt) {
-    //   $("#ex1SliderVal").text(slideEvt.value);
-    // });
-    $('#ex2').slider();
+    $('#time_slide').slider();
+    $("#time_slide").on("slide", function(slideEvt) {
+      $("#time_slideVal").text(slideEvt.value);
+      var val0 = slideEvt.value,
+        minutes0 = parseInt(val0 % 60, 10),
+        hours0 = parseInt(val0 / 60 % 24, 10);
+      startTime = getTime(hours0, minutes0);
+      $("#time").text(startTime); //+ ' - ' + endTime
+      $(".hid_class").val(startTime);
+      $("#time_slideVal").text(startTime);
+    });
 
+    $('.datepicker').datepicker();
+    
+    $('#ex2').slider();
     $('input').iCheck({
       checkboxClass: 'icheckbox_minimal-green',
       radioClass: 'iradio_minimal-green',
@@ -177,4 +187,34 @@ function showhide(d_id){
     document.getElementById(d_id+"d").className += " faq_active";
   } 
   return false;
+}
+function slideTime(event, ui){
+  var val0 = $("#slider-range").slider("values", 0),
+    minutes0 = parseInt(val0 % 60, 10),
+    hours0 = parseInt(val0 / 60 % 24, 10);
+  startTime = getTime(hours0, minutes0);
+  endTime = getTime(hours1, minutes1);
+  $("#time").text(startTime); //+ ' - ' + endTime
+  $(".hid_class").val(startTime);
+  $("#time_slideVal").text(startTime);
+}
+function getTime(hours, minutes) {
+  var time = null;
+  minutes = minutes + "";
+  // if (hours < 12) {
+  //   time = "AM";
+  // }
+  // else {
+  //   time = "PM";
+  // }
+  if (hours == 0) {
+    hours = 12;
+  }
+  // if (hours > 12) {
+  //   hours = hours - 12;
+  // }
+  if (minutes.length == 1) {
+    minutes = "0" + minutes;
+  }
+  return hours + ":" + minutes;
 }

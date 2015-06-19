@@ -20,7 +20,7 @@ gem 'jquery-rails'
 # gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
 
 gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
-
+gem 'bootstrap-datepicker-rails'
 # pick enumerable or rolify for user roles
 gem 'rolify'
 gem 'enumerize', '0.6.1' # an issue in 0.7.0 causes app error when enumerized state is blank and scope and predicates flags are passed
