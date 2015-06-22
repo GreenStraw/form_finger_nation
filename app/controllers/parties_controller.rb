@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :party
+  load_and_authorize_resource :party, :except=>[:cancel_reservation]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
@@ -83,6 +83,12 @@ class PartiesController < ApplicationController
   def destroy
     flash[:success] = 'Party was successfully destroyed.' if @party.destroy
     respond_with @party
+  end
+
+  def cancel_reservation
+    p = PartyReservation.find(params[:id])
+    flash[:success] = 'Successfully destroyed.' if p.destroy
+    redirect_to :back
   end
 
   def purchase_package

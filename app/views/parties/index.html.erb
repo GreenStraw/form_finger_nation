@@ -77,6 +77,11 @@
             </div>
           </div>
           <div class="main-area">
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
+            </div>
             <ul class="nav nav-pills">
               <li role="presentation" class=""><a href="#"><h4>TEAMS</h4></a></li>
               <li role="presentation"><a href="#">Dallas Cowboys</a></li>

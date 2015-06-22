@@ -2,7 +2,7 @@
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <div class="cancle_icon">
-        <a href="#"><i class="fa fa-times"></i></a>
+        <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
       </div>
       <div class="holder">
         <%= image_tag(party_reservation.party.team.image_url, class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.team.nil? %>

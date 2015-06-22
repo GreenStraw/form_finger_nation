@@ -26,6 +26,9 @@ Baseapp::Application.routes.draw do
       get 'search'
       get 'cant_find'
     end
+    member do
+      get 'cancel_reservation'
+    end
   end
   resources :sports do
     member do
