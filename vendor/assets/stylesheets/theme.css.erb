@@ -108,7 +108,9 @@ a:hover{ color: #a8d039; }
   background-color: #a8d039;
   border-color: #a8d039;
 }
-
+.prt_rsvp{
+    color: #a8d039 !important;
+}
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -983,9 +985,44 @@ position: relative;
 .datepicker table tr td.day:hover{
     color: #484848;
 }
-.datepicker-days{
+.datepicker-days,
+.datepicker-months,
+.datepicker-years
+{
     background: #484848;
+    padding: 5px;
 }
+.datepicker table tr th:hover{
+    color: #fff;   
+}
+.create_slider .slider.slider-horizontal{
+    width: 100% !important;
+}
+.create_slider span{
+    display: block;
+    padding: 6px;
+}
+.radio_create .iradio_minimal-green{
+    margin: 0 10px 0 0;
+}
+
+input[type=radio].css-checkbox {
+    position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+}
+
+input[type=radio].css-checkbox + label.css-label {
+    padding-left:25px;
+    height:20px; 
+    display:inline-block;
+    line-height:20px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:20px;
+    vertical-align:middle;
+    cursor:pointer;
+
+}
+
 /*sport_pages end*/
 @media(max-width:1200px) {
    .banner .caption h1 {

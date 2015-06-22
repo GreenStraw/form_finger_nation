@@ -2,7 +2,7 @@
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <div class="cancle_icon">
-        <i class="fa fa-times"></i>
+      <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
       <div class="holder">
         <%= image_tag(party.team.image_url, class: "img-responsive") unless party.team.nil? %>
@@ -16,6 +16,11 @@
           <li><%= party.venue.address.city_state %></li>
         </ul>
         <p><%= party.description %></p>
+        <% if reservations_include?(party, current_user) %>
+          <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+        <% else %>
+          <%= link_to "RSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+        <% end %>
       </div>
     </div>
   </div>

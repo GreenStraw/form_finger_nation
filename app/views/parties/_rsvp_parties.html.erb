@@ -16,7 +16,13 @@
           <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
         </ul>
         <p><%= party_reservation.party.description rescue "" %></p>
-
+        <% if party_reservation.party  %>
+          <% if reservations_include?(party_reservation.party, current_user) %>
+            <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+          <% else %>
+            <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

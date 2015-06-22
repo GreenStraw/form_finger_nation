@@ -70,8 +70,6 @@
         <% end %>
       <% end %>
     </div>
-
-    
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -80,15 +78,17 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group create_slider">
           <span id="time_slideVal">12:00</span>
-          <input type="hidden" class="hid_class" name="party[hid_time]">
-          <%= text_field_tag "time_slide", nil, type: 'text',
-          data: {'slider-id' => 'time_slideSlider',
+          <div class="col-md-12 ">
+            <input type="hidden" class="hid_class" name="party[hid_time]">
+            <%= text_field_tag "time_slide", nil, type: 'text',
+            data: {'slider-id' => 'time_slideSlider',
             'slider-min' => '0',
             'slider-max' => '1439',
             'slider-step' => '1' }
             %>
+          </div>
         </div>
       </div>
     </div>
@@ -114,12 +114,14 @@
       <h5><strong>Number of People</strong></h5>
       <p>Choose a minimum and maximum of available RSVPs by 
         dragging the sliders (10-100)</p>
-        <%= text_field_tag "ex1", nil, type: 'text',
-          data: {'slider-id' => 'ex1Slider',
-            'slider-min' => '0',
-            'slider-max' => '100',
-            'slider-step' => '1' }
-            %>
+          <div class="col-md-12 create_slider">
+            <%= text_field_tag "ex1", nil, type: 'text',
+            data: {'slider-id' => 'ex1Slider',
+              'slider-min' => '0',
+              'slider-max' => '100',
+              'slider-step' => '1' }
+              %>
+          </div>
         <!-- <span id="time_slideVal">3</span></span> -->
         <div class="text-center">
           <h2><strong>100 RSVPs</strong></h2>
@@ -141,7 +143,7 @@
         <label for="exampleInputName12">Tags  </label>
         <input type="text" class="form-control" id="exampleInputName12">
       </div>
-      <div class="form-group">
+      <div class="form-group radio_create">
         <h6><label for="exampleInputName13">Party Type  </label></h6>
         <label class="radio-inline">
           <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">  Open Invite
@@ -152,7 +154,7 @@
       </div>
     </div>
     <div class="text-center col-md-12 btn_area">
-      <%= link_to 'Cancle', parties_path, class: "btn btn-green btn-default" %>
+      <%= link_to 'Cancel', parties_path, class: "btn btn-green btn-default" %>
       <%= f.submit "Save", class: "btn btn-green btn-default" %>
     </div>
 <% end %>

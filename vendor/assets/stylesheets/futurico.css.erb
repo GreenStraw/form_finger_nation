@@ -1,5 +1,6 @@
 /* iCheck plugin Minimal skin, green
 ----------------------------------- */
+
 .icheckbox_minimal-green,
 .iradio_minimal-green {
     display: inline-block;
@@ -49,10 +50,9 @@
     }
 
 /* HiDPI support */
-@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi), (min-resolution: 1.25dppx) {
-    .icheckbox_minimal-green,
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {    .icheckbox_minimal-green,
     .iradio_minimal-green {
-        background-image: url(green@2x.png);
+        background-image: url(<%= asset_path 'green@2x.png' %>);
         -webkit-background-size: 200px 20px;
         background-size: 200px 20px;
     }
