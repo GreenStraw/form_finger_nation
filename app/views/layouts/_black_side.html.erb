@@ -28,7 +28,6 @@
       </li>
       <li>
         <a href="#"  data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp">Austin, TX</span>  <small>(change)</small></a>
-          <%= render partial: '/layouts/location' %>
       </li>
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
@@ -64,4 +63,6 @@
       </li>
     <% end %>
   </ul>
+
 </div>
+          <%= render partial: '/layouts/location' %>

@@ -4,6 +4,12 @@
     <div class="container-fluid">
       <div class="Following_header sport_header row">
         <div class="col-md-12">
+          <div class="mobile_header  ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo pull-left">
+              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+            </div>
+          </div>
           <div class="sport_caption col-md-5 pull-right ">
             <h2><%= @party.name%></h2>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
@@ -16,12 +22,6 @@
                 <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
                 <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
               <% end %>
-            </div>
-            <div class="mobile_header  ">
-              <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
-              <div class="logo pull-left">
-                <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
-              </div>
             </div>
           </div>
         </div>
