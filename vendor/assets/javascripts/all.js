@@ -113,17 +113,17 @@ $(document).ready(function() {
       e.stopPropagation();
     });
 
-    // $("#acc_ph_change").on("click" ,function(){
-    //   var input = document.getElementById("user_image_url");
-    //   if (input.files && input.files[0]) {
-    //     var reader = new FileReader();
-    //     reader.onload = function (e) {
-    //       $('#acc_profile_image')
-    //       .attr('src', e.target.result)
-    //     };
-    //     reader.readAsDataURL(input.files[0]);
-    //   }
-    // });
+    $("#acc_ph_change").on("click" ,function(){
+      var input = document.getElementById("user_image_url");
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#acc_profile_image')
+          .attr('src', e.target.result)
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    });
 
   $('#new_venue').on('ifChecked', function() {
     console.log("if");

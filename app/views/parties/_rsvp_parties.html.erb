@@ -23,6 +23,8 @@
             <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
           <% end %>
         <% end %>
+        <span class="prt_rsvp"> | </span>
+        <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
       </div>
     </div>
   </div>
