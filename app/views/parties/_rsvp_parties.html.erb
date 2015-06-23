@@ -1,3 +1,4 @@
+<% c = 0 %>
 <% current_user.party_reservations.each do |party_reservation| %>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
@@ -28,4 +29,8 @@
       </div>
     </div>
   </div>
+  <% c = c + 1 %>
+  <% if c % 3 == 0 %>
+    <div class="clearfix"></div>
+  <% end %>
 <% end %>

@@ -91,12 +91,15 @@
             </div>
             <div class="clearfix"></div>
             <div class="product_area">
-              <div class="row" id="create_parties">
-                <%= render "created_parties" %>
+              <div class="row">
+                <div id="create_parties">
+                  <%= render "created_parties" %>
+                </div>
+                <div id="rsvp_party">
+                  <%= render "rsvp_parties" %>
+                </div>
               </div>
-              <div class="row" id="rsvp_party">
-                <%= render "rsvp_parties" %>
-              </div><!-- 
+              <!-- 
               <div class="row hidden_p" id="wparties">
                 <%#= render "created_parties" %>
                 <%#= render "rsvp_parties" %>

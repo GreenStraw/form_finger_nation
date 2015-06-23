@@ -1,4 +1,4 @@
-<div class="login-area col-md-5 col-md-offset-3 account">
+<div class="login-area col-md-5 col-md-offset-2 account">
   <div class="login_box ">
     <h2>ACCOUNT</h2>
     <%= form_for(@user, url: update_account_path, method: :post) do |f| %>
@@ -64,14 +64,14 @@
             </div>
           </div>
         </div>
-        <div class="modal fade" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade upload_image" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-body">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <h3><a href="#">Photo Upload</a></h3>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                   <div class="form-group">
                     <label for="exampleInputName6">Upload from URL </label>
                     <input type="text" class="form-control" id="exampleInputName6">

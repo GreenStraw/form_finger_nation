@@ -8,10 +8,10 @@ $(document).ready(function() {
     var h_str = "MY PARTIES";
     if( str == "RSVPs"){
       h_str = str;
-      str = "create_parties"
+      str = "create_parties";
     }
     else
-      str = "rsvp_party"
+      str = "rsvp_party";
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
     document.getElementById("p_heading").innerHTML = h_str; 

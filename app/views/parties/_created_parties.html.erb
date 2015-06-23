@@ -1,3 +1,4 @@
+<% c = 0 %>
 <% current_user.parties.each do |party| %>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
@@ -21,8 +22,14 @@
         <% else %>
           <%= link_to "RSVP", party_rsvp_path(party), class: "prt_rsvp" %>
         <% end %>
+        <span class="prt_rsvp"> | </span>
+        <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
       </div>
     </div>
   </div>
+  <% c = c + 1 %>
+  <% if c % 3 == 0 %>
+    <div class="clearfix"></div>
+  <% end %>
 <% end %>
 
