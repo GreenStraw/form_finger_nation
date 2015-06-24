@@ -6,6 +6,7 @@ class Party < ActiveRecord::Base
   validates :name, presence: true
   validates :scheduled_for, presence: true
   validate :venue_exists
+  validates :friendly_url, uniqueness: true
 
   after_update :send_notification_when_verified
   after_create :ensure_address
