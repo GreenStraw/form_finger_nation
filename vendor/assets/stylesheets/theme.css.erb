@@ -13,7 +13,7 @@ a:hover{ color: #a8d039; }
 .thumbnail{
     border-radius: 0;
     padding: 0;
-    min-height: 340px;
+    min-height: 356px;
     background: #fff;
     position: relative;
 
@@ -302,12 +302,30 @@ a:hover{ color: #a8d039; }
     padding-right: 30px;    
 }
 .right-inner-addon i {
-    position: absolute;
-    right: 20%;
-    padding: 10px 12px;
+    padding: 3px 10px;
     pointer-events: none;
     font-size: 25px;
     cursor: pointer;
+}
+.right-inner-addon .btn{
+    border-radius: 0;
+    margin: 2px -72px 0;
+    background: #fff;
+    padding: 3px 10px;
+}
+.right-inner-addon .btn-default:focus,
+.right-inner-addon .btn-default:active{
+     border-color: #fff !important;
+     box-shadow: none;
+     outline: 0;
+     background: #fff;
+}
+.right-inner-addon .btn:hover{
+    background: #fff;
+    border: 0;
+    padding: 4px 11px;
+    box-shadow: none;
+    border-color: #fff;
 }
 .form-control{
     border-radius: 0;
@@ -1029,6 +1047,9 @@ input[type=radio].css-checkbox + label.css-label {
     vertical-align:middle;
     cursor:pointer;
 
+}
+.input-area .btn-group{
+    display: none;
 }
 
 /*sport_pages end*/

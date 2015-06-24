@@ -84,8 +84,7 @@ class PartiesController < ApplicationController
     date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
     params[:party][:scheduled_for] = ''
     @party.save
-    return render json: params.inspect
-    @party.update_column("scheduled_for", DateTime.parse(date_s))
+    # @party.update_column("scheduled_for", DateTime.parse(date_s))
     current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party
   end
