@@ -68,6 +68,7 @@ class PartiesController < ApplicationController
     date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
     params[:party][:scheduled_for] = ''
     @party.save
+    return render json: params.inspect
     @party.update_column("scheduled_for", DateTime.parse(date_s))
     current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party
@@ -146,11 +147,11 @@ class PartiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_party
-      @party = Party.find(params[:id])
+      @party = Party.find_by_friendly_url(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location, :venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
     end
 end

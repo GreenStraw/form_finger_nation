@@ -1,4 +1,7 @@
 class Party < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :friendly_url
+
   acts_as_commentable
   validates :name, presence: true
   validates :scheduled_for, presence: true

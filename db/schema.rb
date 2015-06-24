@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616112900) do
+ActiveRecord::Schema.define(version: 20150624054658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "addresses", force: true do |t|
     t.integer  "addressable_id"
@@ -93,6 +94,19 @@ ActiveRecord::Schema.define(version: 20150616112900) do
   add_index "favorites", ["favoritable_id", "favoritable_type"], name: "index_favorites_on_favoritable_id_and_favoritable_type", using: :btree
   add_index "favorites", ["favoriter_id", "favoriter_type"], name: "index_favorites_on_favoriter_id_and_favoriter_type", using: :btree
 
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
   create_table "packages", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -119,6 +133,8 @@ ActiveRecord::Schema.define(version: 20150616112900) do
     t.integer  "venue_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "friendly_url"
   end
 
   add_index "parties", ["organizer_id"], name: "index_parties_on_organizer_id", using: :btree
@@ -214,7 +230,7 @@ ActiveRecord::Schema.define(version: 20150616112900) do
   add_index "tenants", ["name"], name: "index_tenants_on_name", using: :btree
   add_index "tenants", ["tenant_id"], name: "index_tenants_on_tenant_id", using: :btree
 
-  create_table "tenants_users", force: true do |t|
+  create_table "tenants_users", id: false, force: true do |t|
     t.integer "tenant_id", null: false
     t.integer "user_id",   null: false
   end
