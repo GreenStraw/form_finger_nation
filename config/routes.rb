@@ -25,6 +25,7 @@ Baseapp::Application.routes.draw do
     collection do
       get 'search'
       get 'cant_find'
+      get 'ajaxsearch'
     end
     member do
       get 'cancel_reservation'

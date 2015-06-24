@@ -12,7 +12,7 @@
       <div class="input-area row col-md-offset-1 col-md-10">
         <div class="right-inner-addon ">
           <i class="fa fa-search fa-6"></i>
-          <input type="search" class="form-control" placeholder="">
+          <input type="search" class="form-control" placeholder="Search..." id="searchbox">
         </div>
         <div class="btn-group">
           <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -92,11 +92,12 @@
               <div class="row">
                 <div id="create_parties">
                   <%= render "created_parties" %>
-                </div>
-                <div id="rsvp_party">
-                  <%= render "rsvp_parties" %>
-                </div>
-              </div>
+-                </div>
+-                <div id="rsvp_party">
+-                  <%= render "rsvp_parties" %>
+-                </div>
+-              </div>
+                  
               <!-- 
               <div class="row hidden_p" id="wparties">
                 <%#= render "created_parties" %>
@@ -107,3 +108,20 @@
           </div>
         </div>
       </div>
+
+<script>
+$("#searchbox").keyup(function(e){
+  if(e.keyCode == 13)
+  {
+    var keyword = $("#searchbox").val();
+     $.ajax({
+      url: "/parties/ajaxsearch",
+      type: "GET",
+      data: { "keyword": keyword },
+      dataType: 'script',
+      success: function(resp){ 
+      }
+    });
+  }
+});
+</script>

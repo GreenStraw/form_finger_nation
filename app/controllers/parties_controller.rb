@@ -1,13 +1,15 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :party, :except=>[:cancel_reservation]
+  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
   # GET /parties
   def index
     @user = current_user
+    @rvs_parties = @user.party_reservations
+    @created_parties = @user.parties
   end
 
   def n_sign_up
@@ -43,6 +45,20 @@ class PartiesController < ApplicationController
       @location = Address.get_coords(search_results[3])
     end
     respond_with @parties
+  end
+
+  def ajaxsearch
+    # search_results = Party.search_by_params(params[:party])
+    # @rvs_parties = current_user.party_reservations.where("name LIKE ? or description LIKE ?","%#{params[:keyword]}%","%#{params[:keyword]}%")
+    key = "%#{params[:keyword]}%"
+    # @created_parties = current_user.parties.where("parties.name LIKE ? or parties.description LIKE ?" , key, key)
+    # @created_parties = current_user.parties.joins(:venue, :team, :sport).where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
+    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
+    
+    respond_to do |format|
+      format.js
+      format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
+    end
   end
 
   # GET /parties/1
