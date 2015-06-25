@@ -1,4 +1,3 @@
-<% c = 0 %>
 <% @created_parties.each do |party| %>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
@@ -27,8 +26,8 @@
       </div>
     </div>
   </div>
-  <% c = c + 1 %>
-  <% if c % 3 == 0 %>
+  <% @c = @c + 1 %>
+  <% if @c % 3 == 0 %>
     <div class="clearfix"></div>
   <% end %>
 <% end %>

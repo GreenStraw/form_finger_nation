@@ -13,6 +13,7 @@ Baseapp::Application.routes.draw do
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
   get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
   get 'user/:id' => 'account#user', :as => 'user'
+  put 'user/user_loc' => 'account#user_loc'
 
   resources :vouchers
   resources :packages, except: [:new, :create] do

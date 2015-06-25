@@ -23,6 +23,14 @@ class AccountController < ApplicationController
   def user
     @u = User.find(params[:id])   
   end
+
+  def user_loc
+    u = User.find(params[:id])
+    u.update_column("location", params[:loc]) if u
+    respond_to do |format|
+      format.js { render json: {}, status: 200 }
+    end
+  end
   
   def edit
     @user = current_user
@@ -53,7 +61,7 @@ class AccountController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:id, :name, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
+    params.require(:user).permit(:id, :name, :favorite_team_id, :about, :website, :gender, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
   end
 
 end

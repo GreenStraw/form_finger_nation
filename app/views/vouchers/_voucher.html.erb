@@ -6,18 +6,18 @@
       </div>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12 ">
-      <h4><%= voucher.package.name %></h4>
+      <h4><%= link_to voucher.package.name, voucher_path(voucher) %></h4>
       <p> <%= voucher.party.name%> :
           <%= voucher.package.total_purchased %> Purchased :
           <%= voucher.package.description %> 
-          <% unless voucher.redeemed_at.blank? %>
-            <h5><%= link_to "View Voucher", voucher_path(voucher), class: "redeem-btn" %></h5>
-          <% else %>
-            <h5><%= link_to "Redeem Voucher", redeem_voucher_path(voucher.id), class: "redeem-btn",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %></h5>
-          <% end %></p>
+          </p>
     </div>
     <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
-      <button type="button" class="btn btn-green btn-default">Save</button>
+      <% unless voucher.redeemed_at.blank? %>
+        <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
+      <% else %>
+        <%= link_to "Redeem", redeem_voucher_path(voucher.id), class: "redeem-btn btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
+      <% end %>
     </div>
   </div>
 </li>

@@ -7,13 +7,13 @@
           <div class="col-md-4 col-sm-4">
            <div class="form-group">
         <h5>Current Location</h5>
-        <h4><strong id="curLoc">Austin, TX</strong></h4>
+        <h4><strong id="curLoc"><%= current_user.location %></strong></h4>
       </div>
           </div>
           <div class="col-md-8 col-sm-8">
            <div class="form-group">
         <h5>New Location</h5>
-        <input type="em5il" class="form-control" id="newLocVal" placeholder="Richmond, VA">
+        <input type="em5il" class="form-control" id="newLocVal"  data-user-id="<%= current_user.id %>" placeholder="Richmond, VA">
       </div>
 
           </div>

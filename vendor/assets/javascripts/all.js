@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   $(".my_party").click(function() {
-    $('.product_area div').removeClass("hidden_p");
+    $('.product_area span').removeClass("hidden_p");
     $('.my_Parties li a').removeClass("active_p");
 
     var str = this.href.split("#")[1];
@@ -28,6 +28,20 @@ $(document).ready(function() {
     document.getElementById("NewlocUp").innerHTML = v;
     document.getElementById("curLoc").innerHTML = v;
     $("#locHref").removeClass("active_p");
+    var userId = $("#newLocVal").data('user-id');
+    var url = "/user/user_loc";
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: {'id': userId,
+             'loc': v,
+             'ajax': true},
+      success: function() {
+      },
+      error: function(){
+        //do nothing
+      }
+    })
   });
 
   $('#loc').on('hidden.bs.modal', function () {

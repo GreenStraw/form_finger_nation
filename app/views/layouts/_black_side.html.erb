@@ -27,7 +27,7 @@
         </span>
       </li>
       <li>
-        <a href="#"  data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp">Austin, TX</span>  <small>(change)</small></a>
+        <a href="#"  data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.location rescue "Not present" %></span>  <small>(change)</small></a>
       </li>
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
@@ -65,4 +65,4 @@
   </ul>
 
 </div>
-          <%= render partial: '/layouts/location' %>
+<%= render partial: '/layouts/location' %>
