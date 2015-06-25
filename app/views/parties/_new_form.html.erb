@@ -169,13 +169,10 @@
       e.preventDefault();
     }
   });
-<<<<<<< HEAD
-
   $("#friendlyUrl").blur(function(){
     var url = $("#friendlyUrl").val();
     $.get('/parties/check_friendly_url_availablitiy', {friendlyUrl: url})
     .done(function(data){
-      console.log(data);
       if (data)
       {
         $("#error_div").removeClass('hide');
@@ -188,6 +185,4 @@
       }
     });
   });
-=======
->>>>>>> origin/search
 </script>
