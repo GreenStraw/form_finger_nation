@@ -17,6 +17,9 @@
     <div class="form-group">
       <label for="exampleInputName2">Friendly URL  </label>
       <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
+      <div class = "hide" id= "error_div">
+        <span style = "color:red;" id="error_text">  </span>
+      </div>
     </div>
     <div class="form-group">
       <label for="exampleInputName3">Business Name </label>
@@ -165,5 +168,23 @@
     if (e.keyCode == 32){ // 32 is the ASCII value for a space
       e.preventDefault();
     }
+  });
+
+  $("#friendlyUrl").blur(function(){
+    var url = $("#friendlyUrl").val();
+    $.get('/parties/check_friendly_url_availablitiy', {friendlyUrl: url})
+    .done(function(data){
+      console.log(data);
+      if (data)
+      {
+        $("#error_div").removeClass('hide');
+        $("#error_text").html($("#friendlyUrl").val() + " is not available!");
+        $("#roll_Number").val('');
+      }
+      else
+      {
+        $("#error_div").addClass('hide');
+      }
+    });
   });
 </script>

@@ -26,6 +26,8 @@ Baseapp::Application.routes.draw do
       get 'search'
       get 'cant_find'
       get 'ajaxsearch'
+      get 'get_team_parties'
+      get 'check_friendly_url_availablitiy'
     end
     member do
       get 'cancel_reservation'

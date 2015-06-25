@@ -10,6 +10,7 @@ class PartiesController < ApplicationController
     @user = current_user
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
+    @teams = @user.followed_teams
   end
 
   def n_sign_up
@@ -51,13 +52,35 @@ class PartiesController < ApplicationController
     # search_results = Party.search_by_params(params[:party])
     # @rvs_parties = current_user.party_reservations.where("name LIKE ? or description LIKE ?","%#{params[:keyword]}%","%#{params[:keyword]}%")
     key = "%#{params[:keyword]}%"
+    key = key.downcase
     # @created_parties = current_user.parties.where("parties.name LIKE ? or parties.description LIKE ?" , key, key)
     # @created_parties = current_user.parties.joins(:venue, :team, :sport).where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
-    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
-    
+    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name ILIKE ? or parties.description ILIKE ? or venues.name ILIKE ? or venues.description ILIKE ? or teams.name ILIKE ?  or sports.name ILIKE ?" , key, key, key, key, key, key)
+    # @rvs_parties = current_user.party_reservations.party.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
+    puts '-'*80
+    puts @created_parties.inspect
+    puts '-'*80
+    puts @created_parties.length
+    puts '-'*80
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
+    end
+  end
+
+  def get_team_parties
+    @created_parties = Team.find(params[:team]).parties    
+    respond_to do |format|
+      format.js
+      format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
+    end
+  end
+
+  def check_friendly_url_availablitiy
+    party = Party.find_by_friendly_url(params[:friendlyUrl])
+    value = party.present?
+    respond_to do |format|
+      format.json {render json: value}
     end
   end
 
