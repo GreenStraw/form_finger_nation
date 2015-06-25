@@ -7,7 +7,7 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    @c = 0
+    #@c = 0
     @user = current_user
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
