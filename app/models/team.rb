@@ -15,7 +15,7 @@ class Team < ActiveRecord::Base
   has_many :requested_hosts, through: :endorsement_requests, source: :user
   belongs_to :sport
   has_one :address, as: :addressable, dependent: :destroy
-
+  has_many :parties
   accepts_nested_attributes_for :address
 
   def self.ordered_teams(teams)
