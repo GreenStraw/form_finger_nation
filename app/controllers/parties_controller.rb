@@ -61,6 +61,12 @@ class PartiesController < ApplicationController
     venues.try(:each) do |venue|
       @created_parties.concat(venue.parties.where('parties.organizer_id = ? ', current_user.id) )
     end
+
+    teams = Team.where("name ILIKE ?", key)
+    teams.try(:each) do |team|
+      @created_parties.concat(team.parties.where('parties.organizer_id = ? ', current_user.id) )
+    end
+
     puts '-'*80
     puts @created_parties
     puts '-'*80
