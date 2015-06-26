@@ -8,6 +8,11 @@ class AccountController < ApplicationController
     @user = User.new
   end
 
+  def n_sign_up
+    sign_out current_user
+    redirect_to new_user_registration_path
+  end
+
   def create
     @account = User.new(user_params)
     if @account.save_and_invite_member()

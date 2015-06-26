@@ -50,6 +50,7 @@ class PartiesController < ApplicationController
   end
 
   def ajaxsearch
+    $c = 0
     # search_results = Party.search_by_params(params[:party])
     # @rvs_parties = current_user.party_reservations.where("name LIKE ? or description LIKE ?","%#{params[:keyword]}%","%#{params[:keyword]}%")
     key = "%#{params[:keyword]}%"
@@ -70,6 +71,7 @@ class PartiesController < ApplicationController
   end
 
   def get_team_parties
+    $c = 0
     @created_parties = Team.find(params[:team]).parties    
     respond_to do |format|
       format.js
