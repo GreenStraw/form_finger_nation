@@ -9,12 +9,14 @@ $(document).ready(function() {
     if( str == "RSVPs"){
       h_str = str;
       str = "create_parties";
+      $("div.cl_rsvp_party").remove(); 
+      $(".add_rsvp_party:nth-child(3n)").after("<div class='clearfix cl_rsvp_party'></div>");
     }
     else
       str = "rsvp_party";
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
-    document.getElementById("p_heading").innerHTML = h_str; 
+    document.getElementById("p_heading").innerHTML = h_str;
   });
 
 

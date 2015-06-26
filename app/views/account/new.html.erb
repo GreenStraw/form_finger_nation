@@ -1,5 +1,31 @@
-<h2 class="form-title">Create Account</h2>
-
-<%= render "account/form"%>
-
-<%= render "devise/shared/links"  %>
+<div id="wrapper">
+  <%= render "layouts/black_side" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="Following_header sport_header  row">
+        <div class="col-md-12">
+          <div class="mobile_header  ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo pull-left">
+              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+            </div>
+          </div>
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2 class="form-title">Create Account</h2>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div class="follow">
+            <div class="col-md-8">
+              <h2 class="form-title">Information</h2>
+              <%= render "account/form"%>
+              <%= render "devise/shared/links"  %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
