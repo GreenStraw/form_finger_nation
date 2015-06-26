@@ -14,11 +14,6 @@ class PartiesController < ApplicationController
     @teams = @user.followed_teams
   end
 
-  def n_sign_up
-    sign_out current_user
-    redirect_to new_user_registration_path
-  end
-  
   def search
     if params[:party].nil?
       params[:party] = {}
