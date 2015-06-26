@@ -63,6 +63,7 @@
       </li>
     <% end %>
   </ul>
-
 </div>
-<%= render partial: '/layouts/location' %>
+<% if current_user %>
+  <%= render partial: '/layouts/location' %>
+<% end %>
