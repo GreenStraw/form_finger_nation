@@ -52,7 +52,7 @@ class PartiesController < ApplicationController
     key = key.downcase
     # @created_parties = current_user.parties.where("parties.name LIKE ? or parties.description LIKE ?" , key, key)
     # @created_parties = current_user.parties.joins(:venue, :team, :sport).where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
-    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name ILIKE ? or parties.description ILIKE ? or venues.name ILIKE ? or venues.description ILIKE ? or teams.name ILIKE ?  or sports.name ILIKE ?" , key, key, key, key, key, key)
+    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name ILIKE ? or parties.description ILIKE ? or venues.address.city_state ILIKE ? or venues.description ILIKE ? or teams.name ILIKE ?  or sports.name ILIKE ?" , key, key, key, key, key, key)
     # @rvs_parties = current_user.party_reservations.party.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
     puts '-'*80
     puts @created_parties.inspect
