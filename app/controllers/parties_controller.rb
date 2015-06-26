@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch]
+  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
@@ -50,15 +50,23 @@ class PartiesController < ApplicationController
     # @rvs_parties = current_user.party_reservations.where("name LIKE ? or description LIKE ?","%#{params[:keyword]}%","%#{params[:keyword]}%")
     key = "%#{params[:keyword]}%"
     key = key.downcase
-    # @created_parties = current_user.parties.where("parties.name LIKE ? or parties.description LIKE ?" , key, key)
-    # @created_parties = current_user.parties.joins(:venue, :team, :sport).where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
-    @created_parties = current_user.parties.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name ILIKE ? or parties.description ILIKE ? or venues.name ILIKE ? or venues.description ILIKE ? or teams.name ILIKE ?  or sports.name ILIKE ?" , key, key, key, key, key, key)
-    # @rvs_parties = current_user.party_reservations.party.joins("LEFT OUTER JOIN venues ON parties.venue_id = venues.id LEFT OUTER JOIN teams ON parties.team_id = teams.id LEFT OUTER JOIN sports on parties.sport_id = sports.id").where("parties.name LIKE ? or parties.description LIKE ? or venues.name LIKE ? or venues.description LIKE ? or teams.name LIKE ?  or sports.name LIKE ?" , key, key, key, key, key, key)
+    @created_parties  = []
+    result = current_user.parties.where("parties.name ILIKE ? or parties.description ILIKE ? ",key ,key)
+    @created_parties.concat(result)
+    venues = Venue.where("name ILIKE ?", key)
+    venues.try(:each) do |venue|
+      @created_parties.concat(venue.parties.where('parties.organizer_id = ? ', current_user.id) )
+    end
+
+    teams = Team.where("name ILIKE ?", key)
+    teams.try(:each) do |team|
+      @created_parties.concat(team.parties.where('parties.organizer_id = ? ', current_user.id) )
+    end
+
     puts '-'*80
-    puts @created_parties.inspect
+    puts @created_parties
     puts '-'*80
-    puts @created_parties.length
-    puts '-'*80
+    # @created_parties = current_user.parties.where("parties.name ILIKE ?", key)
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
@@ -67,7 +75,7 @@ class PartiesController < ApplicationController
 
   def get_team_parties
     $c = 0
-    @created_parties = Team.find(params[:team]).parties    
+    @created_parties = Team.find(params[:team]).parties.where('parties.organizer_id = ? ', current_user.id)
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
