@@ -1,4 +1,4 @@
-<% @sport.teams.each do |team| %>
+<% @teams.try(:each) do |team| %>
   <li class=" col-md-12 ">
     <div class="col-md-12 row">
       <div class=" col-md-offset-1 col-md-1 col-sm-2 col-xs-12">

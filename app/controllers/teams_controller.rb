@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   respond_to :html, :js
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :team
+  load_and_authorize_resource :team, :except=>[:search]
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
   skip_before_filter  :verify_authenticity_token
@@ -10,6 +10,34 @@ class TeamsController < ApplicationController
     @has_favorites = user_signed_in? && current_user.followed_teams.any?
     @teams_by_sport = Team.ordered_teams(Team.all)
     respond_with @teams_by_sport
+  end
+
+  def search
+  
+    if params[:keyword] == ''
+      @has_favorites = user_signed_in? && current_user.followed_teams.any?
+      @teams_by_sport = Team.ordered_teams(Team.all)
+    else  
+      key = "%#{params[:keyword]}%"
+      key = key.downcase
+
+      @has_favorites = user_signed_in? && current_user.followed_teams.where("teams.name ilike ? ", key).any?
+      @teams_by_sport = Team.where("teams.name ilike ? ", key).group_by{|t| t.sport.name}
+      # sport_names_with_teams = Sport.ordered_sports
+      # ordered_teams = {}
+      # sport_names_with_teams.each do |sport_name, teams|
+      #   ordered_teams[sport_name] = teams
+      # end
+
+      puts "-"*80
+      puts @teams_by_sport
+      puts key
+      puts "-"*80
+    end
+    respond_to do |format|
+      format.js
+      format.json { render json: {created_parties: @teams_by_sport} }  # respond with the created JSON object
+    end
   end
 
   # GET /teams/1
