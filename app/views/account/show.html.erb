@@ -1,16 +1,8 @@
-<div id="wrapper">
-  <%= render "layouts/black_side" %>
   <div id="page-content-wrapper">
     <div class="container-fluid">      
       <div class="row">
         <div class="col-md-12">
           <div class="sport_caption">
-            <div class="mobile_header">
-              <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
-              <div class="logo pull-left">
-                <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
-              </div>
-            </div>
           </div>
           <div class="main-area" style="color:black;">
             <div class="row">
@@ -25,20 +17,8 @@
                   </div>
                   <div class="panel-body">
                     <div class="row">
-                      <div class="col-md-3 col-lg-3 " align="center"><%= image_tag(@user.image_url, class: "img-circle") %></div>
+                      <div class="col-md-3 col-lg-3 acc_image" align="center"><%= image_tag(@user.image_url, class: "") %></div>
                         <br>
-                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>

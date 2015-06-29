@@ -10,18 +10,21 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= image_tag(@sport.image_url) %>
-    <%= f.file_field :image_url %>
+  <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
   </div>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <div class="form-group">
+      <%= image_tag(@sport.image_url, class: "img-responsive", id: "acc_profile_image") %>
+    </div>
+    <div class="col-md-2 fileUpload btn btn-green btn_full">
+    <span>Upload Photo</span>
+      <%= f.file_field :image_url, class: "upload" %>
+    </div>
   </div>
-
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", class: "btn btn-green btn-default"  %>
+    <%= link_to 'Back', sports_path, class: "btn btn-green btn-default" %>
   </div>
 <% end %>

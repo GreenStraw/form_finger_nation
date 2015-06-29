@@ -1,4 +1,9 @@
+<% c = 0 %>
 <% @rvs_parties.each do |party_reservation| %>
+  <% if c % 3 == 0 %>
+    <div class="row">
+  <% end %>
+  <% c = c + 1 %>
   <div class="col-sm-6 col-md-4 add_rsvp_party">
     <div class="thumbnail">
       <div class="cancle_icon">
@@ -28,8 +33,7 @@
       </div>
     </div>
   </div>
-  <% $c = $c + 1 %>
-  <% if $c % 3 == 0 %>
-    <div class="clearfix cl_rsvp_party"></div>
+  <% if c % 3 == 0 || @created_parties.count == c %>
+    </div>
   <% end %>
 <% end %>

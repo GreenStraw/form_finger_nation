@@ -1,5 +1,10 @@
+<% c = 0 %>
 <% if @created_parties.present? %>
   <% @created_parties.try(:each) do |party| %>
+    <% if c % 3 == 0 %>
+      <div class="row">
+    <% end %>
+    <% c = c + 1 %>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
         <div class="cancle_icon">
@@ -10,7 +15,7 @@
         </div>
         <div class="caption">
           <%= link_to party do %>
-            <h3> <%= party.name %> </h3>
+            <h3> <%= party.name %></h3>
           <% end %>
           <ul class="list-inline">
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
@@ -27,9 +32,8 @@
         </div>
       </div>
     </div>
-    <% $c = $c + 1 %>
-    <% if $c % 3 == 0 %>
-      <div class="clearfix"></div>
+    <% if c % 3 == 0 || @created_parties.count == c %>
+      </div>
     <% end %>
 <% end %>
 <% else %>

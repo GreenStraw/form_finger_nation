@@ -10,25 +10,31 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= image_tag(@package.image_url) %>
-    <%= f.file_field :image_url %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
-  <%= f.hidden_field :venue_id %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_field :description, class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :price %>
+      <%= f.text_field :price, class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+        <%= image_tag(@package.image_url, class: "img-responsive", id: "acc_profile_image") %>
+      </div>
+      <div class="fileUpload btn btn-green btn_full">
+      <span>Upload Photo</span>
+        <%= f.file_field :image_url, class: "upload" %>
+      </div>
+    </div>
+    <%= f.hidden_field :venue_id %>
+    <div class="actions">
+      <%= f.submit "Save", class: "btn btn-green btn-default" %>
+      <%= link_to 'Back', packages_path, class: "btn btn-green btn-default" %>
+    </div>
 <% end %>

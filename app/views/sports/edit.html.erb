@@ -1,9 +1,25 @@
-<h1><%= @sport.name %></h1>
-
-<%= render partial: 'form' %>
-
-<%= link_to 'Back', sports_path %>
-
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="Following_header sport_header  row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2 class="form-title"><%= @sport.name %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+          <div class="follow">
+            <div class="col-md-5">
+              <h2 class="form-title">Information</h2>
+              <%= render partial: 'form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
