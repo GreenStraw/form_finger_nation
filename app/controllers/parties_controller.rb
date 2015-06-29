@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties]
+  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
@@ -62,15 +62,22 @@ class PartiesController < ApplicationController
     teams.try(:each) do |team|
       @created_parties.concat(team.parties.where('parties.organizer_id = ? ', current_user.id) )
     end
-
-    puts '-'*80
-    puts @created_parties
-    puts '-'*80
     # @created_parties = current_user.parties.where("parties.name ILIKE ?", key)
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
     end
+  end
+
+  def get_parties
+    puts 'i am here'*80
+    @created_parties =  current_user.parties
+
+    respond_to do |format|
+      format.js
+      format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
+    end
+
   end
 
   def get_team_parties
@@ -109,11 +116,12 @@ class PartiesController < ApplicationController
 
   # POST /parties
   def create
-    to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
-    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
-    params[:party][:scheduled_for] = ''
+    # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
+    # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
+    # params[:party][:scheduled_for] = ''
+    # return render json: params.inspect
     @party.save
-    @party.update_column("scheduled_for", DateTime.parse(date_s))
+    # @party.update_column("scheduled_for", DateTime.parse(date_s))
     current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party
   end
@@ -126,7 +134,7 @@ class PartiesController < ApplicationController
 
   # DELETE /parties/1
   def destroy
-    flash[:success] = 'Party was successfully destroyed.' if @party.destroy
+    flash[:success] = 'Party was successfully deleted.' if @party.destroy
     respond_with @party
   end
 
@@ -196,6 +204,6 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
     end
 end

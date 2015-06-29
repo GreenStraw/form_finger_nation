@@ -116,7 +116,7 @@ $(document).ready(function() {
       $("#time_slideVal").text(startTime);
     });
 
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
     
     $('#ex2').slider();
     $('input').iCheck({
@@ -143,6 +143,19 @@ $(document).ready(function() {
     $("#sport_image_url").change(function(){
       var input = document.getElementById("sport_image_url");
       change_img(input)
+    });
+
+    $("#party_ph_change").on("click" ,function(){
+      console.log("in party upload photo");
+      var input = document.getElementById("party_image_url");
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#acc_profile_image')
+          .attr('src', e.target.result)
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     });
 
   $('#new_venue').on('ifChecked', function() {

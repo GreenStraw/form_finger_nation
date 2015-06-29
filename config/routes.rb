@@ -28,6 +28,7 @@ Baseapp::Application.routes.draw do
       get 'cant_find'
       get 'ajaxsearch'
       get 'get_team_parties'
+      get 'get_parties'
       get 'check_friendly_url_availablitiy'
     end
     member do
@@ -48,6 +49,9 @@ Baseapp::Application.routes.draw do
       put 'remove_host'
       put 'add_admin'
       put 'remove_admin'
+    end
+    collection do
+      get 'search'
     end
   end
   resources :venues do
