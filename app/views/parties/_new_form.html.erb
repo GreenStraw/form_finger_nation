@@ -95,53 +95,21 @@
         </div>
       </div>
     </div>
-
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label for="exampleInputName9">Watch Party Picture</label>
-          <div class="form-group">
-            <%= image_tag(@party.image_url, class: "img-responsive", id: "acc_profile_image") %>
-          </div>
-          <button type="button" class="btn btn-green btn_full" data-toggle="modal" data-target="#myPhotoModal">
-                Choose Picture
-          </button> 
+          <span class="file-input btn btn-block btn-green btn-file">
+            Choose File<%= f.file_field :image_url, class: "upload" %>
+          </span>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="form-group">
-          <%= image_tag "vendor/logo2.png", class: "img-responsive" %>
+          <%= image_tag("vendor/logo2.png", class: "img-responsive", id: "acc_profile_image") %>
         </div>
       </div>
     </div>
-    <div class="modal fade upload_image" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="col-md-4">
-                  <h3><a href="#">Photo Upload</a></h3>
-                </div>
-                <div class="col-md-8">
-                  <!-- <div class="form-group">
-                    <label for="exampleInputName6">Upload from URL </label>
-                    <input type="text" class="form-control" id="exampleInputName6">
-                  </div> -->
-                  <div class="form-group">
-                    <div class="fileUpload btn btn-green btn_full">
-                      <span>Upload Photo from Computer</span>
-                      <%= f.file_field :image_url, class: "upload" %>
-                    </div>
-                    <div class="form-group">
-                      <button type="button" class="btn btn-green btn_full" data-dismiss="modal" id="party_ph_change">
-                        Update Party Photo
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">

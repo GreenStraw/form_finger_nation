@@ -11,7 +11,6 @@
       <div class="banner row ptb15">
         <div class="input-area row col-md-offset-1 col-md-11">
           <div class="right-inner-addon ">
-            <i class="fa fa-search fa-6"></i>
             <input type="text" id = "search" class="form-control" placeholder="">
             <button class="btn btn-default" type="button" id = "searchBtn"><i class="fa fa-search fa-6"></i></button>
           </div>
@@ -154,7 +153,7 @@
   });
 
   $("#searchBtn").click(function(e){
-    var keyword = $("#searchbox").val();
+    var keyword = $("#search").val();
     $.ajax({
       url: "/teams/search",
       type: "GET",

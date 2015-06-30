@@ -1,6 +1,6 @@
 <%= form_for(@team, url: add_admin_team_path, method: :put, format: :js, remote: true) do |f| %>
   <br>
-  <%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', 'username'), include_blank: true, prompt: 'select a user to add as team admin', class: 'select2 form-control' %><br>
+  <%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', 'username'), include_blank: true, prompt: 'select a user to add as team admin', class: 'form-control' %><br>
   <%= f.submit 'Add Admin', class: 'btn btn-success btn-sm' %>
   <br>
   <div id='team-admin-table'>
