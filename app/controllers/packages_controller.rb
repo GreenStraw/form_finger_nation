@@ -40,7 +40,7 @@ class PackagesController < ApplicationController
   def destroy
     venue = @package.venue
     @package.destroy
-    redirect_to edit_venue_path(venue), notice: 'Package was successfully destroyed.'
+    redirect_to edit_venue_path(venue), notice: 'Package was successfully deleted.'
   end
 
   def assign

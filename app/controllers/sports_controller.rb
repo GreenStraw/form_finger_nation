@@ -47,7 +47,7 @@ class SportsController < ApplicationController
   # DELETE /sports/1
   def destroy
     @sport.destroy
-    redirect_to sports_url, notice: 'Sport was successfully destroyed.'
+    redirect_to sports_url, notice: 'Sport was successfully deleted.'
   end
 
   def delete_team

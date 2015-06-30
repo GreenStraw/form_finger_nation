@@ -141,7 +141,7 @@ class PartiesController < ApplicationController
 
   def cancel_reservation
     p = PartyReservation.find(params[:id])
-    flash[:success] = 'Successfully destroyed.' if p.destroy
+    flash[:success] = 'Successfully deleted.' if p.destroy
     redirect_to :back
   end
 

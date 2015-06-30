@@ -43,7 +43,7 @@ class VouchersController < ApplicationController
   # DELETE /vouchers/1
   def destroy
     @voucher.destroy
-    redirect_to vouchers_url, notice: 'Voucher was successfully destroyed.'
+    redirect_to vouchers_url, notice: 'Voucher was successfully deleted.'
   end
   
   

@@ -14,16 +14,16 @@
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <div class="form-group">
       <%= image_tag(@sport.image_url, class: "img-responsive", id: "acc_profile_image") %>
     </div>
-    <div class="col-md-2 fileUpload btn btn-green btn_full">
-    <span>Upload Photo</span>
+    <div class="fileUpload btn btn-green btn_full">
+      <span>Upload Photo</span>
       <%= f.file_field :image_url, class: "upload" %>
     </div>
   </div>
-  <div class="actions">
+  <div class="actions col-md-7">
     <%= f.submit "Save", class: "btn btn-green btn-default"  %>
     <%= link_to 'Back', sports_path, class: "btn btn-green btn-default" %>
   </div>

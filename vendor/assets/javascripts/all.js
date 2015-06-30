@@ -150,6 +150,11 @@ $(document).ready(function() {
       change_img(input)
     });
 
+    $("#team_image_url").change(function(){
+      var input = document.getElementById("team_image_url");
+      change_img(input)
+    });
+
     $("#party_ph_change").on("click" ,function(){
       console.log("in party upload photo");
       var input = document.getElementById("party_image_url");

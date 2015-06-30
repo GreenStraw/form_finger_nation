@@ -50,7 +50,7 @@ class VenuesController < ApplicationController
   # DELETE /venues/1
   def destroy
     @venue.destroy
-    redirect_to venues_url, notice: 'Venue was successfully destroyed.'
+    redirect_to venues_url, notice: 'Venue was successfully deleted.'
   end
 
   def add_manager
