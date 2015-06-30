@@ -7,18 +7,13 @@ class PartiesController < ApplicationController
 
   # GET /parties
   def index
-    #@c = 0
+    $c = 0
     @user = current_user
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams
   end
 
-  def n_sign_up
-    sign_out current_user
-    redirect_to new_user_registration_path
-  end
-  
   def search
     if params[:party].nil?
       params[:party] = {}
@@ -50,6 +45,9 @@ class PartiesController < ApplicationController
   end
 
   def ajaxsearch
+    $c = 0
+    # search_results = Party.search_by_params(params[:party])
+    # @rvs_parties = current_user.party_reservations.where("name LIKE ? or description LIKE ?","%#{params[:keyword]}%","%#{params[:keyword]}%")
     key = "%#{params[:keyword]}%"
     key = key.downcase
     @created_parties  = []
@@ -83,6 +81,7 @@ class PartiesController < ApplicationController
   end
 
   def get_team_parties
+    $c = 0
     @created_parties = Team.find(params[:team]).parties.where('parties.organizer_id = ? ', current_user.id)
     respond_to do |format|
       format.js
@@ -117,12 +116,12 @@ class PartiesController < ApplicationController
 
   # POST /parties
   def create
-    # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
-    # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
-    # params[:party][:scheduled_for] = ''
+    to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
+    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
+    params[:party][:scheduled_for] = ''
     # return render json: params.inspect
     @party.save
-    # @party.update_column("scheduled_for", DateTime.parse(date_s))
+    @party.update_column("scheduled_for", DateTime.parse(date_s))
     current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
     respond_with @party
   end

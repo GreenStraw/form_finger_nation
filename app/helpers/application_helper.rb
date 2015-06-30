@@ -11,26 +11,30 @@ module ApplicationHelper
     # puts "-----------------\n"*2
     # puts controller_name + "/" + action_name
     # puts "1111111111111111111\n"*2
+                            # "sessions/new",
+                            # "registrations",
+                            # "milia/sessions",
+                            # "milia/passwords",
+                            # "devise/registrations",
+                            # "parties",
+                            # "sports",
+                            # "account",
+                            # "vouchers",
+                            # "users",
+                            # "teams"
     
     restrict_controllers = [
-                            "sessions/new",
-                            "registrations",
-                            "milia/sessions",
-                            "milia/passwords",
-                            "devise/registrations",
-                            "parties",
-                            "sports",
-                            "account",
-                            "vouchers",
-                            "users",
-                            "teams"
-
+                            "home",
+                            "about",
+                            "about2",
+                            "how",
+                            "faq",
                             ]
       
-    if restrict_controllers.include?(controller_name.to_s)
-      return true
+    if restrict_controllers.include?(action_name.to_s)
+      return false
     end
-    return false
+    return true
   end
 
   def site_url

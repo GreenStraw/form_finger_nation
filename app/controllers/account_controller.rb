@@ -1,11 +1,16 @@
 class AccountController < ApplicationController
-
+  before_action :authenticate_user!, :only => [:show]
   def show
     @user = current_user
   end
 
   def new
     @user = User.new
+  end
+
+  def n_sign_up
+    sign_out current_user
+    redirect_to new_user_registration_path
   end
 
   def create

@@ -9,12 +9,14 @@ $(document).ready(function() {
     if( str == "RSVPs"){
       h_str = str;
       str = "create_parties";
+      // $("div.cl_rsvp_party").remove(); 
+      // $(".add_rsvp_party:nth-child(3n)").after("<div class='clearfix cl_rsvp_party'></div>");
     }
     else
       str = "rsvp_party";
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
-    document.getElementById("p_heading").innerHTML = h_str; 
+    document.getElementById("p_heading").innerHTML = h_str;
   });
 
 
@@ -129,14 +131,18 @@ $(document).ready(function() {
 
     $("#acc_ph_change").on("click" ,function(){
       var input = document.getElementById("user_image_url");
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $('#acc_profile_image')
-          .attr('src', e.target.result)
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
+      change_img(input)
+      
+    });
+
+    $("#package_image_url").change(function(){
+      var input = document.getElementById("package_image_url");
+      change_img(input)
+    });
+
+    $("#sport_image_url").change(function(){
+      var input = document.getElementById("sport_image_url");
+      change_img(input)
     });
 
     $("#party_ph_change").on("click" ,function(){
@@ -244,4 +250,14 @@ function getTime(hours, minutes) {
     minutes = "0" + minutes;
   }
   return hours + ":" + minutes;
+}
+function change_img(input){
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#acc_profile_image')
+      .attr('src', e.target.result)
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
 }

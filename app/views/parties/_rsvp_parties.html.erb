@@ -1,5 +1,10 @@
+<% c = 0 %>
 <% @rvs_parties.each do |party_reservation| %>
-  <div class="col-sm-6 col-md-4">
+  <% if c % 3 == 0 %>
+    <div class="row">
+  <% end %>
+  <% c = c + 1 %>
+  <div class="col-sm-6 col-md-4 add_rsvp_party">
     <div class="thumbnail">
       <div class="cancle_icon">
         <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
@@ -28,8 +33,7 @@
       </div>
     </div>
   </div>
-  <%# @c = @c + 1 %>
-  <%# if @c % 3 == 0 %>
-    <!-- <div class="clearfix"></div> -->
-  <%# end %>
+  <% if c % 3 == 0 || @created_parties.count == c %>
+    </div>
+  <% end %>
 <% end %>

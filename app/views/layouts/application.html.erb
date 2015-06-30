@@ -52,6 +52,15 @@
         <%= render 'layouts/flash' %>
         <% unless check_controller %>
           <%= render 'layouts/nav_main' %>
+        <% else %>
+          <div id="wrapper">
+           <div class="mobile_header  ">
+            <a href="#menu-toggle" class="btn btn-default pull-left " id="menu-toggle"><i class="fa fa-bars"></i> </a>
+            <div class="logo ">
+              <%= link_to(image_tag("vendor/logo2.png"), root_path, alt: "FFN") %>
+            </div>
+          </div>
+          <%= render "layouts/black_side" %>
         <% end %>
         <%= yield %>
         <% unless check_controller %>

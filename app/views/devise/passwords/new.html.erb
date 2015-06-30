@@ -1,19 +1,38 @@
-<h2 class="form-title">Forgot your password?</h2>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="Following_header sport_header  row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2 class="form-title">Forgot your password?</h2>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div class="follow">
+            <div class="col-md-8">
+              <h2 class="form-title">Give your email</h2>
+              <%= form_for(resource, :as => resource_name, :url => password_path(resource_name, format: :html), :html => { :class => "form login signup-form" }) do |f| %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name, format: :html), :html => { :class => "form login signup-form" }) do |f| %>
+                <%= devise_error_messages! %>
 
-  <%= devise_error_messages! %>
+                <div class="input">
+                  <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address', :autofocus => true %>
+                </div>
+                </br>
 
-  <div class="input">
-    <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address', :autofocus => true %>
+                <div class="input">
+                  <button class="btn btn-primary green-btn green-btn-wide" type="submit">Reset Password</button>
+                </div>
+                </br>
+
+              <% end %>
+
+              <%= render :partial => "devise/shared/links" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </br>
-
-  <div class="input">
-    <button class="btn btn-primary green-btn green-btn-wide" type="submit">Reset Password</button>
-  </div>
-  </br>
-
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+</div>

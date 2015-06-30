@@ -15,7 +15,7 @@
           <% end %>
         </div>
         <span class="user_name">
-          <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name %></a></strong>
+          <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name rescue current_user.username %></a></strong>
         </span>
         <span class="sign_up">
           <%= link_to n_sign_up_path do %>
@@ -27,7 +27,7 @@
         </span>
       </li>
       <li>
-        <a href="#"  data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.location rescue "Not present" %></span>  <small>(change)</small></a>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.location rescue "Not present" %></span>  <small>(change)</small></a>
       </li>
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
