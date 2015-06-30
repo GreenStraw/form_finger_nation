@@ -154,7 +154,7 @@
   });
 
   $("#searchBtn").click(function(e){
-    var keyword = $("#searchbox").val();
+    var keyword = $("#search").val();
     $.ajax({
       url: "/teams/search",
       type: "GET",

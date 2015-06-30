@@ -11,48 +11,49 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class = "form-group">
     <%= f.label "Logo" %><br>
     <%= image_tag(@venue.image_url) if @venue.image_url? %>
     <%= f.file_field :image_url %>
   </div>
-  <div class="field">
+  <div class = "form-group">
     <%= f.label "Name*" %><br>
-    <%= f.text_field :name, class: 'required' %>
+    <%= f.text_field :name, class: 'required form-control' %>
   </div>
-  <div class="field">
+  <div class = "form-group">
     <%= f.label raw("Description*") %><br>
-    <%= f.text_field :description, class: 'required' %>
+    <%= f.text_field :description, class: 'required form-control' %>
   </div>
 
   <%= f.fields_for :address_attributes do |a| %>
-    <div class='field'>
+    <div class = "form-group">
       <%= a.label "Street1*" %><br>
-      <%= a.text_field :street1, class: 'required' %>
+      <%= a.text_field :street1, class: 'required form-control' %>
     </div>
 
-    <div class='field'>
+    <div class = "form-group">
       <%= a.label :street2 %><br>
-      <%= a.text_field :street2 %>
+      <%= a.text_field :street2 , class: 'form-control' %>
     </div>
 
-    <div class='field'>
-      <%= a.label "City*", class: 'required' %><br>
-      <%= a.text_field :city %>
+    <div class = "form-group">
+      <%= a.label "City*"%><br>
+      <%= a.text_field :city ,class: 'form-control' %>
     </div>
 
-    <div class='field'>
+    <div class = "form-group">
       <%= a.label "State*" %><br>
-      <%= a.text_field :state, class: 'required' %>
+      <%= a.text_field :state, class: 'required form-control' %>
     </div>
 
-    <div class='field'>
+    <div class = "form-group">
       <%= a.label "Zip*" %><br>
-      <%= a.text_field :zip, class: 'required' %>
+      <%= a.text_field :zip, class: 'required form-control' %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', venues_path , class: "btn btn-default" %>
+    <%= f.submit  class:"btn btn-success" %>
   </div>
 <% end %>
