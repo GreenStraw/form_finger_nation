@@ -1,6 +1,6 @@
 <h1>Invite Friends</h1>
 
-  <%= form_for "invites", url: send_invites_path(@party.id) do |f| %>
+  <%= form_for "invites", url: send_invites_path(@party.friendly_url) do |f| %>
 
     <div id="InputsWrapper">
       <div class="field">
