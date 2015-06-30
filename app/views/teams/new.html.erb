@@ -1,5 +1,26 @@
-<h1>New team</h1>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">New team</h2>
+        </div>
+      </div>
+    </div>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <div class="follow">
+          <div class="col-md-8">
+            <%= render 'new_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 
-<%= render 'new_form' %>
-
-<%= link_to 'Back', edit_sport_path(@team.sport) %>

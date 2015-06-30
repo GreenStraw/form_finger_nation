@@ -1,6 +1,7 @@
 <%= form_tag( "/add_admin", method: :put, remote: true) %>
-<%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', 'username'), include_blank: true, prompt: 'select a user to add as an', class: 'select2', style: 'width: 300px;' %>
-<%= submit_tag 'Add Admin', class: 'btn btn-success btn-sm' %>
+<%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', 'username'), include_blank: true, prompt: 'select a user to add as an', class: 'form-control' %>
+<br>
+<%= submit_tag 'Add Admin', class: 'btn btn-success btn-sm pull-right' %>
 <br>
 <div id='admin-table'>
   <table class='table table-hover borderless'>

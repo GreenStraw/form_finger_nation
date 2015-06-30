@@ -1,4 +1,28 @@
-<h3>Manage Admins</h3>
-<div class='tab-pane' id="manage_admins">
-  <%= render partial: 'manage_admins' %>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header  row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">Manage Admins</h2>
+        </div>
+      </div>
+    </div>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <div class="follow">
+          <div class="col-md-8">
+            <div class='tab-pane' id="manage_admins">
+              <%= render partial: 'manage_admins' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+</div>
+</div>
+
