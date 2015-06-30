@@ -111,6 +111,7 @@
 
 
 <script type="text/javascript">
+
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
@@ -118,4 +119,5 @@
     handler.fitMapToBounds();
     handler.getMap().setZoom(11)
   });
+
 </script>

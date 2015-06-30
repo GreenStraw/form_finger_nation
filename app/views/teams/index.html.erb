@@ -12,7 +12,8 @@
         <div class="input-area row col-md-offset-1 col-md-11">
           <div class="right-inner-addon ">
             <i class="fa fa-search fa-6"></i>
-            <input type="search" id = "search" class="form-control" placeholder="">
+            <input type="text" id = "search" class="form-control" placeholder="">
+            <button class="btn btn-default" type="button" id = "searchBtn"><i class="fa fa-search fa-6"></i></button>
           </div>
           <div class="btn-group">
             <button class="btn btn-gray btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -150,5 +151,18 @@
         }
       });
     }
+  });
+
+  $("#searchBtn").click(function(e){
+    var keyword = $("#searchbox").val();
+    $.ajax({
+      url: "/teams/search",
+      type: "GET",
+      data: { "keyword": keyword },
+      dataType: 'script',
+      success: function(resp){ 
+        console.log(resp);
+      }
+    });
   });
 </script>

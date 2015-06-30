@@ -2,7 +2,11 @@
   <ul class="sidebar-nav">
     <li class="sidebar-brand">
       <div class="logo">
-        <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
+        <% if !current_user %>
+          <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
+        <% else %>
+          <%= link_to(image_tag("vendor/logo2.png"), parties_path) %>
+        <% end %>
       </div>
     </li>
     <% if current_user %>
