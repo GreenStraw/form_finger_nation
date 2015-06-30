@@ -1,10 +1,11 @@
 <%= form_for(@package) do |f| %>
-
   <div class="col-md-4">
-  <div class="field">
-    <%= image_tag(@package.image_url) %>
+  <div class="form-group">
+    <%= image_tag(@package.image_url) %><br>
     <%= f.file_field :image_url %>
   </div>
+  </div>
+  <div class="col-md-8">
   <% if @package.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
@@ -16,8 +17,6 @@
       </ul>
     </div>
   <% end %>
-  </div>
-  <div class="col-md-8">
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>

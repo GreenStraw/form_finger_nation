@@ -1,37 +1,51 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-xs-3'>
-      <div class="details-container">
-        <%= render partial: 'details' %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="sport_header row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2 class="form-title">Teams</h2>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class='col-xs-8'>
-      <ul class='nav nav-tabs' role='tablist'>
-      <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
-        <% if current_user.managed_teams.include?(@team) %>
-          <li><a href="#manage_hosts" role='tab' data-toggle='tab'>Manage Hosts</a></li>
-        <% end %>
-        <% if current_user.admin? %>
-          <li><a href="#manage_admins" role='tab' data-toggle='tab'>Manage Team Admins</a></li>
-        <% end %>
-      </ul>
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+          <div class="follow">
+            <div class="col-md-12">
+              <div class='col-xs-12'>
+                <ul class='nav nav-tabs' role='tablist'>
+                  <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+                  <% if current_user.managed_teams.include?(@team) %>
+                  <li><a href="#manage_hosts" role='tab' data-toggle='tab'>Manage Hosts</a></li>
+                  <% end %>
+                  <% if current_user.admin? %>
+                  <li><a href="#manage_admins" role='tab' data-toggle='tab'>Manage Team Admins</a></li>
+                  <% end %>
+                </ul>
+                <div class='tab-content'>
+                  <div class='tab-pane active' id="info">
+                    <br>
+                    <%= render 'form' %>
+                  </div>
 
-      <div class='tab-content'>
-        <div class='tab-pane active' id="info">
-          <%= render 'form' %>
-        </div>
+                  <div class='tab-pane' id="manage_hosts">
+                    <%= render partial: 'manage_hosts' %>
+                  </div>
 
-        <div class='tab-pane' id="manage_hosts">
-          <%= render partial: 'manage_hosts' %>
-        </div>
-
-        <div class='tab-pane' id="manage_admins">
-          <%= render partial: 'manage_admins' %>
+                  <div class='tab-pane' id="manage_admins">
+                    <%= render partial: 'manage_admins' %>
+                  </div>
+                </div>
+              </div>
+              <%= link_to 'Show', @team %> |
+              <%= link_to 'Back', teams_path %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <%= link_to 'Show', @team %> |
-  <%= link_to 'Back', teams_path %>
 </div>
+

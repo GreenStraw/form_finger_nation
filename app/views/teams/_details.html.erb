@@ -1,18 +1,5 @@
 <div class='row'>
   <%= image_tag(@team.image_url) %>
-  <div class='pull-right'>
-    <% if current_user %>
-      <% if (current_user.try(:followed_teams) || []).include?(@team) %>
-        <%= link_to(unsubscribe_team_path(@team), remote: true, method: :put) do%>
-          <i class='fa fa-star'></i>
-        <% end %>
-      <% else %>
-        <%= link_to(subscribe_team_path(@team), remote: true, method: :put, id: 'subscribe-link') do%>
-          <i class='fa fa-star-o'></i>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
 </div>
 <div class='row'>
   <h1><%= @team.name.upcase %></h1>

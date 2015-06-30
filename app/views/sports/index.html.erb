@@ -10,24 +10,19 @@
       </div>
       <div class="main-area">
         <div class="row">
-          <div id='message-div' class="alert alert-success hidden" role="alert">
-            <span id="alert-message-text"></span>
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
-          <table class='table borderless table-hover'>
-            <tbody>
+          <ul class="list-group">
               <% @sports.each do |sport| %>
-                <tr>
-                  <td><%= image_tag(sport.image_url.thumb) %></td>
-                  <td><%= link_to sport.name, sport_path(sport) %></td>
-                  <% if user_signed_in? && current_user.admin? %>
-                    <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
-                    <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  <% end %>
-                </tr>
+                <%= image_tag(sport.image_url.thumb) %>
+                <%= link_to sport.name, sport_path(sport) %>
+                <% if user_signed_in? && current_user.admin? %>
+                  <%= link_to 'Edit', edit_sport_path(sport) %>
+                  <%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
               <% end %>
-            </tbody>
-          </table>
+          </ul>
           <%= link_to 'New Sport', new_sport_path %>
         </div>
       </div>
