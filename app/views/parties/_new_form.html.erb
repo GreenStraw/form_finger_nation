@@ -78,7 +78,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :scheduled_for, "Date" %>
-          <%= f.text_field :scheduled_for, class: "form-control datepicker" %>
+          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11" %>
         </div>
       </div>
       <div class="col-md-6">
@@ -125,7 +125,7 @@
               'slider-step' => '1' }
               %>
             <div class="col-md-12 ">
-              <input type="hidden" class="hid_rsvp" name="party[max_rsvp]">
+              <input type="hidden" class="hid_rsvp" name="party[max_rsvp]" value="<%= @party.max_rsvp %>">
               <%= text_field_tag "rsvp_slide", nil, type: 'text',
               data: {'slider-id' => 'rsvp_slideSlider',
               'slider-min' => '0',
@@ -136,7 +136,7 @@
           </div>
         <!-- <span id="time_slideVal">3</span></span> -->
         <div class="text-center">
-          <h2><strong id="rsvp_slideVal"><%= @party.max_rsvp %></strong><strong> RSVPs</strong></h2>
+          <h2><strong id="rsvp_slideVal"><% if @party.max_rsvp %><%= @party.max_rsvp %><% else %>5<% end %></strong><strong> RSVPs</strong></h2>
         </div>
       </div>
       <div class="form-group">

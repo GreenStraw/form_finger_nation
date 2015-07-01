@@ -129,7 +129,11 @@ class PartiesController < ApplicationController
 
   # PATCH/PUT /parties/1
   def update
+    to_date = params[:party][:scheduled_for]
+    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
     flash[:success] = 'Party was successfully updated.' if @party.update(party_params)
+    @party.update_column("scheduled_for", DateTime.parse(date_s))
+    @party.save
     respond_with @party
   end
 
