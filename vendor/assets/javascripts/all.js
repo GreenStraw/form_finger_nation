@@ -105,6 +105,8 @@ $(document).ready(function() {
 
     $('#ex1').slider();
     $('#time_slide').slider();
+    $('#rsvp_slide').slider();
+
     $("#time_slide").on("slide", function(slideEvt) {
       $("#time_slideVal").text(slideEvt.value);
       var val0 = slideEvt.value,
@@ -114,6 +116,12 @@ $(document).ready(function() {
       $("#time").text(startTime); //+ ' - ' + endTime
       $(".hid_class").val(startTime);
       $("#time_slideVal").text(startTime);
+    });
+
+    $("#rsvp_slide").on("slide", function(slideEvt) {
+      var val0 = slideEvt.value;
+      $(".hid_rsvp").val(val0);
+      $("#rsvp_slideVal").text(val0);
     });
 
     $('.datepicker').datepicker({format: 'yyyy-mm-dd'});

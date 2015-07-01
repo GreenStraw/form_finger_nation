@@ -3,55 +3,39 @@
     <div class="sport_header  row">
       <div class="col-md-12">
         <div class="sport_caption col-md-4 pull-right ">
-          <h2 class="form-title">Create Account</h2>
+          <h2 class="form-title">Venue</h2>
         </div>
       </div>
     </div>
     <div class="main-area">
-      <div class="row">
+      <div class="row" style="color:black;">
         <div id='notice'>
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
         <div class="follow">
           <div class="col-md-8">
             <%= render partial: 'details' %>
-            <h2 class="form-title">Information</h2>
-            <%= render "account/form"%>
-            <%= render "devise/shared/links"  %>
+            <div class="map_holder">
+              <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
+                <div id="map" style='width: 100%; height: 200px;'></div>
+              <% end %>
+            </div>
+            <h3>Upcoming Parties</h3>
+            <% if @venue.upcoming_parties.any? %>
+              <%= render partial: 'parties', locals: { parties: @venue.upcoming_parties } %>
+            <% else %>
+              <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
+            <% end %>
+            <%= link_to 'Venues', venues_path %>
+            <% if current_user.present? && current_user.can?(:edit, @venue) %>
+              | <%= link_to 'Edit', edit_venue_path(@venue) %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class='row' style="color:black;">
-  <div class='col-xs-3'>
-    <div class="details-container">
-    </div>
-  </div>
-  <div class='col-xs-8'>
-    <div class='row'>
-      <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
-        <div id="map"></div>
-      <% end %>
-    </div>
-    <div class='row' style='padding-top: 10px;'>
-      <h3>Upcoming Parties</h3>
-      <% if @venue.upcoming_parties.any? %>
-        <%= render partial: 'parties', locals: { parties: @venue.upcoming_parties } %>
-      <% else %>
-        <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<%= link_to 'Venues', venues_path %>
-<% if current_user.present? && current_user.can?(:edit, @venue) %>
-  | <%= link_to 'Edit', edit_venue_path(@venue) %>
-<% end %>
-
 <script type="text/javascript">
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
