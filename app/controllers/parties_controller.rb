@@ -11,7 +11,7 @@ class PartiesController < ApplicationController
     @user = current_user
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
-    @teams = @user.followed_teams
+    @teams = @user.followed_teams.order("name ASC")
   end
 
   def search

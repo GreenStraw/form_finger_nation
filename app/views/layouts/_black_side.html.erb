@@ -63,10 +63,10 @@
         <span class="">
           <a  href="<%= new_password_path(resource_name) %>" class="<%= 'active_p' if current_page?( new_password_path(resource_name) ) %>">Forgot password?</a>
         </span>
-        
       </li>
     <% end %>
   </ul>
+  <!-- <p>©Copyright Amicability, LLC <%#= Time.now.year %></p> -->
 </div>
 <% if current_user %>
   <%= render partial: '/layouts/location' %>
