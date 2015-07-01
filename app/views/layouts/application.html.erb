@@ -65,6 +65,8 @@
         <%= yield %>
         <% unless check_controller %>
           <%= render 'layouts/footer' %>
+        <% else %>
+          </div>
         <% end %>
       </div>
     <!-- </div> -->

@@ -13,7 +13,7 @@
         {
           FieldCount++; //text box added increment
           //add input box
-          $(InputsWrapper).append('<div class="field" ><input type="text" name="invites[email_' + FieldCount + ']" id="invites_email_'+ FieldCount +'" value=""/><a href="#" class="removeclass">&times;</a></div>');
+          $(InputsWrapper).append('<div class="form-group" ><input type="text" name="invites[email_' + FieldCount + ']" id="invites_email_'+ FieldCount +'" value="" class="form-control"/> <a href="#" class="removeclass">&times;</a></div>');
           x++; //text box increment
         }
     return false;

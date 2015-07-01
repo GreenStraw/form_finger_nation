@@ -74,11 +74,13 @@
               </div>
               <ul class="nav nav-pills">
                 <div class="col-md-3 col-sm-6">
-                  <li role="presentation" class=""><a href="#"><h4>TEAMS</h4></a></li>
+                  <li role="presentation" class=""><a href="/teams"><h4>My Teams</h4></a></li>
                 </div>
                   <% @teams.try(:each) do |team| %>
                   <div class="col-md-3 col-sm-6">
-                    <li role="presentation"><%= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %></a></li>
+                    <li role="presentation">
+                      <%= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %>
+                    </li>
                   </div>
                   <% end %>
               </ul>

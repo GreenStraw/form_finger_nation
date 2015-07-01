@@ -36,6 +36,11 @@
         </div>
       </div>
       <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+        </div>
         <div class="row sp_contents" id="redeemable">
           <ul class="list-group">
             <% if @redeemable_vouchers.any? %>

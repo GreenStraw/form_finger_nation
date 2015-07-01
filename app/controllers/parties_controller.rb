@@ -1,6 +1,6 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
-  before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp]
+  before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp, :send_invites]
   load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
