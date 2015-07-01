@@ -23,7 +23,8 @@
     </div>
     <div class="form-group">
       <label for="exampleInputName3">Business Name </label>
-      <input type="text" class="form-control" id="exampleInputName3">
+      <%= f.text_field :business_name, class: "form-control" %>
+      <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
     </div>
     
     <div class="form-group" id='venue-select'>
@@ -124,7 +125,7 @@
               'slider-step' => '1' }
               %>
             <div class="col-md-12 ">
-              <input type="hidden" class="hid_rsvp" name="party[hid_rsvp]">
+              <input type="hidden" class="hid_rsvp" name="party[max_rsvp]">
               <%= text_field_tag "rsvp_slide", nil, type: 'text',
               data: {'slider-id' => 'rsvp_slideSlider',
               'slider-min' => '0',
@@ -135,7 +136,7 @@
           </div>
         <!-- <span id="time_slideVal">3</span></span> -->
         <div class="text-center">
-          <h2><strong id="rsvp_slideVal">5</strong><strong> RSVPs</strong></h2>
+          <h2><strong id="rsvp_slideVal"><%= @party.max_rsvp %></strong><strong> RSVPs</strong></h2>
         </div>
       </div>
       <div class="form-group">
@@ -152,15 +153,17 @@
       </div>
       <div class="form-group">
         <label for="exampleInputName12">Tags  </label>
-        <input type="text" class="form-control" id="exampleInputName12">
+        <%= f.text_field :tags, class: "form-control" %>
+
+        <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
       </div>
       <div class="form-group radio_create">
         <h6><label for="exampleInputName13">Party Type  </label></h6>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">  Open Invite
+          <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">Invite Only
+          <%= f.radio_button :invite_type, 'private' %> Invite Only
         </label>
       </div>
     </div>
