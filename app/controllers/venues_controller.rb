@@ -1,9 +1,11 @@
 class VenuesController < ApplicationController
   respond_to :html, :js
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
+  before_action :set_party, only: [:verify_party, :unverify_party]
   load_and_authorize_resource :venue
   load_and_authorize_resource :user
   load_and_authorize_resource :party
+  before_action :authenticate_user!
 
   # GET /venues
   def index
@@ -49,7 +51,7 @@ class VenuesController < ApplicationController
   # DELETE /venues/1
   def destroy
     @venue.destroy
-    redirect_to venues_url, notice: 'Venue was successfully destroyed.'
+    redirect_to venues_url, notice: 'Venue was successfully deleted.'
   end
 
   def add_manager
@@ -84,6 +86,10 @@ class VenuesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_venue
       @venue = Venue.find(params[:id])
+    end
+
+    def set_party
+      @party = Party.find_by_friendly_url(params[:party_id])
     end
 
     # Only allow a trusted parameter "white list" through.

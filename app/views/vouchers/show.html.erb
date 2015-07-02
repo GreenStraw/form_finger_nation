@@ -1,38 +1,65 @@
-<p id="notice"><%= notice %></p>
-
-<h3>Voucher Information</h3>
-<div id="voucher-show">
-  <span id= "voucher-party-info">
-    <span class="voucher-text">
-		<%= @voucher.party.team.name %>
-	</span>
-	<br/>
-    <%= image_tag @voucher.party.team.image_url %>
-  </span>
-  <span id="voucher-venue-info">
-    <%= @voucher.party.venue.name %>
-	<br/><br/>
-    <%= image_tag @voucher.party.venue.image_url %>
-  </span>
-
-  <div style="clear:both;"></div>
-
-  <div id="voucher-redeemed-info">
-    <strong>Redeemed:</strong>
-    <%= @voucher.redeemed_at.to_formatted_s(:long) %>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header  row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">Voucher Information</h2>
+        </div>
+      </div>
+    </div>
+          <div class="main-area" style="color:black;">
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
+              <br><br>
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2" >
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"><%= @voucher.party.team.name %></h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                <div class=" col-md-12 col-lg-12 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Team</td>
+                        <td><%= @voucher.party.team.name %>
+                        <%= image_tag @voucher.party.team.image_url, class: 'pull-right' %></td>
+                      </tr>
+                      <tr>
+                        <td>Venue</td>
+                        <td><%= @voucher.party.venue.name %>
+                        <%= image_tag @voucher.party.venue.image_url, class: 'pull-right' %></td>
+                      </tr>
+                      <tr>
+                        <td>Redeemed</td>
+                        <td><%= @voucher.redeemed_at.to_formatted_s(:long) %></td>
+                      </tr>
+                      <tr>
+                        <td>User</td>
+                        <td><%= @voucher.user.name %></td>
+                      </tr>
+                       <tr>
+                        <td>Package</td>
+                        <td><%= @voucher.package.name %></td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            <span class="pull-right">
+              <%= link_to 'Back', vouchers_path, class: "btn btn-primary" %>
+            </span>
+            <br><br>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div id="voucher-user-info">
-    <strong>User:</strong>
-    <%= @voucher.user.name %>
-  </div>
-
-  <div id="voucher-package-info">
-    <strong>Package:</strong>
-    <%= @voucher.package.name %>
-  </div>
-
-  <%= link_to 'Back', vouchers_path %>
 </div>
-
-
+</div>
+</div>
+</div>
+</div>

@@ -1,23 +1,47 @@
-<p id="notice"><%= notice %></p>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="sport_header row">
+        <div class="col-md-12 ">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2><%= @sport.name %> Teams</h2>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+<!-- 
+          <ul class='nav nav-tabs' role='tablist'>
+            <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+            <li><a href="#teams-list" role='tab' data-toggle='tab'>Teams</a></li>
+          </ul> -->
 
-<h1><%= @sport.name %></h1>
+          <div>
+            <!-- <div class='tab-pane active' id="info">
+              <%#= render partial: 'info' %>
+            </div> -->
 
-<ul class='nav nav-tabs' role='tablist'>
-<li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
-<li><a href="#teams-list" role='tab' data-toggle='tab'>Teams</a></li>
-</ul>
+            <div id="teams-list">
+              <%#= render partial: 'teams' %>
+            </div>
+          </div>
 
-<div class='tab-content'>
-  <div class='tab-pane active' id="info">
-    <%= render partial: 'info' %>
-  </div>
-
-  <div class='tab-pane' id="teams-list">
-    <%= render partial: 'teams' %>
+          <%# if current_user.can?(:edit, @sport) %>
+            <%#= link_to 'Edit', edit_sport_path(@sport) %> |
+          <%# end %>
+          <%#= link_to 'Back', sports_path %>
+          <ul class="your_team">
+            <% if current_user.can?(:create, Team) %>
+              <div class="col-md-3 col-sm-2 col-xs-12 pull-right">
+                <%= link_to '+ Add A Team', new_sport_teams_path(@sport), class: "btn btn-green btn-default" %>
+              </div>
+            <% end %>
+            <%= render partial: 'teams' %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<% if current_user.can?(:edit, @sport) %>
-  <%= link_to 'Edit', edit_sport_path(@sport) %> |
-<% end %>
-<%= link_to 'Back', sports_path %>

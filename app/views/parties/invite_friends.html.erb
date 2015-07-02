@@ -1,20 +1,41 @@
-<h1>Invite Friends</h1>
-
-  <%= form_for "invites", url: send_invites_path(@party.id) do |f| %>
-
-    <div id="InputsWrapper">
-      <div class="field">
-        <%= f.label :emails %><br>
-        <%= f.text_field :email_1 %>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header  row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">Invite Friends</h2>
+        </div>
       </div>
     </div>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <div class="follow">
+          <div class="col-md-8">
+            <%= form_for "invites", url: send_invites_path(@party.friendly_url) do |f| %>
+              <div id="InputsWrapper">
+                <div class="form-group">
+                  <%= f.label :emails %><br>
+                  <%= f.text_field :email_1, class: "form-control" %>
+                </div>
+              </div>
 
-    <div class="field">
-      <%= link_to "Add Another", "#", id: "add-email" %>
-    </div>
+              <div class="form-group">
+                <%= link_to "Add Another", "#", id: "add-email", class: 'btn btn-sm btn-primary' %>
+              </div>
 
-    <div class="actions">
-      <%= f.submit "Send Invites" %>
+              <div class="actions">
+                <%= f.submit "Send Invites", class: 'btn btn-success pull-right' %>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
     </div>
-  <%end%>
+  </div>
+</div>
+</div>
+</div>
 

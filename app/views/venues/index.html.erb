@@ -1,16 +1,40 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% current_user.managed_venues.each do |venue| %>
-      <tr>
-        <td><%= image_tag(venue.image_url.thumb) %></td>
-        <td><h4><%= link_to(venue.name, venue) %></h4></td>
-        <td><%= venue.address.city_state %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-
-<% if current_user.can?(:create, Venue) %>
-  <%= link_to 'New Venue', new_venue_path %>
-<% end %>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header  row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">Venues</h2>
+          <% if current_user.can?(:create, Venue) %>
+            <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <ul class="list-group">
+          <% current_user.managed_venues.each do |venue| %>
+            <li class=" col-md-12 col-sm-12 col-xs-12 bb">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
+                  <div class="image-holder">
+                    <%= image_tag(venue.image_url, class: "img-responsive") %>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                  <h4><%= link_to(venue.name, venue) %></h4>
+                </div>
+                <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
+                  <%= venue.address.city_state %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

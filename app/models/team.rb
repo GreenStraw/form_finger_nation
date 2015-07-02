@@ -15,7 +15,7 @@ class Team < ActiveRecord::Base
   has_many :requested_hosts, through: :endorsement_requests, source: :user
   belongs_to :sport
   has_one :address, as: :addressable, dependent: :destroy
-
+  has_many :parties
   accepts_nested_attributes_for :address
 
   def self.ordered_teams(teams)
@@ -32,6 +32,10 @@ class Team < ActiveRecord::Base
     User.with_role(:team_admin, self) || []
   end
 
+  def upcoming_parties
+    Party.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+  end
+
   private
 
   def ensure_address
@@ -43,6 +47,8 @@ class Team < ActiveRecord::Base
   def set_default_image_url
     self.image_url = self.sport.image_url
   end
+
+
 end
 
 # == Schema Information

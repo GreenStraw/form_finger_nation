@@ -1,5 +1,6 @@
 class PackagesController < ApplicationController
   before_action :set_package, only: [:show, :edit, :update, :destroy]
+  before_action :set_party, only: [:assign, :unassign]
   respond_to :html, :js
   load_and_authorize_resource :package
   load_and_authorize_resource :venue
@@ -39,7 +40,7 @@ class PackagesController < ApplicationController
   def destroy
     venue = @package.venue
     @package.destroy
-    redirect_to edit_venue_path(venue), notice: 'Package was successfully destroyed.'
+    redirect_to edit_venue_path(venue), notice: 'Package was successfully deleted.'
   end
 
   def assign
@@ -60,6 +61,10 @@ class PackagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_package
       @package = Package.find(params[:id])
+    end
+
+    def set_party
+      @party = Party.find_by_friendly_url(params[:party_id])
     end
 
     # Only allow a trusted parameter "white list" through.

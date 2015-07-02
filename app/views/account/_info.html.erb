@@ -1,43 +1,133 @@
-<%= form_for(@user, url: update_account_path, method: :post) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="login-area col-md-5 col-md-offset-2 account">
+  <div class="login_box ">
+    <h2>ACCOUNT</h2>
+    <%= form_for(@user, url: update_account_path, method: :post) do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+      <%= f.hidden_field :id%>
+
+      <div class="form-group">
+        <%= f.label :email, "Email Address" %>
+        <%= f.email_field :email,class: "form-control" %>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name,class: "form-control" %>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name,class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :favorite_team_id, "Favorite Team" %>
+        <%= f.select :favorite_team_id, options_from_collection_for_select(Team.order("name ASC"), 'id', 'name', @user.favorite_team_id ), { :include_blank => false }, 
+          { :class => 'select2 form-control' }  %>
+      </div>
+      <div class="form-group textarea_profile">
+        <%= f.label :about, "About Myself" %>
+        <%= f.text_area :about, class: "form-control ", rows: 4 %>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :website, "Website" %> 
+            <%= f.url_field :website,class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :gender, "Gender" %>
+            <%= f.select :gender, ['Male' , 'Female'], { :include_blank => false }, 
+          { :class => 'select2 form-control' }   %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :name %> (From Facebook)
+            <%= f.text_field :name,class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :username %>
+            <%= f.text_field :username,class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= image_tag(@user.image_url, class: "img-responsive", id: "acc_profile_image") %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputName6">Upload Profile Image <br>
+              (300x300 Preference)  </label>
+              <button type="button" class="btn btn-green btn_full" data-toggle="modal" data-target="#myPhotoModal">
+                Choose
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade upload_image" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="col-md-4">
+                  <h3><a href="#">Photo Upload</a></h3>
+                </div>
+                <div class="col-md-8">
+                  <!-- <div class="form-group">
+                    <label for="exampleInputName6">Upload from URL </label>
+                    <input type="text" class="form-control" id="exampleInputName6">
+                  </div> -->
+                  <div class="form-group">
+                  <div class="fileUpload btn btn-green btn_full">
+                      <span>Upload Photo from Computer</span>
+                      <%= f.file_field :image_url, class: "upload" %>
+                  </div>
+                    
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-green btn_full" data-dismiss="modal" id="acc_ph_change">
+                      Change your Account Photo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <%= f.submit "Save", class: "btn btn-green btn-default" %>
+        </div>
+      <% end %>
+      <a href="#"  data-toggle="modal" data-target="#myModal" >Change password</a>
+      <%= render partial: 'password' %>
     </div>
-  <% end %>
-  <%= f.hidden_field :id%>
-
-  <div class="field">
-    <%= image_tag(@user.image_url) %>
-    <%= f.file_field :image_url %>
   </div>
 
-  <div class="field">
-    <%= f.label :name %> (From Facebook)<br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+
+
+      
+

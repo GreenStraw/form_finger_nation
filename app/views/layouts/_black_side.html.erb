@@ -1,0 +1,75 @@
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <li class="sidebar-brand">
+      <div class="logo">
+        <% if !current_user %>
+          <%= link_to(image_tag("vendor/logo2.png"), root_path) %>
+        <% else %>
+          <%= link_to(image_tag("vendor/logo2.png"), parties_path) %>
+        <% end %>
+      </div>
+    </li>
+    <% if current_user %>
+      <li class="profile-area">
+        <div class="image-holder">
+          <% if current_user && current_user.image_url.present? %>
+            <%= image_tag current_user.image_url, class: "img-responsive" %>
+          <% else %>
+            <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+          <% end %>
+        </div>
+        <span class="user_name">
+          <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name rescue current_user.username %></a></strong>
+        </span>
+        <span class="sign_up">
+          <%= link_to n_sign_up_path do %>
+          <i class="fa fa-user"> Not You? Sign Up</i>
+          <% end %>
+        </span>
+        <span class="Settings">
+          <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
+        </span>
+      </li>
+      <li>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small></a>
+      </li>
+      <li class="Watch_Parties">
+        <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
+        <!-- <a href="#wparties" class="w_parties"> --><%= link_to '<i class="fa fa-desktop"></i>Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
+        <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
+          <li><%= link_to 'My Parties', get_parties_parties_path, remote: true, class:"my_party"%></li>
+          <li><a href="#RSVPs" class="my_party">RSVPs</a></li>
+        </ul>
+      </li>
+      <li>
+        <% css1_class = controller.controller_name == 'teams' || current_page?( user_root_path ) ? "active_p" : "" %>
+        <!-- <img src="images/hand_icon.png"> -->
+        <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, teams_path, class: "#{css1_class}" %>
+      </li>
+      <div class="clearfix"></div>
+      <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+
+    <% else %>
+      <li class="profile-area">
+        <div class="image-holder">
+          <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+        </div>
+        <span class="">
+          <a class="<%= 'active_p' if current_page?( new_user_session_path ) %>" href="<%= new_user_session_path %>" >Login</a>
+        </span>
+        <span class="">
+          <a href="<%= new_registration_path(resource_name) %>" class="<%= 'active_p' if current_page?( new_registration_path(resource_name) ) %>">Sign Up</a>
+        </span>
+        <span class="">
+          <a  href="<%= new_password_path(resource_name) %>" class="<%= 'active_p' if current_page?( new_password_path(resource_name) ) %>">Forgot password?</a>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+  <div class="copy_right">
+    <p>©Copyright Amicability, LLC <%= Time.now.year %></p>
+  </div>
+</div>
+<% if current_user %>
+  <%= render partial: '/layouts/location' %>
+<% end %>

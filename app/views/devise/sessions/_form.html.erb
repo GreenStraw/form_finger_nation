@@ -1,29 +1,36 @@
+<h2>GET IN THE<br>
+GAME!</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form login signup-form" }) do |f| %>
 
   <%= devise_error_messages! %>
 
-  <div class="input">
+  <div class="form-group">
+    <label for="exampleInputFile">Username  </label>
     <%= f.text_field :email, :class => "form-control", :placeholder =>'Email Address' %>
   </div>
-  </br>
 
-  <div class="input">
+  <div class="form-group">
+    <label for="exampleInputFile">Password </label>
     <%= f.password_field :password, :class => "form-control", :placeholder =>'Password' %>
   </div>
-  </br>
 
   <% if devise_mapping.rememberable? %>
-  <div class="input-group">
-    <span class="input-group-addon">
-      <%= f.check_box :remember_me %>
-    </span>
-    <%= f.label :remember_me, :class => "form-control" %>
-  </div><!-- /input-group -->
-  </br>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <%= f.check_box :remember_me %>
+        </span>
+        <%= f.label :remember_me, :class => "form-control" %>
+      </div>
+    </div>
   <% end %>
+
+  <div class="btn-area text-center">
+    <button class="btn btn-green btn-default" type="submit">Sign in</button>
+    <p>Dont have an account? <%= link_to "Sign Up", new_registration_path(resource_name) %></p>
+    <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
+  </div>
   
-  <div class="input">
-    <button class="btn green-btn" type="submit">Sign in</button>
+  <div class="btn-area text-center">
   </div>
 <% end %>
-</br>

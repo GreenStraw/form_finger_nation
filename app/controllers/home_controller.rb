@@ -8,6 +8,20 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
+
+  def become
+    # p = Party.group(:organizer_id).count
+    # puts p.to_yaml
+    # Voucher.group(:user_id).count find(22)
+    sign_in(:user, User.first)
+    redirect_to root_path
+  end
+
+  def become2
+    sign_in(:user, User.find(22))
+    redirect_to root_path
+  end
+
   def about
   end
 
@@ -18,7 +32,11 @@ class HomeController < ApplicationController
   end
 
   def home
-    @user = current_user
+    if current_user
+      @user = current_user
+    else
+      @user = User.new
+    end
   end
 
   def how
@@ -33,8 +51,7 @@ class HomeController < ApplicationController
   def terms
   end
 
-  def landing_page
-    render :layout => false
+  def about2
   end
-  
+
 end

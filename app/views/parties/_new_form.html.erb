@@ -1,9 +1,7 @@
-
 <%= form_for(@party) do |f| %>
   <% if @party.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h2>
-
+      <h4><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h4>
       <ul>
       <% @party.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,89 +9,208 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, cols: 80, rows: 2 %>
-  </div>
-  <div class="field">
-    <%= f.label :scheduled_for %><br>
-    <%= f.datetime_select :scheduled_for %>
-  </div>
-
-  <div class="field">
-    <%= f.hidden_field :organizer_id, value: current_user.id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :team %><br>
-    <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.all, 'id', 'name'), include_blank: false, class: 'select2', style: 'width: 250px;' %>
-  </div>
-
-  <div class="field" id='venue-select'>
-    <%= f.label :venue %><br>
-    <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.all, 'id', 'name_and_address'), include_blank: false, class: 'select2', style: 'width: 400px;' %>
-  </div><br>
-
-  <%= check_box_tag "new_venue" %> Create New Venue
-  <br><br>
-
-  <div class='new_venue hidden' id='venue-create'>
-    <%= f.fields_for :venue_attributes do |v| %>
-      <%= v.label :name %><br>
-      <%= v.text_field :name %><br><br>
-      <%= v.fields_for :address_attributes do |a| %>
-        <div class='field'>
-          <%= a.label :street1 %><br>
-          <%= a.text_field :street1 %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name, "Party Title"%>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group m_b0">
+          <label for="exampleInputName2">Friendly URL  </label>
         </div>
-
-        <div class='field'>
-          <%= a.label :street2 %><br>
-          <%= a.text_field :street2 %>
+      </div>
+      <div class="col-md-6">
+        <div class="form_url">
+         http://www.foamfingernation.com/parties/
         </div>
-
-        <div class='field'>
-          <%= a.label :city %><br>
-          <%= a.text_field :city %>
+      </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
+        <div class = "hide" id= "error_div">
+          <span style = "color:red;" id="error_text">  </span>
         </div>
-
-        <div class='field'>
-          <%= a.label :state %><br>
-          <%= a.text_field :state %>
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName3">Business Name </label>
+      <%= f.text_field :business_name, class: "form-control" %>
+      <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
+    </div>
+    
+    <div class="form-group" id='venue-select'>
+      <%= f.label :venue %><br>
+      <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
+    </div>
+    <div class="form-group">
+      <%= check_box_tag "new_venue" %> Create New Venue
+    </div>
+    <div class='new_venue hidden' id='venue-create'>
+      <%= f.fields_for :venue_attributes do |v| %>
+        <div class="form-group">
+          <%= v.label :name %>
+          <%= v.text_field :name, class: "form-control" %>
         </div>
+        <%= v.fields_for :address_attributes do |a| %>
+          
+          <div class="form-group">
+            <%= a.label :street1, "Address street1" %><br>
+            <%= a.text_field :street1, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= a.label :street2, "Address street2" %><br>
+            <%= a.text_field :street2, class: "form-control" %>
+          </div>
 
-        <div class='field'>
-          <%= a.label :zip %><br>
-          <%= a.text_field :zip %>
-        </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= a.label :city %>
+                <%= a.text_field :city, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= a.label :state %>
+                <%= a.text_field :state, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= a.label :zip, "Zip Code" %>
+                <%= a.text_field :zip, class: "form-control"  %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :scheduled_for, "Date" %>
+          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group create_slider">
+          <span id="time_slideVal">12:00</span>
+          <div class="col-md-12 ">
+            <input type="hidden" class="hid_class" name="party[hid_time]">
+            <%= text_field_tag "time_slide", nil, type: 'text',
+            data: {'slider-id' => 'time_slideSlider',
+            'slider-min' => '0',
+            'slider-max' => '1439',
+            'slider-step' => '1' }
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="exampleInputName9">Watch Party Picture</label>
+          <span class="file-input btn btn-block btn-green btn-file">
+            Choose File<%= f.file_field :image_url, class: "upload" %>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <% if !@party.image_url.present? %>
+            <%= image_tag("vendor/create_logo.png", class: "img-responsive", id: "acc_profile_image") %>
+          <% else %>
+            <%= image_tag(@party.image_url, class: "img-responsive", id: "acc_profile_image") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <h5><strong>Number of People</strong></h5>
+      <p>Choose maximum number of available RSVPs by 
+        dragging the sliders (3 or 5-100+)</p>
+          <div class="col-md-12 create_slider">
+            <%#= text_field_tag "ex1", nil, type: 'text',
+            data: {'slider-id' => 'ex1Slider',
+              'slider-min' => '0',
+              'slider-max' => '100',
+              'slider-step' => '1' }
+              %>
+            <div class="col-md-12 ">
+              <input type="hidden" class="hid_rsvp" name="party[max_rsvp]" value="<%= @party.max_rsvp %>">
+              <%= text_field_tag "rsvp_slide", nil, type: 'text',
+              data: {'slider-id' => 'rsvp_slideSlider',
+              'slider-min' => '3',
+              'slider-max' => '500',
+              'slider-step' => '1' }
+              %>
+            </div>
+          </div>
+        <!-- <span id="time_slideVal">3</span></span> -->
+        <div class="text-center">
+          <h2><strong id="rsvp_slideVal"><% if @party.max_rsvp %><%= @party.max_rsvp %><% else %>5<% end %></strong><strong> RSVPs</strong></h2>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :team, "Party Team" %><br>
+        <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.order("name ASC"), 'id', 'name',@party.team_id), include_blank: false, class: 'select2 form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, "Watch Party Description" %>
+        <%= f.text_area :description, rows: 3, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.hidden_field :organizer_id, value: current_user.id %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName12">Tags  </label>
+        <%= f.text_field :tags, class: "form-control" %>
+
+        <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
+      </div>
+      <div class="form-group radio_create">
+        <h6><label for="exampleInputName13">Party Type  </label></h6>
+        <label class="radio-inline">
+          <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
+        </label>
+        <label class="radio-inline">
+          <%= f.radio_button :invite_type, 'private' %> Invite Only
+        </label>
+      </div>
+    </div>
+    <div class="text-center col-md-12 btn_area">
+      <%= link_to 'Cancel', parties_path, class: "btn btn-green btn-default" %>
+      <%= f.submit "Save", class: "btn btn-green btn-default" %>
+    </div>
 <% end %>
 
-<script type='text/javascript'>
-  $('#new_venue').on('click', function() {
-    if ($(this).is(':checked')) {
-      $('#venue-create').removeClass('hidden');
-      $('#venue-select').addClass('hidden');
-    } else {
-      $('#venue-create').addClass('hidden');
-      $('#party_venue_attributes_name').val('');
-      $('#party_venue_attributes_address_attributes_street1').val('');
-      $('#party_venue_attributes_address_attributes_street2').val('');
-      $('#party_venue_attributes_address_attributes_city').val('');
-      $('#party_venue_attributes_address_attributes_state').val('');
-      $('#party_venue_attributes_address_attributes_zip').val('');
-      $('#venue-select').removeClass('hidden');
+
+<script>
+  $("#friendlyUrl").keydown(function(e){
+    if (e.keyCode == 32){ // 32 is the ASCII value for a space
+      e.preventDefault();
     }
   });
-
+  $("#friendlyUrl").blur(function(){
+    var url = $("#friendlyUrl").val();
+    $.get('/parties/check_friendly_url_availablitiy', {friendlyUrl: url})
+    .done(function(data){
+      if (data)
+      {
+        $("#error_div").removeClass('hide');
+        $("#error_text").html($("#friendlyUrl").val() + " is not available!");
+        $("#friendlyUrl").val('');
+      }
+      else
+      {
+        $("#error_div").addClass('hide');
+      }
+    });
+  });
 </script>

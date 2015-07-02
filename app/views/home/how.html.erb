@@ -1,20 +1,67 @@
-<div class="row">
-  <%= render "sidebar" %>
-  <div class="col-sm-9">
-
-    <h1 class="faq-header">Fans</h1>
-    <p>
-      If you're a fan, register for Foam Finger Nation using our quick login feature via Facebook, or simply fill out the short registration form to get started. Once you register, update your profile image, add your favorite teams using the edit profile section and discover watch parties in your area! Register using Facebook and select additional friends via Facebook and invite them to join Foam Finger Nation from the bottom of the Home page.
-    </p>
-
-    <h1 class="faq-header">Alumni Groups</h1>
-    <p>
-      There's a special place place in the heart of FFN for Alumni Groups.  If you're an Alumni Group, be sure to register for Foam Finger Nation and select Alumni Group account option on the sign up screen, then simply fill out the short registration form to get started. Once you register, update your profile image, add your favorite teams using the edit profile section and discover watch parties in your area. If you register using Facebook select additional friends via Facebook and invite them to join Foam Finger Nation from the bottom of the Home page.
-    </p>
-
-    <h1 class="faq-header">Restaurants and Bars</h1>
-    <p>
-      If you're a Restaurant or Bar owner looking to engage more customers, create an account and selcet the Bar/Establishment account type using our simple registration form.  Once you register, you'll automatically have access to the tools on Foam Finger Nation. If you have a Facebook account for your establishment and want to login using that account, be sure to be logged into FB under that account before signing up.  Once your signed up, start by creating a watch party so fans and Alumni Group in your area discover your establishment.  Add promotions to each watch party to drive additional patriotism and interest.  That's how it all works!
-    </p>
-  </div>
+<%#= render "sidebar" %>
+<div class="how-it-work">
+  <section id="how-it-work">
+    <div class="container text-center">
+      <div class="col-md-12 no-p">
+        <h2 class="mrl-0">HOW IT WORKS</h2>
+      </div>
+    </div>
+  </section>
+  <section id="sports">
+    <div class="container text-center">
+      <div class="col-md-12  no-p " class="mrl-0">
+        <div class="image-holder">
+          <%= image_tag "vendor/icon4.png", alt:"icon", class: "img-responsive" %>
+        </div>
+        <h2 class="mrl-0">Sports Fans</h2>
+        <div class="col-md-offset-1 col-md-10">
+          <p>If you're a fan, register for Foam- Finger Nation using our quick login feature via Facebook, 
+            or simply fill out the short registration form to get started. Once you register, update your 
+            profile image, add your favorite teams using the edit profile section and discover watch parties 
+            in your area! Register using Facebook and select additional friends via Facebook and invite 
+            them to join Foam Finger Nation from the bottom of the Home page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="alumni_groups">
+    <div class="container ">
+      <div class=" col-md-12   no-p text-center">
+        <div class="image-holder">
+          <%= image_tag "vendor/icon-cap.png", alt: "icon", class: "img-responsive" %>
+        </div>
+        <h2 class="mrl-0">Alumni Groups</h2>
+        <div class="col-md-offset-1 col-md-10">
+          <p>There's a special place place in the heart of Foam Finger Nation for Alumni Groups. If you're an Alumni Group, 
+            be sure to register for FFN and select the Alumni Group account option on the sign 
+            up screen, then simply fill out the short registration form to get started. Once you register, update
+            your profile image, add your favorite teams using the edit profile section and discover watch parties 
+            in your area. If you register using Facebook select additional friends via Facebook and invite them 
+            to join Foam Finger Nation from the bottom of the Home page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="food">
+    <div class="container ">
+      <div class=" col-md-12 text-center">
+        <div class="image-holder">
+          <%= image_tag "vendor/icon-food.png", alt: "icon", class: "img-responsive" %>
+        </div>
+        <h2 class="mrl-0">Restaurants and Bars</h2>
+        <div class="col-md-offset-1 col-md-10">
+          <p>If you're a Restaurant or Bar owner looking to engage more customers, create an account and select the 
+            Bar/Establishment account type using our simple registration form. Once you register, you'll automatically 
+            have access to the tools on Foam Finger Nation. If you have a Facebook account for your establishment 
+            and want to login using that account, be sure to be logged into FB under that account before signing up.
+            Once your signed up, start by creating a watch party so fans and Alumni Groups in your area discover your establishment.
+            Add promotions to each watch party to drive additional patriotism and interest. That's how it all works!
+          </p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </section>
 </div>

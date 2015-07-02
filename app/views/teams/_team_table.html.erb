@@ -1,92 +1,69 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% favorites = (current_user.try(:followed_teams) || []) %>
-    <% managed = (current_user.try(:managed_teams) || []) %>
+<% favorites = (current_user.try(:followed_teams) || []) %>
+<% managed = (current_user.try(:managed_teams) || []) %>
+<% c = 1 %>
+<div class="panel-group" id="<%= acc %>" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
     <% @teams_by_sport.each do |sport_name, teams| %>
-      <% if tab=='followed' %>
-        <tr class='<%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>'>
+      <% if tab == 'followed' %>
+        <div class="panel-heading <%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>" role="tab" id="headingOne">
+        <!-- <tr class='<%= sport_name %> followed <%= "hidden" if !favorites.map{|f| f.sport.name}.include?(sport_name) %>'> -->
       <% elsif tab=='managed' %>
-        <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'>
+        <div class="panel-heading <%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>" role="tab" id="headingOne">
+
+        <!-- <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'> -->
       <% else %>
-        <tr class='<%= sport_name %>'>
+        <div class="panel-heading <%= sport_name %>" role="tab" id="headingOne">
+
+        <!-- <tr class='<%= sport_name %>'> -->
       <% end %>
-        <td>
+        <!-- <td>
           <h3 id="<%= sport_name.underscore if all %>"><a href="#Top"><span class="glyphicon-class glyphicon glyphicon-chevron-up"></span></a><%= sport_name %></h3>
-        </td>
-      </tr>
-      <% teams.each do |team| %>
-        <% if tab=='followed' %>
-          <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'>
-        <% elsif tab=='managed' %>
-          <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'>
-        <% else %>
-          <tr class='<%= team.id %>'>
-        <% end %>
-          <td><%= image_tag(team.image_url, size: '80') %></td>
-          <td><h4><%= link_to(team.name, team) %></h4></td>
-          <td>
-            <div data-tab="<%= tab %>">
-            <% if user_signed_in? %>
-              <i class="fa fa-4x subscribe-star <%= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i>
+        </td> -->
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#<%= acc %>" href="#<%= acc %>collapse<%= c %>" aria-expanded="true" aria-controls="<%= acc %>collapse<%= c %>">
+             <div class="col-md-12 row">
+                <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
+                  <div class="image-holder">
+                    <%= image_tag(teams.first.image_url,class: "img-responsive") %>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 text-center">
+                   <h3><%= sport_name %></h3>
+                </div>
+             </div>
+          </a>
+        </h4>
+      </div>
+      <div id="<%= acc %>collapse<%= c %>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <% teams.each do |team| %>
+            <% if tab=='followed' %>
+              <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
+              <!-- <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'> -->
+            <% elsif tab=='managed' %>
+              <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
+
+              <!-- <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'> -->
+            <% else %>
+              <div class="<%= team.id %> col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
+
+              <!-- <tr class='<%= team.id %>'> -->
             <% end %>
-          </td>
-        </tr>
-      <% end %>
+              <div>
+                <h4><%= link_to(team.name, team) %></h4>
+                <div data-tab="<%= tab %>" class="star">
+                  <% if user_signed_in? %>
+
+                    <i class="fa subscribe-star <%= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i>
+                  
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% c = c + 1 %>
     <% end %>
-  </tbody>
-</table>
-
-<script type='text/javascript'>
-  $('.subscribe-star').on('click', function() {
-    var teamId = $(this).data('team-id');
-    var teamName = $(this).data('team-name');
-    var sportName = $(this).data('sport-name');
-    var subscribed = $(this).hasClass('fa-star-o');
-    var url = '';
-    if (subscribed) {
-      url = "/teams/" + teamId + "/subscribe";
-    } else {
-      url = "/teams/" + teamId + "/unsubscribe";
-    };
-    var div = $(this).closest('div').data('tab');
-    var teamIdClass = '.team-' + teamId + '';
-    $.ajax({
-      url: url,
-      type: 'PUT',
-      data: {'id': teamId},
-      success: function() {
-        if ($(teamIdClass).hasClass('fa-star')) {
-          var teamRow = $('tr.followed.' + teamId);
-          var sportRow = $('tr.followed.' + sportName);
-          $(teamIdClass).removeClass('fa-star');
-          $(teamIdClass).addClass('fa-star-o');
-          teamRow.addClass('hidden');
-          displayMessage("The " + teamName + " are no longer a favorite")
-        } else {
-          var teamRow = $('tr.followed.' + teamId);
-          var sportRow = $('tr.followed.' + sportName);
-          sportRow.removeClass('hidden');
-          teamRow.removeClass('hidden');
-          $(teamIdClass).removeClass('fa-star-o');
-          $(teamIdClass).addClass('fa-star');
-          displayMessage("The " + teamName + " are now a favorite")
-        };
-      },
-      error: function(){
-        //do nothing
-      }
-    })
-  });
-
-  function displayMessage(message) {
-    $('#alert-message-text').text(message);
-    $('#message-div').fadeIn("slow");
-    setTimeout(function() {$('#message-div').fadeOut("slow")}, 3000);
-  }
-
-  $('.message-div-wrapper').affix({
-      offset: {
-        top: 185
-      }
-  });
-</script>
+  </div>
+</div>

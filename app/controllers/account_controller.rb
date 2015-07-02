@@ -1,11 +1,16 @@
 class AccountController < ApplicationController
-
+  before_action :authenticate_user!, :only => [:show]
   def show
     @user = current_user
   end
 
   def new
     @user = User.new
+  end
+
+  def n_sign_up
+    sign_out current_user
+    redirect_to new_user_registration_path
   end
 
   def create
@@ -20,8 +25,26 @@ class AccountController < ApplicationController
     end
   end
 
+  def user
+    @u = User.find(params[:id])   
+  end
+
+  def user_loc
+    u = User.find(params[:id])
+    u.address.city = params[:city] if u
+    u.address.state = params[:state] if u
+    u.address.save!
+
+    respond_to do |format|
+      format.js { render json: {}, status: 200 }
+    end
+  end
+  
   def edit
     @user = current_user
+    if @user.website == ''
+      @user.website = 'http://'
+    end
   end
 
   def update
@@ -49,7 +72,7 @@ class AccountController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:id, :name, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
+    params.require(:user).permit(:id, :name, :favorite_team_id, :about, :website, :gender, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
   end
 
 end

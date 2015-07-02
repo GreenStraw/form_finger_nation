@@ -1,29 +1,85 @@
-<div class='row'>
-  <div class='col-xs-4'>
-    <div class="details-container">
-      <%= render partial: 'details' %>
-      <div class='row'>
-        <h3><%= "#{@team.name} Feed" %></h3>
-        <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
-          <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
-        <% end %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="r companylisting_header row">
+        <div class="col-md-12">
+          <div class='row'>
+            <% if @team.address.latitude.present? && @team.address.longitude.present?%>
+              <div id="map"></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div class="follow companylisting">
+            <div class="col-md-5 col-sm-6">
+              <h2><%= "#{@team.name} Feed" %></h2>
+              <ul class="list-unstyled address">
+                <li><%= @team.address.street %></li>
+                <li><%= @team.address.city_state %></li>
+                <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
+              </ul>
+                <ul class="list-inline social_icon">
+                  <li><a href="#">
+                    <span class="fa-stack fa-1x">
+                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                      <i class="fa fa-twitter fa-stack-1x"></i>
+                    </span>
+                  </a></li>
+                  <li><a href="#">
+                    <span class="fa-stack fa-1x">
+                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                      <i class="fa fa-facebook fa-stack-1x"></i>
+                    </span>
+                  </a></li>
+                  <li><a href="#">
+                    <span class="fa-stack fa-1x">
+                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                      <i class="fa fa-linkedin fa-stack-1x"></i>
+                    </span>
+                  </a></li>
+                  <li><a href="#">
+                    <span class="fa-stack fa-1x">
+                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                      <i class="fa fa-google-plus fa-stack-1x"></i>
+                    </span>
+                  </a></li>
+                </ul>
+                <h2>Upcoming Watch Parties</h2>
+                <% if @team.upcoming_parties.any? %>
+                  <ul class="list-unstyled">
+                  <% @team.upcoming_parties.each do |party| %>
+                    <li><%= link_to party.name, party_path(party) %></li>
+                  <% end %>
+                  </ul>
+                <% else %>
+                  <p>No upcoming watch parties listed</p>
+                <% end %>
+              </div>
+              <div class="col-md-offset-2 col-md-5 col-sm-6">
+                <h2>
+                  <span class="fa-stack fa-1x">
+                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                    <i class="fa fa-twitter fa-stack-1x"></i>
+                  </span>
+                  Keep Up With Us</h2>
+                  <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
+                    <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <%= link_to 'Sport', sport_path(@team.sport) %>
+            <% if current_user.present? && current_user.can?(:edit, @team) %>
+              | <%= link_to 'Edit', edit_team_path(@team) %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    
 
-  <div class='col-xs-4'>
-    <% if @team.address.latitude.present? && @team.address.longitude.present?%>
-      <div id="map"></div>
-    <% end %>
-  </div>
 
-</div>
-
-<%= link_to 'Teams', teams_path %> |
-<%= link_to 'Sport', sport_path(@team.sport) %>
-<% if current_user.present? && current_user.can?(:edit, @team) %>
-  | <%= link_to 'Edit', edit_team_path(@team) %>
-<% end %>
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');

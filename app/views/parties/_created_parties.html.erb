@@ -1,12 +1,41 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% @user.parties.each do |party| %>
-      <tr>
-        <td><%= image_tag(party.team.image_url, size: '80') unless party.team.nil? %></td>
-        <td><h4><%= link_to(party.name, party) %></h4></td>
-        <td><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
-        <td><%= party.venue.address.city_state %></td>
-      </tr>
+<% c = 0 %>
+<% if @created_parties.present? %>
+  <% @created_parties.try(:each) do |party| %>
+    <% if c % 3 == 0 %>
+      <div class="row">
     <% end %>
-  </tbody>
-</table>
+    <% c = c + 1 %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <div class="cancle_icon">
+        <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+        <div class="holder">
+          <%= image_tag(party.team.image_url, class: "img-responsive") unless party.team.nil? %>
+        </div>
+        <div class="caption">
+          <%= link_to party do %>
+            <h3> <%= party.name %></h3>
+          <% end %>
+          <ul class="list-inline">
+            <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+            <li><%= party.venue.address.city_state %></li>
+          </ul>
+          <p><%= party.description %></p>
+          <% if reservations_include?(party, current_user) %>
+            <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+          <% else %>
+            <%= link_to "RSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+          <% end %>
+          <span class="prt_rsvp"> | </span>
+          <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+        </div>
+      </div>
+    </div>
+    <% if c % 3 == 0 || @created_parties.count == c %>
+      </div>
+    <% end %>
+<% end %>
+<% else %>
+  <div> <h3>No Party Found..!!!</h3> </div>
+<% end %>

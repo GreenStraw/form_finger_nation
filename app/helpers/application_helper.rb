@@ -4,6 +4,39 @@ module ApplicationHelper
     @org_name || "BaseApp"
   end
 
+  def check_controller
+    controller_name = params[:controller]
+    action_name     = params[:action]
+    
+    # puts "-----------------\n"*2
+    # puts controller_name + "/" + action_name
+    # puts "1111111111111111111\n"*2
+                            # "sessions/new",
+                            # "registrations",
+                            # "milia/sessions",
+                            # "milia/passwords",
+                            # "devise/registrations",
+                            # "parties",
+                            # "sports",
+                            # "account",
+                            # "vouchers",
+                            # "users",
+                            # "teams"
+    
+    restrict_controllers = [
+                            "home",
+                            "about",
+                            "about2",
+                            "how",
+                            "faq",
+                            ]
+      
+    if restrict_controllers.include?(action_name.to_s)
+      return false
+    end
+    return true
+  end
+
   def site_url
     if Rails.env.production?
       # Place your production URL in the quotes below

@@ -1,4 +1,4 @@
-/*
+  /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -8,14 +8,17 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require bootstrap_and_overrides
- *= require select2
- *= require select2-bootstrap
- *= require_self
- *= require_tree .
+ * require bootstrap_and_overrides
+ * require select2
+ * require select2-bootstrap
+ * require_self
+ *= require font-awesome
+ *= require vendor
+ * require_tree .
  */
 
  /* Move down content because we have a fixed navbar that is 50px tall */
+/*
  body {
    padding-top: 50px;
    padding-bottom: 20px;
@@ -46,10 +49,11 @@ form {
 #alert-message-text {
   margin: 0 auto;
 }
-
+*/
 
  /* Override Rail's default error calls with Bootstrap 3 */
- .field_with_errors {
+
+/* .field_with_errors {
    @extend .has-error;
  }
 
@@ -119,12 +123,14 @@ form {
     height: 400px;
   }
 }
+*/
 /*@media(min-width:768px){
   #map {
     width: 600px;
     height: 400px;
   }
 }*/
+
 @media(min-width:1200px){}
 
 /*********Moved to team.css***********/

@@ -10,62 +10,67 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= image_tag(@team.image_url) %>
-    <%= f.file_field :image_url %>
+  <div class="form-group col-md-5">
+    <div class="form-group">
+      <%= image_tag(@team.image_url, class: "img-responsive", id: "acc_profile_image") %>
+    </div>
+    <div class="fileUpload btn btn-green">
+    <span>Upload Photo</span>
+      <%= f.file_field :image_url, class: "upload" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control'  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :information %><br>
-    <%= f.text_area :information, cols: 80, rows: 2 %>
+    <%= f.text_area :information, cols: 80, rows: 2, class: 'form-control'  %>
   </div>
 
   <%= f.fields_for :address_attributes do |a| %>
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :street1 %><br>
-      <%= a.text_field :street1 %>
+      <%= a.text_field :street1, class: 'form-control'  %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :street2 %><br>
-      <%= a.text_field :street2 %>
+      <%= a.text_field :street2, class: 'form-control'  %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :city %><br>
-      <%= a.text_field :city %>
+      <%= a.text_field :city, class: 'form-control'  %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :state %><br>
-      <%= a.text_field :state %>
+      <%= a.text_field :state, class: 'form-control'  %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :zip %><br>
-      <%= a.text_field :zip %>
+      <%= a.text_field :zip, class: 'form-control'  %>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :twitter_name %><br>
-    <%= f.text_field :twitter_name %>
+    <%= f.text_field :twitter_name, class: 'form-control'  %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :twitter_widget_id %><br>
-    <%= f.text_field :twitter_widget_id %>
+    <%= f.text_field :twitter_widget_id, class: 'form-control'  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :sport %><br>
-    <%= f.select :sport_id, sport_selects %>
+    <%= f.select(:sport_id, sport_selects,{}, {class: 'form-control'}) %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", class: 'btn btn-default btn-green'  %>
+    <%= link_to 'Back', edit_sport_path(@team.sport) %>
   </div>
 <% end %>

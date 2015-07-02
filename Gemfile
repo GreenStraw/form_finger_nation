@@ -5,7 +5,7 @@ gem 'rails', '4.1.1'
 
 # Use pg as the database for Active Record
 gem 'pg'
-
+gem "font-awesome-rails"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 # Use Uglifier as compressor for JavaScript assets
@@ -20,7 +20,7 @@ gem 'jquery-rails'
 # gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
 
 gem 'active_model_serializers', '~> 0.7' # json tat conforms to ember-data expectationh
-
+gem 'bootstrap-datepicker-rails'
 # pick enumerable or rolify for user roles
 gem 'rolify'
 gem 'enumerize', '0.6.1' # an issue in 0.7.0 causes app error when enumerized state is blank and scope and predicates flags are passed
@@ -77,6 +77,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 gem 'will_paginate'
 
+gem 'friendly_id'
 
 group :development, :test do
   gem 'annotate',                 '>= 2.5.0'
@@ -109,8 +110,10 @@ group :development do
   gem 'capistrano',             '~> 3.1.0'
   gem 'capistrano-rails',       '~> 1.1.1'
   gem 'capistrano-bundler',     '~> 1.1.2'
+  gem "better_errors"
   gem 'capistrano-rbenv'
   gem 'capistrano-maintenance', github: "capistrano/maintenance", require: false
+  gem "figaro"
 end
 
 group :production do

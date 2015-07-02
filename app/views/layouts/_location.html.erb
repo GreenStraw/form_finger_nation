@@ -1,0 +1,32 @@
+<div class=" ch_location modal fade" id="loc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div>
+        <button type="button" class="close model_box_loc" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <h2>Location Status</h2>
+        <div class="row">
+          <div class="col-md-4 col-sm-4">
+           <div class="form-group">
+            <h5>Current Location</h5>
+            <h4><strong id="curLoc"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></strong></h4>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-8">
+         <div class="form-group">
+          <h5>New Location</h5>
+          <input type="em5il" class="form-control" id="newLocCity"  data-user-id="<%= current_user.id %>" placeholder="City" required>
+          <br>
+          <input type="em5il" class="form-control" id="newLocState" placeholder="State" required>
+        </div>
+
+      </div>
+      <div class="col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3">
+        <button type="button" class="btn btn-green btn-default changeLoc" data-dismiss="modal">Change Your Location</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

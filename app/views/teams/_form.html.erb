@@ -1,4 +1,27 @@
 <%= form_for(@team) do |f| %>
+  <div class="col-md-4">
+    <div class='pull-right'>
+      <% if current_user %>
+        <% if (current_user.try(:followed_teams) || []).include?(@team) %>
+          <%= link_to(unsubscribe_team_path(@team), remote: true, method: :put) do%>
+            <i class='fa fa-star'></i>
+          <% end %>
+        <% else %>
+          <%= link_to(subscribe_team_path(@team), remote: true, method: :put, id: 'subscribe-link') do%>
+            <i class='fa fa-star-o'></i>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+      <%= image_tag(@team.image_url, class: "img-responsive", id: "acc_profile_image") %>
+      <div class="form-group">
+        <br>
+        <span class="file-input btn btn-block btn-green btn-file">
+          Choose File<%= f.file_field :image_url, class: "upload" %>
+        </span>
+      </div>
+  </div>
+  <div class="col-md-8">
   <% if @team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -11,63 +34,60 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= image_tag(@team.image_url) %>
-    <%= f.file_field :image_url %>
-  </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :information %><br>
-    <%= f.text_area :information, cols: 80, rows: 2 %>
+    <%= f.text_area :information, cols: 80, rows: 2, class: "form-control" %>
   </div>
 
   <%= f.fields_for :address do |a| %>
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :street1 %><br>
-      <%= a.text_field :street1 %>
+      <%= a.text_field :street1, class: "form-control" %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :street2 %><br>
-      <%= a.text_field :street2 %>
+      <%= a.text_field :street2, class: "form-control" %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :city %><br>
-      <%= a.text_field :city %>
+      <%= a.text_field :city, class: "form-control" %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :state %><br>
-      <%= a.text_field :state %>
+      <%= a.text_field :state, class: "form-control" %>
     </div>
 
-    <div class='field'>
+    <div class="form-group">
       <%= a.label :zip %><br>
-      <%= a.text_field :zip %>
+      <%= a.text_field :zip, class: "form-control" %>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :sport %><br>
-    <%= f.select :sport_id, sport_selects %>
+    <%= f.select(:sport_id, sport_selects,{}, {class: "form-control"}) %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :twitter_name %><br>
-    <%= f.text_field :twitter_name %>
+    <%= f.text_field :twitter_name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :twitter_widget_id %><br>
-    <%= f.text_field :twitter_widget_id %>
+    <%= f.text_field :twitter_widget_id, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", class: "btn btn-green" %>
+  </div>
   </div>
 <% end %>

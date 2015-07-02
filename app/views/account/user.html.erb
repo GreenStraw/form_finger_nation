@@ -1,0 +1,24 @@
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="Following_header sport_header  row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2><%= @u.first_name + " " + @u.last_name rescue "User not present" %></h2>
+            <h4>800 Followers, 200 Following</h4>
+            <button type="button" class="btn btn-green btn-default">Follow</button> 
+          </div>
+        </div>
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div class="follow">
+            <div class="col-md-6">
+              <h4><%= @u.location %> | foamfingernation.com</h4>
+              <p><%= @u.about %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -80,7 +80,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :image_url, :email, :current_password, :password, :password_confirmation, :uid, :provider, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[], :follower_ids=>[], :followee_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
+    params.require(:user).permit(:username, :first_name, :last_name, :favorite_team_id, :about, :website, :gender, :image_url, :email, :current_password, :password, :password_confirmation, :uid, :provider, :address, {:sport_ids=>[], :team_ids=>[], :venue_ids=>[], :reservation_ids=>[], :endorsing_team_ids=>[], :follower_ids=>[], :followee_ids=>[]}, address_attributes: [:street1, :street2, :city, :state, :zip])
   end
 
   def update_with_password(*options)

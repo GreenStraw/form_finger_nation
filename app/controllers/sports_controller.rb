@@ -10,6 +10,7 @@ class SportsController < ApplicationController
 
   # GET /sports/1
   def show
+    @teams = @sport.teams
     respond_with @sport
   end
 
@@ -46,7 +47,7 @@ class SportsController < ApplicationController
   # DELETE /sports/1
   def destroy
     @sport.destroy
-    redirect_to sports_url, notice: 'Sport was successfully destroyed.'
+    redirect_to sports_url, notice: 'Sport was successfully deleted.'
   end
 
   def delete_team

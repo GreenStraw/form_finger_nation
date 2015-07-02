@@ -1,12 +1,39 @@
-<table class='table table-hover borderless'>
-  <tbody>
-    <% @user.party_reservations.each do |party_reservation| %>
-      <tr>
-        <td><%= image_tag(party_reservation.party.team.image_url, size: '80') unless party_reservation.party.nil? || party_reservation.party.team.nil? %></td>
-        <td><h4><%= link_to(party_reservation.party.name, party_reservation.party) %></h4></td>
-        <td><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></td>
-        <td><%= party_reservation.party.venue.address.city_state %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% c = 0 %>
+<% @rvs_parties.each do |party_reservation| %>
+  <% if c % 3 == 0 %>
+    <div class="row">
+  <% end %>
+  <% c = c + 1 %>
+  <div class="col-sm-6 col-md-4 add_rsvp_party">
+    <div class="thumbnail">
+      <div class="cancle_icon">
+        <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
+      </div>
+      <div class="holder">
+        <%= image_tag(party_reservation.party.team.image_url, class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.team.nil? %>
+      </div>
+      <div class="caption">
+        <%= link_to party_reservation.party do %>
+          <h3> <%= party_reservation.party.name rescue "" %> </h3>
+        <% end %>
+        <ul class="list-inline">
+          <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+          <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
+        </ul>
+        <p><%= party_reservation.party.description rescue "" %></p>
+        <% if party_reservation.party  %>
+          <% if reservations_include?(party_reservation.party, current_user) %>
+            <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+          <% else %>
+            <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+          <% end %>
+        <% end %>
+        <span class="prt_rsvp"> | </span>
+        <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
+      </div>
+    </div>
+  </div>
+  <% if c % 3 == 0 || @created_parties.count == c %>
+    </div>
+  <% end %>
+<% end %>

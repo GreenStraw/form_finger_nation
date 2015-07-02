@@ -12,6 +12,8 @@ Baseapp::Application.routes.draw do
   get 'invite_friends/:id' => 'parties#invite_friends', :as => 'invite_friends'
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
   get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
+  get 'user/:id' => 'account#user', :as => 'user'
+  put 'user/user_loc' => 'account#user_loc'
 
   resources :vouchers
   resources :packages, except: [:new, :create] do
@@ -23,6 +25,14 @@ Baseapp::Application.routes.draw do
   resources :parties do
     collection do
       get 'search'
+      get 'cant_find'
+      get 'ajaxsearch'
+      get 'get_team_parties'
+      get 'get_parties'
+      get 'check_friendly_url_availablitiy'
+    end
+    member do
+      get 'cancel_reservation'
     end
   end
   resources :sports do
@@ -40,6 +50,9 @@ Baseapp::Application.routes.draw do
       put 'add_admin'
       put 'remove_admin'
     end
+    collection do
+      get 'search'
+    end
   end
   resources :venues do
     member do
@@ -53,6 +66,11 @@ Baseapp::Application.routes.draw do
   resource :account, :controller => :account
 
   get "/about" => "home#about"
+  get "/become" => "home#become"
+  get "/become2" => "home#become2"
+  get "/myparties" => "parties#myparties"
+  get "/n_sign_up" => "account#n_sign_up"
+  get "/about2" => "home#about2"
   get "/contact" => "home#contact"
   get "/faq" => "home#faq"
   get "/home" => "home#home"
@@ -60,8 +78,7 @@ Baseapp::Application.routes.draw do
   get "/jobs" => "home#jobs"
   get "/privacy" => "home#privacy"
   get "/terms" => "home#terms"
-  # root :to => "home#home"
-  root :to => "home#landing_page"
+  root :to => "home#home"
 
 
 

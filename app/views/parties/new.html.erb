@@ -1,10 +1,26 @@
-<p id="notice"><%= notice %></p>
-<div class="row">
-  <div class="col-md-12 cols">
-    <div id="new-party-details" class="col-md-8">
-      <h1>New party</h1>
-      <%= render 'new_form' %>
-      <%= link_to 'Back', parties_path %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="create_header row">
+        <div class="col-md-12 ">
+          <div class=" cap col-md-4 pull-right ">
+            <h2>CREATE  A<br>
+              PARTY</h2>
+              <p>Think you have what it takes 
+                to host screaming fans on 
+                gameday? Good luck.</p>
+              </div>
+            </div>
+          </div>
+          <div class="main-area">
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
+              <div class="create col-md-12">
+                <%= render 'new_form' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>

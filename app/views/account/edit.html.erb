@@ -1,18 +1,23 @@
-<ul class='nav nav-tabs' role='tablist'>
-  <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
-  <li><a href="#password" role='tab' data-toggle='tab'>Change Password</a></li>
-</ul>
-
-<div class='tab-content'>
-  <div class='tab-pane active' id="info">
-    <%= render partial: 'info' %>
-  </div>
-
-  <div class='tab-pane' id="password">
-    <%= render partial: 'password' %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="sport_caption">
+          </div>
+          <div class="main-area">
+            <div class="row">
+              <div id='notice'>
+                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+              </div>
+              <%= render partial: 'info' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 
 
-<%= link_to 'Show', account_path %> | <%= link_to 'Home', root_path %>
+<%#= link_to 'Show', account_path %> <!-- | --> <%#= link_to 'Home', root_path %>

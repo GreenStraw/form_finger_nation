@@ -1,28 +1,41 @@
-<div class='row'>
-  <div class='col-xs-3'>
-    <div class="details-container">
-      <%= render partial: 'details' %>
-    </div>
-  </div>
-  <div class='col-xs-8'>
-    <ul class='nav nav-tabs' role='tablist'>
-      <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
-      <li><a href="#party-packages" role='tab' data-toggle='tab'>Manage Party Assignment</a></li>
-    </ul>
-
-    <div class='tab-content'>
-      <div class='tab-pane active' id="info">
-        <%= render 'form' %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="sport_header  row">
+        <div class="col-md-12">
+          <div class="sport_caption col-md-4 pull-right ">
+            <h2 class="form-title">Package</h2>
+          </div>
+        </div>
       </div>
-
-      <div class='tab-pane' id="party-packages">
-        <%= render partial: 'party_packages' %>
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+          <div class="follow">
+            <div class="col-md-12">
+              <ul class='nav nav-tabs' role='tablist'>
+                <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+                <li><a href="#party-packages" role='tab' data-toggle='tab'>Manage Party Assignment</a></li>
+              </ul>
+              <br>
+              <div class='tab-content'>
+                <div class='tab-pane active' id="info">
+                  <%= render 'form' %>
+                </div>
+                <div class='tab-pane' id="party-packages">
+                  <%= render partial: 'party_packages' %>
+                </div>
+              </div>
+              <%= link_to 'Show', @package, class: "btn btn-green btn-success"  %> 
+              <%= link_to 'Back', packages_path, class: "btn btn-green" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<%= link_to 'Show', @package %> |
-<%= link_to 'Back', packages_path %>
 
 

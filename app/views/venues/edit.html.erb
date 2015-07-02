@@ -1,40 +1,66 @@
-<div class='row'>
-  <div class='col-xs-3'>
-    <div class="details-container">
-      <%= render partial: 'details' %>
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header  row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title"><%= @venue.name %></h2>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class='col-xs-8'>
-    <ul class='nav nav-tabs' role='tablist'>
-      <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
-      <% if current_user.can?(:edit, @venue) %>
-        <li><a href="#venue-watch-parties" role='tab' data-toggle='tab'>Venue Watch Parties</a></li>
-        <li><a href="#venue-packages" role='tab' data-toggle='tab'>Packages</a></li>
-      <% end %>
-      <% if current_user.admin? %>
-        <li><a href="#manage_managers" role='tab' data-toggle='tab'>Manage Venue Managers</a></li>
-      <% end %>
-    </ul>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <div class="follow">
+          <div class="col-md-11">
+            <div class='row'>
+              <div class='col-xs-12'>
+                <div class="details-container">
+                  <%= render partial: 'details' %>
+                </div>
+              </div>
+              <div class='col-xs-12'>
+                <ul class='nav nav-tabs' role='tablist'>
+                  <li class='active'><a href="#info" role='tab' data-toggle='tab'>Info</a></li>
+                  <% if current_user.can?(:edit, @venue) %>
+                    <li><a href="#venue-watch-parties" role='tab' data-toggle='tab'>Venue Watch Parties</a></li>
+                    <li><a href="#venue-packages" role='tab' data-toggle='tab'>Packages</a></li>
+                  <% end %>
+                  <% if current_user.admin? %>
+                    <li><a href="#manage_managers" role='tab' data-toggle='tab'>Manage Venue Managers</a></li>
+                  <% end %>
+                </ul>
+                <br>
+                <br>
+                <div class='tab-content'>
+                  <div class='tab-pane active' id="info">
+                    <%= render 'form' %>
+                  </div>
 
-    <div class='tab-content'>
-      <div class='tab-pane active' id="info">
-        <%= render 'form' %>
-      </div>
+                  <div class='tab-pane' id="manage_managers">
+                    <%= render partial: 'manage_managers' %>
+                  </div>
 
-      <div class='tab-pane' id="manage_managers">
-        <%= render partial: 'manage_managers' %>
-      </div>
+                  <div class='tab-pane' id="venue-watch-parties">
+                    <%= render partial: 'watch_parties' %>
+                  </div>
 
-      <div class='tab-pane' id="venue-watch-parties">
-        <%= render partial: 'watch_parties' %>
-      </div>
-
-      <div class='tab-pane' id="venue-packages">
-        <%= render partial: 'packages' %>
+                  <div class='tab-pane' id="venue-packages">
+                    <%= render partial: 'packages' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row pull-right">  
+              <%= link_to 'Show', @venue %> |
+              <%= link_to 'Back', venues_path %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<%= link_to 'Show', @venue %> |
-<%= link_to 'Back', venues_path %>

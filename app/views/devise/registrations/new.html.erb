@@ -1,5 +1,18 @@
-<h2 class="form-title">Sign Up</h2>
-
-<%= render "devise/registrations/form" %>
-
-<%= render "devise/shared/links" %>
+  <div id="page-content-wrapper">
+    <div class="container-fluid signup_header">
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+          <div class="col-md-12">
+          </div>
+          <div class="signup_box ">
+            <%= render "devise/registrations/form" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%#= render "devise/shared/links" %>

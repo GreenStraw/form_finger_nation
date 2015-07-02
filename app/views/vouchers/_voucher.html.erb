@@ -1,29 +1,23 @@
-<div class="voucher">
-
-  <div class="voucher-information">
-	  <div class="voucher-logo">
-	    <%= image_tag(voucher.party.team.image_url, size: '50') unless voucher.party.nil? || voucher.party.team.nil? %>
-	  </div>
-	  <div class="voucher-party-name">
-	    <%= voucher.party.name%> : <%= voucher.package.name %><br/>
-	    <%= voucher.package.total_purchased %> Purchased - <%= link_to "More information", "#",  :onclick => "toggle_div('hidden_row_#{ voucher.id.to_s}');" %>
-	  </div>
-	  <div class="voucher-purchase">
-		  <% unless voucher.redeemed_at.blank? %>
-		    <%= link_to "View Voucher", voucher_path(voucher) %>
-		  <% else %>
-		    <%= link_to "Redeem Voucher", redeem_voucher_path(voucher.id), class: "redeem-voucher-button btn",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
-		  <% end %>
-	  </div>
+<li class=" col-md-12 col-sm-12 col-xs-12 bb">
+  <div class="col-md-12 col-sm-12 col-xs-12 ">
+    <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
+      <div class="image-holder">
+        <%= image_tag(voucher.party.team.image_url, class: "img-responsive") unless voucher.party.nil? || voucher.party.team.nil? %>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 ">
+      <h4><%= link_to voucher.package.name, voucher_path(voucher) %></h4>
+      <p> <%= voucher.party.name%> :
+          <%= voucher.package.total_purchased %> Purchased :
+          <%= voucher.package.description %> 
+          </p>
+    </div>
+    <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
+      <% unless voucher.redeemed_at.blank? %>
+        <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
+      <% else %>
+        <%= link_to "Redeem", redeem_voucher_path(voucher.id), class: "redeem-btn btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
+      <% end %>
+    </div>
   </div>
-</div>
-
-<div id= "hidden_row_<%= voucher.id.to_s%>"  class="voucher-description" style="display: none;">
-  <b>Details</b><br/>
-  <%= voucher.package.description %>
-</div>
-
-
-
-
-
+</li>
