@@ -107,7 +107,7 @@
       </div>
       <div class="col-md-8">
         <div class="form-group">
-          <% if @party.image_url == nil %>
+          <% if !@party.image_url.present? %>
             <%= image_tag("vendor/logo2.png", class: "img-responsive", id: "acc_profile_image") %>
           <% else %>
             <%= image_tag(@party.image_url, class: "img-responsive", id: "acc_profile_image") %>
