@@ -26,17 +26,19 @@ $(document).ready(function() {
   });
 
   $(".changeLoc").click(function(e) {
-    var v = $("#newLocVal").val();
-    document.getElementById("NewlocUp").innerHTML = v;
-    document.getElementById("curLoc").innerHTML = v;
+    var c = $("#newLocCity").val();
+    var s = $("#newLocState").val();
+    document.getElementById("NewlocUp").innerHTML = c + ", " + s;
+    document.getElementById("curLoc").innerHTML = c + ", " + s;
     $("#locHref").removeClass("active_p");
-    var userId = $("#newLocVal").data('user-id');
+    var userId = $("#newLocCity").data('user-id');
     var url = "/user/user_loc";
     $.ajax({
       url: url,
       type: 'PUT',
       data: {'id': userId,
-             'loc': v,
+             'city': c,
+             'state': s,
              'ajax': true},
       success: function() {
       },

@@ -31,7 +31,10 @@ class AccountController < ApplicationController
 
   def user_loc
     u = User.find(params[:id])
-    u.update_column("location", params[:loc]) if u
+    u.address.city = params[:city] if u
+    u.address.state = params[:state] if u
+    u.address.save!
+
     respond_to do |format|
       format.js { render json: {}, status: 200 }
     end
