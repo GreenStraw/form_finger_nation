@@ -132,8 +132,8 @@
   <div class="col-md-6">
     <div class="form-group">
       <h5><strong>Number of People</strong></h5>
-      <p>Choose a minimum and maximum of available RSVPs by 
-        dragging the sliders (10-100)</p>
+      <p>Choose maximum number of available RSVPs by 
+        dragging the sliders (3 or 5-100+)</p>
           <div class="col-md-12 create_slider">
             <%#= text_field_tag "ex1", nil, type: 'text',
             data: {'slider-id' => 'ex1Slider',
@@ -145,8 +145,8 @@
               <input type="hidden" class="hid_rsvp" name="party[max_rsvp]" value="<%= @party.max_rsvp %>">
               <%= text_field_tag "rsvp_slide", nil, type: 'text',
               data: {'slider-id' => 'rsvp_slideSlider',
-              'slider-min' => '0',
-              'slider-max' => '100',
+              'slider-min' => '3',
+              'slider-max' => '500',
               'slider-step' => '1' }
               %>
             </div>
