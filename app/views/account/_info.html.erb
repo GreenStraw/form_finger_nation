@@ -36,7 +36,7 @@
       </div>
       <div class="form-group">
         <%= f.label :favorite_team_id, "Favorite Team" %>
-        <%= f.select :favorite_team_id, options_from_collection_for_select(Team.all, 'id', 'name', @user.favorite_team_id ), { :include_blank => false }, 
+        <%= f.select :favorite_team_id, options_from_collection_for_select(Team.order("name ASC"), 'id', 'name', @user.favorite_team_id ), { :include_blank => false }, 
           { :class => 'select2 form-control' }  %>
       </div>
       <div class="form-group textarea_profile">

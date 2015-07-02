@@ -5,7 +5,7 @@
         <div class="sport_caption col-md-4 pull-right ">
           <h2 class="form-title">Venues</h2>
           <% if current_user.can?(:create, Venue) %>
-            <%= link_to 'New Venue', new_venue_path, class: "btn btn-success" %>
+            <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default" %>
           <% end %>
         </div>
       </div>
@@ -17,8 +17,8 @@
         </div>
         <ul class="list-group">
           <% current_user.managed_venues.each do |venue| %>
-            <li class=" col-md-12 bb">
-              <div class="col-md-12 row">
+            <li class=" col-md-12 col-sm-12 col-xs-12 bb">
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
                   <div class="image-holder">
                     <%= image_tag(venue.image_url, class: "img-responsive") %>

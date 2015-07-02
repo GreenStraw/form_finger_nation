@@ -2,6 +2,7 @@
 body{
   color: #fff;
   background: #fff;
+  font-family: 'Open Sans', sans-serif;
 }
 h1{
   font-family: Rockwell, "Courier New", Courier, Georgia, Times, "Times New Roman", serif;
@@ -135,7 +136,6 @@ ul
   width: 0;
   height: 100%;
   margin-left: -250px;
-  overflow-y: auto;
   background: #484848;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -487,10 +487,10 @@ a.col_black{
   color: #484848;
 }
 .sport_header .sport_caption h2{
-  font-family: 'Fjalla One', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   color: #484848;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: bold;
 }
 .ptb15{
@@ -558,15 +558,16 @@ a.col_black{
   height: 80px;
   overflow: hidden;
 }
-.main-area .list-group li .image-holder,
-.main-area .list-group .list-group-item .image-holder {
+.main-area .list-group li .image-holder img,
+.main-area .list-group .list-group-item .image-holder img {
   float: left;
   margin: 5px 0 0 10px;
-  border-radius: 100%;
-  width: 109px;
-  height: 109px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
 }
+
 .main-area .list-group .list-group-item .image-holder img {
   height: 100%;
 }
@@ -1095,6 +1096,20 @@ input[type=radio].css-checkbox + label.css-label {
   background: white;
   cursor: inherit;
   display: block;
+}
+.copy_right{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.form_url{
+  font-size: 11px;
+  padding: 10px 0;
+}
+.m_b0{
+  margin-bottom: 0;
 }
 /*.product_area .row {
     display: table;

@@ -42,9 +42,11 @@ a {
     color: #a8d039;
     outline: none;
 }
-a:hover {
+a:hover, a:focus{
     text-decoration: none;
+    color: #a8d039;
 }
+
 input,
 textarea,
 select {
@@ -373,7 +375,7 @@ a {
     overflow: hidden;
 }
 .caption_img img {
-    margin: 64px 25.2% 0;
+    margin: 64px 3.2% 0;
 }
 .form-area {
     background: #272727;
@@ -507,7 +509,7 @@ a {
     position: relative;
     padding: 81px 0 65px;
 }
-#how-it-work:after {
+/*#how-it-work:after {
  content: "";
  position: absolute;
  bottom: -57px;
@@ -516,7 +518,7 @@ a {
  width: 115px;
  height: 59px;
  background: url(<%= asset_path 'vendor/bottom-arrow.png' %>) no-repeat center center;
-}
+}*/
 
 #food h2,
 .how-it-work #sports h2{

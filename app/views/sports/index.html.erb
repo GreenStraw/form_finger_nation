@@ -16,23 +16,23 @@
           </div>
           <ul class="list-group">
               <% @sports.each do |sport| %>
-                <li class=" col-md-12 bb">
-                  <div class="col-md-12 row">
-                    <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
-                      <div class="image-holder">
-                        <%= image_tag(sport.image_url, class: "img-responsive") %>
+                <li class=" col-md-12 col-sm-12 col-xs-12 bb">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class=" col-md-offset-1 col-md-2 col-sm-4 col-xs-12">
+                        <div class="image-holder">
+                          <%= image_tag(sport.image_url, class: "img-responsive") %>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 ">
+                        <h4><%= link_to sport.name, sport_path(sport) %></h4>
+                      </div>
+                      <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
+                        <% if user_signed_in? && current_user.admin? %>
+                        <%= link_to 'Edit', edit_sport_path(sport)%>
+                         | <%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' }%>
+                        <% end %>
                       </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 ">
-                      <h4><%= link_to sport.name, sport_path(sport) %></h4>
-                    </div>
-                    <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
-                      <% if user_signed_in? && current_user.admin? %>
-                      <%= link_to 'Edit', edit_sport_path(sport)%>
-                       | <%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' }%>
-                      <% end %>
-                    </div>
-                  </div>
                 </li>
               <% end %>
           </ul>

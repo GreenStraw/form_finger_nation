@@ -14,12 +14,25 @@
       <%= f.label :name, "Party Title"%>
       <%= f.text_field :name, class: "form-control" %>
     </div>
-    <div class="form-group">
-      <label for="exampleInputName2">Friendly URL  </label>
-      <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
-      <div class = "hide" id= "error_div">
-        <span style = "color:red;" id="error_text">  </span>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group m_b0">
+          <label for="exampleInputName2">Friendly URL  </label>
+        </div>
       </div>
+      <div class="col-md-6">
+        <div class="form_url">
+         http://www.foamfingernation.com/parties/
+        </div>
+      </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
+        <div class = "hide" id= "error_div">
+          <span style = "color:red;" id="error_text">  </span>
+        </div>
+      </div>
+    </div>
     </div>
     <div class="form-group">
       <label for="exampleInputName3">Business Name </label>
