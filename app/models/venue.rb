@@ -14,6 +14,8 @@ class Venue < ActiveRecord::Base
   accepts_nested_attributes_for :address
   mount_uploader :image_url, ImageUploader
 
+  # after_create :attach_role
+
   def upcoming_parties
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end
@@ -31,6 +33,10 @@ class Venue < ActiveRecord::Base
   end
 
   private
+
+  def attach_role
+    current_user.add_role(:venue_manager, self) unless current_user.has_role?(:venue_manager, self)
+  end
 
   def ensure_address
     if address.nil?
