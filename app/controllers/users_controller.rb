@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:add_admin, :remove_admin]
   respond_to :html, :js
   load_and_authorize_resource
+  before_action :authenticate_user!
 
   def index
     respond_with @users
