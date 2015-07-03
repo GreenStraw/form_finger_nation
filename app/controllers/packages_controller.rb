@@ -32,7 +32,6 @@ class PackagesController < ApplicationController
   def create
     if @package.save
       if params[:commit] == 'Create'
-        puts "-----------"*70
         @party = Party.find(params[:party_id])
         temp = PartyPackage.create
         temp.party_id = params[:party_id]

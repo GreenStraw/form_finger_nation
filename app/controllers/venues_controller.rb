@@ -36,8 +36,22 @@ class VenuesController < ApplicationController
 
   # POST /venues
   def create
-    if @venue.save
+    if @venue.save!
+      puts "=========\n"*22
+      puts current_user.inspect
+      puts "=========\n"*22
+      puts @user.inspect
+      puts "=========\n"*22
+      puts @venue.inspect
+      # @user = User.find(current_user.id)
+      if !current_user.has_role?(:venue_manager, @venue)
+        role = Role.create(name: 'venue_manager', resource_id: @venue.id, resource_type: "Venue")
+        UsersRole.create(user_id: current_user.id, role_id: role.id)
+        # current_user.roles << role
+        # current_user.add_role(:venue_manager, @venue)
+      end
       redirect_to @venue, notice: 'Venue was successfully created.'
+      
     else
       render :new
     end
