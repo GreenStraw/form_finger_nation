@@ -37,7 +37,9 @@ class VenuesController < ApplicationController
   # POST /venues
   def create
     if @venue.save
+      # @user = User.find(current_user.id)
       redirect_to @venue, notice: 'Venue was successfully created.'
+      # @user.add_role(:venue_manager, @venue)
     else
       render :new
     end
