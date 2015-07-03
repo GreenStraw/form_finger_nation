@@ -12,7 +12,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <%= f.label :name, "Party Title"%>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control", :required => true %>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -27,7 +27,7 @@
       </div>
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
+        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl", :required => true %>
         <div class = "hide" id= "error_div">
           <span style = "color:red;" id="error_text">  </span>
         </div>
@@ -91,7 +91,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :scheduled_for, "Date" %>
-          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11" %>
+          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11", :required => true %>
         </div>
       </div>
       <div class="col-md-6">
