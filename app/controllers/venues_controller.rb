@@ -28,6 +28,10 @@ class VenuesController < ApplicationController
 
   # GET /venues/1/edit
   def edit
+    if(params[:party_id].present?)
+      @party = Party.find(params[:party_id])
+      @flag = true
+    end
   end
 
   # POST /venues

@@ -19,6 +19,9 @@
       <%= f.label :description %>
       <%= f.text_field :description, class: "form-control"%>
     </div>
+      <% if @flag %>
+        <%= hidden_field_tag 'party_id', @party.id %>
+      <% end %>
     <div class="form-group">
       <%= f.label :price %>
       <%= f.text_field :price, class: "form-control"%>
@@ -34,7 +37,11 @@
     </div>
     <%= f.hidden_field :venue_id %>
     <div class="actions">
-      <%= f.submit "Save", class: "btn btn-green btn-default" %>
+      <% if @flag %>
+        <%= f.submit "Create", class: "btn btn-green btn-default" %>
+      <% else %>
+        <%= f.submit "Save", class: "btn btn-green btn-default" %>
+      <% end %>
       <%= link_to 'Back', packages_path, class: "btn btn-green btn-default" %>
     </div>
 <% end %>

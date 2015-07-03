@@ -104,6 +104,7 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
+    respond_with @party
   end
 
   def cant_find
@@ -117,14 +118,21 @@ class PartiesController < ApplicationController
   # POST /parties
   def create
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
-    to_date = params[:party][:scheduled_for]
-    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
-    params[:party][:scheduled_for] = ''
-    # return render json: params.inspect
-    @party.save
-    @party.update_column("scheduled_for", DateTime.parse(date_s))
-    current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
-    respond_with @party
+    # render new_party_path
+    if @party.save
+      to_date = params[:party][:scheduled_for]
+      date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
+      params[:party][:scheduled_for] = ''
+      flash[:notice] = 'Party was successfully created.'
+      @party.scheduled_for = DateTime.parse(date_s)
+      @party.save(:validate => false)
+      current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
+      respond_with @party, location: party_path(@party)
+    else
+      puts '-=-=-=df'*12
+      render new_party_path
+    end
+
   end
 
   # PATCH/PUT /parties/1

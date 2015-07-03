@@ -35,7 +35,7 @@
                       </tr>
                       <tr>
                         <td>Redeemed</td>
-                        <td><%= @voucher.redeemed_at.to_formatted_s(:long) %></td>
+                        <td><%= @voucher.redeemed_at.to_formatted_s(:long) rescue 'Not present' %></td>
                       </tr>
                       <tr>
                         <td>User</td>

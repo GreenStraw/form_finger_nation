@@ -12,7 +12,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <%= f.label :name, "Party Title"%>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control", :required => true %>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -27,7 +27,7 @@
       </div>
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl"%>
+        <%= f.text_field :friendly_url, class: "form-control", id: "friendlyUrl", :required => true %>
         <div class = "hide" id= "error_div">
           <span style = "color:red;" id="error_text">  </span>
         </div>
@@ -91,14 +91,14 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :scheduled_for, "Date" %>
-          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11" %>
+          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11", :required => true %>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group create_slider">
           <span id="time_slideVal">12:00</span>
           <div class="col-md-12 ">
-            <input type="hidden" class="hid_class" name="party[hid_time]">
+            <input type="hidden" class="hid_class" name="party[hid_time]" value="12:00">
             <%= text_field_tag "time_slide", nil, type: 'text',
             data: {'slider-id' => 'time_slideSlider',
             'slider-min' => '0',
@@ -133,7 +133,7 @@
     <div class="form-group">
       <h5><strong>Number of People</strong></h5>
       <p>Choose maximum number of available RSVPs by 
-        dragging the sliders (3 or 5-100+)</p>
+        dragging the sliders (5-100+)</p>
           <div class="col-md-12 create_slider">
             <%#= text_field_tag "ex1", nil, type: 'text',
             data: {'slider-id' => 'ex1Slider',
@@ -145,7 +145,7 @@
               <input type="hidden" class="hid_rsvp" name="party[max_rsvp]" value="<%= @party.max_rsvp %>">
               <%= text_field_tag "rsvp_slide", nil, type: 'text',
               data: {'slider-id' => 'rsvp_slideSlider',
-              'slider-min' => '3',
+              'slider-min' => '5',
               'slider-max' => '500',
               'slider-step' => '1' }
               %>

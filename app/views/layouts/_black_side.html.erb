@@ -29,6 +29,9 @@
         <span class="Settings">
           <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
         </span>
+        <span class="Settings">
+        <%= link_to '<i class="fa fa-sign-out"></i>Sign out'.html_safe, destroy_user_session_path, :method => :get%>
+        </span>
       </li>
       <li>
         <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small></a>

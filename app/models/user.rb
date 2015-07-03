@@ -159,6 +159,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def username_email
+    "#{username} (#{email})"
+  end
+
   private
 
   def ensure_address
