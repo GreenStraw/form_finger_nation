@@ -29,7 +29,7 @@
           <% end %>
           <span class="prt_rsvp"> | </span>
           <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
-          <% if current_user.admin? %>
+          <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
             <span class="prt_rsvp"> | </span>
             <%= link_to "Create Package", edit_venue_path({id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
           <% end %>
