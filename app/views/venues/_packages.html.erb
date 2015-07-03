@@ -22,5 +22,9 @@
     </tbody>
   </table>
 
-  <%= link_to 'New Package', new_venue_packages_path(@venue) %>
+  <% if @flag %>
+    <%= link_to 'New Package', new_venue_packages_path({venue_id: @venue.id, party_id: @party.id}) %>
+  <% else %>
+    <%= link_to 'New Package', new_venue_packages_path(@venue) %>
+  <% end %>
 </div>
