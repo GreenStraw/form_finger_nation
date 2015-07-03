@@ -17,6 +17,10 @@ class PackagesController < ApplicationController
 
   # GET /packages/new
   def new
+    if params[:party_id].present?
+      @party = Party.find(params[:party_id])
+      @flag = true
+    end
     @package.venue = @venue
     respond_with @package
   end
@@ -26,8 +30,20 @@ class PackagesController < ApplicationController
 
   # POST /packages
   def create
-    flash[:notice] = 'Package was successfully created.' if @package.save
-    respond_with @package, location: edit_venue_path(@package.venue)
+    if @package.save
+      if params[:commit] == 'Create'
+        puts "-----------"*70
+        @party = Party.find(params[:party_id])
+        temp = PartyPackage.create
+        temp.party_id = params[:party_id]
+        temp.package_id = @package.id
+        temp.save
+        redirect_to parties_path(@party), notice: 'Package was successfully created.'
+      else
+        flash[:notice] = 'Package was successfully created.'
+        respond_with @package, location: edit_venue_path(@package.venue)
+      end
+    end 
   end
 
   # PATCH/PUT /packages/1

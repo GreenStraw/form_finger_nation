@@ -29,6 +29,8 @@
           <% end %>
           <span class="prt_rsvp"> | </span>
           <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+          <span class="prt_rsvp"> | </span>
+          <%= link_to "Create Package", edit_venue_path({id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
         </div>
       </div>
     </div>
