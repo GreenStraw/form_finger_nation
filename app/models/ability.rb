@@ -15,18 +15,32 @@ class Ability
         user.has_role?(:manager, p.venue)
       end
 
-      can [:verify_party, :unverify_party], Venue, Party do |v, p|
+      can [:verify_party, :unverify_party, :update], Venue, Party do |v, p|
         user.has_role?(:manager, v) && v.upcoming_parties.includes?(p)
       end
 
       can [:assign, :unassign], Package do |p|
         user.has_role?(:manager, p.venue)
       end
+
+      can [:update], Venue do |venue|
+        user.has_role?(:venue_manager, venue)
+      end
+
+      can [:manage], Package do |pack|
+        user.has_role?(:venue_manager, pack.venue)
+      end
+
     end
 
     if user.has_role?(:admin)
       can :manage, :all
     else
+      can [:update], Venue do |venue|
+        user.has_role?(:venue_manager, venue)
+      end
+
+      can :create, Package
       cannot [:add_admin, :remove_admin], User
       can :read, :all
       can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe], Team
