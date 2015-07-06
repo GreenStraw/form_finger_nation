@@ -20,7 +20,7 @@ class PartiesController < ApplicationController
     end
     if params[:party][:search_location].nil?
       if location.data.present?
-        ip_lat_lng = current_user.address.zip
+        ip_lat_lng = current_user.address.city
       else
         ip_lat_lng = nil
       end
