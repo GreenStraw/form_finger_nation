@@ -83,7 +83,7 @@
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');
-    var subscribed = $(this).hasClass('fa-star-o');
+    var subscribed = $(this).hasClass('fastaro');
     var url = '';
     if (subscribed) {
       url = "/teams/" + teamId + "/subscribe";
@@ -98,11 +98,12 @@
       data: {'id': teamId,
              'ajax': true},
       success: function() {
-        if ($(teamIdClass).hasClass('fa-star')) {
+        if ($(teamIdClass).hasClass('fastar')) {
           var teamRow = $('div.followed.' + teamId);
           var sportRow = $('div.followed.' + sportName);
-          $(teamIdClass).removeClass('fa-star');
-          $(teamIdClass).addClass('fa-star-o');
+          $(teamIdClass).removeClass('fastar');
+          $(teamIdClass).addClass('fastaro');
+          $(teamIdClass).text('Un-favorite');
           teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {
@@ -110,8 +111,9 @@
           var sportRow = $('div.followed.' + sportName);
           sportRow.removeClass('hidden');
           teamRow.removeClass('hidden');
-          $(teamIdClass).removeClass('fa-star-o');
-          $(teamIdClass).addClass('fa-star');
+          $(teamIdClass).removeClass('fastaro');
+          $(teamIdClass).addClass('fastar');
+          $(teamIdClass).text('Favorite');     
           displayMessage("The " + teamName + " are now a favorite")
         };
       },

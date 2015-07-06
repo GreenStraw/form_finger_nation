@@ -54,7 +54,8 @@
                 <div data-tab="<%= tab %>" class="star">
                   <% if user_signed_in? %>
 
-                    <i class="fa subscribe-star <%= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i>
+                    <!-- <i class="fa subscribe-star <%#= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i> -->
+                    <a href="#" class="subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'><%= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
                   
                   <% end %>
                 </div>
