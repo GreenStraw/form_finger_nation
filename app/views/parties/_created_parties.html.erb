@@ -15,7 +15,7 @@
         </div>
         <div class="caption">
           <%= link_to party do %>
-            <h3> <%= party.name %></h3>
+            <h3> <%= party.name %></h3><span><%= party.team.name %></span>
           <% end %>
           <ul class="list-inline">
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
@@ -31,7 +31,7 @@
           <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
           <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
             <span class="prt_rsvp"> | </span>
-            <%= link_to "Create Package", edit_venue_path({id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+            <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
           <% end %>
         </div>
       </div>
@@ -43,3 +43,12 @@
 <% else %>
   <div> <h3>No Party Found..!!!</h3> </div>
 <% end %>
+
+<!-- 
+3. The default location does not make sense (see first screenshot)
+5.  "Your teams" needs to show favorite teams. It currently goes to the "Sports" page.
+10. The "Manage Party Assignment" tab on the "Package" page needs an option to assign the package to a specific party.
+11. Whoever created the Watch Party needs to be able to cancel it.
+12. If the venue create it they should be able to verify the watch party which should be indicated in the listing of the watch party.
+13. Watch Party search should default to current location.
+14. Map currently shows blue screen on search Watch Party page. It needs an actual map.

@@ -19,16 +19,18 @@ class PartiesController < ApplicationController
       params[:party] = {}
     end
     if params[:party][:search_location].nil?
-      ip_lat_lng = if location.present?
-        location.data['zipcode']
+      if location.data.present?
+        ip_lat_lng = location.data['zip_code']
       else
-        nil
+        ip_lat_lng = nil
       end
+
       params[:party][:search_location] = ip_lat_lng
     end
     if params[:party][:search_location].nil?
       @parties = []
     else
+      puts "--------------"*50
       search_results = Party.search_by_params(params[:party])
       # search_by_params returns [parties, teams, people].  We only care about parties here
       @parties = search_results[0]
