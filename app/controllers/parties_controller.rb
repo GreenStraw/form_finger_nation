@@ -20,7 +20,7 @@ class PartiesController < ApplicationController
     end
     if params[:party][:search_location].nil?
       if location.data.present?
-        ip_lat_lng = location.data['zip_code']
+        ip_lat_lng = current_user.address.zip
       else
         ip_lat_lng = nil
       end
@@ -30,7 +30,6 @@ class PartiesController < ApplicationController
     if params[:party][:search_location].nil?
       @parties = []
     else
-      puts "--------------"*50
       search_results = Party.search_by_params(params[:party])
       # search_by_params returns [parties, teams, people].  We only care about parties here
       @parties = search_results[0]
