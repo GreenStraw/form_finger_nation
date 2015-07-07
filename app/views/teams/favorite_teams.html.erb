@@ -1,0 +1,37 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="sport_header row">
+      <div class="col-md-12">
+        <div class="sport_caption col-md-4 pull-right ">
+          <h2 class="form-title">Favorite Teams</h2>
+        </div>
+      </div>
+    </div>
+    <div class="main-area">
+      <div class="row">
+        <div id='notice'>
+          <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+        </div>
+        <div class="follow">
+
+					<div class="panel-body">
+					  <% @teams.each do |team| %>
+					  <table class="table">
+					  	<tbody>
+					  		<tr>
+					  			<td>
+					  				<!-- <div class= "image-holder">
+					  					<%#= image_tag(team.image_url,class: "img-responsive") %>
+					  				</div> -->
+					    			<span><h4><%= link_to(team.name, team) %></h4></span>
+					  			</td>
+					  		</tr>
+					  	</tbody>
+					  </table>
+					  <% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -52,6 +52,7 @@ Baseapp::Application.routes.draw do
     end
     collection do
       get 'search'
+      get 'favorite_teams'
     end
   end
   resources :venues do

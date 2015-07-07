@@ -139,6 +139,10 @@ class TeamsController < ApplicationController
     end
   end
 
+  def favorite_teams
+    @teams = current_user.followed_teams
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
