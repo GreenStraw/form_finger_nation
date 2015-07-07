@@ -126,6 +126,9 @@ class Party < ActiveRecord::Base
     else
       if party_params[:search_item].blank? && !party_params[:search_location].blank?
         #location search only
+        puts "---"*80
+        puts " only location field present "
+        puts "---"*80
         parties = Party.geo_search(party_params[:search_location], radius)
         teams = []
         people = []

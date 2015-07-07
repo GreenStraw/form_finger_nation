@@ -1,5 +1,8 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
+      <div id="generate-add-form">
+        <div class="ajax-loader"></div>
+      </div>
       <div class="sport_header row">
         <div class="col-md-12">
         <div class="clearfix"></div>
@@ -83,7 +86,7 @@
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');
-    var subscribed = $(this).hasClass('fa-star-o');
+    var subscribed = $(this).hasClass('fastaro');
     var url = '';
     if (subscribed) {
       url = "/teams/" + teamId + "/subscribe";
@@ -98,11 +101,12 @@
       data: {'id': teamId,
              'ajax': true},
       success: function() {
-        if ($(teamIdClass).hasClass('fa-star')) {
+        if ($(teamIdClass).hasClass('fastar')) {
           var teamRow = $('div.followed.' + teamId);
           var sportRow = $('div.followed.' + sportName);
-          $(teamIdClass).removeClass('fa-star');
-          $(teamIdClass).addClass('fa-star-o');
+          $(teamIdClass).removeClass('fastar');
+          $(teamIdClass).addClass('fastaro');
+          $(teamIdClass).text('Favorite');
           teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {
@@ -110,8 +114,9 @@
           var sportRow = $('div.followed.' + sportName);
           sportRow.removeClass('hidden');
           teamRow.removeClass('hidden');
-          $(teamIdClass).removeClass('fa-star-o');
-          $(teamIdClass).addClass('fa-star');
+          $(teamIdClass).removeClass('fastaro');
+          $(teamIdClass).addClass('fastar');
+          $(teamIdClass).text('Un-favorite');     
           displayMessage("The " + teamName + " are now a favorite")
         };
       },
@@ -136,9 +141,11 @@
       }
   });
 
+  $(".ajax-loader").hide();   
   $("#search").keyup(function(e){
     if(e.keyCode == 13)
     {
+      $(".ajax-loader").show();    
       var keyword = $("#search").val();
        $.ajax({
         url: "/teams/search",
@@ -153,6 +160,7 @@
   });
 
   $("#searchBtn").click(function(e){
+    $(".ajax-loader").show();   
     var keyword = $("#search").val();
     $.ajax({
       url: "/teams/search",

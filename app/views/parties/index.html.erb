@@ -1,5 +1,8 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
+      <div id="generate-add-form">
+        <div class="ajax-loader"></div>
+      </div>
       <div class="banner row">
         <div class="input-area row col-md-offset-1 col-md-10">
           <div class="right-inner-addon ">
@@ -89,7 +92,7 @@
             <div class="clearfix"></div>
             <div class="product_area col-md-12">
               
-              <div class="row">
+              <div class="row" id = "parties">
                 <span id="create_parties">
                   <h3>Created Parties</h3>
                   <%= render "created_parties" %>
@@ -111,9 +114,12 @@
       </div>
 
 <script>
+
+  $(".ajax-loader").hide(); 
   $("#searchbox").keyup(function(e){
     if(e.keyCode == 13)
     {
+      $(".ajax-loader").show();    
       var keyword = $("#searchbox").val();
       $.ajax({
         url: "/parties/ajaxsearch",
@@ -121,19 +127,21 @@
         data: { "keyword": keyword },
         dataType: 'script',
         success: function(resp){ 
-          console.log(resp);
+   
         }
       });
     }
   });
   $("#searchButton").click(function(e){
     var keyword = $("#searchbox").val();
+    $(".ajax-loader").show();    
     $.ajax({
       url: "/parties/ajaxsearch",
       type: "GET",
       data: { "keyword": keyword },
       dataType: 'script',
       success: function(resp){ 
+
       }
     });
   });

@@ -47,7 +47,7 @@
       <li>
         <% css1_class = controller.controller_name == 'teams' || current_page?( user_root_path ) ? "active_p" : "" %>
         <!-- <img src="images/hand_icon.png"> -->
-        <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, teams_path, class: "#{css1_class}" %>
+        <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, favorite_teams_teams_path, class: "#{css1_class}" %>
       </li>
       <div class="clearfix"></div>
       <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
