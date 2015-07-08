@@ -2,7 +2,7 @@
   <div class="container">
     <% unless current_user %>
       <div class="col-md-12">
-        <span>Sign up For an FFN Account</span>
+        <span>Sign up For a FFN Account</span>
       </div>
       <div class="col-md-12 row">
         <%= form_for(@user, :url => account_path, method: :post, :html => { :class => "form-inline" }) do |f| %>
