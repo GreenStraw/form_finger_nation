@@ -33,7 +33,7 @@ class Team < ActiveRecord::Base
   end
 
   def upcoming_parties
-    Party.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+    self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end
 
   private
