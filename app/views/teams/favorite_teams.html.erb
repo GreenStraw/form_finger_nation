@@ -24,7 +24,7 @@
 					    			<span><h4><%= link_to(team.name, team) %></h4></span>
 					  			</td>
 					  			<td > 
-					  				<a href="#" class="subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'><%= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
+					  				<h4> <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'><%= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a> </h4>
 					  			</td>
 					  		</tr>
 					  	</tbody>
@@ -42,7 +42,6 @@
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var subscribed = $(this).hasClass('fastaro');
-    console.log(teamId, teamName, subscribed)
     var url = '';
     if (subscribed) {
       url = "/teams/" + teamId + "/subscribe";
@@ -57,10 +56,8 @@
       data: {'id': teamId,
              'ajax': true},
       success: function() {
-				alert("success");
 
         if ($(teamIdClass).hasClass('fastar')) {
-					alert("making Un-favorite");
           var teamRow = $('#' + teamId);
           $(teamIdClass).removeClass('fastar');
           $(teamIdClass).addClass('fastaro');
