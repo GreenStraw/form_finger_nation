@@ -2,13 +2,22 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :authenticate_tenant!
   skip_before_filter :authenticate_user!
   def all
-    p env["omniauth.auth"]
-    user = User.from_omniauth(env["omniauth.auth"], current_user)
-    if user && user.persisted?
+    # p env["omniauth.auth"]
+    # user = User.from_omniauth(env["omniauth.auth"], current_user)
+    # if user && user.persisted?
+    #   flash[:success] = "You're in! Go to 'Edit Profile' to update your profile information"
+    #   sign_in_and_redirect(user)
+    # else
+    #   session["devise.user_attributes"] = user.attributes
+    #   redirect_to new_user_registration_url
+    # end
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+
+    if @user.persisted?
       flash[:success] = "You're in! Go to 'Edit Profile' to update your profile information"
-      sign_in_and_redirect(user)
+      sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
     else
-      session["devise.user_attributes"] = user.attributes
+      session["devise.user_attributes"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end
