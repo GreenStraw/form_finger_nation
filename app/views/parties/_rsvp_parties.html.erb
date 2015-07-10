@@ -1,7 +1,7 @@
 <% c = 0 %>
 <% @rvs_parties.each do |party_reservation| %>
   <% if c % 3 == 0 %>
-    <div class="row">
+    <div class=" ">
   <% end %>
   <% c = c + 1 %>
   <div class="col-sm-6 col-md-4 add_rsvp_party">
@@ -11,7 +11,7 @@
       </div>
       <div class="holder">
         <%= image_tag(party_reservation.party.team.image_url, class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.team.nil? %>
-      </div>
+      </div> 
       <div class="caption">
         <%= link_to party_reservation.party do %>
           <h3> <%= party_reservation.party.name rescue "" %> </h3>
@@ -20,8 +20,11 @@
           <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
           <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
         </ul>
-        <p><%= party_reservation.party.description rescue "" %></p>
+        
         <% if party_reservation.party  %>
+          <% if !party_reservation.party.description.nil? %>
+            <div class="party_desc"><p><%= party_reservation.party.description.truncate(40) rescue "" %></p></div>
+          <% end %>
           <% if reservations_include?(party_reservation.party, current_user) %>
             <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
           <% else %>
@@ -33,7 +36,7 @@
       </div>
     </div>
   </div>
-  <% if c % 3 == 0 || @created_parties.count == c %>
+  <% if c % 3 == 0 || @rvs_parties.count == c %>
     </div>
   <% end %>
 <% end %>

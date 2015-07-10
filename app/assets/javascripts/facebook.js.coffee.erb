@@ -8,12 +8,11 @@ jQuery ->
 
 
 window.fbAsyncInit = ->
-  FB.init(appId: '<%= ENV["FACEBOOK_APP_ID"] %>', cookie: true)
-
+  FB.init(appId: '<%= ENV["FACEBOOK_APP_ID"] %>')
   $('#sign_in').click (e) ->
     e.preventDefault()
     FB.login (response) ->
-      window.location = '/users/auth/facebook/callback' if response.authResponse
+      window.location = '/users/auth/facebook/callback?'+ $.param(signed_request: response.authResponse.signedRequest) if response.authResponse
 
   $('#sign_out').click (e) ->
     FB.getLoginStatus (response) ->

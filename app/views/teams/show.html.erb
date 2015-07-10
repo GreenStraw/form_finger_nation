@@ -49,7 +49,13 @@
                 <% if @team.upcoming_parties.any? %>
                   <ul class="list-unstyled">
                   <% @team.upcoming_parties.each do |party| %>
-                    <li><%= link_to party.name, party_path(party) %></li>
+                    <div class="row">
+                      <li class="col-md-12">
+                        <span class="col-md-6 col-sm-6"> <%= link_to party.name, party_path(party) %>
+                        </span>
+                        <span class="col-md-6 col-sm-6"><%= party.venue.name %></span> 
+                      </li>
+                    </div>
                   <% end %>
                   </ul>
                 <% else %>

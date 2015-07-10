@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
   validates_uniqueness_of :username
-  validates_length_of :username, within: 1..12, too_long: 'is too long', too_short: 'is too short'
+  validates_length_of :username, within: 1..100, too_long: 'is too long', too_short: 'is too short'
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   REQUESTED_ROLES = ['Sports Fan', 'Alumni Group', 'Venue']
@@ -127,33 +127,39 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.from_omniauth(auth)
-    # return nil if auth.blank?
-    # authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
-    # if authorization.user.blank?
-    #   user = current_user.nil? ? User.where('email = ?', auth.info.email).first : current_user
-    #   if user.blank?
-    #     user = User.new
-    #     user.password = Devise.friendly_token[0,10]
-    #     user.password_confirmation = user.password
-    #     user.name = auth.info.name
-    #     user.email = auth.info.email
-    #     parts = user.name.split(" ")
-    #     user.username = parts[0][0].downcase + parts[1].downcase rescue user.name
-    #     auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
-    #   end
-    #   authorization.username = auth.info.nickname
-    #   authorization.user_id = user.id
-    #   authorization.save
-    # end
-    # authorization.user
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,10]
-      user.password_confirmation = user.password
-      user.email = auth.info.email
-      user.name = auth.info.name   # assuming the user model has a name
+  def self.from_omniauth(auth, current_user)
+    return nil if auth.blank?
+    authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
+    if authorization.user.blank?
+      user = current_user.nil? ? User.where('email = ?', auth.info.email).first : current_user
+      if user.blank?
+        # For this need access permission for email,user_about_me and home_town
+        user = User.new
+        user.password = Devise.friendly_token[0,10]
+        user.password_confirmation = user.password
+        user.name = auth.info.name
+        user.first_name = auth.info.first_name
+        user.last_name  = auth.info.last_name
+        user.gender     = auth.extra.raw_info.gender
+        user.email      = auth.info.email
+        parts           = user.name.split(" ")
+        user.username   = parts[0][0].downcase + parts[1].downcase rescue user.name
+        auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
+        
+        if auth.provider == "facebook"
+          hometown  = auth.extra.raw_info.hometown.name
+          address   = user.address
+          address.street1 = "Not specified"
+          address.city    = hometown.split(",").first
+          address.state   = hometown.split(",")[1]
+          address.save
+        end
+      end
+      authorization.username = user.username
+      authorization.user_id = user.id
+      authorization.save
     end
+    authorization.user
   end
 
   def send_welcome_email
