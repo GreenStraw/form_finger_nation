@@ -14,12 +14,12 @@ class HomeController < ApplicationController
     # puts p.to_yaml
     # Voucher.group(:user_id).count find(22)
     sign_in(:user, User.first)
-    redirect_to user_root_path
+    redirect_to root_path
   end
 
   def become2
     sign_in(:user, User.find(22))
-    redirect_to user_root_path
+    redirect_to root_path
   end
 
   def about
@@ -36,9 +36,9 @@ class HomeController < ApplicationController
     if current_user
       @user = current_user
       if current_user.sign_in_count == 1
-        redirect_to user_root_path
-      else
         redirect_to root_path
+      else
+        redirect_to user_root_path
       end
     else
       @user = User.new
