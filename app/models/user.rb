@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'
   validates_presence_of :username, :email
   validates_uniqueness_of :username
-  validates_length_of :username, within: 1..12, too_long: 'is too long', too_short: 'is too short'
+  validates_length_of :username, within: 1..100, too_long: 'is too long', too_short: 'is too short'
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   REQUESTED_ROLES = ['Sports Fan', 'Alumni Group', 'Venue']
@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
         user.username = parts[0][0].downcase + parts[1].downcase rescue user.name
         auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
       end
-      authorization.username = auth.info.nickname
+      authorization.username = user.username
       authorization.user_id = user.id
       authorization.save
     end
