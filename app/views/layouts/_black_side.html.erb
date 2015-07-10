@@ -11,27 +11,41 @@
     </li>
     <% if current_user %>
       <li class="profile-area">
-        <div class="image-holder">
-          <% if current_user && current_user.image_url.present? %>
-            <%= image_tag current_user.image_url, class: "img-responsive" %>
-          <% else %>
-            <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
-          <% end %>
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div class="image-holder">
+            <% if current_user && current_user.image_url.present? %>
+              <%= image_tag current_user.image_url, class: "img-responsive" %>
+            <% else %>
+              <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+            <% end %>
+          </div>
         </div>
-        <span class="user_name">
-          <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name rescue current_user.username %></a></strong>
-        </span>
-        <span class="sign_up">
-          <%= link_to n_sign_up_path do %>
-          <i class="fa fa-user"> Not You? Sign Up</i>
-          <% end %>
-        </span>
-        <span class="Settings">
-          <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
-        </span>
-        <span class="Settings">
-        <%= link_to '<i class="fa fa-sign-out"></i>Sign out'.html_safe, destroy_user_session_path, :method => :get%>
-        </span>
+        <div class="col-md-8 col-sm-8 col-xs-8">
+          <ul class="list-unstyled">
+            <li>
+                <span class="user_name">
+                  <strong><a href="/user/<%= current_user.id %>"><%= current_user.first_name + " " + current_user.last_name rescue current_user.username %></a></strong>
+                </span>
+            </li>
+            <li>
+                <span class="sign_up">
+                  <%= link_to n_sign_up_path do %>
+                  <i class="fa fa-user"> Not You? Sign Up</i>
+                  <% end %>
+                </span>
+            </li>
+            <li>
+              <span class="Settings">
+                <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
+              </span>
+            </li>
+            <li>
+              <span class="Settings">
+                <%= link_to '<i class="fa fa-sign-out"></i>Sign out'.html_safe, destroy_user_session_path, :method => :get%>
+                </span>
+            </li>
+          </ul>
+        </div>
       </li>
       <li>
         <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small></a>

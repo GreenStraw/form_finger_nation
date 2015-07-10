@@ -32,7 +32,7 @@ class HomeController < ApplicationController
   end
 
   def home
-    return render json: params
+    # return render json: params
     if current_user
       @user = current_user
       redirect_to user_root_path

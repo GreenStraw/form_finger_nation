@@ -2,7 +2,7 @@
 <% if @created_parties.present? %>
   <% @created_parties.try(:each) do |party| %>
     <% if c % 3 == 0 %>
-      <div class="row">
+      <div class="row row-eq-height">
     <% end %>
     <% c = c + 1 %>
     <div class="col-sm-6 col-md-4">
