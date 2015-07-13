@@ -32,8 +32,14 @@ class HomeController < ApplicationController
   end
 
   def home
+    # return render json: params
     if current_user
       @user = current_user
+      if current_user.sign_in.count == 1
+        redirect_to user_root_path
+      else
+        redirect_to root_path
+      end
     else
       @user = User.new
     end
