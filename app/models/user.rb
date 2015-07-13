@@ -142,24 +142,16 @@ class User < ActiveRecord::Base
         user.last_name  = auth.info.last_name
         user.gender     = auth.extra.raw_info.gender
         user.email      = auth.info.email
-        parts           = user.name.split(" ")
-        user.username   = parts[0][0].downcase + parts[1].downcase rescue user.name
-        auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
-        
-        if auth.provider == "facebook"
-          hometown  = auth.extra.raw_info.hometown.name
-          address   = user.address
-          address.street1 = "Not specified"
-          address.city    = hometown.split(",").first
-          address.state   = hometown.split(",")[1]
-          address.save
-        end
+        parts           = auth.info.name.split(" ")
+        user.username   = parts[0][0].downcase + parts[1].downcase rescue auth.info.name
+        auth.provider == "twitter" ?  user.save!(:validate => false) :  user.save!
       end
       authorization.username = user.username
       authorization.user_id = user.id
       authorization.save
     end
     authorization.user
+    user
   end
 
   def send_welcome_email
