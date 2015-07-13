@@ -142,8 +142,8 @@ class User < ActiveRecord::Base
         user.last_name  = auth.info.last_name
         user.gender     = auth.extra.raw_info.gender
         user.email      = auth.info.email
-        parts           = user.name.split(" ")
-        user.username   = parts[0][0].downcase + parts[1].downcase rescue user.name
+        parts           = auth.info.name.split(" ")
+        user.username   = parts[0][0].downcase + parts[1].downcase rescue auth.info.name
         auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
         
         if auth.provider == "facebook"
