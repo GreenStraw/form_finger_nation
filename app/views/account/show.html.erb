@@ -51,6 +51,14 @@
                         <td>Email</td>
                         <td><%= @user.email %></td>
                       </tr>
+                      <tr>
+                        <td>Favorite Teams</td>
+                        <td> 
+                          <%@user.followed_teams.try(:each) do |team| %>
+                            <%= team.name %> &nbsp
+                          <% end %>
+                        </td>
+                      </tr>
                       <td>About Me</td>
                       <td><%= @user.about %>
                       </td>
