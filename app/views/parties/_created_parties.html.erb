@@ -15,9 +15,15 @@
         </div>
         <div class="caption">
           <%= link_to party do %>
-            <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+            <h3> <%= party.name %></h3>
+          <% end %>
+          <% if party.verified %>
+            <div>
+              Verified By Venue
+            </div>
           <% end %>
           <ul class="list-inline">
+            <li><%= party.team.name %> </li>
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
             <li><%= party.venue.address.city_state %></li>
           </ul>
