@@ -15,15 +15,19 @@
         </div>
         <div class="caption">
           <%= link_to party do %>
-            <h3> <%= party.name %></h3>
+            <h3> <%= party.name %></h3><span><%= party.team.name %></span>
           <% end %>
+          <!-- /////////////////////////check for verification///////////////// -->
           <% if party.verified %>
-            <div>
-              Verified By Venue
+            <div class="verifie_caption">
+              <div class="image-holder">
+                  <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                </div>
+              <strong class="title"><em>Verified</em></strong>
             </div>
           <% end %>
+          <!-- /////////////////////////////////end//////////////////////////// -->
           <ul class="list-inline">
-            <li><%= party.team.name %> </li>
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
             <li><%= party.venue.address.city_state %></li>
           </ul>
