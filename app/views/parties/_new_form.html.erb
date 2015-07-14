@@ -88,18 +88,18 @@
       <% end %>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
           <%= f.label :scheduled_for, "Date" %>
-          <%= f.text_field :scheduled_for, class: "form-control datepicker", maxlength: "11", :required => true %>
+          <%= f.datetime_select :scheduled_for, class: "form-control datepicker", maxlength: "11", :required => true %>
         </div>
       </div>
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <div class="form-group">
           <label>Time </label>
-          <%= text_field_tag "time_slide" , '' ,class: "form-control datepicker", :required => true %> 
+          <%#= text_field_tag "time_slide" , '' ,class: "form-control datepicker", :required => true %> 
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-md-4">

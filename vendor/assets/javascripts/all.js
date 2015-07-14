@@ -19,8 +19,6 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str;
   });
 
-
-
   $("#locHref").click(function(e) {
     $("#locHref").toggleClass("active_p");
   });
