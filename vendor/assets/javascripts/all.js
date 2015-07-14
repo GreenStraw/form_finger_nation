@@ -19,8 +19,6 @@ $(document).ready(function() {
     document.getElementById("p_heading").innerHTML = h_str;
   });
 
-
-
   $("#locHref").click(function(e) {
     $("#locHref").toggleClass("active_p");
   });
@@ -106,8 +104,8 @@ $(document).ready(function() {
       });
 
     $('#ex1').slider();
-    $('#time_slide').slider();
-    $('#rsvp_slide').slider();
+    // $('#time_slide').slider();
+    // $('#rsvp_slide').slider();
 
     $("#time_slide").on("slide", function(slideEvt) {
       $("#time_slideVal").text(slideEvt.value);
