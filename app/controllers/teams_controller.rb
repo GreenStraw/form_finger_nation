@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   respond_to :html, :js
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :team, :except=>[:search]
+  load_and_authorize_resource :team, :except=>[:search, :homesearch]
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
   skip_before_filter  :verify_authenticity_token
@@ -40,6 +40,16 @@ class TeamsController < ApplicationController
     end
   end
 
+  def homesearch
+    keyword = params[:key]
+    keyword = keyword.gsub('%20', ' ')
+    team = Team.find_by_name(keyword)
+    if team
+      redirect_to team_path(team);
+    else
+      redirect_to cant_find_parties_path
+    end
+  end
   # GET /teams/1
   def show
     @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|

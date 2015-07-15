@@ -100,7 +100,7 @@
               <% end %>
           </ul>
         </div>
-      </div>
+      </div> 
     </nav>
     <div class="logo">
       <% if !current_user %>
@@ -109,10 +109,16 @@
         <%= link_to(image_tag("vendor/logo2.png"), parties_path) %>
       <% end %>
     </div>
-    <div class="top-btn col-lg-6 col-md-6 col-sm-12 pull-right">
+    <div class="top-btn col-lg-10 col-md-10 col-sm-12 pull-right col-xs-12">
       <% if user_signed_in? %>
         <%= link_to( t("Find a Watch Party", :default => "Find Watch Party"), search_parties_path, class: "btn btn-green btn-default" ) %>
         <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
+        <div class="input-area row  col-md-6 col-sm-6">
+          <div class="right-inner-addon ">
+            <input type="search" class="form-control" placeholder="" id="searchboxh">
+            <button class="btn btn-default" type="button" id = "searchButtonh"><i class="fa fa-search fa-6"></i></button>
+          </div>
+        </div>
       <% end %>
     </div>
     <div class="clearfix"></div>
@@ -121,9 +127,9 @@
         <%= image_tag "vendor/banner_app.png", class: "img-responsive" %>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-12 caption">
-        <h2>Connect with sports fans,</h2>
-        <h2> discover local watch parties,</h2>
-        <h2> and <span>get promotions</span> from local sports bars.</h2>
+        <h2>DISCOVER LOCAL WATCH PARTIES,</h2>
+        <h2> CONNECT WITH FANS and</h2>
+        <h2><span>get promotions</span> from local sports bars.</h2>
         <!-- <button type="button" class="btn ">
           <%#= image_tag( "vendor/ios_btn.png", :class=>"apple-download-button img-responsive",  :alt=>"Download on iTunes")%>
         </button>

@@ -166,15 +166,32 @@ class PartiesController < ApplicationController
   end
 
   def party_rsvp
+    if params[:flag]
+      @flag = true
+    else
+      @flag = false
+    end
     rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first
     if rsvp.blank?
       current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
       flash[:success] = "Created reservation for #{@party.name}!"
+      if @flag
+        @party_packages = @party.packages
+        # @created_parties = current_user.parties
+        respond_to do |format|
+          format.js
+          format.json { render json: {party_packages: @party_packages} }  # respond with the created JSON object
+        end
+      else
+        redirect_to party_path(@party)
+      end
     else
       rsvp.destroy
       flash[:success] = "Deleted reservation for #{@party.name}!"
+      redirect_to party_path(@party)
     end
-    redirect_to party_path(@party)
+    
+    # redirect_to party_path(@party)
   end
 
   def invite_friends
