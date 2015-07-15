@@ -35,9 +35,10 @@
             <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
           <% end %>
           <% if reservations_include?(party, current_user) %>
-            <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+            <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp" , id: "unrsvp#{party.id}" %>
           <% else %>
-            <%= link_to "RSVP", party_rsvp_path(party), class: "prt_rsvp" %>
+            <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+            <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
           <% end %>
           <span class="prt_rsvp"> | </span>
           <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
@@ -56,6 +57,54 @@
   <div> <h3>No Party Found..!!!</h3> </div>
 <% end %>
 
+
+<div class=" ch_location myparties modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modall">
+        <h2>RSVP </h2>
+        <%= render "available_packages" %>
+      <!-- <form>
+          <div class="form-group">
+            <label for="exampleInputName1">Name</label>
+            <input type="text" class="form-control" id="exampleInputName1">
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputName2">No. of People  </label>
+                <input type="text" class="form-control" id="exampleInputName2">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="exampleInputName3">Special Accomodations?</label>
+                <input type="text" class="form-control" id="exampleInputName3">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+              <button type="button" class="btn btn-green btn_full">
+                RSVP
+              </button>
+
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <button type="button" class="btn btn-green btn_full">
+                  Purcahse Watch Party Package
+                </button>
+              </div>
+            </div>
+          </div>         
+        </form> -->
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 
 3. The default location does not make sense (see first screenshot)
 5.  "Your teams" needs to show favorite teams. It currently goes to the "Sports" page.

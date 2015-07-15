@@ -1,4 +1,19 @@
 $(document).ready(function() {
+  /////////////////////////////////////////
+  $("#searchboxh").keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      var keyword = $("#searchboxh").val();
+      window.location.href = '/teams/homesearch?key='+keyword;
+    }
+  });
+  $("#searchButtonh").click(function(e){
+    var keyword = $("#searchboxh").val();
+    window.location.href = '/teams/homesearch?key='+keyword;
+  });
+
+
+  ///////////////////////////////////////////
 
   $(".my_party").click(function() {
     $('.product_area span').removeClass("hidden_p");
