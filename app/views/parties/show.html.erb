@@ -2,14 +2,15 @@
     <div class="container-fluid">
       <div class="sport_header row">
         <div class="col-md-12">
-          <div class="sport_caption col-md-5 pull-right ">
+          <div class="sport_caption col-md-5 pull-right verified">
+            <h2><%= @party.name%>
+            </h2>
             <% if @party.verified %>
                 <div class="verifie_box">
                   <strong class="title"><em>Verified</em></strong>
                 </div>
             <% end %>
-            <h2><%= @party.name%>
-            </h2>
+            <div class="clearfix"></div>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
               <%= @party.party_reservations.count.to_s%> RSVP'd</h4>
               <% if reservations_include?(@party, current_user) %>
@@ -29,7 +30,7 @@
               <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
             </div>
             <div class="follow companylisting ">
-              <div class="col-md-5">
+              <div class="col-md-5 col-sm-5 col-xs-12">
                 <% if @party.verified %>
                 <div class="row">
                   <div class="col-md-2 col-sm-3 col-xs-6">
@@ -41,13 +42,13 @@
                     </div>
                   </div>
                   <% end %>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="col-md-6 col-sm-6 col-xs-3">
                     <p><%= @party.description %></p>
 
                   </div>
               </div>
                   <br>
-                  <p><div id="available-packages" class="col-md-12 col-sm-6 col-xs-6">
+                  <p><div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
                     <%= render :partial => "available_packages" %>
                   </div></p>
                 <!-- <div class="user_msg row">
@@ -81,7 +82,7 @@
                   </div>
                 </div> -->
               </div>
-              <div class="col-md-offset-2 col-md-5 col-sm-6">
+              <div class="col-md-offset-2 col-md-5 col-sm-6 row">
                 <h2><%= @party.venue.name %></h2>
                 <ul class="list-unstyled address">
                   <li><%= @party.venue.address.street_address %></li>
