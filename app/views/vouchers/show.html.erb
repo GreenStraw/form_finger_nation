@@ -24,13 +24,18 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
+                        <td>Party</td>
+                        <td><%= @voucher.party.name %>
+                        <%= image_tag @voucher.party.image_url, class: 'pull-right' %></td>
+                      </tr>
+                      <tr>
                         <td>Team</td>
                         <td><%= @voucher.party.team.name %>
                         <%= image_tag @voucher.party.team.image_url, class: 'pull-right' %></td>
                       </tr>
                       <tr>
                         <td>Venue</td>
-                        <td><%= @voucher.party.venue.name %>
+                        <td><%= @voucher.party.venue.name+"(#{@voucher.party.venue.address.city})" %>
                         <%= image_tag @voucher.party.venue.image_url, class: 'pull-right' %></td>
                       </tr>
                       <tr>

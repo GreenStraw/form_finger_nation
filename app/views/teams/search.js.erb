@@ -1,4 +1,8 @@
 $(".ajax-loader").hide();
+<% if @teams_by_sport.length == 0 %>
+	console.log("here");
+	window.location.href = '/parties/cant_find';
+<% end %>
 $('#team-tabs-all').html('<%= escape_javascript render "team_table",  all: true, tab: "all", acc: "accordion3" %>');
 
 // $('#team-tabs-all').html('<%= escape_javascript render "team_table",  all: false, tab: "followed", acc: "accordion1" %>');

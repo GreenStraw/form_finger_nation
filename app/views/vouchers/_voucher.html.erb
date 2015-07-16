@@ -7,10 +7,14 @@
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12 ">
       <h4><%= link_to voucher.package.name, voucher_path(voucher) %></h4>
-      <p> <%= voucher.party.name%> :
-          <%= voucher.package.total_purchased %> Purchased :
-          <%= voucher.package.description %> 
-          </p>
+      <p>
+        <%= voucher.party.name%> :
+        <%= voucher.package.total_purchased %> Purchased :
+        <%= voucher.package.description %> 
+      </p>
+      <p>
+        <%= "#{voucher.package.venue.address.city}, #{voucher.package.venue.address.state}" %> 
+      </p>
     </div>
     <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
       <% unless voucher.redeemed_at.blank? %>
