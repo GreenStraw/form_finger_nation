@@ -151,6 +151,7 @@ class PartiesController < ApplicationController
 
   # DELETE /parties/1
   def destroy
+    @party.party_reservations.destroy_all
     flash[:success] = 'Party was successfully deleted.' if @party.destroy
     respond_with @party
   end
