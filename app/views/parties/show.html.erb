@@ -3,7 +3,13 @@
       <div class="sport_header row">
         <div class="col-md-12">
           <div class="sport_caption col-md-5 pull-right ">
-            <h2><%= @party.name%></h2>
+            <% if @party.verified %>
+                <div class="verifie_box">
+                  <strong class="title"><em>Verified</em></strong>
+                </div>
+            <% end %>
+            <h2><%= @party.name%>
+            </h2>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
               <%= @party.party_reservations.count.to_s%> RSVP'd</h4>
               <% if reservations_include?(@party, current_user) %>
@@ -24,10 +30,26 @@
             </div>
             <div class="follow companylisting ">
               <div class="col-md-5">
-                <p><%= @party.description %></p>
-                <p><div id="available-packages" >
-                  <%= render :partial => "available_packages" %>
-                </div></p>
+                <% if @party.verified %>
+                <div class="row">
+                  <div class="col-md-2 col-sm-3 col-xs-6">
+                    <div class="verifie_caption">
+                      <div class="image-holder">
+                          <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                        </div>
+                      <strong class="title"><em>Verified</em></strong>
+                    </div>
+                  </div>
+                  <% end %>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <p><%= @party.description %></p>
+
+                  </div>
+              </div>
+                  <br>
+                  <p><div id="available-packages" class="col-md-12 col-sm-6 col-xs-6">
+                    <%= render :partial => "available_packages" %>
+                  </div></p>
                 <!-- <div class="user_msg row">
                   <ul class="list-inline">
                     <li>
