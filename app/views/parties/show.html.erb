@@ -90,7 +90,7 @@
                   <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
                 </ul>
                 <p><%= @party.venue.description %></p>
-                  <ul class="list-inline social_icon">
+                  <!-- <ul class="list-inline social_icon">
                     <li><a href="#">
                       <span class="fa-stack fa-1x">
                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -115,7 +115,7 @@
                         <i class="fa fa-google-plus fa-stack-1x"></i>
                       </span>
                     </a></li>
-                  </ul>
+                  </ul> -->
                   <div class="map_holder">
                     <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <div id="map" style='width: 100%; height: 200px;'></div>

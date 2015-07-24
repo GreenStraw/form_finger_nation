@@ -12,6 +12,9 @@ class PartiesController < ApplicationController
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
+    if @created_parties.nil
+      redirect_to cant_find_parties_path
+    end
   end
 
   def search
