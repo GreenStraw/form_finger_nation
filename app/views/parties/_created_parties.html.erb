@@ -27,6 +27,9 @@
             </div>
           <% end %>
           <!-- /////////////////////////////////end//////////////////////////// -->
+          <br>
+          <%= party.sponsor %>
+
           <ul class="list-inline">
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
             <li><%= party.venue.address.city_state %></li>
@@ -46,6 +49,9 @@
             <span class="prt_rsvp"> | </span>
             <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
           <% end %>
+          <span class="prt_rsvp"> | </span>
+          <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
+
         </div>
       </div>
     </div>

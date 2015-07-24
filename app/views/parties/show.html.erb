@@ -11,6 +11,7 @@
                 </div>
             <% end %>
             <div class="clearfix"></div>
+            <h4>Sponsored By <%= @party.sponsor %></h4>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
               <%= @party.party_reservations.count.to_s%> RSVP'd</h4>
               <% if reservations_include?(@party, current_user) %>

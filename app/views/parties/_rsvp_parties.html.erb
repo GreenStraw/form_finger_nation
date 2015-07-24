@@ -26,6 +26,8 @@
             <% end %>
           <% end %>
         <% end %>
+        <br>
+        <%= party_reservation.party.sponsor %>
         <ul class="list-inline ">
           <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
           <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>

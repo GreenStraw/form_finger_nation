@@ -144,10 +144,7 @@ class PartiesController < ApplicationController
 
   # PATCH/PUT /parties/1
   def update
-    to_date = params[:party][:scheduled_for]
-    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
     flash[:success] = 'Party was successfully updated.' if @party.update(party_params)
-    @party.update_column("scheduled_for", DateTime.parse(date_s))
     @party.save
     respond_with @party
   end
@@ -242,6 +239,6 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
     end
 end
