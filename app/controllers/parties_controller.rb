@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp, :send_invites]
-  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties, :check_friendly_url_availablitiy]
+  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties, :check_friendly_url_availablitiy, :cant_find]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
@@ -12,6 +12,9 @@ class PartiesController < ApplicationController
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
+    if @created_parties.blank?
+      redirect_to cant_find_parties_path
+    end
   end
 
   def search
@@ -141,10 +144,7 @@ class PartiesController < ApplicationController
 
   # PATCH/PUT /parties/1
   def update
-    to_date = params[:party][:scheduled_for]
-    date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
     flash[:success] = 'Party was successfully updated.' if @party.update(party_params)
-    @party.update_column("scheduled_for", DateTime.parse(date_s))
     @party.save
     respond_with @party
   end
@@ -239,6 +239,6 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
     end
 end

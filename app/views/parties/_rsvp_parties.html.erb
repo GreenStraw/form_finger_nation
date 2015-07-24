@@ -10,7 +10,7 @@
         <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
       </div>
       <div class="holder">
-        <%= image_tag(party_reservation.party.team.image_url, class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.team.nil? %>
+        <%= image_tag(party_reservation.party.image_url, class: "img-responsive") unless party_reservation.party.nil? || party_reservation.party.image_url.nil? %>
       </div> 
       <div class="caption">
         <%= link_to party_reservation.party do %>
@@ -26,6 +26,8 @@
             <% end %>
           <% end %>
         <% end %>
+        <br>
+        <%= party_reservation.party.sponsor %>
         <ul class="list-inline ">
           <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
           <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>

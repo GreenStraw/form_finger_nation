@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701093631) do
+ActiveRecord::Schema.define(version: 20150724072629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,7 +125,6 @@ ActiveRecord::Schema.define(version: 20150701093631) do
     t.string   "name"
     t.boolean  "is_private",    default: false
     t.boolean  "verified",      default: false
-    t.string   "description"
     t.datetime "scheduled_for"
     t.integer  "organizer_id"
     t.integer  "team_id"
@@ -141,6 +140,8 @@ ActiveRecord::Schema.define(version: 20150701093631) do
     t.string   "business_name"
     t.string   "tags"
     t.string   "invite_type"
+    t.text     "description"
+    t.string   "sponsor"
   end
 
   add_index "parties", ["organizer_id"], name: "index_parties_on_organizer_id", using: :btree

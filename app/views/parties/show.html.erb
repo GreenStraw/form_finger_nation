@@ -6,130 +6,74 @@
             <h2><%= @party.name%>
             </h2>
             <% if @party.verified %>
-                <div class="verifie_box">
-                  <strong class="title"><em>Verified</em></strong>
-                </div>
+              <div class="verifie_box">
+                <strong class="title"><em>Verified</em></strong>
+              </div>
             <% end %>
             <div class="clearfix"></div>
+            <h4>Sponsored By <%= @party.sponsor %></h4>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
-              <%= @party.party_reservations.count.to_s%> RSVP'd</h4>
-              <% if reservations_include?(@party, current_user) %>
-                <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
-                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
-                <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
-              <% else %>
-                <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
-                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-              <% end %>
-            </div>
+              <%= @party.party_reservations.count.to_s%> RSVP'd
+            </h4>
+            <% if reservations_include?(@party, current_user) %>
+              <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+              <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
+              <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+            <% else %>
+              <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+              <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+            <% end %>
           </div>
         </div>
-        <div class="main-area">
-          <div class="row">
-            <div id='notice'>
-              <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
-            </div>
-            <div class="follow companylisting ">
-              <div class="col-md-5 col-sm-5 col-xs-12">
+      </div>
+      <div class="main-area">
+        <div class="row">
+          <div id='notice'>
+            <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
+          </div>
+          <div class="follow companylisting ">
+            <div class="col-md-5 col-sm-5 col-xs-12">
+              <div class="row">
                 <% if @party.verified %>
-                <div class="row">
                   <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="verifie_caption">
                       <div class="image-holder">
-                          <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
-                        </div>
+                        <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                      </div>
                       <strong class="title"><em>Verified</em></strong>
                     </div>
                   </div>
-                  <% end %>
-                  <div class="col-md-6 col-sm-6 col-xs-3">
-                    <p><%= @party.description %></p>
-
-                  </div>
-              </div>
-                  <br>
-                  <p><div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
-                    <%= render :partial => "available_packages" %>
-                  </div></p>
-                <!-- <div class="user_msg row">
-                  <ul class="list-inline">
-                    <li>
-                      <div class=" col-md-3 col-sm-3 col-xs-12">
-                        <div class="image-holder">
-                          <img src="images/profile.png" class="img-responsive">
-                        </div>
-                      </div>
-                      <div class="user_details">
-                        <h3> Dixon.ATX</h3>
-                        <p>Zoinks! I hope they have Scooby snacks!</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class=" col-md-3 col-sm-3 col-xs-12">
-                        <div class="image-holder">
-                          <img src="images/profile.png" class="img-responsive">
-                        </div>
-                      </div>
-                      <div class="user_details">
-                        <h3> Dixon.ATX</h3>
-                        <p>Zoinks! I hope they have Scooby snacks!</p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="msg_area text-center">
-                    <textarea class="form-control"></textarea>
-                    <button type="button" class="btn btn-green btn-default">Comment</button>
-                  </div>
-                </div> -->
-              </div>
-              <div class="col-md-offset-2 col-md-5 col-sm-6 row">
-                <h2><%= @party.venue.name %></h2>
-                <ul class="list-unstyled address">
-                  <li><%= @party.venue.address.street_address %></li>
-                  <li><%= @party.venue.address.city_state %></li>
-                  <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
-                </ul>
-                <p><%= @party.venue.description %></p>
-                  <ul class="list-inline social_icon">
-                    <li><a href="#">
-                      <span class="fa-stack fa-1x">
-                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                        <i class="fa fa-twitter fa-stack-1x"></i>
-                      </span>
-                    </a></li>
-                    <li><a href="#">
-                      <span class="fa-stack fa-1x">
-                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                        <i class="fa fa-facebook fa-stack-1x"></i>
-                      </span>
-                    </a></li>
-                    <li><a href="#">
-                      <span class="fa-stack fa-1x">
-                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                        <i class="fa fa-linkedin fa-stack-1x"></i>
-                      </span>
-                    </a></li>
-                    <li><a href="#">
-                      <span class="fa-stack fa-1x">
-                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                        <i class="fa fa-google-plus fa-stack-1x"></i>
-                      </span>
-                    </a></li>
-                  </ul>
-                  <div class="map_holder">
-                    <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                    <div id="map" style='width: 100%; height: 200px;'></div>
-                    <% end %>
-                    Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
-                  </div>
+                <% end %>
+                <div class="col-md-6 col-sm-6 col-xs-3">
+                  <p><%= @party.description %></p>
                 </div>
               </div>
-                
+              <br>
+              <p><div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
+                <br>
+                <%= render :partial => "available_packages" %>
+              </div></p>
+            </div>
+            <div class="col-md-offset-2 col-md-5 col-sm-6 row">
+              <h2><%= @party.venue.name %></h2>
+              <ul class="list-unstyled address">
+                <li><%= @party.venue.address.street_address %></li>
+                <li><%= @party.venue.address.city_state %></li>
+                <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
+              </ul>
+              <p><%= @party.venue.description %></p>
+              <div class="map_holder">
+                <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                <div id="map" style='width: 100%; height: 200px;'></div>
+                <% end %>
+                Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
 
 <script type="text/javascript">

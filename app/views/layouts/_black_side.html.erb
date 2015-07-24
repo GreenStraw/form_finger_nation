@@ -87,10 +87,13 @@
         </span>
       </li>
     <% end %>
+    <li>
+      <div class="copy_right">
+        <p>©Copyright Amicability, LLC <%= Time.now.year %></p>
+      </div>
+    </li>
   </ul>
-  <div class="copy_right">
-    <p>©Copyright Amicability, LLC <%= Time.now.year %></p>
-  </div>
+  
 </div>
 <% if current_user %>
   <%= render partial: '/layouts/location' %>

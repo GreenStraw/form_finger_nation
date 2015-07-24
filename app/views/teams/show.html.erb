@@ -19,7 +19,7 @@
                 <li><%= @team.address.city_state %></li>
                 <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
               </ul>
-                <ul class="list-inline social_icon">
+                <!-- <ul class="list-inline social_icon">
                   <li><a href="#">
                     <span class="fa-stack fa-1x">
                       <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -44,7 +44,7 @@
                       <i class="fa fa-google-plus fa-stack-1x"></i>
                     </span>
                   </a></li>
-                </ul>
+                </ul> -->
                 <h2>Upcoming Watch Parties</h2>
                 <% if @team.upcoming_parties.any? %>
                   <ul class="list-unstyled verifie_list">
