@@ -1,7 +1,7 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
   before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp, :send_invites]
-  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties, :check_friendly_url_availablitiy]
+  load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties, :check_friendly_url_availablitiy, :cant_find]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
 
@@ -12,7 +12,7 @@ class PartiesController < ApplicationController
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
-    if @created_parties.nil
+    if @created_parties.blank?
       redirect_to cant_find_parties_path
     end
   end
