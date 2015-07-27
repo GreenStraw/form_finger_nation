@@ -56,6 +56,7 @@
                 <%= render :partial => "available_packages" %>
               </div></p>
             </div>
+            <div class="fb-share-button" data-href="https://ffn-staging.herokuapp.com/parties/<%=@party.friendly_url%>" data-layout="button"></div>
             <div class="col-md-offset-2 col-md-5 col-sm-6 row">
               <h2><%= @party.venue.name %></h2>
               <ul class="list-unstyled address">
@@ -64,7 +65,6 @@
                 <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
               </ul>
               <p><%= @party.venue.description %></p>
-              <button id = "facbook">Share on facebook</button>
               <div class="map_holder">
                 <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                 <div id="map" style='width: 100%; height: 200px;'></div>
@@ -80,16 +80,12 @@
 
 
     
-  <meta property="og:title" content= "My party Name" />
+  <meta property="og:title" content= "Foam Finger Nation" />
   <meta property="og:type" content= "image" />
-  <meta property="og:image" content="<%= @party.image_url %>" />
-  <meta property="og:image:width" content="500" />
-  <meta property="og:image:height" content="400" />
-
   <link rel="canonical" href="http://www.ffn-staging.herokukapp.com">
-  <meta property="og:url" content="http://www.ffn-staging.herokukapp.com" />
-  <meta property="og:description" content="Description is here" />
-
+  <meta property="og:url" content="http://www.ffn-staging.herokukapp.com/parties" />
+  <meta property="og:description" content="Its party Time" />
+  <meta name="description" content="Description is here" />
 <script type="text/javascript">
 
   handler = Gmaps.build('Google');
@@ -100,13 +96,25 @@
     handler.getMap().setZoom(11)
   });
 
-  $("#facbook").click( function(){
+
+//   $("#facbook").click( function(){
     
-///////////////////////////////
+// ///////////////////////////////
 
-    FB.ui({display: 'popup',method: 'share',href: "https://www.ffn-staging.herokuapp.com/parties/w33w3s"},function(){});
-/////////////////////////////
+//     FB.ui({method: 'share',href: "https://www.ffn-staging.herokuapp.com/parties/w33w3s"},function(){});
+// /////////////////////////////
 
-  });
+//   });
 
 </script>
+
+<div id="fb-root">
+  <meta name="description" content="Description is here" />
+</div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
