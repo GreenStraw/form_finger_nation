@@ -77,7 +77,6 @@ class PartiesController < ApplicationController
   end
 
   def get_parties
-    puts 'i am here'*80
     @created_parties =  current_user.parties
 
     respond_to do |format|

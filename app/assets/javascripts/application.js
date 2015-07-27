@@ -16,7 +16,7 @@
 //= require select2
 //= require bootstrap-datepicker
 // = require underscore
-// = require gmaps/google
+= require gmaps/google
 //= require initialize
 //= require_tree .
 //= require vendor
