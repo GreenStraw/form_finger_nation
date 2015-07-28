@@ -53,10 +53,10 @@
                       <li><%= party.venue.address.city_state %></li>
                     </ul>
                     <%# if reservations_include?(party, current_user) %>
-                      <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+                      <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
                     <%# else %>
                       <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
-                      <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
+                      <%#= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
                     <%# end %>
                     <span class="prt_rsvp"> | </span>
                     <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
