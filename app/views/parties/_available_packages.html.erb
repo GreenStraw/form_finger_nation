@@ -25,7 +25,7 @@
       });
   });
 </script>
-
+<hr>
 <h3>Available Packages</h3>
 <br>
 <% if @party %>
@@ -61,7 +61,7 @@
       </table>
     <%else%>
       <% @party.party_packages.each do |party_package| %>
-        <div class="col-md-6">
+        <div class="col-md-6 text-center mtb">
           <div>
             <div class="bottom-margined">
               <span class="parties-package-image">
@@ -80,8 +80,9 @@
             </div>
           </div>
           <div class="row-underlined">
-            <div><%= link_to "More Information", party_package.package , class: "btn btn-green"%></div>
-            <div><%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: party_package.id} %></div>
+            <div class="col-md-6"><%= link_to "More Info", package_path({id: party_package.package.id ,  party_package: party_package.id}) , class: "btn btn-green"%></div>
+            <div class="col-md-6"><%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: party_package.id} %></div>
+            <%= party_package.id %>
           </div>
         </div>
       <% end %>

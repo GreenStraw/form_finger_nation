@@ -34,7 +34,7 @@
             <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
           <div class="follow companylisting ">
-            <div class="col-md-5 col-sm-5 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="row">
 <!--                 <%# if @party.verified %>
                   <div class="col-md-2 col-sm-3 col-xs-6">
@@ -52,7 +52,7 @@
                   </button>
                 </div>
                 <div class="col-md-6">
-                  <span >
+                  <span class = "line-height">
                     via TicketCity
                   </span>
                 </div>
@@ -68,8 +68,12 @@
                 <%= render :partial => "available_packages" %>
               </div></p>
             </div>
+
+            <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a>
+
+
             <div class="fb-share-button" data-href="https://ffn-staging.herokuapp.com/parties/<%=@party.friendly_url%>" data-layout="button"></div>
-            <div class="col-md-offset-2 col-md-5 col-sm-6 row">
+            <div class="col-md-offset-1 col-md-5 col-sm-6 row">
               <h2><%= @party.venue.name %></h2>
               <ul class="list-unstyled address">
                 <li><%= @party.venue.address.street_address %></li>
@@ -129,4 +133,19 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+
+$('a.tweet').click(function(e){
+  //We tell our browser not to follow that link
+  e.preventDefault();
+  //We get the URL of the link
+  var loc = $(this).attr('href');
+  //We get the title of the link
+  var title  = escape($(this).attr('title'));
+  //We trigger a new window with the Twitter dialog, in the middle of the page
+  window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+});
+
+
+</script>

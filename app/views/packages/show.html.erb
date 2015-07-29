@@ -52,6 +52,9 @@
               <% if current_user.present? && current_user.can?(:edit, @package) %>
                 <%= link_to 'Edit', edit_package_path(@package), class: "btn btn-success" %>
                 <%= link_to 'Delete', @package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                <% if @party_package %>
+                  <%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: @party_package} %>
+                <% end %>
               <% end %>
             </span>
             <br><br>
@@ -64,4 +67,31 @@
 </div>
 </div>
 </div>
+
+<script src="https://app.zooz.com/mobile/js/zooz-ext-web.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.checkout').click(function() {
+      var party_package_id = $(this).data('partyPackageId');
+      $.ajax({
+        url: "/zooz_transaction/" + party_package_id + "/openTrx", // A call to server side to initiate the payment process
+          dataType: 'html',
+          cache: false,
+          success: function(response) {
+            var data = JSON.parse(response);
+            var path = window.location.protocol + "//" + window.location.host ;
+            zoozStartCheckout({
+              token : data.token, // Session token recieved from server
+              uniqueId : '<%= ENV['ZOOZ_UNIQUE_ID'] %>', // unique ID as registered in the developer portal
+              isSandbox : <%= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
+              returnUrl : path + "/zooz_transaction/" + party_package_id + "", // return page URL
+              cancelUrl : path + "/zooz_transaction/" + party_package_id + "" // cancel page URL
+            });
+          }
+        });
+      });
+  });
+</script>
 
