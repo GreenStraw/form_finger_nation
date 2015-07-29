@@ -36,7 +36,7 @@
           <div class="follow companylisting ">
             <div class="col-md-5 col-sm-5 col-xs-12">
               <div class="row">
-                <% if @party.verified %>
+<!--                 <%# if @party.verified %>
                   <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="verifie_caption">
                       <div class="image-holder">
@@ -45,7 +45,19 @@
                       <strong class="title"><em>Verified</em></strong>
                     </div>
                   </div>
-                <% end %>
+                <%# end %> -->
+                <div class="col-md-6">
+                  <button class="btn btn-green">
+                    Purchase Party Ticket now
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <span >
+                    via TicketCity
+                  </span>
+                </div>
+
+                  
                 <div class="col-md-6 col-sm-6 col-xs-3">
                   <p><%= @party.description %></p>
                 </div>

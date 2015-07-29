@@ -1,7 +1,7 @@
+<h2>Account Details</h2>
+<p>Change or update the settings of your account</p>
+<hr>
 <div class="col-md-6">
-  <h2>Account Details</h2>
-  <p>Change or update the settings of your account</p>
-  <hr>
   <%= form_for(@user, url: update_account_path, method: :post) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
@@ -47,6 +47,7 @@
       </div>
 
     <div class="row">
+      <div class="col-md-2"></div>
       <div class="col-md-3">
         <div class="form-group form_edit">
           <div class="image-holder">
@@ -54,17 +55,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <br>
+      <div class="col-md-7">
         <div class="form-group">
-          <label for="exampleInputName6">Upload Profile Image <br>
-            (300x300 Preference)  </label>
-          <button type="button" class="btn btn-green btn_full" data-toggle="modal" data-target="#myPhotoModal">
-            Choose
+          <button type="button" class="btn btn-green " data-toggle="modal" data-target="#myPhotoModal">
+            Change Profile Picture
           </button>
+          <label for="exampleInputName6">Image must be at least <br>
+            300x300 Pixels  </label>
         </div>
       </div>
     </div>
-
+    <br>
     <div class="">
       <div class="form-group">
           <%= f.label :first_name %>
@@ -109,6 +111,7 @@
       </div>
     </div>
     <div class="form-group">
+      <%= f.label :teams, "Favorite Teams" %>
       <div class="box_add">
         <% @teams.try(:each) do |team| %>
           <span class= "team-names"><%= team.name %></span>
