@@ -47,7 +47,7 @@
             </div>
           </div>
             <span class="pull-right">
-              <%= link_to 'Back to Purchase', :back, class: "btn btn-primary", id: "voucher-back-button" %>
+              <%= link_to 'Back', :back, class: "btn btn-primary", id: "voucher-back-button" %>
               <%= link_to 'Venue', venue_path(@package.venue), class: "btn btn-primary" %>
               <% if current_user.present? && current_user.can?(:edit, @package) %>
                 <%= link_to 'Edit', edit_package_path(@package), class: "btn btn-success" %>

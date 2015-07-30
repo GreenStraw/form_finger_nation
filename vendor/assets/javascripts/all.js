@@ -173,6 +173,12 @@ $(document).ready(function() {
       change_img(input)
     });
 
+    $("#party_sponser_image").change(function(){
+      var input = document.getElementById("party_sponser_image");
+      console.log(input);
+      sponser_img(input)
+    })
+
     $("#team_image_url").change(function(){
       var input = document.getElementById("team_image_url");
       change_img(input)
@@ -294,6 +300,16 @@ function change_img(input){
     var reader = new FileReader();
     reader.onload = function (e) {
       $('#acc_profile_image')
+      .attr('src', e.target.result)
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+function sponser_img(input){
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#sponser_img')
       .attr('src', e.target.result)
     };
     reader.readAsDataURL(input.files[0]);

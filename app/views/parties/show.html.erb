@@ -12,7 +12,12 @@
               </div>
             <% end %>
             <div class="clearfix"></div>
-            <h4>Sponsored By <%= @party.sponsor %></h4>
+            <% if @party.sponsor.nil? %>
+              <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Request Sponsor</button>
+              <br>
+            <% else %>
+              <h4> Sponsored By <%= @party.sponsor %></h4>
+            <% end %>
             <%#= facebook_button :title=> 'Alternate Title', description: "foam finger nation" %>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
               <%= @party.party_reservations.count.to_s%> RSVP'd
@@ -46,17 +51,9 @@
                     </div>
                   </div>
                 <%# end %> -->
-                <div class="col-md-6">
-                  <button class="btn btn-green">
-                    Purchase Party Ticket now
-                  </button>
+                <div class="col-md-12">
+                  <a target="_blank" href="http://shareasale.com/r.cfm?b=537702&amp;u=1144786&amp;m=7124&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/7124/All_Leagues_180x150.jpg" border="0" alt="Shop for Official Game Day Gear at Fanatics!" /></a>
                 </div>
-                <div class="col-md-6">
-                  <span class = "line-height">
-                    via TicketCity
-                  </span>
-                </div>
-
                   
                 <div class="col-md-6 col-sm-6 col-xs-3">
                   <p><%= @party.description %></p>
@@ -68,11 +65,6 @@
                 <%= render :partial => "available_packages" %>
               </div></p>
             </div>
-
-            <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a>
-
-
-            <div class="fb-share-button" data-href="https://ffn-staging.herokuapp.com/parties/<%=@party.friendly_url%>" data-layout="button"></div>
             <div class="col-md-offset-1 col-md-5 col-sm-6 row">
               <h2><%= @party.venue.name %></h2>
               <ul class="list-unstyled address">
@@ -83,6 +75,11 @@
               <p><%= @party.venue.description %></p>
               <div class="map_holder">
                 <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+
+                  <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a>
+                  <div class="fb-share-button" data-href="https://ffn-staging.herokuapp.com/parties/<%=@party.friendly_url%>" data-layout="button"></div>
+
+
                 <div id="map" style='width: 100%; height: 200px;'></div>
                 <% end %>
                 Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
@@ -93,6 +90,26 @@
       </div>
     </div>
   </div>
+
+
+<div class=" ch_location myparties modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modall">
+        <h2>Request to add Sponsor </h2>
+        <%= form_tag sponsor_request_party_path(@party.id), method: "get" do %>
+          <label>Your Contact#</label>
+          <input type="text" name= "cell" class="form-control">
+          <label>Sponsor Name</label>
+          <input type="text" name= "sponsorname" class="form-control">
+          <label>Sponsor Image</label>
+          <%= file_field_tag 'sponsorimage' %>
+          <%= submit_tag "Send Request" ,class: "btn btn-green pull-right"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
 
     

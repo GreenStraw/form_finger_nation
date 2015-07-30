@@ -39,12 +39,13 @@
       <%= f.text_field :business_name, class: "form-control" %>
       <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
     </div>
-    <div class="form-group">
-      <label for="exampleInputName3">Sponsored By </label>
-      <%= f.text_field :sponsor, class: "form-control" %>
-      <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
-    </div>
-    
+
+<!--     <div class="form-group col-md-6">
+      <label for="exampleInputName3">Sponsor Image </label>
+      <%#= image_tag(@party.sponser_image, class: "img-responsive", id: "sponser_image") %>
+      <%#= f.file_field :sponser_image %>
+    </div> -->
+
     <div class="form-group" id='venue-select'>
       <%= f.label :venue %><br>
       <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
@@ -160,7 +161,34 @@
           <%= f.radio_button :invite_type, 'private' %> Invite Only
         </label>
       </div>
+
+      <div class="form-group">
+        <label for="exampleInputName3">Sponsored By </label>
+        <%= f.text_field :sponsor, class: "form-control" %>
+        <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
+      </div>
+      <div class="row ">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputName9">Sponsor Image</label>
+            <span class="file-input btn btn-block btn-green btn-file">
+              Choose File<%= f.file_field :sponser_image, class: "upload" %>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <% if !@party.sponser_image.present? %>
+              <%= image_tag("placeholder.png", class: "img-responsive", id: "sponser_img") %>
+            <% else %>
+              <%= image_tag(@party.sponser_image, class: "img-responsive", id: "sponser_img") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
     </div>
+
     <div class="text-center col-md-12 btn_area">
       <%= link_to 'Cancel', parties_path, class: "btn btn-green btn-default" %>
       <%= f.submit "Save", class: "btn btn-green btn-default" %>

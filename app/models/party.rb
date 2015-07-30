@@ -3,6 +3,7 @@ class Party < ActiveRecord::Base
   friendly_id :friendly_url
 
   mount_uploader :image_url, ImageUploader
+  mount_uploader :sponser_image, ImageUploader
   
   acts_as_commentable
   validates :name, presence: true

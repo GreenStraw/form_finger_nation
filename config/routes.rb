@@ -33,6 +33,7 @@ Baseapp::Application.routes.draw do
     end
     member do
       get 'cancel_reservation'
+      get 'sponsor_request'
     end
   end
   resources :sports do
