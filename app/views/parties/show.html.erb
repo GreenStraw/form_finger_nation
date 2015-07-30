@@ -2,6 +2,8 @@
     <div class="container-fluid">
       <div class="sport_header row">
         <div class="col-md-12">
+          <button type="button" data-toggle="modal" data-target="#wallModal" class="btn btn-green">Upload</button>
+
           <div class="sport_caption col-md-5 pull-right verified">
             <h2><%= @party.name%>
             <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
@@ -112,13 +114,21 @@
 </div>
 
 
-    
-  <meta property="og:title" content= "Foam Finger Nation" />
-  <meta property="og:type" content= "image" />
-  <link rel="canonical" href="http://www.ffn-staging.herokukapp.com">
-  <meta property="og:url" content="http://www.ffn-staging.herokukapp.com/parties" />
-  <meta property="og:description" content="Its party Time" />
-  <meta name="description" content="Description is here" />
+<div class=" ch_location myparties modal fade" id="wallModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modalls">
+        <h2>Upload Wall Photo</h2>
+        <%= form_tag sponsor_request_party_path(@party.id), method: "get" do %>
+          <label>Sponsor Image</label>
+          <%= file_field_tag 'sponsorimage' %>
+          <%= submit_tag "Send Request" ,class: "btn btn-green pull-right"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 
   handler = Gmaps.build('Google');
