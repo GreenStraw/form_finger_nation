@@ -13,6 +13,8 @@
                 <strong class="title"><em>Verified</em></strong>
               </div>
             <% end %>
+            <button id = "fbtn">facebook22</button>
+
             <div class="clearfix"></div>
             <% if @party.sponsor.nil? %>
               <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Request Sponsor</button>
@@ -139,6 +141,21 @@
     handler.getMap().setZoom(11)
   });
 
+  $("#fbtn").click(function(){
+
+    FB.ui({
+    method: 'share',
+    href: 'https://developers.facebook.com/docs/',
+    name: 'Foam Finger Nation',
+    link: 'http://www.ffn-staging.herokukapp.com/parties/<%= @party.friendly_url %>',
+    caption: 'FFN',
+    description: 'This is the description blah blah blah'
+
+    }, function(response){});
+
+  });
+
+
 
 //   $("#facbook").click( function(){
     
@@ -151,16 +168,34 @@
 
 </script>
 
-<div id="fb-root">
+  <meta property="og:title" content= "Foam Finger Nation" />
+  <meta property="og:type" content= "web" />
+  <link rel="canonical" href="http://www.ffn-staging.herokukapp.com/parties/<%= @party.friendly_url %>">
+  <meta property="og:url" content="http://www.ffn-staging.herokukapp.com/parties/<%= @party.friendly_url %>" />
+  <meta property="og:description" content="Its party Time" />
   <meta name="description" content="Description is here" />
-</div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+
+
+<!-- <div id="fb-root">
+  <meta name="description" content="Description is here" />
+</div> -->
+<script>
+// (function(d, s, id) {
+//   var js, fjs = d.getElementsByTagName(s)[0];
+//   if (d.getElementById(id)) return;
+//   js = d.createElement(s); js.id = id;
+//   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+//   fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));
+
+
+// FB.ui({
+//   method: 'feed',
+//   name: 'Foam Finger Nation',
+//   link: 'http://www.ffn-staging.herokukapp.com/parties/<%#= @party.friendly_url %>',
+//   caption: 'FFN',
+//   description: 'This is the description blah blah blah',
+// });
 
 
 $('a.tweet').click(function(e){
