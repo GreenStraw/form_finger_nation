@@ -13,7 +13,6 @@ class TeamsController < ApplicationController
   end
 
   def search
-  
     if params[:keyword] == ''
       @has_favorites = user_signed_in? && current_user.followed_teams.any?
       @teams_by_sport = Team.ordered_teams(Team.all)
