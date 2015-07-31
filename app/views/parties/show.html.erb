@@ -143,14 +143,11 @@
 
   $("#fbtn").click(function(){
 
-    FB.ui({
-    method: 'share',
-    href: 'https://developers.facebook.com/docs/',
-    name: 'Foam Finger Nation',
-    link: 'http://www.ffn-staging.herokukapp.com/parties/<%= @party.friendly_url %>',
-    caption: 'FFN',
-    description: 'This is the description blah blah blah'
-
+      FB.ui({
+      method: 'feed',
+      link: 'https://developers.facebook.com/docs/',
+      caption: 'An example caption',
+      description: "Dummy Description"
     }, function(response){});
 
   });
@@ -180,6 +177,8 @@
   <meta name="description" content="Description is here" />
 </div> -->
 <script>
+
+
 // (function(d, s, id) {
 //   var js, fjs = d.getElementsByTagName(s)[0];
 //   if (d.getElementById(id)) return;
