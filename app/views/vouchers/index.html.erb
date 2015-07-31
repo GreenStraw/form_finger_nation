@@ -42,13 +42,26 @@
           </div>
         </div>
         <div class="row sp_contents" id="redeemable">
+        <br>
+        <br>
           <ul class="list-group">
             <% if @redeemable_vouchers.any? %>
               <% @redeemable_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
             <% else %>
-              <h5 class='text-muted'>No Redeemable Vouchers</h5>
+              <div class="col-sm-4">
+                <h5 class=''>You currently have no Vouchers</h5>
+                
+              </div>
+              <div class="col-sm-4">
+                <%= link_to "Find a Watch Party", search_parties_path, class: "btn btn-green btn-default" %>
+                
+              </div>
+              <div class="col-sm-4">
+                <%= link_to "Create a Watch Party", new_party_path, class: "btn btn-green btn-default" %> 
+                
+              </div>
             <% end %>
           </ul>
         </div>

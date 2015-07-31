@@ -13,6 +13,9 @@ class PackagesController < ApplicationController
 
   # GET /packages/1
   def show
+    if params[:party_package]
+      @party_package = params[:party_package]
+    end
   end
 
   # GET /packages/new

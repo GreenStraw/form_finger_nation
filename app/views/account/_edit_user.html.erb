@@ -1,0 +1,128 @@
+<h2>Account Details</h2>
+<p>Change or update the settings of your account</p>
+<hr>
+<div class="col-md-6">
+  <%= form_for(@user, url: update_account_path, method: :post) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved
+
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.hidden_field :id%>
+
+      <div class="modal fade upload_image" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="col-md-4">
+                <h3><a href="#">Photo Upload</a></h3>
+              </div>
+              <div class="col-md-8">
+                <!-- <div class="form-group">
+                  <label for="exampleInputName6">Upload from URL </label>
+                  <input type="text" class="form-control" id="exampleInputName6">
+                </div> -->
+                <div class="form-group">
+                <div class="fileUpload btn btn-green btn_full">
+                    <span>Upload Photo from Computer</span>
+                    <%= f.file_field :image_url, class: "upload" %>
+                </div>
+                  
+                </div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-green btn_full" data-dismiss="modal" id="acc_ph_change">
+                    Change your Account Photo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
+        <div class="form-group form_edit">
+          <div class="image-holder">
+            <%= image_tag(@user.image_url, class: "img-responsive", id: "acc_profile_image") %>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col-md-7">
+        <div class="form-group">
+          <button type="button" class="btn btn-green " data-toggle="modal" data-target="#myPhotoModal">
+            Change Profile Picture
+          </button>
+          <label for="exampleInputName6">Image must be at least <br>
+            300x300 Pixels  </label>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="">
+      <div class="form-group">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name,class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name,class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :email, "Email Address" %>
+      <%= f.email_field :email,class: "form-control" %>
+    </div>
+    
+    
+    <div class="form-group textarea_profile">
+      <%= f.label :about, "About Myself" %>
+      <%= f.text_area :about, class: "form-control ", rows: 4 %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= f.label :website, "Website" %> 
+          <%= f.url_field :website,class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <%= f.label :name %> (From Facebook)
+          <%= f.text_field :name,class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :gender, "Gender" %>
+          <%= f.select :gender, ['Male' , 'Female'], { :include_blank => false }, 
+        { :class => 'select2 form-control' }   %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :teams, "Favorite Teams" %>
+      <div class="box_add">
+        <% @teams.try(:each) do |team| %>
+          <span class= "team-names"><%= team.name %></span>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="text-center pull-right">
+      <%= f.submit "Save Changes", class: "btn btn-green btn-default" %>
+    </div>
+  <% end %>
+  <a href="#"  data-toggle="modal" data-target="#myModal", class: "btn btn-green btn-default", >Change password</a>
+  <%= render partial: 'password' %>
+</div>

@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <div class="sport_header  row">
         <div class="col-md-12">
-          <div class="sport_caption col-md-4 pull-right ">
+          <div class="sport_caption profilename col-md-4 pull-right">
             <h2><%= @u.first_name + " " + @u.last_name rescue "User not present" %></h2>
             <h4>800 Followers, 200 Following</h4>
             <button type="button" class="btn btn-green btn-default">Follow</button> 
@@ -11,10 +11,119 @@
       </div>
       <div class="main-area">
         <div class="row">
-          <div class="follow">
-            <div class="col-md-6">
-              <h4><%= @u.location %> | foamfingernation.com</h4>
+          <div class="follow no-border">
+            <div class="col-md-10">
+              <h3><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h4>
               <p><%= @u.about %></p>
+              <hr>
+              <h3>My Teams</h3>
+              <% @teams.try(:each) do |team| %>
+                <span class= "team-names"><%= team.name %></span>
+              <% end %>
+              <hr>
+              <h3>My Watch Parties</h3>
+              <% c = 0 %>
+              <% @created_parties.try(:each) do |party| %>
+                <div class="col-sm-6 col-md-4 ">
+                  <div class="thumbnail">
+                    <div class="cancle_icon">
+                    <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <div class="holder">
+                      <%= image_tag(party.image_url, class: "img-responsive") unless party.image_url.nil? %>
+                    </div>
+                    <div class="caption">
+                    <%= link_to party do %>
+                      <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+                    <% end %>
+                    <!-- /////////////////////////check for verification///////////////// -->
+                    <% if party.verified %>
+                      <div class="verifie_caption">
+                        <div class="image-holder">
+                            <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                          </div>
+                        <strong class="title"><em>Verified</em></strong>
+                      </div>
+                    <% end %>
+                    <!-- /////////////////////////////////end//////////////////////////// -->
+                    <br>
+                    <%= party.sponsor %>
+                    <ul class="list-inline">
+                      <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                      <li><%= party.venue.address.city_state %></li>
+                    </ul>
+                    <%# if reservations_include?(party, current_user) %>
+                      <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+                    <%# else %>
+                      <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                      <%#= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
+                    <%# end %>
+                    <span class="prt_rsvp"> | </span>
+                    <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+                    <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
+                      <span class="prt_rsvp"> | </span>
+                      <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+                    <% end %>
+                    <span class="prt_rsvp"> | </span>
+                    <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
+
+                  </div>
+                  </div>
+                </div>
+              <% end %>
+              <hr>              
+              <div class="clerfix">
+              </div>
+              <h3>Parties I'm Attending</h3>
+              <% @rvs_parties.try(:each) do |rsv| %>
+                <% party = rsv.party %>
+                <div class="col-sm-6 col-md-4 no-border">
+                  <div class="thumbnail">
+                    <div class="cancle_icon">
+                    <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <div class="holder">
+                      <%= image_tag(party.image_url, class: "img-responsive") unless party.image_url.nil? %>
+                    </div>
+                    <div class="caption">
+                    <%= link_to party do %>
+                      <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+                    <% end %>
+                    <!-- /////////////////////////check for verification///////////////// -->
+                    <% if party.verified %>
+                      <div class="verifie_caption">
+                        <div class="image-holder">
+                            <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                          </div>
+                        <strong class="title"><em>Verified</em></strong>
+                      </div>
+                    <% end %>
+                    <!-- /////////////////////////////////end//////////////////////////// -->
+                    <br>
+                    <%= party.sponsor %>
+                    <ul class="list-inline">
+                      <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                      <li><%= party.venue.address.city_state %></li>
+                    </ul>
+                    <%# if reservations_include?(party, current_user) %>
+                      <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+                    <%# else %>
+                      <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                      <%#= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
+                    <%# end %>
+                    <span class="prt_rsvp"> | </span>
+                    <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+                    <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
+                      <span class="prt_rsvp"> | </span>
+                      <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+                    <% end %>
+                    <span class="prt_rsvp"> | </span>
+                    <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
+
+                  </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>

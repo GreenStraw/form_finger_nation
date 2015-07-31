@@ -26,7 +26,11 @@ class AccountController < ApplicationController
   end
 
   def user
-    @u = User.find(params[:id])   
+    @u = User.find(params[:id])
+    @created_parties = @u.parties
+    @rvs_parties = @u.party_reservations
+    @teams = @u.followed_teams.order("name ASC")
+
   end
 
   def user_loc
@@ -42,6 +46,7 @@ class AccountController < ApplicationController
   
   def edit
     @user = current_user
+    @teams = @user.followed_teams.order("name ASC")
     if @user.website == ''
       @user.website = 'http://'
     end

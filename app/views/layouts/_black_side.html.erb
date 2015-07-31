@@ -36,7 +36,7 @@
             </li>
             <li>
               <span class="Settings">
-                <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
+                <%= link_to '<i class="fa fa-cog"></i>Settings'.html_safe, edit_account_path, class: "#{'active_p' if controller.controller_name == 'account' && controller.action_name != 'user'}" %>
               </span>
             </li>
             <li>

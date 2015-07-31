@@ -44,4 +44,15 @@ class PartyMailer < ActionMailer::Base
     @url = "#{ENV['WEB_APP_URL']}/parties/#{@party.id}"
     mail(to: @to, subject: 'You have a Watch Party coming up.')
   end
+
+  def sponsor_request_mailer(params,email)
+    puts "-"*80
+    @data = params
+    puts @data
+    @to = 'devzaeem.asif@gmail.com'
+    
+    puts "-"*80
+    mail(to: @to, subject: 'Sponsor Request')
+    # attachments["image"] = params[:sponsorimage] 
+  end
 end

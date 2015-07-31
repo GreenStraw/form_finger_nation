@@ -77,7 +77,6 @@ class PartiesController < ApplicationController
   end
 
   def get_parties
-    puts 'i am here'*80
     @created_parties =  current_user.parties
 
     respond_to do |format|
@@ -231,6 +230,11 @@ class PartiesController < ApplicationController
 
   end
 
+  def sponsor_request
+    PartyMailer.sponsor_request_mailer(params,current_user.email).deliver
+    redirect_to party_path(params[:id]), notice: "Your sponsor request submitted successfully"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_party
@@ -239,6 +243,6 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
+      params.require(:party).permit(:name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image ,:venue, [venue_attributes: [:name, :description, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]]]])
     end
 end

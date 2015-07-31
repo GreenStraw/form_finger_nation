@@ -2,16 +2,27 @@
     <div class="container-fluid">
       <div class="sport_header row">
         <div class="col-md-12">
+          <button type="button" data-toggle="modal" data-target="#wallModal" class="btn btn-green">Upload</button>
+
           <div class="sport_caption col-md-5 pull-right verified">
             <h2><%= @party.name%>
+            <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
             </h2>
             <% if @party.verified %>
               <div class="verifie_box">
                 <strong class="title"><em>Verified</em></strong>
               </div>
             <% end %>
+            <button id = "fbtn">facebook22</button>
+
             <div class="clearfix"></div>
-            <h4>Sponsored By <%= @party.sponsor %></h4>
+            <% if @party.sponsor.nil? %>
+              <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Request Sponsor</button>
+              <br>
+            <% else %>
+              <h4> Sponsored By <%= @party.sponsor %></h4>
+            <% end %>
+            <%#= facebook_button :title=> 'Alternate Title', description: "foam finger nation" %>
             <h4><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
               <%= @party.party_reservations.count.to_s%> RSVP'd
             </h4>
@@ -32,9 +43,9 @@
             <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
           <div class="follow companylisting ">
-            <div class="col-md-5 col-sm-5 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="row">
-                <% if @party.verified %>
+<!--                 <%# if @party.verified %>
                   <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="verifie_caption">
                       <div class="image-holder">
@@ -43,7 +54,11 @@
                       <strong class="title"><em>Verified</em></strong>
                     </div>
                   </div>
-                <% end %>
+                <%# end %> -->
+                <div class="col-md-12">
+                  <a target="_blank" href="http://shareasale.com/r.cfm?b=537702&amp;u=1144786&amp;m=7124&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/7124/All_Leagues_180x150.jpg" border="0" alt="Shop for Official Game Day Gear at Fanatics!" /></a>
+                </div>
+                  
                 <div class="col-md-6 col-sm-6 col-xs-3">
                   <p><%= @party.description %></p>
                 </div>
@@ -54,7 +69,7 @@
                 <%= render :partial => "available_packages" %>
               </div></p>
             </div>
-            <div class="col-md-offset-2 col-md-5 col-sm-6 row">
+            <div class="col-md-offset-1 col-md-5 col-sm-6 row">
               <h2><%= @party.venue.name %></h2>
               <ul class="list-unstyled address">
                 <li><%= @party.venue.address.street_address %></li>
@@ -64,6 +79,11 @@
               <p><%= @party.venue.description %></p>
               <div class="map_holder">
                 <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+
+                  <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a>
+                  <div class="fb-share-button" data-href="https://ffn-staging.herokuapp.com/parties/<%=@party.friendly_url%>" data-layout="button"></div>
+
+
                 <div id="map" style='width: 100%; height: 200px;'></div>
                 <% end %>
                 Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
@@ -76,6 +96,41 @@
   </div>
 
 
+<div class=" ch_location myparties modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modall">
+        <h2>Request to add Sponsor </h2>
+        <%= form_tag sponsor_request_party_path(@party.id), method: "get" do %>
+          <label>Your Contact#</label>
+          <input type="text" name= "cell" class="form-control">
+          <label>Sponsor Name</label>
+          <input type="text" name= "sponsorname" class="form-control">
+          <label>Sponsor Image</label>
+          <%= file_field_tag 'sponsorimage' %>
+          <%= submit_tag "Send Request" ,class: "btn btn-green pull-right"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class=" ch_location myparties modal fade" id="wallModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modalls">
+        <h2>Upload Wall Photo</h2>
+        <%= form_tag sponsor_request_party_path(@party.id), method: "get" do %>
+          <label>Sponsor Image</label>
+          <%= file_field_tag 'sponsorimage' %>
+          <%= submit_tag "Send Request" ,class: "btn btn-green pull-right"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 
   handler = Gmaps.build('Google');
@@ -85,5 +140,73 @@
     handler.fitMapToBounds();
     handler.getMap().setZoom(11)
   });
+
+  $("#fbtn").click(function(){
+
+      FB.ui({
+      method: 'feed',
+      link: 'https://developers.facebook.com/docs/',
+      caption: 'An example caption',
+      description: "Dummy Description"
+    }, function(response){});
+
+  });
+
+
+
+//   $("#facbook").click( function(){
+    
+// ///////////////////////////////
+
+//     FB.ui({method: 'share',href: "https://www.ffn-staging.herokuapp.com/parties/w33w3s"},function(){});
+// /////////////////////////////
+
+//   });
+
+</script>
+
+  <meta property="og:title" content= "Foam Finger Nation" />
+  <meta property="og:type" content= "web" />
+  <link rel="canonical" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url %>">
+  <meta property="og:url" content="http://www.foamfingernation.com/parties/<%= @party.friendly_url %>" />
+  <meta property="og:description" content="Its party Time" />
+  <meta name="description" content="Description is here" />
+
+
+<!-- <div id="fb-root">
+  <meta name="description" content="Description is here" />
+</div> -->
+<script>
+
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+// FB.ui({
+//   method: 'feed',
+//   name: 'Foam Finger Nation',
+//   link: 'http://www.ffn-staging.herokukapp.com/parties/<%#= @party.friendly_url %>',
+//   caption: 'FFN',
+//   description: 'This is the description blah blah blah',
+// });
+
+
+$('a.tweet').click(function(e){
+  //We tell our browser not to follow that link
+  e.preventDefault();
+  //We get the URL of the link
+  var loc = $(this).attr('href');
+  //We get the title of the link
+  var title  = escape($(this).attr('title'));
+  //We trigger a new window with the Twitter dialog, in the middle of the page
+  window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+});
+
 
 </script>

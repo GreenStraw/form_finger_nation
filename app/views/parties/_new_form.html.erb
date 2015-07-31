@@ -39,12 +39,13 @@
       <%= f.text_field :business_name, class: "form-control" %>
       <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
     </div>
-    <div class="form-group">
-      <label for="exampleInputName3">Sponsored By </label>
-      <%= f.text_field :sponsor, class: "form-control" %>
-      <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
-    </div>
-    
+
+<!--     <div class="form-group col-md-6">
+      <label for="exampleInputName3">Sponsor Image </label>
+      <%#= image_tag(@party.sponser_image, class: "img-responsive", id: "sponser_image") %>
+      <%#= f.file_field :sponser_image %>
+    </div> -->
+
     <div class="form-group" id='venue-select'>
       <%= f.label :venue %><br>
       <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
@@ -127,40 +128,41 @@
     </div>
   </div>
   <div class="col-md-6">
-      <div class="form-group">
-        <label for="exampleInputName12">Choose maximum number of available RSVPs  </label>
-        <%= f.text_field :max_rsvp, class: "form-control" %>
+    <div class="form-group">
+      <label for="exampleInputName12">Choose maximum number of available RSVPs  </label>
+      <%= f.text_field :max_rsvp, class: "form-control" %>
 
-        <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
-      </div>  
-      <div class="form-group">
-        <%= f.label :team, "Party Team" %><br>
-        <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.order("name ASC"), 'id', 'name',@party.team_id), include_blank: false, class: 'select2 form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :description, "Watch Party Description" %>
-        <%= f.text_area :description, rows: 3, class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.hidden_field :organizer_id, value: current_user.id %>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputName12">Tags  </label>
-        <%= f.text_field :tags, class: "form-control" %>
-
-        <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
-      </div>
-      <div class="form-group radio_create">
-        <h6><label for="exampleInputName13">Party Type  </label></h6>
-        <label class="radio-inline">
-          <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :invite_type, 'private' %> Invite Only
-        </label>
-      </div>
+      <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
+    </div>  
+    <div class="form-group">
+      <%= f.label :team, "Party Team" %><br>
+      <%= select_tag 'party[team_id]', options_from_collection_for_select(Team.order("name ASC"), 'id', 'name',@party.team_id), include_blank: false, class: 'select2 form-control' %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :description, "Watch Party Description" %>
+      <%= f.text_area :description, rows: 3, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.hidden_field :organizer_id, value: current_user.id %>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName12">Tags  </label>
+      <%= f.text_field :tags, class: "form-control" %>
+
+      <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
+    </div>
+    <div class="form-group radio_create">
+      <h6><label for="exampleInputName13">Party Type  </label></h6>
+      <label class="radio-inline">
+        <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :invite_type, 'private' %> Invite Only
+      </label>
+    </div>
+  </div>
+
     <div class="text-center col-md-12 btn_area">
       <%= link_to 'Cancel', parties_path, class: "btn btn-green btn-default" %>
       <%= f.submit "Save", class: "btn btn-green btn-default" %>
