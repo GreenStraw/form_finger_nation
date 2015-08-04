@@ -80,8 +80,12 @@
             </div>
           </div>
           <div class="row-underlined">
-            <div class="col-md-6"><%= link_to "More Info", package_path({id: party_package.package.id ,  party_package: party_package.id}) , class: "btn btn-green"%></div>
-            <div class="col-md-6"><%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: party_package.id} %></div>
+            <div class="col-md-6">
+              <%= link_to "More Info", package_path({id: party_package.package.id ,  party_package: party_package.id}) , class: "checkout1 btn btn-green"%>
+            </div>
+            <div class="col-md-6">
+              <%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: party_package.id} %>
+            </div>
           </div>
         </div>
       <% end %>

@@ -90,8 +90,11 @@
             <p><%= @party.venue.description %></p>
             <div class="map_holder">
               <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-              <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a>
-              <button id = "fbtn" class="btn btn-green">facebook</button>
+              <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
+              <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
+              <a title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+              
+              <a id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a>
               <div id="map" style='width: 100%; height: 200px;'></div>
               <% end %>
               Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
@@ -154,26 +157,6 @@
   
   });
 
-
-  /*$("#banner_upload_field").change(function (e) {
-    alert(this.files[0].size);
-    var file, img;
-    if ((file = this.files[0])) {
-      alert("this.files[0].size");
-        img = new Image(file);
-        /*img.on('load', function () {*/
-            //alert("Width:" + img.width + "   Height: " + img.height);
-        /*})
-        .attr('src', url)
-        ;*/
-        /*img.onload = function () {
-            alert("Width:" + img.width + "   Height: " + img.height);//this will give you image width and height and you can easily validate here....
-        };
-        //img.src = _URL.createObjectURL(file);
-    }
-});*/
-  
-  
   
   //   $("#facbook").click( function(){
     
