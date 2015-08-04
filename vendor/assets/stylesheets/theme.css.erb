@@ -498,11 +498,7 @@ ul
 }
 /*sport_pages start*/
 .sport_header{
-  <% if User.first.banner.nil? %>
     background: url(<%= asset_path 'vendor/Sports_banner.png' %>) no-repeat center center;
-  <% else %>
-    background: url(<%= User.first.banner %>) no-repeat center center;
-  <% end %>
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

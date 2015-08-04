@@ -4,6 +4,7 @@ class Party < ActiveRecord::Base
 
   mount_uploader :image_url, ImageUploader
   mount_uploader :sponser_image, ImageUploader
+  mount_uploader :banner, BannerUploader
   
   acts_as_commentable
   validates :name, presence: true
@@ -11,6 +12,7 @@ class Party < ActiveRecord::Base
   validates :friendly_url, uniqueness: true
   validates :scheduled_for, presence: true
   validate :venue_exists
+  
 
   after_update :send_notification_when_verified
   after_create :ensure_address
