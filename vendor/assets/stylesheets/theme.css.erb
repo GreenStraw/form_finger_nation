@@ -498,15 +498,7 @@ ul
 }
 /*sport_pages start*/
 .sport_header{
-<<<<<<< HEAD
-    background: url(<%= asset_path 'vendor/Sports_banner.png' %>) no-repeat center center;
-=======
-  <% if User.first.banner.nil? %>
-    background: url(<%= asset_path 'vendor/Sports_banner.png' %>) no-repeat center center;
-  <% else %>
-    background: url(<%= User.first.banner %>) no-repeat center center;
-  <% end %>
->>>>>>> 93d98bd0b423391097662c4010f78726f1ea3644
+  background: url(<%= asset_path 'vendor/Sports_banner.png' %>) no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
