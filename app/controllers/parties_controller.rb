@@ -125,8 +125,8 @@ class PartiesController < ApplicationController
   def create
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
-    
-    if @party = Party.create!(party_params)
+
+    if @party = Party.create(party_params)
       # to_date = params[:party][:scheduled_for]
       # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
       # params[:party][:scheduled_for] = ''

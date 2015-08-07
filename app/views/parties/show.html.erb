@@ -18,7 +18,7 @@ body {overflow-x: hidden}
       <div class="col-md-12">
         <button type="button" data-toggle="modal" data-target="#wallModal" class="btn btn-green">Upload Banner</button>
         <div class="sport_caption col-md-6 pull-right verified party_caption_banner">
-          <h2 class="party_caption_heading"><%= @party.name%>
+          <h2><%= @party.name%>
             <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
           </h2 >
           <% if @party.verified %>

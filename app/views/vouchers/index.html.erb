@@ -1,9 +1,9 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="sport_header row">
+      <div class="sport_header row" style="height: 468px;">
         <div class="col-md-12">
           <div class="clearfix"></div>
-          <div class="sport_caption col-md-4 pull-right text-center">
+          <div class="Voucher_caption col-md-4 pull-right text-center">
             <h2>Vouchers</h2>
           </div>
         </div>
@@ -50,17 +50,14 @@
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
             <% else %>
-              <div class="col-sm-4">
+              <div class="col-sm-9" style="margin-bottom: 20px;">
                 <h5 class=''>You currently have no Vouchers</h5>
-                
               </div>
               <div class="col-sm-4">
                 <%= link_to "Find a Watch Party", search_parties_path, class: "btn btn-green btn-default" %>
-                
               </div>
               <div class="col-sm-4">
                 <%= link_to "Create a Watch Party", new_party_path, class: "btn btn-green btn-default" %> 
-                
               </div>
             <% end %>
           </ul>
