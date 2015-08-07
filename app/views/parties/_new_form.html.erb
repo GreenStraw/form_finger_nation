@@ -34,11 +34,11 @@
       </div>
     </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="exampleInputName3">Business Name </label>
-      <%= f.text_field :business_name, class: "form-control" %>
-      <!-- <input type="text" class="form-control" id="exampleInputName3"> -->
-    </div>
+      <%#= f.text_field :business_name, class: "form-control" %>
+       <input type="text" class="form-control" id="exampleInputName3"> 
+    </div> -->
 
 <!--     <div class="form-group col-md-6">
       <label for="exampleInputName3">Sponsor Image </label>
@@ -46,24 +46,24 @@
       <%#= f.file_field :sponser_image %>
     </div> -->
 
-    <div class="form-group" id='venue-select'>
-      <%= f.label :venue %><br>
-      <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
+    <!-- <div class="form-group" id='venue-select'>
+      <%#= f.label :venue %><br>
+      <%#= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
     </div>
     <div class="form-group">
-      <%= check_box_tag "new_venue" %> Create New Venue
-    </div>
-    <div class='new_venue hidden' id='venue-create'>
+      <%#= check_box_tag "new_venue" %> Create New Venue
+    </div> -->
+    <div class='new_venue' id='venue-create'>
       <%= f.fields_for :venue_attributes do |v| %>
         <div class="form-group">
           <%= v.label :name %>
-          <%= v.text_field :name, class: "form-control" %>
+          <%= v.text_field :name, class: "form-control", :required => :true %>
         </div>
         <%= v.fields_for :address_attributes do |a| %>
           
           <div class="form-group">
             <%= a.label :street1, "Address street1" %><br>
-            <%= a.text_field :street1, class: "form-control" %>
+            <%= a.text_field :street1, class: "form-control", :required => :true %>
           </div>
           <div class="form-group">
             <%= a.label :street2, "Address street2" %><br>
@@ -74,13 +74,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= a.label :city %>
-                <%= a.text_field :city, class: "form-control" %>
+                <%= a.text_field :city, class: "form-control", :required => :true %>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <%= a.label :state %>
-                <%= a.text_field :state, class: "form-control" %>
+                <%= a.text_field :state, class: "form-control", :required => :true %>
               </div>
             </div>
             <div class="col-md-3">

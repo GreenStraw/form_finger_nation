@@ -13,7 +13,7 @@
         <div class="row">
           <div class="follow companylisting">
             <div class="col-md-5 col-sm-6">
-              <h2><%= "#{@team.name} Feed" %></h2>
+              <h2><%= "#{@team.name}" %></h2>
               <ul class="list-unstyled address">
                 <li><%= @team.address.street %></li>
                 <li><%= @team.address.city_state %></li>
@@ -45,26 +45,55 @@
                     </span>
                   </a></li>
                 </ul> -->
-                <h2>Upcoming Watch Parties</h2>
                 <% if @team.upcoming_parties.any? %>
-                  <ul class="list-unstyled verifie_list">
-                  <% @team.upcoming_parties.each do |party| %>
-                    <div class="row">
-                      <li class="col-md-12">
-                        <span class="col-md-6 col-sm-6"> <%= link_to party.name, party_path(party) %>
-                        </span>
-                        <span class="col-md-6 col-sm-6"><%= party.venue.name+"(#{party.venue.address.city})" %></span>
-                        <% if party.verified %>
-                          <div class="verifie_caption">
-                            <strong class="title"><em>Verified</em></strong>
-                          </div>
-                        <% end %> 
-                      </li>
-                    </div>
-                  <% end %>
-                  </ul>
+                  <h3 style=" font-weight: bold; font-size: x-large; ">Upcoming Watch Parties</h3>
+                    <ul class="list-unstyled verifie_list">
+                    <% @team.upcoming_parties.each do |party| %>
+                      <div class="thumbnail modified_thumbnail" style="width: 275px; min-height:auto;">
+                        <div class="cancle_icon">
+                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                        </div>
+                        <div class="holder" style="width: 100px; height:100px;">
+                          <%= image_tag(party.image_url, class: "img-responsive") unless party.image_url.nil? %>
+                        </div>
+                        <div class="caption">
+                          <%= link_to party do %>
+                            <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+                          <% end %>
+                          <!-- /////////////////////////check for verification///////////////// -->
+                          <% if party.verified %>
+                            <div class="verifie_caption">
+                              <div class="image-holder">
+                                  <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                                </div>
+                              <strong class="title"><em>Verified</em></strong>
+                            </div>
+                          <% end %>
+                          <!-- /////////////////////////////////end//////////////////////////// -->
+                          <br>
+                          <%= party.sponsor %>
+
+                          <ul class="list-inline">
+                            <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                            <li><%= party.venue.name+"(#{party.venue.address.city})" %></li>
+                          </ul>
+                          <% if !party.description.nil? %>
+                            <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
+                          <% end %>
+                          <%# if reservations_include?(party, current_user) %>
+                            
+                          <%# else %>
+                            <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                            
+                          <%# end %>
+                          <span class="prt_rsvp"> | </span>
+                          <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+                        </div>
+                      </div>
+                    <% end %>
+                    </ul>
                 <% else %>
-                  <p>No upcoming watch parties listed</p>
+                  <h2>No upcoming watch parties listed</h2>
                 <% end %>
               </div>
               <div class="col-md-offset-2 col-md-5 col-sm-6">

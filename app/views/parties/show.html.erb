@@ -1,4 +1,5 @@
 <style type="text/css">
+body {overflow-x: hidden}
   .sport_header{
     <% if @party.banner.present? %>
       background: url(<%= asset_path "#{@party.banner_url}" %>) no-repeat center center;
@@ -16,10 +17,10 @@
     <div class="sport_header row">
       <div class="col-md-12">
         <button type="button" data-toggle="modal" data-target="#wallModal" class="btn btn-green">Upload Banner</button>
-        <div class="sport_caption col-md-5 pull-right verified">
-          <h2><%= @party.name%>
+        <div class="sport_caption col-md-6 pull-right verified party_caption_banner">
+          <h2 class="party_caption_heading"><%= @party.name%>
             <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
-          </h2>
+          </h2 >
           <% if @party.verified %>
           <div class="verifie_box">
             <strong class="title"><em>Verified</em></strong>
@@ -54,29 +55,14 @@
         </div>
         <div class="follow companylisting ">
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="row">
-              <!--                 <%# if @party.verified %>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                  <div class="verifie_caption">
-                    <div class="image-holder">
-                      <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
-                    </div>
-                    <strong class="title"><em>Verified</em></strong>
-                  </div>
-                </div>
-                <%# end %> -->
-              <div class="col-md-12">
-                <a target="_blank" href="http://shareasale.com/r.cfm?b=537702&amp;u=1144786&amp;m=7124&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/7124/All_Leagues_180x150.jpg" border="0" alt="Shop for Official Game Day Gear at Fanatics!" /></a>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-3">
-                <p><%= @party.description %></p>
-              </div>
-            </div>
-            <br>
-            <p>
             <div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
               <br>
-              <%= render :partial => "available_packages" %>
+              <%= if @party.party_packages.any? 
+                render :partial => "available_packages" 
+                end %>
+                <div class="col-md-6" style="margin: 20px 0 0 10px">
+                <a target="_blank" href="http://shareasale.com/r.cfm?b=537702&amp;u=1144786&amp;m=7124&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/7124/All_Leagues_180x150.jpg" border="0" alt="Shop for Official Game Day Gear at Fanatics!" /></a>
+              </div>
             </div>
             </p>
           </div>
@@ -87,20 +73,43 @@
               <li><%= @party.venue.address.city_state %></li>
               <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
             </ul>
-            <p><%= @party.venue.description %></p>
+            <p style="margin-bottom: 30px;"><%= @party.venue.description %></p>
+
+            <div style="margin: 0 0 45px 0">
+              <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+              
+              <a style="margin: 0 20px 0 0 " id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a>
+            </div>
+
+
             <div class="map_holder">
               <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
               <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
               <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
-              <a title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
-              
-              <a id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a>
               <div id="map" style='width: 100%; height: 200px;'></div>
               <% end %>
               Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
             </div>
           </div>
         </div>
+        <div class="row">
+              <!--                 <%# if @party.verified %>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                  <div class="verifie_caption">
+                    <div class="image-holder">
+                      <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                    </div>
+                    <strong class="title"><em>Verified</em></strong>
+                  </div>
+                </div>
+                <%# end %> -->
+              
+              <div class="col-md-6 col-sm-6 col-xs-3">
+                <p><%= @party.description %></p>
+              </div>
+            </div>
+            <br>
+            <p>
       </div>
     </div>
   </div>
@@ -109,15 +118,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body" id = "modall">
-        <h2>Request to add Sponsor </h2>
+        <h2>Request to Sponsor This Watch Party</h2>
         <%= form_tag sponsor_request_party_path(@party.id), method: "get" do %>
         <label>Your Contact#</label>
-        <input type="text" name= "cell" class="form-control">
+        <input type="text" name= "cell" class="form-control" required>
         <label>Sponsor Name</label>
-        <input type="text" name= "sponsorname" class="form-control">
+        <input type="text" name= "sponsorname" class="form-control" required>
         <label>Sponsor Image</label>
         <%= file_field_tag 'sponsorimage' %>
         <%= submit_tag "Send Request" ,class: "btn btn-green pull-right"%>
+        <button type="button" class="btn btn-green pull-right" data-dismiss="modal" style="margin-right: 10px" >Close</button>
         <% end %>
       </div>
     </div>
@@ -132,6 +142,7 @@
         <label>Banner Image</label>
         <%= f.file_field :banner, :required => true, :id => :banner_upload_field %>
         <%= f.submit "Upload Banner" ,class: "btn btn-green pull-right"%>
+        <button type="button" class="btn btn-green pull-right" data-dismiss="modal" style="margin-right: 10px" >Close</button>
         <% end %>
       </div>
     </div>

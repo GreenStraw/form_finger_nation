@@ -30,7 +30,7 @@ class Party < ActiveRecord::Base
   belongs_to :venue
 
   accepts_nested_attributes_for :address
-  accepts_nested_attributes_for :venue, :reject_if => :no_new_venue
+  accepts_nested_attributes_for :venue #, :reject_if => :no_new_venue
 
   attr_accessor :user_ids, :emails
 
@@ -41,9 +41,9 @@ class Party < ActiveRecord::Base
     end
   end
 
-  def no_new_venue(attributes)
-    attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
-  end
+  # def no_new_venue(attributes)
+  #   attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
+  # end
 
   def scheduled_for=(value)
     if value.is_a?(String)
