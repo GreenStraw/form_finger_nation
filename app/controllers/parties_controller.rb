@@ -125,7 +125,6 @@ class PartiesController < ApplicationController
   def create
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
-
     if @party = Party.create(party_params)
       # to_date = params[:party][:scheduled_for]
       # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
@@ -136,7 +135,6 @@ class PartiesController < ApplicationController
       current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
       respond_with @party, location: party_path(@party)
     else
-      # puts '-=-=-=df'*12
       render new_party_path
     end
 
