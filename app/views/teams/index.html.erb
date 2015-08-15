@@ -25,6 +25,7 @@
               <li>
                 <div class="col-md-12 mt15">
                   <label><input type="radio" name="iCheck" value="all" class="teams_sh <%= @has_favorites ? '' : 'active_p'%>" checked > All</label>
+                  
                   <label><input type="radio" name="iCheck" value="favorites" class="teams_sh <%= @has_favorites ? 'active_p' : '' %>" <%= @has_favorites ? 'checked' : '' %> > Favorites</label>
                   <% if current_user.try(:managed_teams).try(:any?) %>
                     <label><input type="radio" name="iCheck" value="managed"  class="teams_sh"> Managed</label>
@@ -83,6 +84,7 @@
 
 <script type='text/javascript'>
   $('.subscribe-star').on('click', function() {
+    console.log("SHitt mannnn");
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');
@@ -168,7 +170,7 @@
       data: { "keyword": keyword },
       dataType: 'script',
       success: function(resp){ 
-        console.log(resp);
+        //console.log(resp);
       }
     });
   });

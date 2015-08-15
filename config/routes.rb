@@ -13,6 +13,7 @@ Baseapp::Application.routes.draw do
   post 'send_invites/:id' => 'parties#send_invites', :as => 'send_invites'
   get 'redeem_voucher/:id' => 'vouchers#redeem_voucher', :as => 'redeem_voucher'
   get 'user/:id' => 'account#user', :as => 'user'
+  patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
 
   resources :vouchers
@@ -34,6 +35,8 @@ Baseapp::Application.routes.draw do
     member do
       get 'cancel_reservation'
       get 'sponsor_request'
+      put 'verify'
+      put 'unverify'
     end
   end
   resources :sports do

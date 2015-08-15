@@ -1,0 +1,25 @@
+<div style="margin: 0 0 10px 0">
+  <a style="margin: 0 10px 0 10px" title=<%= party.name %> href="http://ffn-staging.com/parties/"<%=party.friendly_url%> class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.foamfingernation.com/parties/"<%=party.friendly_url%> title=<%= party.name %> target="_blank" class="btn btn-green btn-circle btn-facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+</div>
+
+
+<meta property="og:image" content="<%= party.image_url %>" />
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="400" />
+<meta property="og:image:secure_url" content="https://www.foamfingernation.com/assets/images/placeholder.jpg">
+<script>
+  $('a.tweet').click(function(e){
+    //We tell our browser not to follow that link
+    e.preventDefault();
+    //We get the URL of the link
+    var loc = $(this).attr('href');
+    //We get the title of the link
+    var title  = escape($(this).attr('title'));
+    //We trigger a new window with the Twitter dialog, in the middle of the page
+    window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+  });
+  
+  
+</script>

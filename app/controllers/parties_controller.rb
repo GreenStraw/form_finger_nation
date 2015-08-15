@@ -1,6 +1,6 @@
 class PartiesController < ApplicationController
   respond_to :html, :js
-  before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp, :send_invites]
+  before_action :set_party, only: [:show, :edit, :update, :destroy, :invite_friends, :party_rsvp, :send_invites, :verify, :unverify]
   load_and_authorize_resource :party, :except=>[:cancel_reservation, :ajaxsearch, :get_team_parties, :get_parties, :check_friendly_url_availablitiy, :cant_find]
   load_and_authorize_resource :party_package, only: [:purchase_package, :zooz_transaction]
   before_action :authenticate_user!
@@ -89,6 +89,37 @@ class PartiesController < ApplicationController
   def get_team_parties
     $c = 0
     @created_parties = Team.find(params[:team]).parties.where('parties.organizer_id = ? ', current_user.id)
+    @parties_location_distance = Hash.new
+    @created_parties.each do |team_party|
+      @rvs_party_city = team_party.venue.address.city
+      if @parties_location_distance.key?(@rvs_party_city)
+        @parties_location_distance[@rvs_party_city]+=1
+      else
+        @parties_location_distance[@rvs_party_city] = 1
+      end
+    end
+
+    @user_coor = Geocoder.coordinates(current_user.address.city)
+
+    @parties_location_distance.each do |key,value|
+      @party_coor = Geocoder.coordinates(key)
+      @parties_location_distance[key] = Address.distance_of_two_locations(@user_coor,@party_coor)
+    end
+
+    @sorted_distances = Hash[@parties_location_distance.sort_by{ |k,v| v }]
+
+    cities_list = @sorted_distances.keys
+    pr_ids = []
+    cities_list.each do |c|
+      party_ids = Team.find(params[:team]).parties.where('parties.organizer_id = ? ', current_user.id).pluck("id")
+      parties = Party.where(id: party_ids)
+      parties = parties.joins(venue: :address).where("addresses.city = ? ", c.to_s)
+
+      pr = Team.find(params[:team]).parties.where(id: parties).pluck("id")
+      pr_ids = pr_ids + pr   
+    end
+    @created_parties = Team.find(params[:team]).parties.where(id: pr_ids).sort_by{|p| pr_ids.index(p.id)}
+    
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
@@ -162,6 +193,16 @@ class PartiesController < ApplicationController
 
   def purchase_package
 
+  end
+
+  def verify
+    @party.update_attribute(:verified, true)
+    respond_with @party
+  end
+
+  def unverify
+    @party.update_attribute(:verified, false)
+    respond_with @party
   end
 
   def party_rsvp

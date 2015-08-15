@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803152003) do
+ActiveRecord::Schema.define(version: 20150811080513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 20150803152003) do
     t.string   "twitter_widget_id"
     t.string   "twitter_name"
     t.string   "website"
+    t.string   "banner"
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree

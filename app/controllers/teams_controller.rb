@@ -77,6 +77,8 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1
   def update
+    puts "======"*9
+    puts "cde"
     flash[:notice] = 'Team was successfully updated.' if @team.update(team_params)
     respond_with @team, location: team_path(@team)
   end
@@ -88,11 +90,24 @@ class TeamsController < ApplicationController
   end
 
   def subscribe
+
+    puts "======= Team id =======\n"*9
+    puts @team.inspect
+    @user = current_user
     if !@team.fans.include?(current_user)
-      @team.fans << current_user
+      x = Favorite.new
+      x.favoritable_id = @team.id
+      x.favoritable_type = "Team"
+      x.favoriter_id = @user.id
+      x.favoriter_type = "User"
+      x.save!
+    
     else
       return render json: {}, status: 409
     end
+    puts "======= Team id =======\n"*9
+    puts @team.inspect
+
     @favorites = current_user.followed_teams || []
     flash.now[:notice] = "#{@team.name} added to favorites"
     respond_to do |format|
@@ -102,7 +117,10 @@ class TeamsController < ApplicationController
 
   def unsubscribe
     if @team.fans.include?(current_user)
-      @team.fans.delete(current_user)
+      @user = current_user
+      x = Favorite.find_by(:favoritable_id  => @team.id, :favoritable_type => "Team", :favoriter_id => @user.id, :favoriter_type => "User")
+      x.delete if x.present?
+      # @team.fans.delete(current_user)
     else
       return render json: {}, status: 409
     end
@@ -161,6 +179,6 @@ class TeamsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def team_params
-    params.require(:team).permit(:name, :information, :text, :image_url, :sport_id, :references, :twitter_name, :twitter_widget_id, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]])
+    params.require(:team).permit(:banner,:name, :information, :text, :image_url, :sport_id, :references, :twitter_name, :twitter_widget_id, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]])
   end
 end

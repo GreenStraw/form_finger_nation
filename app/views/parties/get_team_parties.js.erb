@@ -1,5 +1,5 @@
-<% if @created_parties.length == 0 %>
-	window.location.href = '/parties/cant_find';
-<% end %>
+<% #if @created_parties.length == 0 %>
+	// window.location.href = '/parties/cant_find';
+<% #end %>
 $('#create_parties').html('<%= escape_javascript render "created_parties" %>');
 document.getElementById("rsvp_party").className = " hidden_p";

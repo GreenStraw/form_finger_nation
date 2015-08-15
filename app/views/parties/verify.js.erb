@@ -1,0 +1,5 @@
+console.log("Verified");
+$('#party-<%= @party.id %>').html('<%= link_to("Verified", unverify_party_path(@party), class: "prt_rsvp", remote: true, method: :put)%>');
+$('#party-verified-<%= @party.id %>').show();
+$('#rsvparty-<%= @party.id %>').html('<%= link_to("Verified", unverify_party_path(@party), class: "prt_rsvp", remote: true, method: :put)%>');
+$('#rsvparty-verified-<%= @party.id %>').show();

@@ -1,20 +1,35 @@
+<style type="text/css">
+body {overflow-x: hidden}
+  .sport_header{
+    <% if @u.banner.present? %>
+      background: url(<%= asset_path "#{@u.banner_url}" %>) no-repeat center center;
+      background-size: cover;
+      height: 468px;
+    <% else %>
+      background: url(<%= asset_path 'vendor/Sports_banner.png' %>) no-repeat center center;
+      background-size: cover;
+      height: 468px;
+    <% end %>
+  }
+</style>
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="sport_header  row">
         <div class="col-md-12">
+          <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
           <div class="sport_caption profilename col-md-4 pull-right">
             <h2><%= @u.first_name + " " + @u.last_name rescue "User not present" %></h2>
-            <h4>800 Followers, 200 Following</h4>
-            <button type="button" class="btn btn-green btn-default">Follow</button> 
+            <h4 class="hidden" >800 Followers, 200 Following</h4>
+            <button type="button" class="hidden" class="btn btn-green btn-default">Follow</button> 
           </div>
         </div>
       </div>
       <div class="main-area">
         <div class="row">
-          <div class="follow no-border">
-            <div class="col-md-10">
-              <h3><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h4>
-              <p><%= @u.about %></p>
+          <div class="follow">
+            <div class="col-md-12">
+              <h3 class="hidden"><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h4>
+              <h3><%= @u.about %></h3>
               <hr>
               <h3>My Teams</h3>
               <% @teams.try(:each) do |team| %>
@@ -25,7 +40,7 @@
               <% c = 0 %>
               <% @created_parties.try(:each) do |party| %>
                 <div class="col-sm-6 col-md-4 ">
-                  <div class="thumbnail">
+                  <div class="thumbnail" style="height: 430px;">
                     <div class="cancle_icon">
                     <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                     </div>
@@ -74,11 +89,12 @@
               <hr>              
               <div class="clerfix">
               </div>
+              <div class="clearfix"></div>
               <h3>Parties I'm Attending</h3>
               <% @rvs_parties.try(:each) do |rsv| %>
                 <% party = rsv.party %>
-                <div class="col-sm-6 col-md-4 no-border">
-                  <div class="thumbnail">
+                <div class="col-sm-6 col-md-4">
+                  <div class="thumbnail" style="height: 430px;">
                     <div class="cancle_icon">
                     <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                     </div>
@@ -127,6 +143,21 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class=" ch_location myparties modal fade" id="wallModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modalls">
+        <h2>Upload Wall Photo</h2>
+        <%= form_for(@u, :url => update_profile_picture_path(@u)) do |f| %>
+        <label>Banner Image</label>
+        <%= f.file_field :banner, :required => true, :id => :banner_upload_field %>
+        <%= f.submit "Upload Banner" ,class: "btn btn-green pull-right"%>
+        <button type="button" class="btn btn-green pull-right" data-dismiss="modal" style="margin-right: 10px" >Close</button>
+        <% end %>
       </div>
     </div>
   </div>

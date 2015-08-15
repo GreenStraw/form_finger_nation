@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   rolify
   after_create :ensure_address
   mount_uploader :image_url, ImageUploader
+  mount_uploader :banner, BannerUploader
 
   # validate :password_on_create_with_email, only: :create
   validates_presence_of :password_confirmation, only: :create, if: '!password.nil?'

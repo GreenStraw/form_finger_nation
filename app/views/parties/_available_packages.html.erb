@@ -61,11 +61,11 @@
       </table>
     <%else%>
       <% @party.party_packages.each do |party_package| %>
-        <div class="col-md-6 text-center mtb">
+        <div class="col-md-7 text-center mtb thumbnail modified_thumbnail" style="width: 220px; padding: 10px; min-height:auto; margin-left:10px;">
           <div>
             <div class="bottom-margined">
               <span class="parties-package-image">
-                <%= image_tag(party_package.package.image_url.thumb) unless party_package.package.nil? %>
+                <%= image_tag(party_package.package.image_url.thumb , style: "width: 100px;") unless party_package.package.nil? %>
               </span>
             </div>
             <div class="bottom-margined">

@@ -5,7 +5,7 @@
   <% end %>
   <% c = c + 1 %>
   <div class="col-sm-6 col-md-4 add_rsvp_party">
-    <div class="thumbnail">
+    <div class="thumbnail" style="height: 430px;">
       <div class="cancle_icon">
         <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
       </div>
@@ -17,13 +17,15 @@
           <h3> <%= party_reservation.party.name rescue "" %> </h3>
           <% if Party.exists?(party_reservation.party_id) %>
             <% if party_reservation.party.verified %>
-              <div class="verifie_caption">
+              <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>">
+            <% else %>
+              <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>" style="display:none">    
+            <% end %>
                 <div class="image-holder">
-                  <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                  <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png" >
                 </div>
                 <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
               </div>
-            <% end %>
           <% end %>
         <% end %>
         <br>
@@ -45,7 +47,18 @@
         <% end %>
         <span class="prt_rsvp"> | </span>
         <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
+          <% if current_user.id == 36 ||  current_user.id == 1 %>
+            <span class="prt_rsvp"> | </span>
+            <span id="rsvparty-<%= party_reservation.party.id %>">
+              <% if party_reservation.party.verified? %>
+                <%= link_to( "Verified", unverify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+              <% else %>
+                <%= link_to("Verify", verify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+              <% end %>
+            </span>
+          <% end %>
       </div>
+      <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
     </div>
   </div>
   <% if c % 3 == 0 || @rvs_parties.count == c %>

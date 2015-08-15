@@ -7,6 +7,11 @@
       <div class='col-xs-5 pull-right'>
         <div class='row'>
           <h4><%= party.name %></h4>
+          <% if party.verified %>
+            <div class="verifie_box">
+              <strong class="title"><em>Verified</em></strong>
+            </div>
+          <% end %>
           <div>
             <span class='fa fa-clock-o'/> <%= party.scheduled_for %> |
             <span class='fa fa-user'/> <%= party.attendees.count %>

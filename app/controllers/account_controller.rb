@@ -30,7 +30,20 @@ class AccountController < ApplicationController
     @created_parties = @u.parties
     @rvs_parties = @u.party_reservations
     @teams = @u.followed_teams.order("name ASC")
+  end
 
+  def update_profile_picture
+    puts "===========\n"*9
+    puts params[:id]
+
+    @u = User.find(params[:id])
+    @u.banner = params[:banner]
+    if @u.update_attributes(user_params)
+      redirect_to controller: :account, action: :user, :id => @u.id
+      #render action: :user, notice: 'User was successfully updated.'
+    else
+      render action: :user, notice: 'Technical problem, Try again later.'
+    end
   end
 
   def user_loc
@@ -77,7 +90,7 @@ class AccountController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:id, :name, :favorite_team_id, :about, :website, :gender, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
+    params.require(:user).permit(:banner, :id, :name, :favorite_team_id, :about, :website, :gender, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
   end
 
 end

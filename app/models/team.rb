@@ -5,6 +5,7 @@ class Team < ActiveRecord::Base
   after_create :ensure_address
   mount_uploader :image_url, TeamImageUploader
   skip_callback :commit, :after, :remove_image_url!
+  mount_uploader :banner, BannerUploader
 
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"

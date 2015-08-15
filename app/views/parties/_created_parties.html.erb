@@ -6,7 +6,7 @@
     <% end %>
     <% c = c + 1 %>
     <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
+      <div class="thumbnail" style="height: 430px;">
         <div class="cancle_icon">
         <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
@@ -19,13 +19,15 @@
           <% end %>
           <!-- /////////////////////////check for verification///////////////// -->
           <% if party.verified %>
-            <div class="verifie_caption">
-              <div class="image-holder">
+            <div class="verifie_caption" id="party-verified-<%= party.id %>">
+          <% else %>
+            <div class="verifie_caption" id="party-verified-<%= party.id %>" style="display:none">    
+          <% end %>
+                <div class="image-holder">
                   <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png" >
                 </div>
               <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
             </div>
-          <% end %>
           <!-- /////////////////////////////////end//////////////////////////// -->
           <br>
           <%= party.sponsor %>
@@ -51,8 +53,18 @@
           <% end %>
           <span class="prt_rsvp"> | </span>
           <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
-
+          <% if current_user.id == 36 ||  current_user.id == 1 %>
+            <span class="prt_rsvp"> | </span>
+            <span id="party-<%= party.id %>">
+              <% if party.verified? %>
+                <%= link_to( "Verified", unverify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
+              <% else %>
+                <%= link_to("Verify", verify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
+              <% end %>
+            </span>
+          <% end %>
         </div>
+        <%= render partial: 'social_media', locals: {party: party} %>
       </div>
     </div>
     <% if c % 3 == 0 || @created_parties.count == c %>
