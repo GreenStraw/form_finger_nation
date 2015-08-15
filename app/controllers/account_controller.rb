@@ -33,9 +33,6 @@ class AccountController < ApplicationController
   end
 
   def update_profile_picture
-    puts "===========\n"*9
-    puts params[:id]
-
     @u = User.find(params[:id])
     @u.banner = params[:banner]
     if @u.update_attributes(user_params)

@@ -77,8 +77,6 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1
   def update
-    puts "======"*9
-    puts "cde"
     flash[:notice] = 'Team was successfully updated.' if @team.update(team_params)
     respond_with @team, location: team_path(@team)
   end
@@ -90,9 +88,6 @@ class TeamsController < ApplicationController
   end
 
   def subscribe
-
-    puts "======= Team id =======\n"*9
-    puts @team.inspect
     @user = current_user
     if !@team.fans.include?(current_user)
       x = Favorite.new
@@ -105,9 +100,6 @@ class TeamsController < ApplicationController
     else
       return render json: {}, status: 409
     end
-    puts "======= Team id =======\n"*9
-    puts @team.inspect
-
     @favorites = current_user.followed_teams || []
     flash.now[:notice] = "#{@team.name} added to favorites"
     respond_to do |format|
