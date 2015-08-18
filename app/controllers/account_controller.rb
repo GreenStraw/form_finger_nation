@@ -14,10 +14,7 @@ class AccountController < ApplicationController
   end
 
   def create
-
     @account = User.new(user_params)
-    puts "======In Create====\n"*9
-    puts @account.inspect
     if @account.save_and_invite_member
       @account.send_welcome_email
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
