@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @to = user.email
     @user = user
-    @url = new_user_session_url
+    @url = "http://www.foamfingernation.com/login"
     mail(to: @to, from: '"Foam Finger Nation" <Info@foamfingernation.com>', subject: 'Welcome to Foam Finger Nation!')
   end
 
@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
     @to = user.email
     @bcc = ['alumnigroups@foamfingernation.com']
     @user = user
-    @url = new_user_session_url
+    @url = "http://www.foamfingernation.com/login"
     mail(to: @to, bcc: @bcc, from: '"Foam Finger Nation" <Alumnigroups@foamfingernation.com>', subject: 'Welcome to Foam Finger Nation!')
   end
 
@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
     @to = user.email
     @bcc = ['Sportsbars@foamfingernation.com']
     @user = user
-    @url = new_user_session_url
+    @url = "http://www.foamfingernation.com/login"
     mail(to: @to, bcc: @bcc, from: '"Foam Finger Nation" <Sportsbars@foamfingernation.com>', subject: 'Welcome to Foam Finger Nation!')
   end
 end

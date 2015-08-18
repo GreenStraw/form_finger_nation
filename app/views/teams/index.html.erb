@@ -6,7 +6,7 @@
       <div class="sport_header row">
         <div class="col-md-12">
         <div class="clearfix"></div>
-          <div class="sport_caption col-md-3 col-xs-8 pull-right ">
+          <div class="sport_caption col-md-3 col-xs-8 pull-right text-center">
             <h2>Sports</h2>
           </div>
         </div>
@@ -24,9 +24,9 @@
             <ul class="radio_search dropdown-menu" role="menu">
               <li>
                 <div class="col-md-12 mt15">
-                  <label><input type="radio" name="iCheck" value="all" class="teams_sh <%= @has_favorites ? '' : 'active_p'%>" checked > All</label>
+                  <label><input type="radio" name="iCheck" value="all" class="teams_sh <%= @has_favorites ? 'active_p' : ''%>" checked > All</label>
                   
-                  <label><input type="radio" name="iCheck" value="favorites" class="teams_sh <%= @has_favorites ? 'active_p' : '' %>" <%= @has_favorites ? 'checked' : '' %> > Favorites</label>
+                  <label><input type="radio" name="iCheck" value="favorites" class="teams_sh <%= @has_favorites ?  '' : 'active_p' %>" > Favorites</label>
                   <% if current_user.try(:managed_teams).try(:any?) %>
                     <label><input type="radio" name="iCheck" value="managed"  class="teams_sh"> Managed</label>
                   <% end %>
@@ -48,15 +48,15 @@
             </div>
 
             <!-- <li class="tabs-title">Teams</li>
-            <li class="<%= @has_favorites ? 'active' : '' %>"><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
-            <li class="<%= @has_favorites ? '' : 'active' %>"> <a href="#all" role='tab' data-toggle='tab'>All</a></li>
-            <% if current_user.try(:managed_teams).try(:any?) %>
+            <li class="<%#= @has_favorites ? 'active' : '' %>"><a href="#favorites" role='tab' data-toggle='tab'>Favorites</a></li>
+            <li class="<%#= @has_favorites ? '' : 'active' %>"> <a href="#all" role='tab' data-toggle='tab'>All</a></li>
+            <%# if current_user.try(:managed_teams).try(:any?) %>
             <li><a href="#managed" role='tab' data-toggle='tab'>Managed</a></li>
-            <% end %> -->
+            <%# end %> -->
           </ul>
 
           <div class='tab-content'>
-            <div class='sp_contents <%= @has_favorites ? '' : 'hidden_p' %>' id="favorites">
+            <div class='sp_contents <%= @has_favorites ? 'hidden_p' : '' %>' id="favorites">
               <div id="team-tabs-followed">
                 <%= render partial: 'team_table', locals: { all:false, tab: 'followed', acc: "accordion1" } %>
               </div>
@@ -69,7 +69,7 @@
               </div>
             <% end %>
 
-            <div class='sp_contents <%= @has_favorites ? 'hidden_p' : '' %>' id="all">
+            <div class='sp_contents <%= @has_favorites ? '' : 'hidden_p' %>' id="all">
               <div id="team-tabs-all">
                 <%= render partial: 'team_table', locals: { all: true, tab: 'all', acc: "accordion3" } %>
               </div>

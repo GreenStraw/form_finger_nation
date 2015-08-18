@@ -21,13 +21,13 @@ class PartiesController < ApplicationController
     if params[:party].nil?
       params[:party] = {}
     end
-    if params[:party][:search_location].nil?
-      ip_lat_lng = current_user.address.city
-      params[:party][:search_location] = ip_lat_lng
-      if params[:party][:search_item].nil?
-        params[:party][:search_item] = current_user.address.city
-      end
-    end
+    # if params[:party][:search_location].nil?
+    #   ip_lat_lng = current_user.address.city
+    #   params[:party][:search_location] = ip_lat_lng
+    #   if params[:party][:search_item].nil?
+    #     params[:party][:search_item] = current_user.address.city
+    #   end
+    # end
 
     # if(params[:party][:search_item].nil?)
     #   params[:party][:search_item] = current_user.address.city

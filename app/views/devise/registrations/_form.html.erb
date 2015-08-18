@@ -3,9 +3,9 @@
 
 <div class="row">
     <div class="col-md-12">
-      <div class="form-group" style="display:none;">
-        <label>Username</label>
-        <%= f.text_field :username, :class => "form-control #{'error' if @user.errors[:username]}", :placeholder =>'Username' %>
+      <div class="form-group" id="bussiness_name" style="display:none;">
+        <label id="bussiness_name_label">Username</label>
+        <%= f.text_field :username, :class => "form-control #{'error' if @user.errors[:username]}", :id => 'bussiness_name_input' %>
       </div>
     </div>
     <div class="col-md-6">
@@ -15,31 +15,31 @@
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password </label>
-        <%= f.password_field :password, :class => "form-control", :placeholder =>'Password' %>
+        <%= f.password_field :password, :class => "form-control", :placeholder =>'Password', required: true %>
       </div>
       <div class="form-group">
         <label for="exampleInputFile">Confirm password </label>
-        <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation' %>
+        <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation', required: true %>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
+      <div class="form-group" id="firstName">
         <label for="exampleInputFile">First Name  </label>
         <%= f.text_field :first_name, :class => "form-control", :placeholder =>'First name' %>
       </div>
-      <div class="form-group">
+      <div class="form-group" id="lastName">
         <label for="exampleInputFile">Last Name  </label>
         <%= f.text_field :last_name, :class => "form-control", :placeholder =>'Last name' %>
       </div>
       <div class="form-group radio_area">
-        <label class="radio-inline">
-          <input name="user[requested_role]" type="radio" value="Sports Fan" checked="checked" />  Sports Fan
+        <label class="radio-inline change_bussiness">
+          <input name="user[requested_role]" type="radio" id="user_role_radio_button" value="Sports Fan" checked="checked" />  Sports Fan
         </label>
-        <label class="radio-inline">
-          <input name="user[requested_role]" type="radio" value="Alumni Group" /> Alumni Group
+        <label class="radio-inline change_bussiness">
+          <input name="user[requested_role]" type="radio" id="user_role_radio_button" value="Alumni Group" /> Alumni Group
         </label>
-        <label class="radio-inline">
-          <input name="user[requested_role]" type="radio" id="barsignup111111" value="Venue" />  Bar/Establishment
+        <label class="radio-inline change_bussiness">
+          <input name="user[requested_role]" type="radio" id="user_role_radio_button" value="Venue" />  Bar/Establishment
         </label>
       </div>
     </div>

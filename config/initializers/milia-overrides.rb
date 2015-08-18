@@ -1,5 +1,5 @@
 Milia::InviteMember.class_eval do
-  def save_and_invite_member(  )
+  def save_and_invite_member()
     if (
         self.email.blank?  ||
         User.where([ "lower(email) = ?", self.email.downcase ]).first
@@ -8,6 +8,9 @@ Milia::InviteMember.class_eval do
       status = nil
     else
       check_or_set_password()
+      puts @account
+      self.name = 'assas'
+      puts self.inspect
       status = self.save && self.errors.empty?
     end
 

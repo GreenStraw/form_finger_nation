@@ -16,10 +16,41 @@
   </div>
 </div>
 
-<script>
-
-$('#barsignup111111').click(function() {
-    alert("ajsfncoaenf");
-});
-</script>
 <%#= render "devise/shared/links" %>
+<script>
+ $(document).ready(function () {
+    $(".change_bussiness .iCheck-helper, .change_bussiness").click(function(){
+      var user_role_radio_button = $('input[id=user_role_radio_button]');
+      var checkedValue = user_role_radio_button.filter(':checked').val();
+      console.log("Radio Value : "+checkedValue);
+
+      if(checkedValue == "Venue")
+      {
+        $("#bussiness_name").show();
+        $("#firstName").hide();
+        $("#lastName").hide();
+        $("#bussiness_name_label").text("Bussiness Name");
+        $("#bussiness_name_input").attr("placeholder", "Bussiness Name");
+        $("#bussiness_name_input").attr("required", true);
+      }
+      else if (checkedValue == "Alumni Group")
+      {
+        $("#bussiness_name").show();
+        $("#firstName").hide();
+        $("#lastName").hide();
+        $("#bussiness_name_label").text("Alumni Group");
+        $("#bussiness_name_input").attr("placeholder", "Alumni Group");
+        $("#bussiness_name_input").attr("required", true);
+      }
+      else
+      {
+        $("#bussiness_name").hide();
+        $("#firstName").show();
+        $("#lastName").show();
+        $("#bussiness_name_input").removeAttr('required');
+      }
+    });
+
+  });
+  
+</script>

@@ -23,8 +23,14 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Username</td>
-                        <td><%= @user.username %></td>
+                        <% if @user.requested_role == "Alumni Group" %>
+                          <td>Alumni Group</td>
+                          <td><%= @user.username %></td>
+                        <% end %>
+                        <% if @user.requested_role == "Venue" %>
+                          <td>Business Name</td>
+                          <td><%= @user.username %></td>
+                        <% end %>
                       </tr>
                       <tr>
                         <td>First Name</td>
