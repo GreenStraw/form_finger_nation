@@ -79,9 +79,18 @@ body {overflow-x: hidden}
             <p style="margin-bottom: 30px;"><%= @party.venue.description %></p>
 
             <div style="margin: 0 0 45px 0">
-              <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+              <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
               
-              <a style="margin: 0 20px 0 0 " id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a>
+              <a title="send to Facebook" 
+                href="http://www.facebook.com/sharer.php?s=100&p[title]=<%=@party.name %>&p[summary]=<%= @party.description %>&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                target="_blank">
+                <span>
+                  <i class="fa fa-facebook"></i> 
+                </span>
+              </a>
+
+
+              <!-- <a style="margin: 0 20px 0 0 " id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a> -->
             </div>
 
 
@@ -100,7 +109,7 @@ body {overflow-x: hidden}
                 <div class="col-md-2 col-sm-3 col-xs-6">
                   <div class="verifie_caption">
                     <div class="image-holder">
-                      <img alt="No image" class="img-responsive" src="/assets/vendor/no_image.png">
+                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png">
                     </div>
                     <strong class="title"><em>Verified</em></strong>
                   </div>
@@ -160,16 +169,16 @@ body {overflow-x: hidden}
     handler.getMap().setZoom(11)
   });
   
-  $("#fbtn").click(function(){
-      FB.ui({
-      method: 'feed',
-      link: 'www.foamfingernation.com/parties/<%= @party.friendly_url %>',
-      caption: 'Get a Party around You',
-      description: "<%= @party.description %>",
-      picture: "<%= @party.image_url %>"
-    }, function(response){});
+  // $("#fbtn").click(function(){
+  //     FB.ui({
+  //     method: 'feed',
+  //     link: 'www.foamfingernation.com/parties/<%= @party.friendly_url %>',
+  //     caption: 'Get a Party around You',
+  //     description: "<%= @party.description %>",
+  //     picture: "<%= @party.image_url %>"
+  //   }, function(response){});
   
-  });
+  // });
 
   
   //   $("#facbook").click( function(){

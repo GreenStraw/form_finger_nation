@@ -12,9 +12,9 @@ class PartiesController < ApplicationController
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
-    if @created_parties.blank?
-      redirect_to cant_find_parties_path
-    end
+    # if @created_parties.blank?
+    #   redirect_to cant_find_parties_path
+    # end
   end
 
   def search
@@ -120,6 +120,26 @@ class PartiesController < ApplicationController
     end
     @created_parties = Team.find(params[:team]).parties.where(id: pr_ids).sort_by{|p| pr_ids.index(p.id)}
     
+    respond_to do |format|
+      format.js
+      format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
+    end
+  end
+
+  def get_team_rsvp_parties
+    @user=current_user
+    rvs_parties_ids = @user.party_reservations.pluck("party_id")
+    @rvs_parties = Team.find(params[:team]).parties.where('parties.organizer_id = ? AND parties.id IN (?) ', current_user.id, rvs_parties_ids)
+    cities_list = sort_parties_geographically(@rvs_parties)
+    pr_ids = []
+    cities_list.each do |c|
+      party_ids = Team.find(params[:team]).parties.where('parties.organizer_id = ? AND parties.id IN (?) ', current_user.id, rvs_parties_ids).pluck("id")
+      parties = Party.where(id: party_ids)
+      parties = parties.joins(venue: :address).where("addresses.city = ? ", c.to_s)
+      pr = Team.find(params[:team]).parties.where(id: parties).pluck("id")
+      pr_ids = pr_ids + pr   
+    end
+    @created_parties = Team.find(params[:team]).parties.where(id: pr_ids).sort_by{|p| pr_ids.index(p.id)}
     respond_to do |format|
       format.js
       format.json { render json: {created_parties: @created_parties} }  # respond with the created JSON object
@@ -284,5 +304,28 @@ class PartiesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def party_params
       params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, venue_attributes: [:name, :description,  address_attributes: [:street1, :street2, :city, :state, :zip]])
+    end
+
+    def sort_parties_geographically(parties)
+      @parties_location_distance = Hash.new
+      parties.each do |team_party|
+        @rvs_party_city = team_party.venue.address.city
+        if @parties_location_distance.key?(@rvs_party_city)
+          @parties_location_distance[@rvs_party_city]+=1
+        else
+          @parties_location_distance[@rvs_party_city] = 1
+        end
+      end
+
+      @user_coor = Geocoder.coordinates(current_user.address.city)
+
+      @parties_location_distance.each do |key,value|
+        @party_coor = Geocoder.coordinates(key)
+        @parties_location_distance[key] = Address.distance_of_two_locations(@user_coor,@party_coor)
+      end
+
+      @sorted_distances = Hash[@parties_location_distance.sort_by{ |k,v| v }]
+
+      @cities_list = @sorted_distances.keys
     end
 end

@@ -24,7 +24,7 @@ class Team < ActiveRecord::Base
     sport_names_with_teams = Sport.ordered_sports
     ordered_teams = {}
     sport_names_with_teams.each do |sport_name, teams|
-      ordered_teams[sport_name] = teams
+      ordered_teams[sport_name] = teams.order(:name)
     end
     ordered_teams
   end

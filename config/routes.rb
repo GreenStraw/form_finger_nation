@@ -29,6 +29,7 @@ Baseapp::Application.routes.draw do
       get 'cant_find'
       get 'ajaxsearch'
       get 'get_team_parties'
+      get 'get_team_rsvp_parties'
       get 'get_parties'
       get 'check_friendly_url_availablitiy'
     end
