@@ -82,7 +82,7 @@ body {overflow-x: hidden}
               <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
               
               <a title="send to Facebook" 
-                href="http://www.facebook.com/sharer.php?s=100&p[title]=<%=@party.name %>&p[summary]=<%= @party.description %>&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
                 target="_blank">
                 <span>
                   <i class="fa fa-facebook"></i> 

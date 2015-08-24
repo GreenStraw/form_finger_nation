@@ -258,5 +258,6 @@ Devise.setup do |config|
   #these 2 make hte sign in with facebook links appear on sign up and sign in page!!!
   config.omniauth_path_prefix = '/users/auth'
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'], {provider_ignores_state: true}
+  config.omniauth :twitter, 'U958Llnh0tYF0t71O1LzGVgwJ', 'TId3hrmwHnSvdXYSMZdEGHw1e2Q5KA9iuxqKPpK7WmJovFM3TB'
   
 end

@@ -12,7 +12,7 @@
 
         <!-- <tr class='<%= sport_name %> <%= "hidden" if !managed.map{|f| f.sport.name}.include?(sport_name) %>'> -->
       <% else %>
-        <div class="panel-heading <%= sport_name %>" role="tab" id="headingOne">
+        <div class="panel-heading <%= sport_name %> <%= "hidden" if(sport_name == 'NCAA-BASKETBALL') %>" role="tab" id="headingOne">
 
         <!-- <tr class='<%= sport_name %>'> -->
       <% end %>

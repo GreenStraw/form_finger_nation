@@ -58,6 +58,7 @@ Baseapp::Application.routes.draw do
     collection do
       get 'search'
       get 'favorite_teams'
+      get 'cant_find'
       get 'homesearch'
     end
   end

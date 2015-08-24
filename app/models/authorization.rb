@@ -3,6 +3,10 @@ class Authorization < ActiveRecord::Base
 
 	after_create :fetch_details
 
+	def self.facebook
+		where(:provider => "facebook").last
+	end
+
 	def fetch_details
 		self.send("fetch_details_from_#{provider.downcase}") if provider
 	end

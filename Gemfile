@@ -68,6 +68,7 @@ gem 'devise',                   '~>3.2'
 gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook', '1.4.0' #important: 1.4.1 is broken!!!
+gem 'omniauth-twitter'
 gem 'milia',                    '~> 1.0.0'
 gem 'cancancan',                github: 'bryanrite/cancancan', branch: 'master'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'

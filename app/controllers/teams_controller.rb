@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
     if team
       redirect_to team_path(team);
     else
-      redirect_to cant_find_parties_path
+      redirect_to cant_find_teams_path
     end
   end
   # GET /teams/1
@@ -160,6 +160,9 @@ class TeamsController < ApplicationController
 
   def favorite_teams
     @teams = current_user.followed_teams
+  end
+
+  def cant_find
   end
 
   private

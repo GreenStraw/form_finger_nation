@@ -109,6 +109,25 @@ class User < ActiveRecord::Base
     }
   end
 
+  def apply_omniauth(omni)
+    authorizations.build(:provider => omni['provider'],
+    :uid => omni['uid'],
+    :token => omni['credentials'].token,
+    :token_secret => omni['credentials'].secret)
+  end
+
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+
   def self.first_user_by_facebook_id(facebook_access_token)
     fb_user = Koala::Facebook::API.new(facebook_access_token)
     fb_details = fb_user.get_object("me")
