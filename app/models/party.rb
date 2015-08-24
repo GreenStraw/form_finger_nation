@@ -157,20 +157,20 @@ class Party < ActiveRecord::Base
     end
   end
 
-  def facebook_post
-  # puts "=======Sign in ========\n"*9
-  # puts user.inspect
-  # auths = user.authorizations
-  # facebook_auth = auths.facebook
-  # puts "=======Facebook ========\n"*9
-  # puts facebook_auth.inspect
+  # def facebook_post
+  #   puts "=======Sign in ========\n"*9
+  #   puts user.inspect
+  #   auths = user.authorizations
+  #   facebook_auth = auths.facebook
+  #   puts "=======Facebook ========\n"*9
+  #   puts facebook_auth.inspect
 
-  # @graph = Koala::Facebook::API.new(facebook_auth.token)
+  #   @graph = Koala::Facebook::API.new(facebook_auth.token)
 
-  # profile = @graph.get_object("me")
-  # friends = @graph.get_connections("me", "friends")
-  # @graph.put_connections("me", "feed", message: "I am writing on my wall!")
-  end
+  #   profile = @graph.get_object("me")
+  #   friends = @graph.get_connections("me", "friends")
+  #   @graph.put_connections("me", "feed", message: "I am writing on my wall!")
+  # end
 
   def twitter_post
     

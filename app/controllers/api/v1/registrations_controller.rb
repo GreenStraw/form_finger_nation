@@ -5,8 +5,8 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
-    session[:omniauth] = nil unless @user.new_record?
+    # super
+    # session[:omniauth] = nil unless @user.new_record?
     if sign_up_params[:current_password].present?
       sign_up_params.delete(:current_password)
     end
@@ -45,13 +45,13 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def build_resource(*args)
-    super
-    if session[:omniauth]
-      @user.apply_omniauth(session[:omniauth])
-      @user.valid?
-    end
-  end
+  # def build_resource(*args)
+  #   super
+  #   if session[:omniauth]
+  #     @user.apply_omniauth(session[:omniauth])
+  #     @user.valid?
+  #   end
+  # end
 
   private
 

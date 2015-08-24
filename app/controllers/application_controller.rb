@@ -41,21 +41,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_up_path_for(user)
-    # puts "=======Sign in ========\n"*9
-    # puts user.inspect
-    # auths = user.authorizations
-    # facebook_auth = auths.facebook
-    # puts "=======Facebook ========\n"*9
-    # puts facebook_auth.inspect
+  # def after_sign_up_path_for(user)
+  #   # puts "=======Sign in ========\n"*9
+  #   # puts user.inspect
+  #   # auths = user.authorizations
+  #   # facebook_auth = auths.facebook
+  #   # puts "=======Facebook ========\n"*9
+  #   # puts facebook_auth.inspect
     
-    # @graph = Koala::Facebook::API.new(facebook_auth.token)
+  #   # @graph = Koala::Facebook::API.new(facebook_auth.token)
 
-    # profile = @graph.get_object("me")
-    # friends = @graph.get_connections("me", "friends")
-    # @graph.put_connections("me", "feed", message: "I created an account on Foam Finger Nation and took being a sports fan to a new level! Sign up now!! www.FoamFingerNation.com #FoamFinger")
-    root_path
-  end
+  #   # profile = @graph.get_object("me")
+  #   # friends = @graph.get_connections("me", "friends")
+  #   # @graph.put_connections("me", "feed", message: "I created an account on Foam Finger Nation and took being a sports fan to a new level! Sign up now!! www.FoamFingerNation.com #FoamFinger")
+  #   root_path
+  # end
 
   private
 
