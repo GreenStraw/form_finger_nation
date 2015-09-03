@@ -116,9 +116,9 @@ class User < ActiveRecord::Base
     :token_secret => omni['credentials'].secret)
   end
 
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
-  end
+  # def password_required?
+  #   (authentications.empty? || !password.blank?) && super
+  # end
 
   def update_with_password(params, *options)
     if encrypted_password.blank?
