@@ -36,9 +36,11 @@ class HomeController < ApplicationController
     if current_user
       @user = current_user
       if @user.sign_in_count == 1
+        @user.sign_in_count = 2
+        @user.save
         redirect_to user_root_path
       else
-        # redirect_to root_path
+        #redirect_to root_path
       end
     else
       @user = User.new

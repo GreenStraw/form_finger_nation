@@ -18,7 +18,9 @@ body {overflow-x: hidden}
         <div class="col-md-12">
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
           <div class="sport_caption profilename col-md-4 pull-right">
-            <h2><%= @u.first_name + " " + @u.last_name rescue "User not present" %></h2>
+            <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
+            <% display_name = current_user.username %>
+            <h2><%= display_name %></h2>
             <h4 class="hidden" >800 Followers, 200 Following</h4>
             <button type="button" class="hidden" class="btn btn-green btn-default">Follow</button> 
           </div>

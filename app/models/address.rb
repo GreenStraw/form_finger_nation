@@ -1,7 +1,7 @@
 class Address < ActiveRecord::Base
   geocoded_by :full_or_partial_address
   after_validation :geocode
-  validates_presence_of :street1
+  #validates_presence_of :street1
   validate :zip_or_city_and_state
   reverse_geocoded_by :latitude, :longitude
   acts_as_mappable :default_units   => :miles,
@@ -12,9 +12,9 @@ class Address < ActiveRecord::Base
   belongs_to :addressable, polymorphic: true
 
   def zip_or_city_and_state
-    if !self.street1.present?
-      errors.add(:street1, "can't be blank")
-    end
+    # if !self.street1.present?
+    #   errors.add(:street1, "can't be blank")
+    # end
 
     if !self.zip.present?
       if !self.city.present? || !self.state.present?
