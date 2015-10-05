@@ -18,7 +18,8 @@ class AccountController < ApplicationController
     if @account.save_and_invite_member
       @account.send_welcome_email
       a_city = request.location.city rescue ''
-      @account.address.update_column(:city, a_city) if @account.address.present?
+      a_state = request.location.region_name rescue ''
+      @account.address.update_columns(city: a_city, state: a_state) if @account.address.present?
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
       redirect_to root_path
     else
@@ -109,6 +110,7 @@ class AccountController < ApplicationController
       :password, 
       :password_confirmation, 
       :requested_role,
+      :ph_number,
       address_attributes: [
           :street1, 
           :street2, 

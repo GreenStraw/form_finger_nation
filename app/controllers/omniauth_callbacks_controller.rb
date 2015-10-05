@@ -6,10 +6,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     p env["omniauth.auth"]
     user = User.from_omniauth(env["omniauth.auth"], current_user)
     if user && user.persisted?
-      puts "facebook\n"
-      puts user.address.to_yaml
-      puts request.location.to_yaml
-      puts "facebook\n"
+      # puts "facebook\n"
+      # puts user.address.to_yaml
+      # puts request.location.to_yaml
+      # puts "facebook\n"
+      a_city = request.location.city rescue ''
+      a_state = request.location.region_name rescue ''
+      user.address.update_columns(city: a_city, state: a_state) if user.address.present?
       flash[:success] = "You're in! Go to 'Edit Profile' to update your profile information"
       sign_in_and_redirect(user)
     else
