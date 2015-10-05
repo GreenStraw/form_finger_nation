@@ -64,7 +64,9 @@
             </span>
           <% end %>
         </div>
-        <%= render partial: 'social_media', locals: {party: party} %>
+        <% if party.present? %>
+          <%= render partial: 'social_media', locals: {party: party} %>
+        <% end %>
       </div>
     </div>
     <% if c % 3 == 0 || @created_parties.count == c %>

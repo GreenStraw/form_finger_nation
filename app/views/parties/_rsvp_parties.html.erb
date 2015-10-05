@@ -58,7 +58,9 @@
             </span>
           <% end %>
       </div>
-      <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
+      <% if party_reservation.party.present? %>
+        <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
+      <% end %>
     </div>
   </div>
   <% if c % 3 == 0 || @rvs_parties.count == c %>
