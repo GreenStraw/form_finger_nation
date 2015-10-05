@@ -50,7 +50,8 @@
         </div>
       </li>
       <li>
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small></a>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= request.location.city %> <%= request.location.region %></span>  <small>(change)</small></a>
+        <!-- <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%#= current_user.address.city rescue 'No location' %> <#%= current_user.address.state rescue '' %></span>  <small>(change)</small></a> -->
       </li>
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
@@ -66,7 +67,7 @@
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, favorite_teams_teams_path, class: "#{css1_class}" %>
       </li>
       <li>
-        <% css1_class = controller.controller_name == 'vouchers' || current_page?( user_root_path ) ? "active_p" : "" %>
+        <% css1_class = controller.controller_name == 'vouchers' || current_page?( vouchers_path ) ? "active_p" : "" %>
 
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
       </li>
