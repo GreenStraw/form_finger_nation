@@ -68,20 +68,36 @@
     </div>
     <br>
     <div class="">
-      <div class="form-group">
-          <%= f.label :first_name %>
-          <%= f.text_field :first_name,class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name,class: "form-control" %>
-      </div>
+      <% if current_user.requested_role == "Venue" %>
+        <div class="form-group">
+            <%= f.label :username, "Business Name" %>
+            <%= f.text_field :username,class: "form-control" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :first_name, "Contact Person" %>
+            <%= f.text_field :first_name,class: "form-control" %>
+        </div>
+      <% else %>
+        <div class="form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name,class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name,class: "form-control" %>
+        </div>
+      <% end %>
     </div>
     <div class="form-group">
       <%= f.label :email, "Email Address" %>
       <%= f.email_field :email,class: "form-control" %>
     </div>
-    
+    <% if current_user.requested_role == "Venue" %>
+      <% address = current_user.address %>
+      <%= f.fields_for :address, address do |addr| %>
+        <%= render 'address_fields', f: addr %>
+      <% end %>
+    <% end %>
     
     <div class="form-group textarea_profile">
       <%= f.label :about, "About Myself" %>
@@ -96,19 +112,21 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="<%= current_user.requested_role == "Venue" ? "col-md-12" : "col-md-8" %>">
         <div class="form-group">
           <%= f.label :name %> (From Facebook)
           <%= f.text_field :name,class: "form-control" %>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label :gender, "Gender" %>
-          <%= f.select :gender, ['Male' , 'Female'], { :include_blank => false }, 
-        { :class => 'select2 form-control' }   %>
+      <% unless current_user.requested_role == "Venue" %>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :gender, "Gender" %>
+            <%= f.select :gender, ['Male' , 'Female'], { :include_blank => false }, 
+          { :class => 'select2 form-control' }   %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
     <div class="form-group">
       <%= f.label :teams, "Favorite Teams" %> 

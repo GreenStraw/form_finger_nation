@@ -18,74 +18,103 @@
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-md-3 col-lg-3 acc_image" align="center"><%= image_tag(@user.image_url, class: "") %></div>
-                        <br>
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <% if @user.requested_role == "Alumni Group" %>
-                          <td>Alumni Group</td>
-                          <td><%= @user.username %></td>
-                        <% end %>
-                        <% if @user.requested_role == "Venue" %>
-                          <td>Business Name</td>
-                          <td><%= @user.username %></td>
-                        <% end %>
-                      </tr>
-                      <tr>
-                        <td>First Name</td>
-                        <td><%= @user.first_name %></td>
-                      </tr>
-                      <tr>
-                        <td>Last Name</td>
-                        <td><%= @user.last_name %></td>
-                      </tr>
-                      <tr>
-                        <td>Name (From Facebook)</td>
-                        <td><%= @user.name %></td>
-                      </tr>
-                      <tr>
-                       <tr>
-                        <td>Gender</td>
-                        <td><%= @user.gender %></td>
-                      </tr>
-                      <tr>
-                        <td>Website</td>
-                        <td><%= link_to @user.website, @user.website %></td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><%= @user.email %></td>
-                      </tr>
-                      <tr>
-                        <td>Favorite Teams</td>
-                        <td> 
-                          <%@user.followed_teams.try(:each) do |team| %>
-                            <%= team.name %> &nbsp
-                          <% end %>
-                        </td>
-                      </tr>
-                      <td>About Me</td>
-                      <td><%= @user.about %>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      <br>
+                      <div class=" col-md-9 col-lg-9 "> 
+                        <table class="table table-user-information">
+                          <tbody>
+                            <tr>
+                              <% if @user.requested_role == "Alumni Group" %>
+                              <td>Alumni Group</td>
+                              <td><%= @user.username %></td>
+                              <% end %>
+                              <% if @user.requested_role == "Venue" %>
+                              <td>Business Name</td>
+                              <td><%= @user.username %></td>
+                              <% end %>
+                            </tr>
+                            <% if current_user.requested_role == "Venue" %>
+                              <tr>
+                                <td>Contact Person</td>
+                                <td><%= @user.first_name %></td>
+                              </tr>
+                            <% else %>
+                              <tr>
+                                <td>First Name</td>
+                                <td><%= @user.first_name %></td>
+                              </tr>
+                              <tr>
+                                <td>Last Name</td>
+                                <td><%= @user.last_name %></td>
+                              </tr>
+                            <% end %>
+                            <tr>
+                              <td>Name (From Facebook)</td>
+                              <td><%= @user.name %></td>
+                            </tr>
+                            <% unless current_user.requested_role == "Venue" %>
+                            <tr>
+                              <td>Gender</td>
+                              <td><%= @user.gender %></td>
+                            </tr>
+                            <% end %>
+                            <% if current_user.requested_role == "Venue" %>
+                              <tr>
+                                <td>Address</td>
+                                <td><%= @user.address.street1 if @user.address.present? %></td>
+                              </tr>
+                              <tr>
+                                <td>City</td>
+                                <td><%= @user.address.city if @user.address.present? %></td>
+                              </tr>
+                              <tr>
+                                <td>State</td>
+                                <td><%= @user.address.state if @user.address.present? %></td>
+                              </tr>
+                              <tr>
+                                <td>Zip</td>
+                                <td><%= @user.address.zip if @user.address.present? %></td>
+                              </tr>
+                              <tr>
+                                <td>Phone Number</td>
+                                <td><%= @user.address.zip if @user.address.present? %></td>
+                              </tr>
+                            <% end %>
+                            <tr>
+                              <td>Website</td>
+                              <td><%= link_to @user.website, @user.website %></td>
+                            </tr>
+                            <tr>
+                              <td>Email</td>
+                              <td><%= @user.email %></td>
+                            </tr>
+                            <tr>
+                              <td>Favorite Teams</td>
+                              <td> 
+                                <%@user.followed_teams.try(:each) do |team| %>
+                                <%= team.name %> &nbsp
+                                <% end %>
+                              </td>
+                            </tr>
+                            <td>About Me</td>
+                            <td><%= @user.about %>
+                            </td>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="pull-right">
+                    <%= link_to 'Edit', edit_account_path, class: "btn btn-primary" %>
+                    <%= link_to 'Home', root_path, class: "btn btn-primary" %>
+
+                  </span>
+                  <br><br>
+                </div>
               </div>
             </div>
           </div>
-            <span class="pull-right">
-              <%= link_to 'Edit', edit_account_path, class: "btn btn-primary" %>
-              <%= link_to 'Home', root_path, class: "btn btn-primary" %>
-
-            </span>
-            <br><br>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 </div>

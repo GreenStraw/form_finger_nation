@@ -89,7 +89,34 @@ class AccountController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:banner, :id, :name, :favorite_team_id, :about, :website, :gender, :first_name, :last_name, :username, :email, :provider, :uid, :customer_id, :facebook_access_token, :image_url, :password, :password_confirmation, :requested_role)
+    params.require(:user).permit(
+      :banner, 
+      :id, 
+      :name, 
+      :favorite_team_id, 
+      :about, 
+      :website, 
+      :gender, 
+      :first_name, 
+      :last_name, 
+      :username, 
+      :email, 
+      :provider, 
+      :uid, 
+      :customer_id, 
+      :facebook_access_token, 
+      :image_url, 
+      :password, 
+      :password_confirmation, 
+      :requested_role,
+      address_attributes: [
+          :street1, 
+          :street2, 
+          :city, 
+          :state, 
+          :zip,
+          :ph_number,
+        ] )
   end
 
 end
