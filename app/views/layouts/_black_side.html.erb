@@ -50,7 +50,7 @@
         </div>
       </li>
       <li>
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= request.location.city %> <%= request.location.region %></span>  <small>(change)</small></a>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %></span>  <small>(change)</small></a>
         <!-- <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%#= current_user.address.city rescue 'No location' %> <#%= current_user.address.state rescue '' %></span>  <small>(change)</small></a> -->
       </li>
       <li class="Watch_Parties">
