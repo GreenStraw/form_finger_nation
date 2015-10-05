@@ -28,10 +28,10 @@ class TeamsController < ApplicationController
       #   ordered_teams[sport_name] = teams
       # end
 
-      puts "-"*80
-      puts @teams_by_sport
-      puts key
-      puts "-"*80
+      # puts "-"*80
+      # puts @teams_by_sport
+      # puts key
+      # puts "-"*80
     end
     respond_to do |format|
       format.js
