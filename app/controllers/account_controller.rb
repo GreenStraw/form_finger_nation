@@ -17,7 +17,8 @@ class AccountController < ApplicationController
     @account = User.new(user_params)
     if @account.save_and_invite_member
       @account.send_welcome_email
-      @account.address.update_column(city: request.location.city rescue '') if @account.address.present?
+      a_city = request.location.city rescue ''
+      @account.address.update_column(city: a_city) if @account.address.present?
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
       redirect_to root_path
     else
