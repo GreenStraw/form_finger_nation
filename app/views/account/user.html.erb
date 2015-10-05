@@ -30,8 +30,20 @@ body {overflow-x: hidden}
         <div class="row">
           <div class="follow">
             <div class="col-md-12">
-              <h3 class="hidden"><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h4>
+              <h3 class="hidden"><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h3>
               <h3><%= @u.about %></h3>
+              <% add = current_user.address %>
+              <% if current_user.requested_role == "Venue" && add.present? %>
+                Address:
+                <div class="form-group">
+                  <%= add.street1 %>
+                </div>
+                City: <%= add.city %><br>
+                State: <%= add.state %><br>
+                Zip: <%= add.zip %><br>
+                Phone Number: <%= add.ph_number %><br>
+                Website: <%= current_user.website %><br>
+              <% end %>
               <hr>
               <h3>My Teams</h3>
               <% @teams.try(:each) do |team| %>
