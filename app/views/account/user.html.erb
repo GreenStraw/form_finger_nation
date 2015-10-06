@@ -41,10 +41,10 @@ body {overflow-x: hidden}
               <% add = current_user.address %>
               <% if current_user.requested_role == "Venue" && add.present? %>
               <ul class="address_box">
-                <li><strong>Address:</strong> <%= add.street1 %></li>
-                <li><strong>City:</strong> <%= add.city %></li>
-                <li><strong>State:</strong> <%= add.state %></li>
-                <li><strong>Zip:</strong> <%= add.zip %></li>
+                <li><strong>Address:</strong> <%= add.street1 %> <%= add.city %> <%= add.state %> <%= add.zip %></li>
+                <!-- <li><strong>City:</strong> </li>
+                <li><strong>State:</strong> </li>
+                <li><strong>Zip:</strong> </li> -->
                 <li><strong>Phone  Number:</strong> <%= add.ph_number %></li>
                 <li><strong>Website:</strong> <%= current_user.website %></li>
               </ul>
