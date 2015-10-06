@@ -46,7 +46,7 @@ body {overflow-x: hidden}
                 <li><strong>State:</strong> </li>
                 <li><strong>Zip:</strong> </li> -->
                 <li><strong>Phone  Number:</strong> <%= add.ph_number %></li>
-                <li><strong>Website:</strong> <%= current_user.website %></li>
+                <li><strong>Website:</strong> <%= link_to current_user.website, current_user.website %></li>
               </ul>
               <% end %>
               </div>
