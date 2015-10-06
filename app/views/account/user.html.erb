@@ -17,10 +17,12 @@ body {overflow-x: hidden}
       <div class="sport_header  row">
         <div class="col-md-12">
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-          <div class="sport_caption profilename col-md-4 pull-right">
+          <div class="sport_caption profilename col-md-4 pull-right ">
             <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
             <% display_name = current_user.username %>
-            <h2><%= display_name %></h2>
+            <div class="text-center">
+              <h2><%= display_name %></h2>
+            </div>
             <h4 class="hidden" >800 Followers, 200 Following</h4>
             <button type="button" class="hidden" class="btn btn-green btn-default">Follow</button> 
           </div>
@@ -31,19 +33,24 @@ body {overflow-x: hidden}
           <div class="follow">
             <div class="col-md-12">
               <h3 class="hidden"><%= @u.gender %>    |    <%= @u.location %>     |    foamfingernation.com</h3>
+              <div class="row">
+              <div class="col-md-8">
               <h3><%= @u.about %></h3>
+              </div>
+              <div class="col-md-4">
               <% add = current_user.address %>
               <% if current_user.requested_role == "Venue" && add.present? %>
-                Address:
-                <div class="form-group">
-                  <%= add.street1 %>
-                </div>
-                City: <%= add.city %><br>
-                State: <%= add.state %><br>
-                Zip: <%= add.zip %><br>
-                Phone Number: <%= add.ph_number %><br>
-                Website: <%= current_user.website %><br>
+              <ul class="address_box">
+                <li><strong>Address:</strong> <%= add.street1 %></li>
+                <li><strong>City:</strong> <%= add.city %></li>
+                <li><strong>State:</strong> <%= add.state %></li>
+                <li><strong>Zip:</strong> <%= add.zip %></li>
+                <li><strong>Phone  Number:</strong> <%= add.ph_number %></li>
+                <li><strong>Website:</strong> <%= current_user.website %></li>
+              </ul>
               <% end %>
+              </div>
+              </div>
               <hr>
               <h3>My Teams</h3>
               <% @teams.try(:each) do |team| %>

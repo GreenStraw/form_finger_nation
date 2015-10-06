@@ -14,7 +14,15 @@
   margin-top: 50px;
   margin-bottom: 25px;
 }
-
+.address_box{
+  padding: 0;
+  margin:0;
+}
+.address_box li{
+  margin: 10px 0px;
+  border-bottom: 1px dotted;
+  padding: 0px 0px 10px;
+}
 
 /* make sidebar nav vertical */ 
 @media (min-width: 768px) {
