@@ -20,7 +20,7 @@ class AccountController < ApplicationController
 
       puts "request.location.city"*10
       # puts request.location.city
-      puts request.to_yaml
+      # puts request.to_yaml
       # puts request.location.region_name
       
       a_city = request.location.city rescue ''
