@@ -19,9 +19,9 @@ class AccountController < ApplicationController
       @account.send_welcome_email
 
       puts "request.location.city"*10
-      puts request.location.city
+      # puts request.location.city
       puts request.to_yaml
-      puts request.location.region_name
+      # puts request.location.region_name
       
       a_city = request.location.city rescue ''
       a_state = request.location.region_name rescue ''
