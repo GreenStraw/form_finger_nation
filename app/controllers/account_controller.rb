@@ -17,9 +17,16 @@ class AccountController < ApplicationController
     @account = User.new(user_params)
     if @account.save_and_invite_member
       @account.send_welcome_email
+
+      puts "request.location.city"*10
+      puts request.location.city
+      puts request.to_yaml
+      puts request.location.region_name
+      
       a_city = request.location.city rescue ''
       a_state = request.location.region_name rescue ''
       @account.address.update_columns(city: a_city, state: a_state) if @account.address.present?
+      puts "request.location.region_name"*10
       flash[:success] = "Thanks for signing up! Check your email, #{@account.email}, for a confirmation link."
       redirect_to root_path
     else
