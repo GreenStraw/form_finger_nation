@@ -23,7 +23,7 @@ class AccountController < ApplicationController
       # puts request.to_yaml
       # puts request.location.region_name
       
-      a_city = request.location.city rescue ''
+      a_city = request.location.city.titleize rescue ''
       a_state = request.location.region_name rescue ''
       @account.address.update_columns(city: a_city, state: a_state) if @account.address.present?
       puts "request.location.region_name"*10
