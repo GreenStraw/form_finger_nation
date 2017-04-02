@@ -5,7 +5,7 @@ module Api
       before_filter :authenticate_user_from_token!
 
       def index
-        bucket_name = 'foam-finger-nation'
+        bucket_name = 'foam-finger'
 
         # Start a session with restricted permissions.
         sts = AWS::STS.new(
