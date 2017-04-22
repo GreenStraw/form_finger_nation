@@ -86,7 +86,6 @@ Baseapp::Application.routes.draw do
   get "/jobs" => "home#jobs"
   get "/privacy" => "home#privacy"
   get "/terms" => "home#terms"
-  get "/gafyd" => "home#gafyd"
   root :to => "home#home"
 
 

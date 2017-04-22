@@ -61,8 +61,5 @@ class HomeController < ApplicationController
 
   def about2
   end
-  
-  def gafyd
-  end
 
 end

@@ -96,16 +96,5 @@ describe HomeController do
       expect(response).to render_template('terms')
     end
   end
-  
-  describe 'GET gafyd' do
-    it 'should return http status 200' do
-      get :gafyd
-      response.status.should == 200
-    end
-    it 'should render the gafyd view' do
-      get :gafyd
-      expect(response).to render_template('gafyd')
-    end
-  end
 
 end
