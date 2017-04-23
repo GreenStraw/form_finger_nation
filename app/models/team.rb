@@ -2,7 +2,7 @@ class Team < ActiveRecord::Base
   resourcify
   validates_presence_of :name
   validates_presence_of :sport_id
-  validates :page_name, uniqueness: true, presence: true
+  #validates :page_name, uniqueness: true, presence: true
   after_create :ensure_address
   mount_uploader :image_url, TeamImageUploader
   skip_callback :commit, :after, :remove_image_url!
@@ -20,15 +20,15 @@ class Team < ActiveRecord::Base
   has_many :parties
   accepts_nested_attributes_for :address
 
-  before_validation :find_by_param
+  #before_validation :find_by_param
   
-  def to_param
-    page_name
-  end
+  #def to_param
+  #  page_name
+  #end
   
-  def find_by_param
-    self.page_name ||= page_name.parameterize.downcase
-  end
+  #def find_by_param
+  #  self.page_name ||= page_name.parameterize.downcase
+  #end
   
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
@@ -75,4 +75,5 @@ end
 #  sport_id    :integer
 #  created_at  :datetime
 #  updated_at  :datetime
-#
+#  banner      :string(255)
+#  page_name   :string(255)
