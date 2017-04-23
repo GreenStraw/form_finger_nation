@@ -22,13 +22,13 @@ class Team < ActiveRecord::Base
 
   before_validation :find_by_param
   
-  def to_param
-    page_name
-  end
+  #def to_param
+  #  page_name
+  #end
   
-  def find_by_param
-    self.page_name ||= page_name.parameterize.downcase
-  end
+  #def find_by_param
+  #  self.page_name ||= page_name.parameterize.downcase
+  #end
   
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
