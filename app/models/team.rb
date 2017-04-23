@@ -21,7 +21,7 @@ class Team < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   def to_param
-    self.page_name
+    page_name
   end
   
   def self.ordered_teams(teams)
