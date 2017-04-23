@@ -20,12 +20,14 @@ class Team < ActiveRecord::Base
   has_many :parties
   accepts_nested_attributes_for :address
 
+  before_save :find_by_param
+  
   def to_param
     page_name
   end
   
-  def self.find_by_param(input)
-    find_by_page_name(input)
+  def find_by_param
+    self.page_name = page_name.parameterize
   end
   
   def self.ordered_teams(teams)
