@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   resourcify
   validates_presence_of :name
   validates_presence_of :sport_id
+  validates_presence_of :page_name
   after_create :ensure_address
   mount_uploader :image_url, TeamImageUploader
   skip_callback :commit, :after, :remove_image_url!
@@ -20,7 +21,7 @@ class Team < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   def to_param
-    [id, name.parameterize].join("-")
+    self.page_name
   end
   
   def self.ordered_teams(teams)
