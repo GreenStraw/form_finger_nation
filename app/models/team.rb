@@ -19,6 +19,10 @@ class Team < ActiveRecord::Base
   has_many :parties
   accepts_nested_attributes_for :address
 
+  def to_param
+    [id, name.parameterize].join("-")
+  end
+  
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
     sport_names_with_teams = Sport.ordered_sports
