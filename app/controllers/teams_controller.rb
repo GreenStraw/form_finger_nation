@@ -169,11 +169,11 @@ class TeamsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_team
-    @team = Team.find(params[:id])
+    @team = Team.find_by_param(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def team_params
-    params.require(:team).permit(:banner,:name, :information, :text, :image_url, :sport_id, :references, :twitter_name, :twitter_widget_id, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]])
+    params.require(:team).permit(:page_name, :banner,:name, :information, :text, :image_url, :sport_id, :references, :twitter_name, :twitter_widget_id, :address, [address_attributes: [:street1, :street2, :city, :state, :zip]])
   end
 end

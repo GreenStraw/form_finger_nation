@@ -24,6 +24,10 @@ class Team < ActiveRecord::Base
     page_name
   end
   
+  def self.find_by_param(input)
+    find_by_page_name(input)
+  end
+  
   def self.ordered_teams(teams)
     grouped_teams = teams.group_by{|t| t.sport.name}
     sport_names_with_teams = Sport.ordered_sports
