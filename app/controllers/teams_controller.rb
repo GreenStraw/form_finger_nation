@@ -169,7 +169,7 @@ class TeamsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_team
-    @team = Team.find_by_page_name!(params[:id])
+    @team = Team.find_by_page_name(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
