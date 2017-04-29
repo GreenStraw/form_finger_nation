@@ -56,3 +56,4 @@ class PartyMailer < ActionMailer::Base
     # attachments["image"] = params[:sponsorimage] 
   end
 end
+ 

@@ -23,3 +23,4 @@ class UserMailer < ActionMailer::Base
     mail(to: @to, bcc: @bcc, from: '"Foam Finger Nation" <Sportsbars@foamfingernation.com>', subject: 'Welcome to Foam Finger Nation!')
   end
 end
+ 

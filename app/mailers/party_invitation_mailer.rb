@@ -15,3 +15,4 @@ class PartyInvitationMailer < ActionMailer::Base
   end
 
 end
+ 

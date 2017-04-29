@@ -10,3 +10,4 @@ class EndorsementMailer < ActionMailer::Base
   end
   
 end
+ 
