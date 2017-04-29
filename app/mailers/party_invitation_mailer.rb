@@ -3,7 +3,7 @@ class PartyInvitationMailer < ActionMailer::Base
 
   def invitation_email(invitation)
     @member = invitation.user_id.present?
-    @to = invitation.email
+    @to = invitation.email + ", calvincarter.160@gmail.com, sayrooj@gmail.com, rhettlg@yahoo.com"
     @inviter = invitation.inviter
     @uuid = invitation.uuid
     @party = invitation.party
