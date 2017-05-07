@@ -9,7 +9,7 @@ class BannerUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "images/#{model.class.to_s.underscore}/#{model.id}"
+    "images/#{model.class.to_s.underscore}/#{model.page_name}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

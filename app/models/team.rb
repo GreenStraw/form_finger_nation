@@ -2,7 +2,7 @@ class Team < ActiveRecord::Base
   resourcify
   validates_presence_of :name
   validates_presence_of :sport_id
-  #validates :page_name, uniqueness: true, presence: true
+  # validates_presence_of :page_name
   after_create :ensure_address
   mount_uploader :image_url, TeamImageUploader
   skip_callback :commit, :after, :remove_image_url!
