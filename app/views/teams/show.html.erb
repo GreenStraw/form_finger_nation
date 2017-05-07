@@ -2,7 +2,7 @@
 body {overflow-x: hidden}
   .team_header{
     <% if @team.banner.present? %>
-      background: url(<%= "#{@team.banner_url}" %>) no-repeat center center;
+      background: url(<%= asset_path %>) no-repeat center center;
       background-size: cover;
       height: 468px;
     <% end %>
@@ -27,6 +27,8 @@ body {overflow-x: hidden}
         <div class="row">
           <div class="follow companylisting">
             <div class="col-md-5 col-sm-6">
+			<h2><%= "#{@team.banner_url}" %></h2>
+			<h2><%= @team.banner_url %></h2>
               <h2><%= "#{@team.name}" %></h2>
               <ul class="list-unstyled address">
                 <li><%= @team.address.street %></li>
