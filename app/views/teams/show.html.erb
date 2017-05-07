@@ -2,7 +2,7 @@
 body {overflow-x: hidden}
   .team_header{
     <% if @team.banner.present? %>
-      background: url(<%= asset_path "#{@team.banner_url}" %>) no-repeat center center;
+      background: url(<%= "#{@team.banner_url}" %>) no-repeat center center;
       background-size: cover;
       height: 468px;
     <% end %>
