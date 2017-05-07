@@ -65,9 +65,8 @@ class TeamsController < ApplicationController
   end
 
   # GET /teams/1/edit
-  # @team = Team.find(params[:id])
   def edit
-    @team = Team.find_by_page_name(params[:id])
+    @team = Team.find(params[:id])
   end
 
   # POST /teams
