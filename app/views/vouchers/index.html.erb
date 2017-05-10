@@ -54,7 +54,7 @@
                 <h5 class=''>You currently have no Vouchers, but you can create it here</h5>
               </div>
 			  
-			  <% if @user.requested_role != "Sports Fan" %>
+			  <% if current_user.requested_role != "Sports Fan" %>
 				  <div class="col-sm-4">
 					<%= link_to "Create Voucher", new_voucher_path, class: "btn btn-green btn-default" %>
 				  </div>
