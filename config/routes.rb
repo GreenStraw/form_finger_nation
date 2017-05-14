@@ -187,7 +187,7 @@ Baseapp::Application.routes.draw do
       end
       resources :uploads, only: [:index] do
       end
-      resources :packages
+      resources :packages, only: [:index, :show, :create, :update]
       resources :comments, only: [:index, :show, :create, :update]
       resources :addresses, only: [:index, :create, :show, :update]
       resources :party_invitations, only: [:index, :show] do
