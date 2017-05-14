@@ -45,11 +45,12 @@
         <br>
         <br>
           <ul class="list-group">
-            <% if @redeemable_vouchers.any? %>
+            <% if @redeemable_vouchers.any? && current_user.requested_role != "Venue" %>
               <% @redeemable_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
             <% else %>
+			
               <div class="col-sm-9" style="margin-bottom: 20px;">
                 <h5 class=''>You currently have no Vouchers, but you can create it here</h5>
               </div>
