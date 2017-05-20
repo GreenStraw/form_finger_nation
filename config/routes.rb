@@ -17,7 +17,7 @@ Baseapp::Application.routes.draw do
   put 'user/user_loc' => 'account#user_loc'
 
   resources :vouchers
-  resources :packages, except: [:new, :create] do
+  resources :packages, except: [:create] do
     member do
       put 'assign'
       put 'unassign'
