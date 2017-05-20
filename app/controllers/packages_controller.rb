@@ -25,7 +25,8 @@ class PackagesController < ApplicationController
       @flag = true
     end
     #@package.venue = @venue
-    respond_with @package
+    #respond_with @package
+	respond_with @packages.includes(:parties, :vouchers, :venue)
   end
   
 
