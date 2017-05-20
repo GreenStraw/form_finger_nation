@@ -24,7 +24,7 @@ class PackagesController < ApplicationController
       @party = Party.find(params[:party_id])
       @flag = true
     end
-    @package.venue = @venue
+    #@package.venue = @venue
     respond_with @package
   end
   
@@ -84,7 +84,7 @@ class PackagesController < ApplicationController
     end
 
     def set_party
-      @party = Party.find(params[:party_id])
+      @party = Party.find_by_friendly_url(params[:party_id])
     end
 
     # Only allow a trusted parameter "white list" through.
