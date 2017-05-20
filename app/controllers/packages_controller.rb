@@ -20,10 +20,15 @@ class PackagesController < ApplicationController
 
   # GET /packages/new
   def new
-
+    if params[:party_id].present?
+      @party = Party.find(params[:party_id])
+      @flag = true
+    end
+    @package.venue = @venue
+    respond_with @package
   end
   
-
+  
   # GET /packages/1/edit
   def edit
   end
