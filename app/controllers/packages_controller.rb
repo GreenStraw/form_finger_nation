@@ -8,7 +8,7 @@ class PackagesController < ApplicationController
 
   # GET /packages
   def index
-    respond_with @packages.includes(:parties, :vouchers, :venue)
+    #respond_with @packages.includes(:parties, :vouchers, :venue)
   end
 
   # GET /packages/1
