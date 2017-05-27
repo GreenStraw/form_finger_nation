@@ -7,7 +7,7 @@ class VenuesController < ApplicationController
   load_and_authorize_resource :party
   before_action :authenticate_user!
   
-  before_action :does_user_have_access_vendor_view?
+  #before_action :does_user_have_access_vendor_view?
 
   # GET /venues
   def index
