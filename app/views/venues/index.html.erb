@@ -9,8 +9,8 @@
           <% end %>
         </div>
 		<p style='color:#000;'> <%= current_user.inspect %> </p>		
-		<p style='color:#000;'> <%= current_user.has_role?(:venue_manager, @venue) %> </p>
-		<p style='color:#000;'> <%= current_user.admin %> </p>
+		<p style='color:#000;'> <%= current_user.has_role?(venue_manager) %> </p>
+		<p style='color:#000;'> <%= current_user.has_role?(venue_manager, venue) %> </p>
 		
 		
 		
