@@ -93,6 +93,7 @@ class ApplicationController < ActionController::Base
   def does_user_have_access_vendor_view
       if current_user.admin? || current_user.has_role?(:venue_manager)
         redirect_to root_url
+	  end
   end
 
 end
