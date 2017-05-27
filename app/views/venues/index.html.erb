@@ -11,6 +11,11 @@
 		<!-- p> <%= current_user.inspect %> </p>
 		<p> <%= current_user.username %> </p -->
 		
+		<p style='color:#000;'> <%= current_user.has_role?(:venue_manager) %> </p>
+		<p style='color:#000;'> <%= current_user.admin? %> </p>
+		
+		
+		
       </div>
     </div>
     <div class="main-area">
