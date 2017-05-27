@@ -90,4 +90,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def does_user_have_access_vendor_view?
+      current_user.admin || current_user.has_role?(:venue_manager)
+  end
+
 end
