@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :packages, through: :user_purchased_packages
   has_many :vouchers
   has_one :address, as: :addressable, dependent: :destroy
-  has_and_belongs_to_many :roles, :join_table => :users_roles
+  #has_and_belongs_to_many :roles, :join_table => :users_roles
 
   accepts_nested_attributes_for :address
 
