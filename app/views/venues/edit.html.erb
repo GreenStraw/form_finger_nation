@@ -4,6 +4,7 @@
       <div class="col-md-12">
         <div class="sport_caption col-md-4 pull-right ">
           <h2 class="form-title"><%= @venue.name %></h2>
+		  <p style='color:#000;'> <%= current_user.has_role?(:venue_manager, @venue) %> </p>
         </div>
       </div>
     </div>
