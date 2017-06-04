@@ -11,7 +11,7 @@
         </div>
 		<p style='color:#000;'> <%= current_user.inspect %> </p>		
 		<p style='color:#000;'> <%= current_user.has_role?(:manager) %> </p>
-		<p style='color:#000;'> <%= current_user.has_role?(:venue_manager, 135) %> </p>
+		<p style='color:#000;'> <%= Venue %> </p>
 		<p style='color:#000;'> <%= current_user.has_role?(:venue_manager, Venue) %> </p>
 		<p style='color:#000;'> <%= current_user.has_role?("venue_manager", Venue) %> </p>
 		<p style='color:#000;'> <%= current_user.has_role?(:admin) %> </p>
