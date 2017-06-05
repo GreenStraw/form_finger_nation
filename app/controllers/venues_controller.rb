@@ -41,7 +41,7 @@ class VenuesController < ApplicationController
     if @venue.save!
       # @user = User.find(current_user.id)
       if !current_user.has_role?(:venue_manager, @venue)
-        role = Role.create(name: 'venue_manager', resource_id: @venue.id, resource_type: "Venue")
+        role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
         UsersRole.create(user_id: current_user.id, role_id: role.id)
         # current_user.roles << role
         # current_user.add_role(:venue_manager, @venue)
