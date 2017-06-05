@@ -83,7 +83,7 @@
                     <%= link_to "My Teams", teams_path %>
                   </li>
                   <% end %>
-                  <% if user_signed_in? && current_user.admins? %>
+                  <% if user_signed_in? && current_user.admin? %>
                   <li>
                     <%= link_to 'Manage Admins', users_path %>
                   </li>
