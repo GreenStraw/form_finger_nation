@@ -73,18 +73,17 @@
                   <li>
                     <%= link_to "My Watch Parties", parties_path %>
                   </li>
-                  <% if current_user.managed_venues.any? %>
+                  <% if user_signed_in? && current_user.managed_venues.any? %>
                   <li>
                     <%= link_to "My Venues", venues_path %>
                   </li>
                   <% end %>
-                  <% if current_user.followed_teams.count > 0%>
+                  <% if user_signed_in? && current_user.followed_teams.count > 0%>
                   <li>
                     <%= link_to "My Teams", teams_path %>
                   </li>
                   <% end %>
-				  <li>testing <%= current_user.admin? %> </li>
-                  <% if current_user.admin? %>
+                  <% if user_signed_in? && current_user.admin? %>
                   <li>
                     <%= link_to 'Manage Admins', users_path %>
                   </li>
