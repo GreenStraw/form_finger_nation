@@ -57,9 +57,8 @@
   
 	<div class = "form-group">
 		<%= f.label "Venue Manager" %><br>
-		<%= select_tag 'user_id', options_from_collection_for_select(User.all, 'id', "username_email"), include_blank: true, prompt: 'select a user to add as venue manager', class: 'form-control' %>
+		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', "username_email"), include_blank: true, prompt: 'Add Manager', class: 'form-control' %>
 		
-
 	</div>
 
   <div class="actions">
