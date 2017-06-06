@@ -53,7 +53,13 @@
       <%= a.label "Zip*" %><br>
       <%= a.text_field :zip, class: 'required form-control' %>
     </div>
-	
+  <% end %>
+  
+  <%= f.fields_for :user_attributes do |a| %>
+  	<div class = "form-group">
+		<%= f.label "Venue Manager" %><br>
+		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', 'email',@user.id), include_blank: false, class: 'select2 form-control' %>
+	</div>
   <% end %>
 
   <div class="actions">
