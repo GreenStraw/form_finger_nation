@@ -8,10 +8,7 @@
 		  <% if current_user.has_role?(:admin) %>
             <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default" %>
           <% end %>
-        </div>
-
-		<p style='color:#000;'> <%= current_user.admin? %> </p>
-		
+        </div>		
       </div>
     </div>
     <div class="main-area">
