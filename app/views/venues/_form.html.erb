@@ -54,10 +54,6 @@
       <%= a.text_field :zip, class: 'required form-control' %>
     </div>
 	
-	<!--div class = "form-group">
-		<%= f.label :team, "Party Team" %><br>
-		<%= select_tag 'party[team_id]', options_from_collection_for_select(Team.order("name ASC"), 'id', 'name',@party.team_id), include_blank: false, class: 'select2 form-control' %>
-	</div-->
   <% end %>
 
   <div class="actions">
