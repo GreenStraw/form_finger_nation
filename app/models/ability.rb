@@ -24,11 +24,11 @@ class Ability
       end
 
       can [:update], Venue do |venue|
-        user.has_role?(:venue_manager, venue)
+        user.has_role?(:manager, venue)
       end
 
       can [:manage], Package do |pack|
-        user.has_role?(:venue_manager, pack.venue)
+        user.has_role?(:manager, pack.venue)
       end
 
     end
