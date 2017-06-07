@@ -27,7 +27,7 @@
                     <li><a href="#venue-watch-parties" role='tab' data-toggle='tab'>Venue Watch Parties</a></li>
                     <li><a href="#venue-packages" role='tab' data-toggle='tab'>Packages</a></li>
                   <% end %>
-                  <% if current_user.admin? || current_user.has_role?(:venue_manager, @venue) %>
+                  <% if current_user.admin? || current_user.has_role?(:manager, @venue) %>
                     <li><a href="#manage_managers" role='tab' data-toggle='tab'>Manage Venue Managers</a></li>
                   <% end %>
                 </ul>
