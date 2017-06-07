@@ -28,9 +28,7 @@
             <% end %>
             <br>
             <%= link_to 'Venues', venues_path %>
-            <% if current_user.present? && current_user.can?(:edit, @venue) %>
-              | <%= link_to 'Edit', edit_venue_path(@venue) %>
-            <% end %>
+
           </div>
         </div>
       </div>
