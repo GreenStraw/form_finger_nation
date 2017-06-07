@@ -29,7 +29,7 @@ class Venue < ActiveRecord::Base
   end
 
   def managers
-    User.with_role(:venue_manager, self) || []
+    User.with_role(:venue_manager, self) || User.with_role(:manager, self) || []
   end
 
   private
