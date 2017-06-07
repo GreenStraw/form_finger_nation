@@ -55,11 +55,12 @@
     </div>
   <% end %>
   
+  <% if current_user.has_role?(:admin) %>
 	<div class = "form-group">
 		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', 'email'), include_blank: true, prompt: 'Add Manager', class: 'form-control' %>
-		
 	</div>
-
+  <% end %>
+  
   <div class="actions">
     <%= link_to 'Back', venues_path , class: "btn btn-default" %>
     <%= f.submit  class:"btn btn-success" %>
