@@ -73,7 +73,7 @@ class VenuesController < ApplicationController
       @user.add_role(:venue_manager, @venue)
     end
     respond_to do |format|
-      format.js { render action: 'manager' }
+      format.js { render action: 'venue_manager' }
     end
   end
 
@@ -82,7 +82,7 @@ class VenuesController < ApplicationController
       @user.remove_role(:venue_manager, @venue)
     end
     respond_to do |format|
-      format.js { render action: 'manager' }
+      format.js { render action: 'venue_manager' }
     end
   end
 
