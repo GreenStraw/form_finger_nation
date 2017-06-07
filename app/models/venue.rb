@@ -36,6 +36,7 @@ class Venue < ActiveRecord::Base
 
   def attach_role
     current_user.add_role(:venue_manager, self) unless current_user.has_role?(:venue_manager, self)
+	current_user.add_role(:manager, self) unless current_user.has_role?(:manager, self)
   end
 
   def ensure_address
