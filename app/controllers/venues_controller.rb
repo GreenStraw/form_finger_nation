@@ -78,7 +78,7 @@ class VenuesController < ApplicationController
   end
 
   def remove_manager
-    if @user.has_role?(:venue_manager, @venue)
+    if !@user.has_role?(:venue_manager, @venue)
       @user.remove_role(:venue_manager, @venue)
     end
     respond_to do |format|
