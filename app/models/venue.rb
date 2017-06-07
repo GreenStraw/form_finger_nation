@@ -29,14 +29,13 @@ class Venue < ActiveRecord::Base
   end
 
   def managers
-    User.with_role(:venue_manager, self) || User.with_role(:manager, self) || []
+    User.with_role(:venue_manager, self) || []
   end
 
   private
 
   def attach_role
     current_user.add_role(:venue_manager, self) unless current_user.has_role?(:venue_manager, self)
-	#current_user.add_role(:manager, self) unless current_user.has_role?(:manager, self)
   end
 
   def ensure_address
