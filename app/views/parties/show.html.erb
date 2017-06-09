@@ -12,6 +12,7 @@ body {overflow-x: hidden}
     <% end %>
   }
 </style>
+<div><%=raw @map_markers.to_json %></div>
 <div id="page-content-wrapper">
   <div class="container-fluid">
     <div class="sport_header row">
@@ -118,7 +119,6 @@ body {overflow-x: hidden}
               
               <div class="col-md-6 col-sm-6 col-xs-3">
                 <p><%= @party.description %></p>
-                <%=raw @map_markers.to_json %>
               </div>
             </div>
             <br>
