@@ -52,9 +52,8 @@
               <div>
               
               <div class="image-holder" style="float: left; width: 50px;">
-                <%= image_tag(team.team_icon, class: "img-responsive") %>
+                <%= asset_path(team.team_icon) %>
               </div>
-                <span <%= asset_path %>
                 <h4><%= link_to(team.name, team) %></h4>
                 <div data-tab="<%= tab %>" class="star">
                   <% if user_signed_in? %>
