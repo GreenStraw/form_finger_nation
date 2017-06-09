@@ -118,6 +118,7 @@ body {overflow-x: hidden}
               
               <div class="col-md-6 col-sm-6 col-xs-3">
                 <p><%= @party.description %></p>
+                <%=raw @map_markers.to_json %>
               </div>
             </div>
             <br>
