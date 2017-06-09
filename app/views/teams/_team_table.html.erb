@@ -50,10 +50,10 @@
               <!-- <tr class='<%= team.id %>'> -->
             <% end %>
               <div>
-              
-              <!--div class="image-holder" style="float: left; width: 50px;">
-                <%= asset_path "air-force-falcons-icon.png" %>
-              </div-->
+
+              <span> <%= asset_path "#{@team.team_icon}" %> </span>
+              <div class="image-holder" style="float: left; width: 50px; background: url('') no-repeat center center; background-size: cover;">
+              </div>
                 <h4><%= link_to(team.name, team) %></h4>
                 <div data-tab="<%= tab %>" class="star">
                   <% if user_signed_in? %>
