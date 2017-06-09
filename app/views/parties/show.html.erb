@@ -12,7 +12,6 @@ body {overflow-x: hidden}
     <% end %>
   }
 </style>
-<div><%=raw @map_markers.to_json %></div>
 <div id="page-content-wrapper">
   <div class="container-fluid">
     <div class="sport_header row">
@@ -58,7 +57,7 @@ body {overflow-x: hidden}
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
         <div class="follow companylisting ">
-          <div class="col-md-7 col-sm-6 col-xs-12">
+          <!--div class="col-md-7 col-sm-6 col-xs-12">
             <div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
               <br>
               <%= if @party.party_packages.any? 
@@ -69,8 +68,8 @@ body {overflow-x: hidden}
               </div>
             </div>
             </p>
-          </div>
-          <div class="col-md-5 col-md-5 col-sm-6 row">
+          </div-->
+          <div class="col-md-12 col-md-12 col-sm-12 row">
             <h2><%= @party.venue.name %></h2>
             <ul class="list-unstyled address">
               <li><%= @party.venue.address.street_address %></li>
