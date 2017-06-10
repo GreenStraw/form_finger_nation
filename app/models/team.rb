@@ -2,11 +2,12 @@ class Team < ActiveRecord::Base
   resourcify
   validates_presence_of :name
   validates_presence_of :sport_id
-  # validates_presence_of :page_name
+  validates_presence_of :page_name
   after_create :ensure_address
   mount_uploader :image_url, TeamImageUploader
   skip_callback :commit, :after, :remove_image_url!
   mount_uploader :banner, BannerUploader
+  mount_uploader :team_icon, TeamIconUploader
 
   has_many :favorites, as: :favoritable
   has_many :fans, through: :favorites, source: :favoriter, source_type: "User"
