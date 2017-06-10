@@ -38,18 +38,18 @@
         <div class="panel-body">
           <% teams.each do |team| %>
             <% if tab=='followed' %>
-              <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-sm-offset-1 col-md-6 col-sm-6 col-xs-12" style="margin-bottom: 15px;">
               <!-- <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'> -->
             <% elsif tab=='managed' %>
-              <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-sm-offset-1 col-md-6 col-sm-6 col-xs-12" style="margin-bottom: 15px;">
 
               <!-- <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'> -->
             <% else %>
-              <div class="<%= team.id %> col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> col-sm-offset-1 col-md-6 col-sm-6 col-xs-12" style="margin-bottom: 15px;">
 
               <!-- <tr class='<%= team.id %>'> -->
             <% end %>
-              <div style="padding: 0px 15px 15px 15px;"> 
+              <div>
               <div class="image-holder" style="float: left; width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px;">
               </div>
                 <h4><%= link_to(team.page_name, team) %></h4>
