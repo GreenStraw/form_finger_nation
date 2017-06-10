@@ -38,14 +38,14 @@
         <div class="panel-body">
           <% teams.each do |team| %>
             <% if tab=='followed' %>
-              <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-md-offset-1 col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %> col-md-6 col-sm-6 col-xs-12">
               <!-- <tr class='<%= team.id %> followed <%= "hidden" if !favorites.map(&:id).include?(team.id) %>'> -->
             <% elsif tab=='managed' %>
-              <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-md-offset-1 col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %> col-md-6 col-sm-6 col-xs-12">
 
               <!-- <tr class='<%= team.id %> <%= "hidden" if !managed.map(&:id).include?(team.id) %>'> -->
             <% else %>
-              <div class="<%= team.id %> col-md-offset-1 col-md-6 col-sm-6 col-xs-12">
+              <div class="<%= team.id %> col-md-6 col-sm-6 col-xs-12">
 
               <!-- <tr class='<%= team.id %>'> -->
             <% end %>
