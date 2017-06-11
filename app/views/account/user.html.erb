@@ -60,8 +60,8 @@ body {overflow-x: hidden}
               <h3>My Watch Parties</h3>
               <% c = 0 %>
               <% @created_parties.try(:each) do |party| %>
-                <div class="col-sm-6 col-md-4 ">
-                  <div class="thumbnail" style="height: 430px;">
+                <div class="col-sm-6 col-md-4 " style="height: 430px; padding-top: 20px;"> 
+                  <div style="background-color: #FFF; padding: 9%; width: 98%; cursor: pointer; box-shadow: 0 0 3px 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.1); float: left">
                     <div class="cancle_icon">
                     <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                     </div>
@@ -115,8 +115,8 @@ body {overflow-x: hidden}
               <% @rvs_parties.try(:each) do |rsv| %>
                 <% party = rsv.party %>
                 <% if party.present? %>
-                  <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail" style="height: 430px;">
+                  <div class="col-sm-6 col-md-4"  style="height: 430px; padding-top: 20px;">  
+                    <div style="background-color: #FFF; padding: 9%; width: 98%; cursor: pointer; box-shadow: 0 0 3px 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.1); float: left">
                       <div class="cancle_icon">
                       <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                       </div>
