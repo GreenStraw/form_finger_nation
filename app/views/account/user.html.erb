@@ -21,8 +21,8 @@ body {overflow-x: hidden}
             <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
             <% display_name = current_user.username %>
             <div class="text-center">
-              <h2><%= display_name %></h2>
-              <img style="display: block; top: -10px; position: absolute; left: 70%;" src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+              <span><%= display_name %></span>
+              <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
             </div>
             <h4 class="hidden" >800 Followers, 200 Following</h4>
             <button type="button" class="hidden" class="btn btn-green btn-default">Follow</button> 
