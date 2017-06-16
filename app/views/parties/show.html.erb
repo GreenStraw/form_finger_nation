@@ -17,7 +17,40 @@ body {overflow-x: hidden}
     <div class="sport_header row">
       <div class="col-md-12">
         <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-
+        <div class="sport_caption pull-right verified party_caption_banner" style="margin: 90px 70px 0 0;">
+          <span>
+            <%= @party.name%>
+            <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
+          </span>
+          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+          
+          <div class="clearfix"></div>
+          <% if @party.verified %>
+            <div class="verifie_box">
+              <strong class="title"><em>Verified</em></strong>
+            </div>
+          <% end %>
+          <div class="clearfix"></div>
+          <% if @party.sponsor.nil? %>
+          <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Become a Sponsor</button>
+          <br>
+          <% else %>
+          <h4> Sponsored By <%= @party.sponsor %></h4>
+          <% end %>
+          <h4><%= @party.venue.name %></h4>
+          <%#= facebook_button :title=> 'Alternate Title', description: "foam finger nation" %>
+          <h5><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
+            <%= @party.party_reservations.count.to_s%> RSVP'd
+          </h5>
+          <% if reservations_include?(@party, current_user) %>
+          <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
+          <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+          <% else %>
+          <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="main-area">
@@ -52,7 +85,9 @@ body {overflow-x: hidden}
                 </div>
                 <%# end %> -->
               
-
+              <div class="col-md-6 col-sm-6 col-xs-3">
+                <p><%= @party.description %></p>
+              </div>
             </div>
             <br>
             <p>
