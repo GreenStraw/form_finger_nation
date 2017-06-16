@@ -72,7 +72,7 @@ body {overflow-x: hidden}
             </p>
           </div-->
           <div class="col-md-12 col-md-12 col-sm-12 row">
-
+y
 
             <div style="margin: 0 0 45px 0">
               <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
@@ -90,7 +90,14 @@ body {overflow-x: hidden}
             </div>
 
 
-
+            <div class="map_holder">
+              <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+              <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
+              <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
+              <div id="map" style='width: 100%; height: 200px;'></div>
+              <% end %>
+              Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
+            </div>
           </div>
         </div>
         <div class="row">
