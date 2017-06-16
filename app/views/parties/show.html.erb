@@ -96,7 +96,10 @@ body {overflow-x: hidden}
             </div>
 
 
-
+            <div class="map_holder">
+             
+              Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
+            </div>
           </div>
         </div>
         <div class="row">
