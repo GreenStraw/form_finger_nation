@@ -13,9 +13,9 @@ class PackagesController < ApplicationController
 
   # GET /packages/1
   def show
-    if params[:party_package]
-      @party_package = params[:party_package]
-    end
+    # if params[:party_package]
+    #  @party_package = params[:party_package]
+    # end
   end
 
   # GET /packages/new
@@ -80,11 +80,11 @@ class PackagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_package
-      @package = Package.find(params[:id])
+      # @package = Package.find(params[:id])
     end
 
     def set_party
-      @party = Party.find_by_friendly_url(params[:party_id])
+      # @party = Party.find_by_friendly_url(params[:party_id])
     end
 
     # Only allow a trusted parameter "white list" through.
