@@ -97,8 +97,12 @@ body {overflow-x: hidden}
 
 
             <div class="map_holder">
-
-              Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
+              <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+              <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
+              <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
+              <div id="map" style='width: 100%; height: 200px;'></div>
+              <% end %>
+             
             </div>
           </div>
         </div>
