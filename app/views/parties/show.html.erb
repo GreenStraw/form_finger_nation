@@ -17,13 +17,20 @@ body {overflow-x: hidden}
     <div class="sport_header row">
       <div class="col-md-12">
         <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-        <div class="sport_caption pull-right verified party_caption_banner" style="margin: 90px 70px 0 0;">
-          <span>
-            <%= @party.name%>
-            <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
-          </span>
-          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
-          
+        <table class="sport_caption pull-right verified party_caption_banner" style="margin: 90px 70px 0 0;">
+          <tr>
+          <td>
+            <span>
+              <%= @party.name%>
+              <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
+            </span>
+          </td>
+          <td>
+            <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+          </td>
+          </tr>
+        </table>
+        <div>
           <div class="clearfix"></div>
           <% if @party.verified %>
             <div class="verifie_box">
