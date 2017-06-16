@@ -4,48 +4,7 @@
         <div class="col-md-12">
           <div class="sport_caption">
           </div>
-          <div class="main-area" style="color:black;">
-            <div class="row">
-              <div id='notice'>
-                <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
-              </div>
-              <br><br>
-              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2" >
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title"><%= @package.name %></h3>
-                  </div>
-                  <div class="panel-body">
-                    <div class="row">
-                      <div class="col-md-3 col-lg-3 acc_image" align="center">
-                        <%= image_tag(@package.image_url) %>
-                      </div>
-                        <br>
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Name:</td>
-                        <td><%= @package.name %></td>
-                      </tr>
-                      <tr>
-                        <td>Description:</td>
-                        <td><%= @package.description %></td>
-                      </tr>
-                      <tr>
-                        <td>Price:</td>
-                        <td><%= number_to_currency(@package.price) %></td>
-                      </tr>
-                      <tr>
-                        <td>Venue:</td>
-                        <td><%= @package.venue.name %></td>
-                      </tr>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+
             <span class="pull-right">
               <%= link_to 'Back', :back, class: "btn btn-primary", id: "voucher-back-button" %>
               <%= link_to 'Venue', venue_path(@package.venue), class: "btn btn-primary" %>
