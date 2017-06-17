@@ -55,7 +55,7 @@
     </div>
   <% end %>
   
-  <% if current_user.has_role?(:admin) %>
+  <% if current_user.has_role?(:admin) || current_user.has_role?(:manager)%>
 	<div class = "form-group">
 		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', 'email'), include_blank: true, prompt: 'Add Manager', class: 'form-control' %>
 	</div>
