@@ -69,9 +69,9 @@ class VenuesController < ApplicationController
   end
 
   def add_manager
-    if !@user.has_role?(:venue_manager, @venue)
+    #if !@user.has_role?(:venue_manager, @venue)
       @user.add_role(:venue_manager, @venue)
-    end
+    #end
     respond_to do |format|
       format.js { render action: 'manager' }
     end
