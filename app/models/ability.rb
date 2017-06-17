@@ -40,6 +40,10 @@ class Ability
         user.has_role?(:venue_manager, venue)
       end
 
+      can [:add_manager], Venue do |venue|
+        user.has_role?(:manager, venue)
+      end
+
       can :create, Package
       cannot [:add_admin, :remove_admin], User
       can :read, :all
