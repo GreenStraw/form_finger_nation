@@ -5,7 +5,7 @@
   <% end %>
   <% c = c + 1 %>
   <div class="col-sm-6 col-md-4 add_rsvp_party" style="height: 430px; padding-top: 20px;">  
-    <div style="background-color: #FFF; padding: 9%; width: 98%; cursor: pointer; box-shadow: 0 0 3px 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.1); float: left">
+    <div class="card">
 
       <div class="cancle_icon">
         <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>

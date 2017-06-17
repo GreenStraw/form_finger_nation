@@ -63,7 +63,7 @@ body {overflow-x: hidden}
                   <h3 style=" font-weight: bold; font-size: x-large; ">Upcoming Watch Parties</h3>
                     <ul class="list-unstyled verifie_list">
                     <% @team.upcoming_parties.each do |party| %>
-                      <div class="thumbnail modified_thumbnail" style="width: 275px; min-height:auto;">
+                      <div class="card">
                         <div class="cancle_icon">
                           <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                         </div>
