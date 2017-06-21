@@ -1,6 +1,5 @@
 module VouchersHelper
-  load_and_authorize_resource :venue
-
+	
   def package_selects
     Package.order(:name).where(for_everyone: false).map {|package| [package.name, package.id]}
   end
