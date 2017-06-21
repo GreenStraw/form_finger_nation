@@ -38,10 +38,10 @@
     <div class="form-group">
         <h6>Package Type?</h6>
         <label class="radio-inline">
-          <%= f.radio_button :is_general, 'true', :checked => true %> For Anyone
+          <%= f.radio_button :for_everyone, 'true', :checked => true %> For All Customers
         </label>
         <label class="radio-inline">
-          <%= f.radio_button :is_general, 'false' %> Private Party Only
+          <%= f.radio_button :for_everyone, 'false' %> Private Party Only
         </label>
     </div>
     <%= f.hidden_field :venue_id %>
