@@ -1,7 +1,7 @@
 module VouchersHelper
 
-  def package_selects(test)
-    Package.order(:name).where(for_everyone: false).map {|package| [package.name, package.id]}
+  def package_selects(venue)
+    Package.order(:name).where(for_everyone: false, venue_id: venue).map {|package| [package.name, package.id]}
   end
 
   def party_selects
