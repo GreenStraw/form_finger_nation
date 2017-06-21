@@ -35,6 +35,15 @@
         <%= f.file_field :image_url, class: "upload" %>
       </div>
     </div>
+    <div class="form-group">
+        <h6>Package Type?</h6>
+        <label class="radio-inline">
+          <%= f.radio_button :is_general, 'true', :checked => true %> For Anyone
+        </label>
+        <label class="radio-inline">
+          <%= f.radio_button :is_general, 'false' %> Private Party Only
+        </label>
+    </div>
     <%= f.hidden_field :venue_id %>
     <div class="actions">
       <% if @flag %>
