@@ -15,7 +15,7 @@
     <%= f.text_field :user_id, value: current_user.username, class: "form-control" %>
   </div>
   <div class="form-group">
-    <p> <%= venue %> </p>
+    <p> <%= @venue.id %> </p>
     <%= f.label :package_id %><br>
     <%= f.select :package_id, package_selects("141"), {} ,class: "form-control" %>
   </div>
