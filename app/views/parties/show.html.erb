@@ -16,8 +16,10 @@ body {overflow-x: hidden}
   <div class="container-fluid">
     <div class="sport_header row">
       <div class="col-md-12">
-        <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-        <div class="sport_caption pull-right verified party_caption_banner" style="margin: 90px 70px 0 0;">
+        <!--
+          <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
+        -->
+        <div class="sport_caption pull-right verified party_caption_banner">
             <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
             <span>
               Party
@@ -25,6 +27,8 @@ body {overflow-x: hidden}
               <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
             </span>
         </div>
+
+        <!--
         <div>
           <div class="clearfix"></div>
           <% if @party.verified %>
@@ -53,6 +57,7 @@ body {overflow-x: hidden}
           <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
           <% end %>
         </div>
+        -->
       </div>
     </div>
     <div class="main-area">
