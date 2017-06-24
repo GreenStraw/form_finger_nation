@@ -84,10 +84,9 @@
                   <% @teams.try(:each) do |team| %>
                   <div class="col-md-3 col-sm-6">
                     <li role="presentation">
-                      <%= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %>
-
-                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-left: 10px; top: 5px; position: relative; display: inline-block;">
+                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
+                      <%= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %>
                     </li>
                   </div>
                   <% end %>
@@ -96,10 +95,12 @@
                   <% @teams.try(:each) do |team| %>
                     <div class="col-md-3 col-sm-6">
                       <li role="presentation">
-                        <%= link_to team.name, get_team_rsvp_parties_parties_path(team: team.id), remote: true %>
+                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
+                      </div>
 
-                        <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-left: 10px; top: 5px; position: relative; display: inline-block;">
-                        </div>
+                      <%= link_to team.name, get_team_rsvp_parties_parties_path(team: team.id), remote: true %>
+
+
                       </li>
                     </div>
                   <% end %>
