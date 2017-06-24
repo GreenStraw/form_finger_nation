@@ -29,7 +29,12 @@
 					  	<tbody>
 					  		<tr id = "<%=team.id%>">
 					  			<td>
-					    			<span><h4><%= link_to(team.name, team) %></h4></span>
+					    			<span>
+                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-left: 10px; top: 5px; position: relative; display: inline-block;">
+                      </div>
+                      
+                      <h4><%= link_to(team.name, team) %></h4>
+                    </span>
 					  			</td>
 					  			<td > 
 					  				<h4> <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'><%= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a> </h4>
