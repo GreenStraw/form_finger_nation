@@ -30,10 +30,10 @@
 					  		<tr id = "<%=team.id%>">
 					  			<td>
 					    			<span>
-                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-left: 10px; top: 5px; position: relative; display: inline-block;">
+                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
-                      
-                      <h4><%= link_to(team.name, team) %></h4>
+
+                      <h4 style="float:none; display: inline-block;"><%= link_to(team.name, team) %></h4>
                     </span>
 					  			</td>
 					  			<td > 
