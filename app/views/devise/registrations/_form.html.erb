@@ -8,7 +8,7 @@
         <%= f.text_field :username, :class => "form-control #{'error' if @user.errors[:username]}", :id => 'bussiness_name_input' %>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <%= f.email_field :email, :class => "form-control", :placeholder =>'Email Address', required: true %>
@@ -22,7 +22,18 @@
         <%= f.password_field :password_confirmation, :class => "form-control", :placeholder =>'Password confirmation', required: true %>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
+
+      <!--
+      <div class="form-group" id="firstName">
+        <label for="exampleInputFile">First Name  </label>
+        <%#= f.text_field :first_name, :class => "form-control", :placeholder =>'First name' %>
+      </div>
+      <div class="form-group" id="lastName">
+        <label for="exampleInputFile">Last Name  </label>
+        <%#= f.text_field :last_name, :class => "form-control", :placeholder =>'Last name' %>
+      </div>
+      -->
 
       <div class="form-group radio_area">
         <label class="radio-inline change_bussiness">
