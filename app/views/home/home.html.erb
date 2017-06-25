@@ -6,8 +6,8 @@
       </div>
       <div class="col-md-12 row">
         <%= form_for(@user, :url => account_path, method: :post, :html => { :class => "form-inline" }) do |f| %>
-          <div class=" form-group">
-            <%= f.text_field :username, :class => "email form-control #{'error' if @user.errors[:username]}", :placeholder =>'Username' %>
+          <div class=" form-group" id="user_username" style="display:none;">
+            <%= f.text_field :username, :class => "email form-control #{'error' if @user.errors[:username]}", :id => 'user_username_input' %>
           </div>
           <div class=" form-group">
             <%= f.email_field :email, :class => "email form-control", :placeholder =>'Email Address' %>
@@ -200,4 +200,32 @@
 
 </script>
 -->
+
+<script type="text/javascript">
+ $(document).ready(function () {
+    $("#user_requested_role").on('change', function() {
+
+      console.log("dropdown Value : "+ $(this).val());
+
+      if ($(this).val() == "Venue")
+      {
+        $("#user_username").show();
+        $("#user_username_input").attr("placeholder", "Bussiness Name");
+        $("#user_username_input").attr("required", true);
+      }
+      else if ($(this).val() == "Alumni Group")
+      {
+        $("#user_username").show();
+        $("#user_username_input").attr("placeholder", "Alumni Group");
+        $("#user_username_input").attr("required", true);
+      }
+      else
+      {
+        $("#user_username").hide();
+        $("#user_username_input").removeAttr('required');
+      }
+    });
+
+  });
+</script>
 <%= javascript_include_tag "home_page_parallax" %>
