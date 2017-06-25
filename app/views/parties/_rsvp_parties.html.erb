@@ -1,7 +1,5 @@
 <% c = 0 %>
 <% @rvs_parties.each do |party_reservation| %>
-
-<% if !party_reservation.party.nil? && party_reservation.party.organizer_id != current_user.id %>
     <% if c % 3 == 0 %>
       <div class=" ">
     <% end %>
@@ -69,6 +67,4 @@
     <% if c % 3 == 0 || @rvs_parties.count == c %>
       </div>
     <% end %>
-
-  <% end %>
 <% end %>
