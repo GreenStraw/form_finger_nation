@@ -64,9 +64,11 @@ body {overflow-x: hidden}
                     <ul class="list-unstyled verifie_list">
                     <% @team.upcoming_parties.each do |party| %>
                       <div class="card">
+                        <!--
                         <div class="cancle_icon">
-                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                          <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
                         </div>
+                        -->
                         <div class="holder" style="width: 100px; height:100px;">
                           <%= image_tag(party.image_url, class: "img-responsive") unless party.image_url.nil? %>
                         </div>
