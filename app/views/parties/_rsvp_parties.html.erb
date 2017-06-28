@@ -48,33 +48,39 @@
           <% end %>
 
           <div>
-            <% if party_reservation.party  %>
-              <% if reservations_include?(party_reservation.party, current_user) %>
-                <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-              <% else %>
-                <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+
+            <div>
+              <% if party_reservation.party.present? %>
+                <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
               <% end %>
-            <% end %>
-
-            <span class="prt_rsvp"> | </span>
+            </div>
             
-            <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
-            <% if current_user.id == 36 ||  current_user.id == 1 %>
-              <span class="prt_rsvp"> | </span>
-              <span id="rsvparty-<%= party_reservation.party.id %>">
-                <% if party_reservation.party.verified? %>
-                  <%= link_to( "Verified", unverify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+            <div>
+              <% if party_reservation.party  %>
+                <% if reservations_include?(party_reservation.party, current_user) %>
+                  <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
                 <% else %>
-                  <%= link_to("Verify", verify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+                  <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
                 <% end %>
-              </span>
-            <% end %>
+              <% end %>
+
+              <span class="prt_rsvp"> | </span>
+              
+              <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
+              <% if current_user.id == 36 ||  current_user.id == 1 %>
+                <span class="prt_rsvp"> | </span>
+                <span id="rsvparty-<%= party_reservation.party.id %>">
+                  <% if party_reservation.party.verified? %>
+                    <%= link_to( "Verified", unverify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% else %>
+                    <%= link_to("Verify", verify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% end %>
+                </span>
+              <% end %>
+            </div>
 
 
-
-            <% if party_reservation.party.present? %>
-              <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
-            <% end %>
+            
           </div>
       </div>
     </div>

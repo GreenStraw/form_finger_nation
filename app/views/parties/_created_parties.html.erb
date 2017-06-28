@@ -47,38 +47,41 @@
 
 
           <div>
-            <%# if reservations_include?(party, current_user) %>
-              <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
-            <%# else %>
-              <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
-              <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
-            <%# end %>
+
+            <div>
+              <% if party.present? %>
+                <%= render partial: 'social_media', locals: {party: party} %>
+              <% end %>
+            </div>
+
+            <div>
+              <%# if reservations_include?(party, current_user) %>
+                <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+              <%# else %>
+                <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
+              <%# end %>
 
 
-            <span class="prt_rsvp"> | </span>
-            <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
-            <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
               <span class="prt_rsvp"> | </span>
-              <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
-            <% end %>
-            <span class="prt_rsvp"> | </span>
-            <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
-            <% if current_user.id == 36 ||  current_user.id == 1 %>
+              <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+              <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
+                <span class="prt_rsvp"> | </span>
+                <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+              <% end %>
               <span class="prt_rsvp"> | </span>
-              <span id="party-<%= party.id %>">
-                <% if party.verified? %>
-                  <%= link_to( "Verified", unverify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
-                <% else %>
-                  <%= link_to("Verify", verify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
-                <% end %>
-              </span>
-            <% end %>
-
-
-
-            <% if party.present? %>
-              <%= render partial: 'social_media', locals: {party: party} %>
-            <% end %>
+              <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
+              <% if current_user.id == 36 ||  current_user.id == 1 %>
+                <span class="prt_rsvp"> | </span>
+                <span id="party-<%= party.id %>">
+                  <% if party.verified? %>
+                    <%= link_to( "Verified", unverify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% else %>
+                    <%= link_to("Verify", verify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% end %>
+                </span>
+              <% end %>
+              </div>
 
           </div>
       </div>
