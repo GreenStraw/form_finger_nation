@@ -36,7 +36,7 @@ body {overflow-x: hidden}
             </div>
 
 
-            <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="col-lg-5 col-md-12 col-sm-12">
                 <% if @team.upcoming_parties.any? %>
                   <h3 style=" font-weight: bold;">Upcoming Watch Parties</h3>
                     <ul class="list-unstyled verifie_list">
@@ -76,16 +76,17 @@ body {overflow-x: hidden}
                             <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
                           <% end %>
 
-                          <div class="bottom">
-                            <%# if reservations_include?(party, current_user) %>
-                              
-                            <%# else %>
-                              <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
-                            <%# end %>
+                        </div> <!-- END padding -->
 
-                            <!--span class="prt_rsvp"> | </span-->
-                            <%= link_to "Party Packages", party, class: "prt_rsvp" %>
-                            </div>
+                        <div class="bottom">
+                          <%# if reservations_include?(party, current_user) %>
+                            
+                          <%# else %>
+                            <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                          <%# end %>
+
+                          <!--span class="prt_rsvp"> | </span-->
+                          <%= link_to "Party Packages", party, class: "prt_rsvp" %>
                         </div>
                       </div>
                     <% end %>
