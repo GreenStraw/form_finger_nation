@@ -39,21 +39,26 @@
           </ul>
         </div>
 
-        <div>
           <% if party_reservation.party  %>
             <% if !party_reservation.party.description.nil? %>
-              <div class="party_desc"><p><%= party_reservation.party.description.truncate(40) rescue "" %></p></div>
-            <% end %>
-
-
-                    <% if reservations_include?(party_reservation.party, current_user) %>
-              <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-            <% else %>
-              <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+              <div class="party_desc">
+                <p><%= party_reservation.party.description.truncate(40) rescue "" %></p>
+              </div>
             <% end %>
           <% end %>
-          <span class="prt_rsvp"> | </span>
-          <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
+
+          <div>
+            <% if party_reservation.party  %>
+              <% if reservations_include?(party_reservation.party, current_user) %>
+                <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+              <% else %>
+                <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+              <% end %>
+            <% end %>
+
+            <span class="prt_rsvp"> | </span>
+            
+            <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
             <% if current_user.id == 36 ||  current_user.id == 1 %>
               <span class="prt_rsvp"> | </span>
               <span id="rsvparty-<%= party_reservation.party.id %>">
@@ -70,7 +75,7 @@
             <% if party_reservation.party.present? %>
               <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
             <% end %>
-        </div>
+          </div>
       </div>
     </div>
     <% if c % 3 == 0 || @rvs_parties.count == c %>
