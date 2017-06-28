@@ -38,7 +38,7 @@
           </ul>
           </div>
 
-          
+          <div>
           <% if !party.description.nil? %>
             <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
           <% end %>
@@ -69,9 +69,11 @@
 
 
 
-        <% if party.present? %>
-          <%= render partial: 'social_media', locals: {party: party} %>
-        <% end %>
+          <% if party.present? %>
+            <%= render partial: 'social_media', locals: {party: party} %>
+          <% end %>
+
+          </div>
       </div>
     </div>
     <% if c % 3 == 0 || @created_parties.count == c %>
