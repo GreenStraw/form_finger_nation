@@ -37,12 +37,15 @@
             <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
             <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
           </ul>
-          
+        </div>
+
           <% if party_reservation.party  %>
             <% if !party_reservation.party.description.nil? %>
               <div class="party_desc"><p><%= party_reservation.party.description.truncate(40) rescue "" %></p></div>
             <% end %>
-            <% if reservations_include?(party_reservation.party, current_user) %>
+
+
+                    <% if reservations_include?(party_reservation.party, current_user) %>
               <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
             <% else %>
               <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
@@ -60,7 +63,9 @@
                 <% end %>
               </span>
             <% end %>
-        </div>
+
+
+
         <% if party_reservation.party.present? %>
           <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
         <% end %>
