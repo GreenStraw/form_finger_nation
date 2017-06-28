@@ -17,7 +17,7 @@ body {overflow-x: hidden}
       <div class="sport_header  row">
         <div class="col-md-12">
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-          <div class="sport_caption profilename pull-right ">
+          <div class="sport_caption pull-right ">
             <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
             <% display_name = current_user.username %>
               <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
@@ -122,7 +122,7 @@ body {overflow-x: hidden}
               <h3>Parties I'm Attending</h3>
               <% @rvs_parties.try(:each) do |rsv| %>
                 <% party = rsv.party %>
-                <% if party.present? %>
+                <% if party.present? && party.organizer_id != current_user.id %>
                   <div class="col-sm-6 col-md-4"  style="height: 430px; padding-top: 20px;">  
                     <div class="card" style="height: 320px;">
 
