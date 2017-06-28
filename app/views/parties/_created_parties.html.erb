@@ -71,7 +71,7 @@
 
 
               <span class="prt_rsvp"> | </span>
-              <%= link_to "View Party Packages", party, class: "prt_rsvp" %>
+              <%= link_to "Party Packages", party, class: "prt_rsvp" %>
               <% if current_user.admin? || current_user.has_role?(:venue_manager, party.venue) %>
                 <span class="prt_rsvp"> | </span>
                 <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>

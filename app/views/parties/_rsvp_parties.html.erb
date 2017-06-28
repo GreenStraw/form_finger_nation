@@ -72,7 +72,7 @@
 
               <span class="prt_rsvp"> | </span>
               
-              <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
+              <%= link_to "Party Packages", party_reservation.party, class: "prt_rsvp" %>
               <% if current_user.id == 36 ||  current_user.id == 1 %>
                 <span class="prt_rsvp"> | </span>
                 <span id="rsvparty-<%= party_reservation.party.id %>">
