@@ -26,39 +26,17 @@ body {overflow-x: hidden}
       <div class="main-area team_show_page">
         <div class="row">
           <div class="follow companylisting">
-            <div class="col-md-5 col-sm-6">
+            <div class="col-md-12 col-sm-12">
               <h2><%= "#{@team.name}" %></h2>
               <ul class="list-unstyled address">
                 <li><%= @team.address.street %></li>
                 <li><%= @team.address.city_state %></li>
                 <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
               </ul>
-                <!-- <ul class="list-inline social_icon">
-                  <li><a href="#">
-                    <span class="fa-stack fa-1x">
-                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                      <i class="fa fa-twitter fa-stack-1x"></i>
-                    </span>
-                  </a></li>
-                  <li><a href="#">
-                    <span class="fa-stack fa-1x">
-                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                      <i class="fa fa-facebook fa-stack-1x"></i>
-                    </span>
-                  </a></li>
-                  <li><a href="#">
-                    <span class="fa-stack fa-1x">
-                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                      <i class="fa fa-linkedin fa-stack-1x"></i>
-                    </span>
-                  </a></li>
-                  <li><a href="#">
-                    <span class="fa-stack fa-1x">
-                      <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                      <i class="fa fa-google-plus fa-stack-1x"></i>
-                    </span>
-                  </a></li>
-                </ul> -->
+            </div>
+
+
+            <div class="col-md-offset-2 col-md-5 col-sm-6">
                 <% if @team.upcoming_parties.any? %>
                   <h3 style=" font-weight: bold;">Upcoming Watch Parties</h3>
                     <ul class="list-unstyled verifie_list">
@@ -115,20 +93,22 @@ body {overflow-x: hidden}
                 <% else %>
                   <h2>No upcoming watch parties listed</h2>
                 <% end %>
-              </div>
-              <div class="col-md-offset-2 col-md-5 col-sm-6">
-                <h2>
-                  <span class="fa-stack fa-1x">
-                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                    <i class="fa fa-twitter fa-stack-1x"></i>
-                  </span>
-                  Keep Up With Us</h2>
-                  <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
-                    <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
-                  <% end %>
-                </div>
+            </div>
+
+
+            <div class="col-md-offset-2 col-md-5 col-sm-6">
+              <h2>
+                <span class="fa-stack fa-1x">
+                  <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                  <i class="fa fa-twitter fa-stack-1x"></i>
+                </span>
+                Keep Up With Us</h2>
+                <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
+                  <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
+                <% end %>
               </div>
             </div>
+          </div>
             <%= link_to 'Sport', sport_path(@team.sport) %>
             <% if current_user.present? && current_user.can?(:edit, @team) %>
               | <%= link_to 'Edit', edit_team_path(@team) %>
