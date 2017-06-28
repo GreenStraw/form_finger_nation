@@ -7,35 +7,42 @@
     <% c = c + 1 %>
     <div class="col-sm-6 col-md-4">  
       <div class="card">
+        
         <div class="cancle_icon">
-        <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
+        
         <div class="holder">
           <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
         </div>
+
         <div class="caption">
           <%= link_to party do %>
             <h3> <%= party.name %></h3><span><%= party.team.name %></span>
           <% end %>
           <!-- /////////////////////////check for verification///////////////// -->
           <% if party.verified %>
-            <div class="verifie_caption" id="party-verified-<%= party.id %>">
+          
+          <div class="verifie_caption" id="party-verified-<%= party.id %>">
           <% else %>
-            <div class="verifie_caption" id="party-verified-<%= party.id %>" style="display:none">    
+          <div class="verifie_caption" id="party-verified-<%= party.id %>" style="display:none">    
           <% end %>
-                <div class="image-holder">
-                  <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
-                </div>
-              <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
+
+            <div class="image-holder">
+              <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+            </div>
+            
+            <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
             </div>
           <!-- /////////////////////////////////end//////////////////////////// -->
-          <br>
+          <br/>
           <%= party.sponsor %>
 
           <ul class="list-inline">
             <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
             <li><%= party.venue.address.city_state %></li>
           </ul>
+          
           <% if !party.description.nil? %>
             <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
           <% end %>
@@ -65,15 +72,16 @@
                 <% end %>
               </span>
             <% end %>
-          <% if party.present? %>
-            <%= render partial: 'social_media', locals: {party: party} %>
-          <% end %>
+
+            <% if party.present? %>
+              <%= render partial: 'social_media', locals: {party: party} %>
+            <% end %>
           </div> <!-- END of static links and social -->
-      </div>
-    </div> <!--end card -->
-    <% if c % 3 == 0 || @created_parties.count == c %>
-      </div>
-<% end %>
+      </div> <!-- END verifie_caption -->
+    </div>  <!-- END caption -->
+  <% if c % 3 == 0 || @created_parties.count == c %>
+  </div> <!-- END card -->
+  <% end %>
 <% end %>
 <% else %>
   <div> <h3>No Party Found..!!!</h3> </div>

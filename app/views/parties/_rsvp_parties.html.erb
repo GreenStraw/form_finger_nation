@@ -69,15 +69,15 @@
                 <% end %>
               </span>
             <% end %>
-        </div> <!-- END of static links and social -->
+            
         <% if party_reservation.party.present? %>
           <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
         <% end %>
-      </div>
-    </div>
-    
+          </div> <!-- END of static links and social -->
+      </div> <!-- END verifie_caption -->
+    </div>  <!-- END caption -->
     <% if c % 3 == 0 || @rvs_parties.count == c %>
-    </div> <!-- end card -->
+    </div> <!-- END card -->
     <% end %>
 
   <% end %>
