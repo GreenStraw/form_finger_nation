@@ -9,35 +9,39 @@
     <div class="col-sm-6 col-md-4 add_rsvp_party">  
       <div class="card">
 
-        <div class="cancle_icon">
-          <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
-        </div>
-        <div class="holder">
-          <%= image_tag(party_reservation.party.image_url, class: "img-responsive center") unless party_reservation.party.nil? || party_reservation.party.image_url.nil? %>
-        </div> 
-        <div class="caption">
-          <%= link_to party_reservation.party do %>
-            <h3> <%= party_reservation.party.name rescue "" %> </h3>
-            <% if Party.exists?(party_reservation.party_id) %>
-              <% if party_reservation.party.verified %>
-                <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>">
-              <% else %>
-                <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>" style="display:none">    
-              <% end %>
-                  <div class="image-holder">
-                    <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+        <div class="padding">
+
+          <div class="cancle_icon">
+            <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
+          </div>
+
+          <div class="holder">
+            <%= image_tag(party_reservation.party.image_url, class: "img-responsive center") unless party_reservation.party.nil? || party_reservation.party.image_url.nil? %>
+          </div>
+
+          <div class="caption">
+            <%= link_to party_reservation.party do %>
+              <h3> <%= party_reservation.party.name rescue "" %> </h3>
+              <% if Party.exists?(party_reservation.party_id) %>
+                <% if party_reservation.party.verified %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>">
+                <% else %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>" style="display:none">    
+                <% end %>
+                    <div class="image-holder">
+                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+                    </div>
+                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
                   </div>
-                  <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
-                </div>
+              <% end %>
             <% end %>
-          <% end %>
-          <br>
-          <%= party_reservation.party.sponsor if party_reservation.party.present? %>
-          <ul class="list-inline ">
-            <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-            <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
-          </ul>
-        </div>
+            <br>
+            <%= party_reservation.party.sponsor if party_reservation.party.present? %>
+            <ul class="list-inline ">
+              <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+              <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
+            </ul>
+          </div> <!-- END caption -->
 
           <% if party_reservation.party  %>
             <% if !party_reservation.party.description.nil? %>
@@ -47,15 +51,17 @@
             <% end %>
           <% end %>
 
-          <div>
+          </div> <!-- END padding -->
 
-            <div>
+          <div class="bottom">
+
+            <div class="inline-block">
               <% if party_reservation.party.present? %>
                 <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
               <% end %>
             </div>
-            
-            <div>
+
+            <div class="inline-block edit-card-text">
               <% if party_reservation.party  %>
                 <% if reservations_include?(party_reservation.party, current_user) %>
                   <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
