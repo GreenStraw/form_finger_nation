@@ -40,14 +40,23 @@
           
           <% if party_reservation.party  %>
             <% if !party_reservation.party.description.nil? %>
-              <div class="party_desc"><p><%= party_reservation.party.description.truncate(40) rescue "" %></p></div>
+              <div class="party_desc">
+                <p>
+                  <%= party_reservation.party.description.truncate(40) rescue "" %>
+                    
+                </p>
+              </div>
             <% end %>
-            <% if reservations_include?(party_reservation.party, current_user) %>
-              <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-            <% else %>
-              <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-            <% end %>
+            
+            <div> <!-- begin of static links and social -->
+              <% if reservations_include?(party_reservation.party, current_user) %>
+                <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+              <% else %>
+                <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
+              <% end %>
           <% end %>
+
+
           <span class="prt_rsvp"> | </span>
           <%= link_to "View Party Packages", party_reservation.party, class: "prt_rsvp" %>
             <% if current_user.id == 36 ||  current_user.id == 1 %>
@@ -66,8 +75,9 @@
         <% end %>
       </div>
     </div>
+    
     <% if c % 3 == 0 || @rvs_parties.count == c %>
-      </div>
+    </div> <!-- end card -->
     <% end %>
 
   <% end %>
