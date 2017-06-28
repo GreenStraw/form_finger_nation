@@ -63,38 +63,40 @@ body {overflow-x: hidden}
                 <div class="col-sm-6 col-md-4 " style="padding-top: 20px;"> 
                   <div class="card" style="height: 320px;">
 
+                    <div class="padding">
+                      <div class="cancle_icon">
+                      <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      </div>
+                      
+                      <div class="holder">
+                        <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
+                      </div>
 
-                    <div class="cancle_icon">
-                    <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </div>
+
+                      <div class="caption">
+                        <%= link_to party do %>
+                          <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+                        <% end %>
+                        <!-- /////////////////////////check for verification///////////////// -->
+                        <% if party.verified %>
+                          <div class="verifie_caption">
+                            <div class="image-holder">
+                                <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png">
+                              </div>
+                            <strong class="title" style="font-size: 9px;"><em>Verified</em></strong>
+                          </div>
+                        <% end %>
+                        <!-- /////////////////////////////////end//////////////////////////// -->
+                        <br>
+                        <%= party.sponsor %>
+                        <ul class="list-inline">
+                          <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                          <li><%= party.venue.address.city_state %></li>
+                        </ul>
+                      </div> <!-- END caption -->
+
+                    </div> <!-- END padding -->
                     
-                    <div class="holder">
-                      <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
-                    </div>
-
-
-                    <div class="caption">
-                      <%= link_to party do %>
-                        <h3> <%= party.name %></h3><span><%= party.team.name %></span>
-                      <% end %>
-                      <!-- /////////////////////////check for verification///////////////// -->
-                      <% if party.verified %>
-                        <div class="verifie_caption">
-                          <div class="image-holder">
-                              <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png">
-                            </div>
-                          <strong class="title" style="font-size: 9px;"><em>Verified</em></strong>
-                        </div>
-                      <% end %>
-                      <!-- /////////////////////////////////end//////////////////////////// -->
-                      <br>
-                      <%= party.sponsor %>
-                      <ul class="list-inline">
-                        <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
-                        <li><%= party.venue.address.city_state %></li>
-                      </ul>
-                    </div> <!-- END caption -->
-
                     <div class="bottom">
                       <%# if reservations_include?(party, current_user) %>
                         <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
