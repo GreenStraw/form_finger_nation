@@ -48,7 +48,7 @@
               </div>
             <% end %>
             
-            <div> <!-- begin of static links and social -->
+            <div> <!-- BEGIN of static links and social -->
               <% if reservations_include?(party_reservation.party, current_user) %>
                 <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
               <% else %>
@@ -69,7 +69,7 @@
                 <% end %>
               </span>
             <% end %>
-        </div>
+        </div> <!-- END of static links and social -->
         <% if party_reservation.party.present? %>
           <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
         <% end %>
