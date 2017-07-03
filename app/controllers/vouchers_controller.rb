@@ -1,10 +1,10 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
   before_action :set_package, only: [:new]
-  load_and_authorize_resource :voucher, :only=>[:new]
   before_action :authenticate_user!
 
   load_and_authorize_resource :venue, only: [:new]
+  load_and_authorize_resource :package, :only: [:new]
   
   # GET /vouchers
   def index
