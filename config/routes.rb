@@ -73,7 +73,7 @@ Baseapp::Application.routes.draw do
     resource :vouchers, only: [:create]
 
     resources :vouchers, only: [:new] do
-        get 'vouchers/:id' => 'venues#new', :as => 'vouchers'
+        get 'vouchers/:id' => 'venues#set_package', :as => 'vouchers'
     end
   end
   resource :account, :controller => :account
