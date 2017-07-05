@@ -1,6 +1,5 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
-  #before_action :set_package, only: [:new]
   before_action :authenticate_user!
 
   load_and_authorize_resource :venue, only: [:new]
@@ -18,6 +17,7 @@ class VouchersController < ApplicationController
 
   # GET /vouchers/new
   def new
+    @package = Package.find(params[:package_id])
     @voucher = Voucher.new
   end
 
@@ -61,10 +61,6 @@ class VouchersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_voucher
       @voucher = Voucher.find(params[:id])
-    end
-
-    def set_package
-      @package = Package.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
