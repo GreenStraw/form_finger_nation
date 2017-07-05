@@ -1,6 +1,6 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
-  before_action :set_package, only: [:new]
+  #before_action :set_package, only: [:new]
   before_action :authenticate_user!
 
   load_and_authorize_resource :venue, only: [:new]
@@ -64,7 +64,7 @@ class VouchersController < ApplicationController
     end
 
     def set_package
-      @package = Package.find(params[:package_id])
+      #@package = Package.find(params[:package_id])
     end
 
     # Only allow a trusted parameter "white list" through.
