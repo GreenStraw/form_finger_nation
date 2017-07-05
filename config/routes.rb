@@ -17,7 +17,6 @@ Baseapp::Application.routes.draw do
   put 'user/user_loc' => 'account#user_loc'
   get 'venues/:id/vouchers/new/:id' => "vouchers#new", :as => "new_voucher"
 
-  resources :vouchers
   resources :packages, except: [:new, :create] do
     member do
       put 'assign'
