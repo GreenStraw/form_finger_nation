@@ -4,7 +4,7 @@ class VouchersController < ApplicationController
   before_action :authenticate_user!
 
   load_and_authorize_resource :venue, only: [:new]
-  load_and_authorize_resource :package, only: [:new]
+  load_and_authorize_resource :package
   
   # GET /vouchers
   def index
@@ -64,7 +64,7 @@ class VouchersController < ApplicationController
     end
 
     def set_package
-      @package = Package.find(params[:package_id])
+      @package = Package.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
