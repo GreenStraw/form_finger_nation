@@ -4,7 +4,7 @@ class VouchersController < ApplicationController
   before_action :authenticate_user!
 
   load_and_authorize_resource :venue, only: [:new]
-  load_and_authorize_resource :package
+  load_and_authorize_resource :package, only: [:new]
   
   # GET /vouchers
   def index
