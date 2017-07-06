@@ -17,12 +17,12 @@ Baseapp::Application.routes.draw do
   put 'user/user_loc' => 'account#user_loc'
 
   resources :vouchers
-  resources :packages, except: [:new, :create] do
+
+  end  resources :packages, except: [:new, :create] do
     member do
       put 'assign'
       put 'unassign'
     end
-  end
   resources :parties do
     collection do
       get 'search'
@@ -76,7 +76,8 @@ Baseapp::Application.routes.draw do
         put 'assign'
         put 'unassign'
       end
-      resource :vouchers, only: [:new, :create]
+      get 'packages/:pkg_id/vouchers/new' => 'vouchers#new', :as => 'new_vouchers'
+      #resource :vouchers, only: [:new, :create]
     end
   end
   resource :account, :controller => :account
