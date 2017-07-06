@@ -68,8 +68,8 @@ Baseapp::Application.routes.draw do
       put 'remove_manager'
       put 'verify_party'
       put 'unverify_party'
-      
-
+    end
+    
     resources :packages, except: [:new, :create] do
       member do
         put 'assign'
