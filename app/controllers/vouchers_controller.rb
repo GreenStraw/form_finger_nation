@@ -1,6 +1,6 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy, :redeem_voucher]
-  before_action :set_package
+  #before_action :set_package, only: [:new, :create]
   before_action :authenticate_user!
   load_and_authorize_resource :user
 
@@ -19,6 +19,7 @@ class VouchersController < ApplicationController
 
   # GET /vouchers/new
   def new
+    @package = Package.find(params[:id])
     @voucher = Voucher.new
   end
 
