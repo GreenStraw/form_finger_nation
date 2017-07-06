@@ -69,8 +69,8 @@ Baseapp::Application.routes.draw do
       put 'verify_party'
       put 'unverify_party'
     end
-    
-    resources :packages, except: [:new, :create] do
+
+    resources :packages, only: [:new, :create] do
       member do
         put 'assign'
         put 'unassign'
