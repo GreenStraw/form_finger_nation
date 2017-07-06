@@ -26,7 +26,7 @@ Baseapp::Application.routes.draw do
   resources :parties do
     collection do
       get 'search'
-      get '                                      '
+      get 'cant_find'
       get 'ajaxsearch'
       get 'get_team_parties'
       get 'get_team_rsvp_parties'
