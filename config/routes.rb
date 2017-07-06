@@ -71,14 +71,8 @@ Baseapp::Application.routes.draw do
     end
     resource :packages, only: [:new, :create]
 
-    resources :packages, except: [:new, :create] do
-      member do
-        put 'assign'
-        put 'unassign'
-      end
-      get 'packages/:pkg_id/vouchers/new' => 'vouchers#new', :as => 'new_vouchers'
-      #resource :vouchers, only: [:new, :create]
-    end
+    get 'packages/:pkg_id/vouchers/new' => 'vouchers#new', :as => 'new_vouchers'
+
   end
   resource :account, :controller => :account
 
