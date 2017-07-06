@@ -69,8 +69,10 @@ Baseapp::Application.routes.draw do
       put 'verify_party'
       put 'unverify_party'
     end
-    resource :packages, only: [:new, :create]
-    resource :vouchers, only: [:new, :create]
+    resources :packages, only: [:new, :create] do
+      resource :vouchers, only: [:new, :create]
+    end
+    
   end
   resource :account, :controller => :account
 
