@@ -16,6 +16,7 @@ Baseapp::Application.routes.draw do
   patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
 
+  resources :vouchers
   resources :packages, except: [:new, :create] do
     member do
       put 'assign'
@@ -68,9 +69,10 @@ Baseapp::Application.routes.draw do
       put 'verify_party'
       put 'unverify_party'
     end
-    resources :packages, only: [:new, :create] do 
+    resources :packages, only: [:new, :create] do
       resource :vouchers, only: [:create, :new]
     end
+    
   end
   resource :account, :controller => :account
 
