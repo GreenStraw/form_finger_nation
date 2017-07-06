@@ -70,13 +70,7 @@ Baseapp::Application.routes.draw do
       put 'unverify_party'
     end
 
-    resources :packages, only: [:new, :create] do
-      member do
-        put 'assign'
-        put 'unassign'
-      end
-      resource :vouchers, only: [:new, :create]
-    end
+
   end
   resource :account, :controller => :account
 
