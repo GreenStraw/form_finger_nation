@@ -70,7 +70,6 @@ Baseapp::Application.routes.draw do
       put 'unverify_party'
     end
     resource :packages, only: [:new, :create]
-
   end
   resource :account, :controller => :account
 
