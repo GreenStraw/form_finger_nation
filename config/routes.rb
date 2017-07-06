@@ -16,7 +16,8 @@ Baseapp::Application.routes.draw do
   patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
 
-  resource :vouchers, except: [:create, :new]
+  resources :vouchers, except: [:create, :new] do
+  end
 
   resources :packages, except: [:new, :create] do
     member do
@@ -27,7 +28,7 @@ Baseapp::Application.routes.draw do
   resources :parties do
     collection do
       get 'search'
-      get 'cant_find'
+      get '                                      '
       get 'ajaxsearch'
       get 'get_team_parties'
       get 'get_team_rsvp_parties'
