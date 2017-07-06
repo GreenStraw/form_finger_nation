@@ -76,9 +76,9 @@ Baseapp::Application.routes.draw do
         put 'assign'
         put 'unassign'
       end
-    end
 
-    resource :vouchers, only: [:new, :create]
+      resource :vouchers, only: [:new, :create]
+    end
   end
   resource :account, :controller => :account
 
