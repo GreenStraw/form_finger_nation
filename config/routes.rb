@@ -71,7 +71,7 @@ Baseapp::Application.routes.draw do
     end
     resource :packages, only: [:new, :create]
 
-    get 'packages/:pkg_id/vouchers/new' => 'vouchers#new', :as => 'new_vouchers'
+    get 'packages/:id/vouchers/new' => 'vouchers#new', :as => 'new_vouchers'
 
   end
   resource :account, :controller => :account
