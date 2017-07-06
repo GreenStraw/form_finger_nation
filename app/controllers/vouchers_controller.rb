@@ -63,9 +63,9 @@ class VouchersController < ApplicationController
       @voucher = Voucher.find(params[:id])
     end
 
-    def set_package
+    #def set_package
       #@package = Package.find(params[:package_id])
-    end
+    #end
 
     # Only allow a trusted parameter "white list" through.
     def voucher_params
