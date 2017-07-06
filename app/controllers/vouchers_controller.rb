@@ -19,7 +19,7 @@ class VouchersController < ApplicationController
 
   # GET /vouchers/new
   def new
-    @package = Package.find(params[:id])
+    @package = Package.find('71')
     @voucher = Voucher.new
   end
 
