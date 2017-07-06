@@ -3,6 +3,7 @@ class VouchersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :user
 
+  load_and_authorize_resource :package
   load_and_authorize_resource :venue
   
   # GET /vouchers
