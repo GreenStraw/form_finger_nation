@@ -16,7 +16,7 @@ Baseapp::Application.routes.draw do
   patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
 
-  get 'venues/:id/vouchers/new' => 'vouchers#new', :as => 'new'
+  get 'venues/:id/vouchers/new' => 'venues#new', :as => 'new'
 
   resource :vouchers, except: [:new]
 
@@ -73,7 +73,7 @@ Baseapp::Application.routes.draw do
       put 'unverify_party'
     end
     resource :packages, only: [:new, :create]
-    resource :vouchers, only: [:create]
+    resource :vouchers, only: [:create, :new]
   end
   resource :account, :controller => :account
 
