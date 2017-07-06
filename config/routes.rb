@@ -18,7 +18,7 @@ Baseapp::Application.routes.draw do
 
   get 'venues/:id/vouchers/new' => 'venues#new', :as => 'new'
 
-  resources :vouchers, except: [:new]
+  resources :vouchers
 
   resources :packages, except: [:new, :create] do
     member do
