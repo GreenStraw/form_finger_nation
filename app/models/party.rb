@@ -34,7 +34,7 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
-  def party_exist?(venue_id)
+  def self.party_exist?(venue_id)
       party = Party.where(venue_id: venue_id)
       if (party.present?)
         return true
