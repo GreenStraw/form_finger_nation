@@ -36,7 +36,7 @@ class Party < ActiveRecord::Base
 
   def party_exist?(venue_id)
       party = Party.where(venue_id: venue_id)
-      if (self.party.present?)
+      if (party.present?)
         return true
       else
         return false
