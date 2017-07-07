@@ -20,7 +20,12 @@
           <td><%= package.price %></td>
           <td>
             <% if !package.for_everyone? %>
-                <%= link_to( "Assign to Party", "#{venue_path(package.venue)}/#{package_path(package)}/vouchers/new" ) %>
+
+                <% if Party.party_exist?(@venue.id) %>
+                      <%= link_to( "Assign to Party", "#{venue_path(package.venue)}/#{package_path(package)}/vouchers/new" ) %>
+                  <% else %> 
+                      No Parties Found
+                  <% end %> 
             <% end %>    
           </td>
         </tr>
@@ -28,7 +33,7 @@
     </tbody>
   </table>
 
-  <%= Party.party_exist?(@venue.id) %>
+  <%= @party.party_exist?(@venue.id) %>
 
   <% if @flag %>
     <%= link_to 'New Package', new_venue_packages_path({venue_id: @venue.id, party_id: @party.id}) %>
