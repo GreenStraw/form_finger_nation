@@ -34,6 +34,9 @@ class VenuesController < ApplicationController
       @party = Party.find(params[:party_id])
       @flag = true
     end
+
+    @party_count = Party.group(:venue_id).count
+    @party_count = @party_count.find(@venue.id)
   end
 
   # POST /venues
@@ -80,7 +83,7 @@ class VenuesController < ApplicationController
   def remove_manager
     u_id = params[:user_id]
     user = User.find_by_id(u_id)
-    
+
     if !user.has_role?(:manager, @venue)
       user.remove_role(:venue_manager, @venue)
     end

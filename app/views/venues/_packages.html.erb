@@ -28,7 +28,7 @@
     </tbody>
   </table>
 
-  <%= Party.group(:venue_id).count %>
+  <%= @party_count %>
 
   <% if @flag %>
     <%= link_to 'New Package', new_venue_packages_path({venue_id: @venue.id, party_id: @party.id}) %>
