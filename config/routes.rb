@@ -16,14 +16,13 @@ Baseapp::Application.routes.draw do
   patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
 
-
   resources :vouchers
-
   resources :packages, except: [:new, :create] do
     member do
       put 'assign'
       put 'unassign'
     end
+  end
   resources :parties do
     collection do
       get 'search'
@@ -77,6 +76,7 @@ Baseapp::Application.routes.draw do
         put 'assign'
         put 'unassign'
       end
+      resource :vouchers, only: [:new, :create]
     end
   end
   resource :account, :controller => :account
