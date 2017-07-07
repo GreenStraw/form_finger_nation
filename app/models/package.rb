@@ -32,6 +32,15 @@ class Package < ActiveRecord::Base
     end
 end
 
+def party_exist?
+    party = Party.where(venue_id: venue_id)
+    if (self.party.present?)
+      true
+    else
+      false
+    end
+end
+
 # == Schema Information
 #
 # Table name: packages
