@@ -35,8 +35,7 @@ class VenuesController < ApplicationController
       @flag = true
     end
 
-    @party_count = Party.group(:venue_id).count
-    @party_count = @party_count.find(@venue.id)
+    @party_exist = Party.party_exist?(@venue.id)
   end
 
   # POST /venues
