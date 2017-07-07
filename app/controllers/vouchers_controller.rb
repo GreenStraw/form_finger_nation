@@ -70,6 +70,6 @@ class VouchersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def voucher_params
-      params.require(:voucher).permit(:redeemed_at, :user_id, :package_id, :party_id)
+      params.require(:voucher).permit(:redeemed_at, :user_id, :package_id, :party_id, :pk_id)
     end
 end
