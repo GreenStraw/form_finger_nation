@@ -15,8 +15,8 @@
     <%= f.hidden_field :user_id, value: current_user.username, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :package_id %><br>
-    <%= f.select :package_id, package_selects(@venue.id, @package.id), {} ,class: "form-control" %>
+    <%= f.hidden_field :package_id %><br>
+    <%= f.hidden_field :package_id, value: package_selects(@venue.id, @package.id), {} ,class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :party_id %><br>
