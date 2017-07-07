@@ -34,6 +34,15 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
+  def party_exist?
+      party = Party.where(venue_id: venue_id)
+      if (self.party.present?)
+        return true
+      else
+        return false
+      end
+  end
+
   def venue_exists
     venue = Venue.where(id: venue_id)
     if (self.venue.present? && !self.venue.new_record?) && venue.blank?
