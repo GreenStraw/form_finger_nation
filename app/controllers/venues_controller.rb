@@ -59,8 +59,7 @@ class VenuesController < ApplicationController
         render :new
       end
     else
-        render :new
-        
+        redirect_to new_venue_path, notice: 'Address Already Exists'
     end
   end
 
