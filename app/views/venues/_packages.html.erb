@@ -20,7 +20,7 @@
           <td><%= package.price %></td>
           <td>
             <% if !package.for_everyone? %>
-                <%= link_to( "Assign to Party", "venues/#{venue.id}/sports-fans" ) %>
+                <%= link_to( "Assign to Party", "venues/#{@venue.id}#sports-fans" ) %>
             <% end %>    
           </td>
         </tr>
