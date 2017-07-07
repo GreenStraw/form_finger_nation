@@ -28,7 +28,7 @@
     </tbody>
   </table>
 
-  <%= Party.methods %>
+  <%= Party.inspect %>
 
   <% if @flag %>
     <%= link_to 'New Package', new_venue_packages_path({venue_id: @venue.id, party_id: @party.id}) %>
