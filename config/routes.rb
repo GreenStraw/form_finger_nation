@@ -73,7 +73,12 @@ Baseapp::Application.routes.draw do
     end
     resource :packages, only: [:new, :create]
 
-
+    resources :packages, except: [:new, :create] do
+      member do
+        put 'assign'
+        put 'unassign'
+      end
+    end
   end
   resource :account, :controller => :account
 
