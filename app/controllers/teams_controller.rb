@@ -159,10 +159,13 @@ class TeamsController < ApplicationController
   end
 
   def favorite_teams
-    @teams = current_user.followed_teams
+
+    @has_favorites = user_signed_in? && current_user.followed_teams.any?
     
-    if @teams.nil?
+    if !@has_favorites
       render :index
+    else
+      @teams = current_user.followed_teams
     end
 
   end
