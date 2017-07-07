@@ -16,6 +16,15 @@ class Venue < ActiveRecord::Base
 
   # after_create :attach_role
 
+  def self.addressExist?(longitude, latitude, street2)
+      address = Address.where(addressable_type: 'Venue', longitude: longitude, latitude: latitude, street2: street2)
+      if (address.present?)
+        return true
+      else
+        return false
+      end
+  end
+
   def upcoming_parties
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end

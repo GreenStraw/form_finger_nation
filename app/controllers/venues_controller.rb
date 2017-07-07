@@ -40,18 +40,25 @@ class VenuesController < ApplicationController
 
   # POST /venues
   def create
-    if @venue.save!
-      # @user = User.find(current_user.id)
-      if !current_user.has_role?(:venue_manager, @venue)
-        role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
-        UsersRole.create(user_id: params[:user_id], role_id: role.id)
-        # current_user.roles << role
-        # current_user.add_role(:venue_manager, @venue)
+
+    address_exist = Venue.addressExist?(@venue.longitude, @venue.latitude, @venue.street2)
+    
+    if !address_exist
+
+      if @venue.save!
+        # @user = User.find(current_user.id)
+        if !current_user.has_role?(:venue_manager, @venue)
+          role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
+          UsersRole.create(user_id: params[:user_id], role_id: role.id)
+          # current_user.roles << role
+          # current_user.add_role(:venue_manager, @venue)
+        end
+        redirect_to @venue, notice: 'Venue was successfully created.'
+        
+      else
+        render :new
       end
-      redirect_to @venue, notice: 'Venue was successfully created.'
-      
-    else
-      render :new
+
     end
   end
 
