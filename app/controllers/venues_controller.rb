@@ -58,7 +58,9 @@ class VenuesController < ApplicationController
       else
         render :new
       end
-
+    else
+        render :new
+        
     end
   end
 
