@@ -69,7 +69,7 @@ class VenuesController < ApplicationController
   end
 
   def add_manager
-    if !@user.has_role?(:venue_manager, @venue)
+    if !@user.has_role?(:manager, @venue)
       @user.add_role(:venue_manager, @venue)
     end
     respond_to do |format|
@@ -78,8 +78,11 @@ class VenuesController < ApplicationController
   end
 
   def remove_manager
-    if !@user.has_role?(:venue_manager, @venue)
-      @user.remove_role(:venue_manager, @venue)
+    u_id = params[:user_id]
+    user = User.find_by_id(u_id)
+    
+    if !user.has_role?(:manager, @venue)
+      user.remove_role(:venue_manager, @venue)
     end
     respond_to do |format|
       format.js { render action: 'manager' }
