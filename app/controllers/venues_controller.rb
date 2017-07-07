@@ -41,7 +41,7 @@ class VenuesController < ApplicationController
   # POST /venues
   def create
 
-    address_exist = Venue.addressExist?(@venue.longitude, @venue.latitude, @venue.street2)
+    address_exist = Venue.addressExist?(@venue.address.longitude, @venue.address.latitude, @venue.address.street2)
     
     if !address_exist
 
