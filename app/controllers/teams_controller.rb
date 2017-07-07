@@ -162,10 +162,10 @@ class TeamsController < ApplicationController
 
     @has_favorites = user_signed_in? && current_user.followed_teams.any?
     
-    if !@has_favorites
-      render :index
-    else
+    if @has_favorites
       @teams = current_user.followed_teams
+    else
+       render action: 'index'
     end
 
   end
