@@ -160,6 +160,11 @@ class TeamsController < ApplicationController
 
   def favorite_teams
     @teams = current_user.followed_teams
+    
+    if @teams.nil?
+      render :index
+    end
+
   end
 
   def cant_find
