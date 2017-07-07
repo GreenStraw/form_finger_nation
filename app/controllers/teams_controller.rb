@@ -160,13 +160,13 @@ class TeamsController < ApplicationController
 
   def favorite_teams
 
-    #@has_favorites = user_signed_in? && current_user.followed_teams.any?
+    @has_favorites = user_signed_in? && current_user.followed_teams.any?
     
-    #if @has_favorites
-    #  @teams = current_user.followed_teams
-    #else
-       render action: 'index'
-    #end
+    if @has_favorites
+      @teams = current_user.followed_teams
+    else
+       redirect_to teams_path
+    end
 
   end
 
