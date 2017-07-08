@@ -1,7 +1,4 @@
 class VenuesController < ApplicationController
-
-  require "stripe"
-
   respond_to :html, :js
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   before_action :set_party, only: [:verify_party, :unverify_party]
@@ -12,6 +9,8 @@ class VenuesController < ApplicationController
   
   #before_action :does_user_have_access_vendor_view
 
+  Stripe.api_key = ENV['STRIPE_API_KEY']
+  
   # GET /venues
   def index
 
