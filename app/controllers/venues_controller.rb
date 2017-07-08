@@ -1,4 +1,7 @@
 class VenuesController < ApplicationController
+
+  require "stripe"
+
   respond_to :html, :js
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   before_action :set_party, only: [:verify_party, :unverify_party]
