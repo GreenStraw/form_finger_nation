@@ -9,6 +9,7 @@ class VenuesController < ApplicationController
   
   #before_action :does_user_have_access_vendor_view
 
+  require "stripe"
   Stripe.api_key = ENV['STRIPE_API_KEY']
   
   # GET /venues
@@ -22,12 +23,7 @@ class VenuesController < ApplicationController
     #  :source  => params[:stripeToken]
     #)
 
-    #charge = Stripe::Charge.create(
-    #  :customer    => '111',
-    #  :amount      => '300',
-    #  :description => 'Rails Stripe customer',
-    #  :currency    => 'usd'
-    #)
+    charge = Stripe::Charge.create(:customer => '111', :amount => 300, :description => 'Rails Stripe customer', :currency => 'usd')
 
     respond_with @venues
   end
