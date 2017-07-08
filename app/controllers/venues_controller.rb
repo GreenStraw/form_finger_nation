@@ -13,16 +13,16 @@ class VenuesController < ApplicationController
   def index
 
     # Amount in cents
-    @amount = 500
+    #@amount = 500
 
-    customer = Stripe::Customer.create(
-      :email => params[:stripeEmail],
-      :source  => params[:stripeToken]
-    )
+    #customer = Stripe::Customer.create(
+    #  :email => params[:stripeEmail],
+    #  :source  => params[:stripeToken]
+    #)
 
     charge = Stripe::Charge.create(
       :customer    => '111',
-      :amount      => @amount,
+      :amount      => '300',
       :description => 'Rails Stripe customer',
       :currency    => 'usd'
     )
