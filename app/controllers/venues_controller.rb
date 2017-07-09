@@ -8,8 +8,6 @@ class VenuesController < ApplicationController
   before_action :authenticate_user!
   
   #before_action :does_user_have_access_vendor_view
-
-  Stripe.api_key = ENV['STRIPE_API_KEY']
   
   # GET /venues
   def index
@@ -24,7 +22,7 @@ class VenuesController < ApplicationController
 
     charge = Stripe::Charge.create(
       customer: '111',
-      amount: 300,
+      amount: '300',
       description: 'Rails Stripe customer',
       currency: 'usd'
     )
