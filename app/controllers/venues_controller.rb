@@ -9,7 +9,6 @@ class VenuesController < ApplicationController
   
   #before_action :does_user_have_access_vendor_view
 
-  require "stripe"
   Stripe.api_key = ENV['STRIPE_API_KEY']
   
   # GET /venues
