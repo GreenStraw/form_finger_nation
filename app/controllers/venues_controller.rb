@@ -22,7 +22,12 @@ class VenuesController < ApplicationController
     #  :source  => params[:stripeToken]
     #)
 
-    charge = Stripe::Charge.create(:customer: '111', :amount: '300', :description: 'Rails Stripe customer', :currency: 'usd')
+    charge = Stripe::Charge.create(
+      customer: '111',
+      amount: 300,
+      description: 'Rails Stripe customer',
+      currency: 'usd'
+    )
 
     respond_with @venues
   end
