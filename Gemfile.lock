@@ -524,9 +524,8 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stripe (1.22.0)
-      json (~> 1.8.1)
-      rest-client (~> 1.4)
+    stripe (3.0.0)
+      faraday (~> 0.9)
     stripe-ruby-mock (1.10.1.7)
       dante (>= 0.2.0)
       jimson-temp
