@@ -39,7 +39,7 @@ gem 'twitter'
 gem 'geocoder'
 gem 'geokit-rails'
 gem 'acts_as_commentable_with_threading'
-gem 'stripe', '~> 3.0'
+gem 'stripe'
 gem 'aws-sdk'
 gem 'httparty'
 
