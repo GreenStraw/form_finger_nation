@@ -21,11 +21,12 @@ class VenuesController < ApplicationController
     #)
 
     charge = Stripe::Charge.create(
-      customer: '111',
-      amount: 300,
-      description: 'Rails Stripe customer',
-      currency: 'usd'
+      :customer    => '111',
+      :amount      => '200',
+      :description => 'Rails Stripe customer',
+      :currency    => 'usd'
     )
+
 
     respond_with @venues
   end
