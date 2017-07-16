@@ -76,8 +76,12 @@
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
       </li>
 	  
-    <li><% current_user.managed_venues.any? 
-           current_user.has_role?(:venue_manager, @venue) %> </li>
+    <li>
+        <%=
+           current_user.managed_venues.any? 
+           current_user.has_role?(:venue_manager, @venue) 
+        %> 
+    </li>
 	  <% if current_user.managed_venues.any? || current_user.has_role?(:venue_manager, @venue) %>
 	  <li>
         <% css1_class = controller.controller_name == 'venues' || current_page?( venues_path ) ? "active_p" : "" %>
