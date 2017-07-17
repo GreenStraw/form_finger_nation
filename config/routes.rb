@@ -83,8 +83,8 @@ Baseapp::Application.routes.draw do
   resource :account, :controller => :account
 
   get "/about" => "home#about"
-  get "/become" => "home#become"
-  get "/become2" => "home#become2"
+  #get "/become" => "home#become"
+  #get "/become2" => "home#become2"
   get "/myparties" => "parties#myparties"
   get "/n_sign_up" => "account#n_sign_up"
   get "/about2" => "home#about2"
