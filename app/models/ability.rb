@@ -31,10 +31,6 @@ class Ability
         user.has_role?(:manager, pack.venue)
       end
 
-      can :update, Party do |party|
-        user.has_role?(:manager, party.venue) if party.venue.present?
-      end
-
       can [:update, :destroy], Package do |package|
         user.has_role?(:manager, package.venue)
       end
@@ -58,7 +54,7 @@ class Ability
       can [:update], Venue do |venue|
         user.has_role?(:venue_manager, venue)
       end
-      
+
     end
 
 
@@ -79,6 +75,10 @@ class Ability
 
       can [:update, :destroy, :invite], Party do |party|
         user.id == party.organizer_id || user.has_role?(:manager, party)
+      end
+
+      can :update, Party do |party|
+        user.has_role?(:manager, party.venue) if party.venue.present?
       end
 
       can [:update, :follow_user, :unfollow_user], User do |u|
