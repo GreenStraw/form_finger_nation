@@ -43,21 +43,29 @@ class Ability
         user.has_role?(:manager, voucher.package.venue)
       end
 
+      can [:add_manager], Venue do |venue|
+        user.has_role?(:manager, venue)
+      end
+
+      can [:remove_manager], Venue do |venue|
+        user.has_role?(:manager, venue)
+      end
+
     end
+
+    if user.has_role?(:venue_manager, :any)
+
+      can [:update], Venue do |venue|
+        user.has_role?(:venue_manager, venue)
+      end
+      
+    end
+
+
 
     if user.has_role?(:admin)
       can :manage, :all
     else
-      can [:update], Venue do |venue|
-        user.has_role?(:venue_manager, venue)
-      end
-
-      can [:add_manager], Venue do |venue|
-        user.has_role?(:manager, venue)
-      end
-      can [:remove_manager], Venue do |venue|
-        user.has_role?(:manager, venue)
-      end
 
       can :create, Package
       cannot [:add_admin, :remove_admin], User
