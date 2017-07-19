@@ -31,6 +31,18 @@ class Ability
         user.has_role?(:manager, pack.venue)
       end
 
+      can :update, Party do |party|
+        user.has_role?(:manager, party.venue) if party.venue.present?
+      end
+
+      can [:update, :destroy], Package do |package|
+        user.has_role?(:manager, package.venue)
+      end
+
+      can :show, Voucher do |voucher|
+        user.has_role?(:manager, voucher.package.venue)
+      end
+
     end
 
     if user.has_role?(:admin)
@@ -61,10 +73,6 @@ class Ability
         user.id == party.organizer_id || user.has_role?(:manager, party)
       end
 
-      can :update, Party do |party|
-        user.has_role?(:manager, party.venue) if party.venue.present?
-      end
-
       can [:update, :follow_user, :unfollow_user], User do |u|
         user.id == u.id
       end
@@ -73,17 +81,11 @@ class Ability
         (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
       end
 
-      can [:update, :destroy], Package do |package|
-        user.has_role?(:manager, package.venue)
-      end
-
       can [:create, :by_user], Voucher
       can [:show, :update, :redeem, :redeem_voucher], Voucher do |voucher|
         user.id == voucher.user_id
       end
-      can :show, Voucher do |voucher|
-        user.has_role?(:manager, voucher.package.venue)
-      end
+
     end
 
   end
