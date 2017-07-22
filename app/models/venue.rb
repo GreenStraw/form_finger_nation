@@ -62,6 +62,7 @@ end
 #  name            :string(255)
 #  description     :string(255)
 #  image_url       :string(255)
+#  isAtVenue       :boolean
 #  user_id         :integer
 #  created_at      :datetime
 #  updated_at      :datetime

@@ -56,8 +56,17 @@
     <div class='new_venue' id='venue-create'>
       <%= f.fields_for :venue_attributes do |v| %>
         <div class="form-group">
-          <%= v.label :name %>
-          <%= v.text_field :name, class: "form-control", :required => :true %>
+            <h6>Location of Party</h6>
+            <label class="radio-inline">
+              <%= v.radio_button :isAtVenue, 'true', :checked => true, id: 'isAtVenue_radio_button'%> For All Customers
+            </label>
+            <label class="radio-inline">
+              <%= v.radio_button :isAtVenue, 'false', id: 'isAtVenue_radio_button' %> Private Package / Party Only
+            </label>
+        </div>
+        <div class="form-group" id="bussiness_name">
+          <h6>Business Name</h6>
+          <%= v.text_field :name, class: "form-control", :required => :false %>
         </div>
         <%= v.fields_for :address_attributes do |a| %>
           
@@ -192,4 +201,28 @@
       }
     });
   });
+
+   $(document).ready(function () {
+
+    $("#isAtVenue_radio_button").click(function(){
+      var isAtVenue_radio_button = $('input[id=isAtVenue_radio_button]');
+      var checkedValue = isAtVenue_radio_button.filter(':checked').val();
+      console.log("Radio Value : "+checkedValue);
+
+      if(checkedValue == "true")
+      {
+        $("#bussiness_name").show();
+        /*
+        $("#firstName").hide();
+        $("#lastName").hide();
+        $("#bussiness_name_label").text("Bussiness Name");
+        $("#bussiness_name_input").attr("placeholder", "Bussiness Name");
+        $("#bussiness_name_input").attr("required", true);
+        */
+      } else {
+        $("#bussiness_name").hide();
+      }
+    });
+  });
+
 </script>
