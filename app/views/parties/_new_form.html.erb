@@ -57,15 +57,15 @@
       <%= f.fields_for :venue_attributes do |v| %>
         <div class="form-group">
             <h6>Location of Party</h6>
-            <label class="radio-inline">
-              <%= v.radio_button :isAtVenue, 'true', :checked => true, id: 'isAtVenue_radio_button'%> For All Customers
+            <label class="radio-inline is_venue">
+              <%= v.radio_button :isAtVenue, 'true', :checked => true, id: 'isAtVenue_radio_button'%> Venue
             </label>
-            <label class="radio-inline">
-              <%= v.radio_button :isAtVenue, 'false', id: 'isAtVenue_radio_button' %> Private Package / Party Only
+            <label class="radio-inline is_venue">
+              <%= v.radio_button :isAtVenue, 'false', id: 'isAtVenue_radio_button' %> House
             </label>
         </div>
         <div class="form-group" id="bussiness_name">
-          <h6>Business Name</h6>
+          <h6>Venue Name</h6>
           <%= v.text_field :name, class: "form-control", :required => :false %>
         </div>
         <%= v.fields_for :address_attributes do |a| %>
@@ -204,7 +204,7 @@
 
    $(document).ready(function () {
 
-    $("#isAtVenue_radio_button").click(function(){
+    $(".is_venue .iCheck-helper, .is_venue").click(function() {
       var isAtVenue_radio_button = $('input[id=isAtVenue_radio_button]');
       var checkedValue = isAtVenue_radio_button.filter(':checked').val();
       console.log("Radio Value : "+checkedValue);
@@ -223,6 +223,7 @@
         $("#bussiness_name").hide();
       }
     });
+
   });
  
 </script>
