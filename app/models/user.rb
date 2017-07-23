@@ -82,8 +82,9 @@ class User < ActiveRecord::Base
   def managed_venues
     if self.admin?
       Venue.all
-    elsif self.has_role?(:venue_manager, :any)
-      Venue.where(id: self.roles.where(name: 'venue_manager').map(&:resource_id))
+    elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
+      #Venue.where(id: self.roles.where(name: 'venue_manager').map(&:resource_id))
+      Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
     else
       []
     end

@@ -71,6 +71,14 @@ class Party < ActiveRecord::Base
     end
   end
 
+  def get_pending_parties
+    #venue = Party.where(locationEnum: "isAtVenue").order(:name).map {|party| [party.venue_id]}
+    #current_user.has_role?(:venue_manager, venue) 
+
+    #Roles.where(id: Users_Roles.where(user_id: current_user.id).map(&:role_id))
+    #Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+  end
+
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end
