@@ -71,15 +71,6 @@ class Party < ActiveRecord::Base
     end
   end
 
-  def self.get_pending_parties
-    #venues =  Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    
-    #venues.try(:each) do |venue|
-    #  @pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id) )
-    #end
-
-  end
-
   def unregistered_attendees
     party_reservations.where(:user => nil).map(&:unregistered_rsvp_email)
   end

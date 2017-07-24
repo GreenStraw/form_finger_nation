@@ -100,6 +100,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_pending_parties
+    venues =  Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    
+    #venues.try(:each) do |venue|
+    #  @pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id) )
+    #end
+
+  end
+
   def data
     {
       user_id: self.id,
