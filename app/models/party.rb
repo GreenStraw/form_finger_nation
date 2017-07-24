@@ -72,11 +72,11 @@ class Party < ActiveRecord::Base
   end
 
   def self.get_pending_parties
-    venues = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    venues =  Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
     
-    venues.try(:each) do |venue|
-      @pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id) )
-    end
+    #venues.try(:each) do |venue|
+    #  @pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id) )
+    #end
 
   end
 
