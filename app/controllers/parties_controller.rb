@@ -12,6 +12,7 @@ class PartiesController < ApplicationController
     @rvs_parties = @user.party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
+    @pending_parties = @user.get_pending_parties
     # if @created_parties.blank?
     #   redirect_to cant_find_parties_path
     # end
@@ -176,7 +177,13 @@ class PartiesController < ApplicationController
   def create
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
+
     if @party = Party.create(party_params)
+
+      if current_user.managed_venues.any?
+        @party.write_attribute(:locationEnum, "isVenue")
+      end
+
       # to_date = params[:party][:scheduled_for]
       # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
       # params[:party][:scheduled_for] = ''
@@ -185,6 +192,8 @@ class PartiesController < ApplicationController
       @party.save(:validate => false)
       current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
       respond_with @party, location: party_path(@party)
+
+
     else
       render new_party_path
     end
