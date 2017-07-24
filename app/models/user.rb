@@ -109,6 +109,8 @@ class User < ActiveRecord::Base
       pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id) )
     end
 
+    return pending_parties
+
   end
 
   def data
