@@ -15,8 +15,8 @@ class Ability
         user.has_role?(:manager, p.venue)
       end
 
-      can [:verify_party, :unverify_party, :update], Venue, Party do |v, p|
-        user.has_role?(:manager, v) && v.upcoming_parties.includes?(p)
+      can [:verify, :unverify], Party do |p|
+        user.has_role?(:manager, p.venue)
       end
 
       can [:assign, :unassign], Package do |p|
@@ -59,9 +59,13 @@ class Ability
         user.has_role?(:venue_manager, p.venue)
       end
 
-      can [:verify_party, :unverify_party, :update], Venue, Party do |v, p|
-        user.has_role?(:venue_manager, v) && v.upcoming_parties.includes?(p)
+      can [:verify, :unverify], Party do |p|
+        user.has_role?(:venue_manager, p.venue)
       end
+
+      #can [:verify_party, :unverify_party, :update], Venue, Party do |v, p|
+      #  user.has_role?(:venue_manager, v) && v.upcoming_parties.includes?(p)
+      #end
 
       can [:assign, :unassign], Package do |p|
         user.has_role?(:venue_manager, p.venue)
