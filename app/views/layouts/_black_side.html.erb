@@ -63,6 +63,7 @@
           <li><%= link_to 'My Parties', get_parties_parties_path, remote: true, class:"my_party"%></li>
           <li><a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs</a></li>
           <li><a href="#Pending" class="my_party">Pending</a></li>
+          <% @party %>
         </ul>
       </li>
       <li>
@@ -75,8 +76,14 @@
 
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
       </li>
-
-	  <% if current_user.managed_venues.any? %>
+	  
+    <li>
+        <%=
+           current_user.managed_venues.any? 
+           current_user.has_role?(:venue_manager, @venue) 
+        %> 
+    </li>
+	  <% if current_user.managed_venues.any? || current_user.has_role?(:venue_manager, @venue) %>
 	  <li>
         <% css1_class = controller.controller_name == 'venues' || current_page?( venues_path ) ? "active_p" : "" %>
 		<% if current_user.admin? %>
