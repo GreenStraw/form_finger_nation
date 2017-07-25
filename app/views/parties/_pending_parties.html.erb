@@ -1,5 +1,81 @@
 <% c = 0 %>
 <% @pending_parties.each do |party_pending| %>
 
+<% if party_pending.organizer_id != current_user.id %>
+    <% if c % 3 == 0 %>
+      <div class=" ">
+    <% end %>
+    <% c = c + 1 %>
+    <div class="col-sm-6 col-md-4 add_rsvp_party">  
+      <div class="card">
 
+        <div class="padding">
+
+          <div class="caption">
+            <%= link_to party_pending do %>
+              <h3> <%= party_pending.name rescue "" %> </h3>
+              <% if Party.exists?(party_pending.id) %>
+                <% if party_pending.verified %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= party_pending.id %>">
+                <% else %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= party_pending.id %>" style="display:none">    
+                <% end %>
+                    <div class="image-holder">
+                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+                    </div>
+                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
+                  </div>
+              <% end %>
+            <% end %>
+            <br>
+            <%= party_pending.sponsor if party_pending.present? %>
+            <ul class="list-inline ">
+              <li><%= party_pending.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+              <li><%= party_pending.venue.address.city_state rescue "" %></li>
+            </ul>
+          </div> <!-- END caption -->
+
+          <% if party_pending  %>
+            <% if !party_pending.description.nil? %>
+              <div class="party_desc">
+                <p><%= party_pending.description.truncate(40) rescue "" %></p>
+              </div>
+            <% end %>
+          <% end %>
+
+          </div> <!-- END padding -->
+
+          <div class="bottom">
+
+            <div class="inline-block">
+              <% if party_pending.present? %>
+                <%= render partial: 'social_media', locals: {party: party_pending} %>
+              <% end %>
+            </div>
+
+            <div class="inline-block edit-card-text">
+              
+              <%= link_to "Party Packages", party_pending, class: "prt_rsvp" %>
+              <% if current_user.id == 36 ||  current_user.id == 1 %>
+                <span class="prt_rsvp"> | </span>
+                <span id="rsvparty-<%= party_pending.id %>">
+                  <% if party_pending.verified? %>
+                    <%= link_to( "Verified", unverify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% else %>
+                    <%= link_to("Verify", verify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% end %>
+                </span>
+              <% end %>
+            </div>
+
+
+            
+          </div>
+      </div>
+    </div>
+    <% if c % 3 == 0 || @pending_parties.count == c %>
+      </div>
+    <% end %>
+
+  <% end %>
 <% end %>
