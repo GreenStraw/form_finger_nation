@@ -55,6 +55,34 @@ class Ability
         user.has_role?(:venue_manager, venue)
       end
 
+      can [:add_package, :remove_package], Party do |p|
+        user.has_role?(:manager, p.venue)
+      end
+
+      can [:verify_party, :unverify_party, :update], Venue, Party do |v, p|
+        user.has_role?(:manager, v) && v.upcoming_parties.includes?(p)
+      end
+
+      can [:assign, :unassign], Package do |p|
+        user.has_role?(:manager, p.venue)
+      end
+
+      can [:update], Venue do |venue|
+        user.has_role?(:manager, venue)
+      end
+
+      can [:manage], Package do |pack|
+        user.has_role?(:manager, pack.venue)
+      end
+
+      can [:update, :destroy], Package do |package|
+        user.has_role?(:manager, package.venue)
+      end
+
+      can :show, Voucher do |voucher|
+        user.has_role?(:manager, voucher.package.venue)
+      end
+
     end
 
 
