@@ -21,6 +21,37 @@ $(document).ready(function() {
 
     var str = this.href.split("#")[1];
     var h_str = "MY PARTIES";
+    if(str=="RSVPs") {
+      
+      h_str = str;
+
+      document.getElementById("create_parties").className += " hidden_p";
+      document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("p_heading").innerHTML = "RSVPs";
+
+
+    } else if (str == "Pending") {
+      h_str = str;
+
+      document.getElementById("create_parties").className += " hidden_p";
+      document.getElementById("rsvp_party").className += " hidden_p";
+      document.getElementById("p_heading").innerHTML = "Pending Parties";
+
+    }
+    else {
+
+      document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("rsvp_party").className += " hidden_p";
+      document.getElementById("p_heading").innerHTML = "Created Parties";
+    }
+
+      $(this).addClass('active_p');
+
+
+
+    /*
+        var str = this.href.split("#")[1];
+    var h_str = "MY PARTIES";
     if( str == "RSVPs"){
       h_str = str;
       str = "create_parties";
@@ -32,6 +63,9 @@ $(document).ready(function() {
     $(this).addClass('active_p');
     document.getElementById(str).className += " hidden_p";
     document.getElementById("p_heading").innerHTML = h_str;
+    */
+
+    
   });
 
   $("#locHref").click(function(e) {
