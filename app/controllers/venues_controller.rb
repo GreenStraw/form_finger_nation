@@ -30,7 +30,7 @@ class VenuesController < ApplicationController
       @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
       @test.joins(:party).where('parties.venue_id is null')
 
-    respond_with @venues
+    respond_with @test
   end
 
   # GET /venues/1
