@@ -27,10 +27,8 @@ class VenuesController < ApplicationController
     #  :currency    => 'usd'
     #)
 
-      @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-      #@test.includes(:party).where('parties.venue_id IS NULL')
 
-    respond_with @test
+    respond_with @venues
   end
 
   # GET /venues/1
