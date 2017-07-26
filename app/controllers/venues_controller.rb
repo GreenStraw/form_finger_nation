@@ -28,7 +28,7 @@ class VenuesController < ApplicationController
     #)
 
       @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-      @test.joins(:party).where('parties.venue_id is null').all
+      @test.includes(:party).where('parties.venue_id IS NULL')
 
     respond_with @test
   end
