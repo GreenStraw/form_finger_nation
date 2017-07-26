@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
 
       # Venue.joins(partie: :address).where("addresses.city = ? ", c.to_s)
 
-      Venue.where('venue.id = ? AND party.whoCreatedLocation = ?' , self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id) , customer_venue)
+      Venue.joins(:party).where('venue.id = ? AND party.whoCreatedLocation = ?' , self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id) , customer_venue)
     else
       []
     end
