@@ -181,7 +181,7 @@ class PartiesController < ApplicationController
     if @party = Party.create(party_params)
 
       if current_user.managed_venues.any?
-        @party.write_attribute(:locationEnum, "isVenue")
+        @party.write_attribute(:whoCreatedLocation, "venue_venue")
       end
 
       # to_date = params[:party][:scheduled_for]
