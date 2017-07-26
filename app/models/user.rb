@@ -84,7 +84,10 @@ class User < ActiveRecord::Base
       Venue.all
     elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
       #Venue.where(id: self.roles.where(name: 'venue_manager').map(&:resource_id))
-      Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+
+      venues = Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+      venues.joins(:party).where('parties.venue_id is null')
+
     else
       []
     end
