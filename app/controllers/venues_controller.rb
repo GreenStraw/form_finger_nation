@@ -27,8 +27,8 @@ class VenuesController < ApplicationController
     #  :currency    => 'usd'
     #)
 
-      @venues = Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-      @venues.joins(:party).where('parties.venue_id is null').all
+      @test = Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+      @test.joins(:party).where('parties.venue_id is null')
 
     respond_with @venues
   end
