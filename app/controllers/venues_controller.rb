@@ -26,7 +26,7 @@ class VenuesController < ApplicationController
     #  :description => 'Rails Stripe customer',
     #  :currency    => 'usd'
     #)
-
+    @cal = "test"
     respond_with @venues
   end
 
