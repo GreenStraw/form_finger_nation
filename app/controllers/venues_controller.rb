@@ -29,7 +29,7 @@ class VenuesController < ApplicationController
     @cal = "test"
 
     @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    @test = @test.includes(:party).where('parties.venue_id IS NULL')
+    @test.includes(:party).where('parties.venue_id IS NULL')
 
     respond_with @venues
   end
