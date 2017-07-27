@@ -27,6 +27,10 @@ class VenuesController < ApplicationController
     #  :currency    => 'usd'
     #)
     @cal = "test"
+
+    @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    #@test.includes(:party).where('parties.venue_id IS NULL')
+
     respond_with @venues
   end
 
@@ -129,9 +133,6 @@ class VenuesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_venue
       @venue = Venue.find(params[:id])
-
-      @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-      @test.includes(:party).where('parties.venue_id IS NULL')
     end
 
     def set_party
