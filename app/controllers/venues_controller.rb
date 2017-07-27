@@ -26,10 +26,9 @@ class VenuesController < ApplicationController
     #  :description => 'Rails Stripe customer',
     #  :currency    => 'usd'
     #)
-    @cal = "test"
 
     @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    @test.includes(:party).where('parties.venue_id IS NULL')
+    @cal  = @test.includes(:party).where('parties.venue_id IS NULL')
 
     respond_with @venues
   end
