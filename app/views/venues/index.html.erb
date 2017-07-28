@@ -7,8 +7,7 @@
           <span>Venues</span>
         </div>
 
-        <div> <%= @test.inspect %> </div>
-        <div> <%= @cal.inspect %> </div>
+        <div> <%= @venues.inspect %> </div>
 
         <!-- % if current_user.can?(:create, Venue) % -->
         <% if current_user.has_role?(:admin) %>
