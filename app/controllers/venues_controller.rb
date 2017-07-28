@@ -27,12 +27,13 @@ class VenuesController < ApplicationController
     #  :currency    => 'usd'
     #)
 
-    @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    #@cal  = test.includes(:party).where(party: {visible: true})
+    if current_user.admin
+      @venues = Venue.all
+    else
+      @venues = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    end
 
-    #@cal  = @test.joins(:party).where('parties.venue_id IS NULL')
-
-    @cal = @test.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("parties.venue_id IS NULL")
+    @venues = @venues.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("parties.venue_id IS NULL")
 
     respond_with @venues
   end
