@@ -7,8 +7,6 @@
           <span>Venues</span>
         </div>
 
-        <div> <%= @venues.inspect %> </div>
-
         <!-- % if current_user.can?(:create, Venue) % -->
         <% if current_user.has_role?(:admin) %>
           <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default" %>

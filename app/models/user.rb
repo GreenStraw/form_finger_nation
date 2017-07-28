@@ -108,8 +108,12 @@ class User < ActiveRecord::Base
 
     pending_parties  = []
 
-    venues.try(:each) do |venue|
-      pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
+    if self.admin?
+      pending_parties.concat(venue.parties.all)
+    else
+      venues.try(:each) do |venue|
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
+      end
     end
 
     return pending_parties
