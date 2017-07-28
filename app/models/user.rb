@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     
     venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
-    pending_parties  = venues.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("venues.id IS NULL AND parties.organizer_id !=" + self.id)
+    pending_parties  = venues.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("parties.venue_id IS NOT NULL AND parties.organizer_id !=" + self.id)
 
     return pending_parties
 
