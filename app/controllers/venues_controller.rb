@@ -28,7 +28,7 @@ class VenuesController < ApplicationController
     #)
 
     @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    @cal  = @test.includes(:party).where(party: {visible: true})
+    @cal  = @test.includes(:parties).where(parties: {visible: true})
 
     respond_with @venues
   end
