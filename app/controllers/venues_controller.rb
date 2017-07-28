@@ -28,7 +28,11 @@ class VenuesController < ApplicationController
     #)
 
     @test = Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
-    @cal  = @test.includes(:parties).where(parties: {visible: true})
+    #@cal  = test.includes(:party).where(party: {visible: true})
+
+    #@cal  = @test.joins(:party).where('parties.venue_id IS NULL')
+
+    @cal = @test.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("parties.venue_id IS NULL")
 
     respond_with @venues
   end
