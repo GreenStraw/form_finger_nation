@@ -55,7 +55,7 @@
 
             <div class="inline-block edit-card-text">
               
-              <%= link_to "Party Packages", "venues/#{party_pending.venue_id}/edit", class: "prt_rsvp" %>
+              <%= link_to "Party Packages", "venues/#{@venue.id}/edit", class: "prt_rsvp" %>
 
                 <span class="prt_rsvp"> | </span>
                 <span id="rsvparty-<%= party_pending.id %>">
