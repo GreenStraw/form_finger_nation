@@ -20,7 +20,7 @@
   </div>
   <div class="form-group">
     <%= f.label :party_id %><br>
-    <%= f.select :party_id, party_selects(@venue.id), {} ,class: "form-control" %>
+    <%= f.select :party_id, party_selects(current_user), {} ,class: "form-control" %>
   </div>
 
   <div class="actions">
