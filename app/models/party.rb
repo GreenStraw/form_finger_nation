@@ -39,7 +39,7 @@ class Party < ActiveRecord::Base
       
       party = current_user.get_pending_parties
 
-      if (party.present?)
+      if (party.count > 0)
         return true
       else
         return false
