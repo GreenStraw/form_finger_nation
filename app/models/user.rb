@@ -89,7 +89,6 @@ class User < ActiveRecord::Base
     else
       []
     end
-
   end
 
   def managed_teams
