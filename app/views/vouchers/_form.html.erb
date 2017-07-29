@@ -19,8 +19,8 @@
     <%= f.hidden_field :package_id, value: package_selects(@venue.id, @package.id), class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :party_id %><br>
-    <%= f.select :party_id, party_selects(current_user), {} ,class: "form-control" %>
+    <%= f.label :party_identifier %><br>
+    <%= f.select :party_identifier, party_selects(current_user), {} ,class: "form-control" %>
   </div>
 
   <div class="actions">
