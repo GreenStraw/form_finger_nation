@@ -33,7 +33,7 @@ class VouchersController < ApplicationController
 
     @voucher = Voucher.new(voucher_params)
 
-    party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id)
+    party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id).first
 
     @voucher.write_attribute(:user_id, party_organizer_id)
 
