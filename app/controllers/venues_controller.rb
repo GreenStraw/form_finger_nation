@@ -51,7 +51,7 @@ class VenuesController < ApplicationController
       @flag = true
     end
 
-    @party_exist = Party.party_exist?(@venue.id)
+    @party_exist = Party.party_exist?(current_user)
   end
 
   # POST /venues
