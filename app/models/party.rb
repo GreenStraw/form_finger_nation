@@ -37,7 +37,7 @@ class Party < ActiveRecord::Base
   def self.party_exist?(venue_id)
       #party = Party.where(venue_id: venue_id)
 
-      party = current_user.get_pending_parties
+      party = self.get_pending_parties
 
       if (party.length > 0)
         return true
