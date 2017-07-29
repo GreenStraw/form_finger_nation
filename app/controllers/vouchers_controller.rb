@@ -28,7 +28,13 @@ class VouchersController < ApplicationController
 
   # POST /vouchers
   def create
-    @voucher = Voucher.new(voucher_params)
+
+    normalize_voucher_params = { :user_id => party_params["party_identifier"][1], :party_id => party_params["party_identifier"][0], :package_id =>  party_params["package_id"]  }
+
+    @voucher = Voucher.new(normalize_voucher_params)
+    
+    # @party.write_attribute(:whoCreatedLocation, "venue_venue")
+
     if @voucher.save
       redirect_to @voucher, notice: 'Voucher was successfully created.'
     else
@@ -68,6 +74,6 @@ class VouchersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def voucher_params
-      params.require(:voucher).permit(:redeemed_at, :user_id, :package_id, :party_id)
+      params.require(:voucher).permit(:redeemed_at, :user_id, :package_id, :party_id, :party_identifier)
     end
 end
