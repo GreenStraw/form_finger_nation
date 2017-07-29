@@ -13,9 +13,9 @@ module VouchersHelper
     venues.try(:each) do |venue|
 
       if current_user.admin?
-        pending_parties.concat(venue.parties)
+        pending_parties.concat(venue.parties.map {|party| [party.name, party.id]})
       else
-        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id).map {|package| [package.name, package.id]} )
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id).map {|party| [party.name, party.id]} )
       end
     end
 
