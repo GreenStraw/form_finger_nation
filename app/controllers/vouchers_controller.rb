@@ -29,7 +29,7 @@ class VouchersController < ApplicationController
   # POST /vouchers
   def create
 
-    normalize_voucher_params = { :user_id => party_params["party_identifier"][1], :party_id => party_params["party_identifier"][0], :package_id =>  party_params["package_id"]  }
+    normalize_voucher_params = { :user_id => voucher_params["party_identifier"][1], :party_id => voucher_params["party_identifier"][0], :package_id =>  voucher_params["package_id"]  }
 
     @voucher = Voucher.new(normalize_voucher_params)
     
