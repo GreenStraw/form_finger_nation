@@ -35,11 +35,11 @@ class Party < ActiveRecord::Base
   attr_accessor :user_ids, :emails
 
   def self.party_exist?(venue_id)
-      #party = Party.where(venue_id: venue_id)
-      
-      party = current_user.get_pending_parties
+      party = Party.where(venue_id: venue_id)
 
-      if (party.count > 0)
+      test = party = current_user.get_pending_parties
+
+      if (party.present?)
         return true
       else
         return false
