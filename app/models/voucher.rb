@@ -41,7 +41,7 @@ class Voucher < ActiveRecord::Base
       #potentialVouchers = where("user_id != ? AND redeemed_at IS ?", current_user.id, nil)
     
       reservedPartyIDs.try(:each) do |reserved_party|
-        redeemedableVouchers(where("user_id != ? AND redeemed_at IS ? AND party_id = ?", current_user.id, nil, reserved_party.party_id))
+        redeemedableVouchers.concat(where("user_id != ? AND redeemed_at IS ? AND party_id = ?", current_user.id, nil, reserved_party.party_id))
       end
 
       return redeemedableVouchers
