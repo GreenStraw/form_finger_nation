@@ -27,7 +27,7 @@ class Voucher < ActiveRecord::Base
 
   def self.redeemable(current_user)
 
-    where("redeemed_at is NULL AND user_id=" + current_user.id)
+    where("user_id = ?", current_user.id)
 
     #where("redeemed_at is NULL")
   end
