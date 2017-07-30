@@ -25,8 +25,11 @@ class Voucher < ActiveRecord::Base
     [resp.success?, resp.response.try(:errors).try(:first) || nil]
   end
 
-  def self.redeemable
-    where("redeemed_at is NULL")
+  def self.redeemable(current_user)
+
+    where("(redeemed_at is NULL AND user_id=" + current_user.id + ") OR (party_id=" + current_user.party_reservations.where(user_id: current_user.id).map(&:party_id) + ")")
+
+    #where("redeemed_at is NULL")
   end
 
   def self.redeemed
