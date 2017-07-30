@@ -57,9 +57,11 @@
               
               <% if current_user.admin? %>
                 <%= link_to "Party Packages", "venues/#{party_pending.venue.id}/edit", class: "prt_rsvp" %>
-              <% end %>
-              
                 <span class="prt_rsvp"> | </span>
+              <% end %>
+
+              
+              <% if current_user.admin? || current_user.has_role?(:manager) || current_user.has_role?(:venue_manager)%>
                 <span id="rsvparty-<%= party_pending.id %>">
                   <% if party_pending.verified? %>
                     <%= link_to( "Verified", unverify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
@@ -67,6 +69,7 @@
                     <%= link_to("Verify", verify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
                   <% end %>
                 </span>
+              <% end %>
 
             </div>
 
