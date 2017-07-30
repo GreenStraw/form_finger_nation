@@ -103,18 +103,26 @@ class User < ActiveRecord::Base
 
   def get_pending_parties
     
-    venues =  Venue.where(id: Role.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    pending_parties = []
 
-    pending_parties  = []
+    if self.admin?
 
-    venues.try(:each) do |venue|
+      parties =  Party.where(whoCreatedLocation: "customer_venue")
 
-      if self.admin?
-        pending_parties.concat(venue.parties)
-      else
+      parties.try(:each) do |party|
+        pending_parties.concat(venue.party)
+      end
+
+    elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
+
+      venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+
+      venues.try(:each) do |venue|
         pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
       end
+
     end
+
 
     return pending_parties
 
