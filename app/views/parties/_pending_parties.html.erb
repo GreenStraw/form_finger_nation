@@ -31,7 +31,7 @@
             <%= party_pending.sponsor if party_pending.present? %>
             <ul class="list-inline ">
               <li><%= party_pending.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-              <li><%= party_pending.venue.address.city_state rescue "" %></li>
+              <li><%#= party_pending.venue.address.city_state rescue "" %></li>
             </ul>
           </div> <!-- END caption -->
 
