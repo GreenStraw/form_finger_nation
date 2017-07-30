@@ -61,7 +61,15 @@ class VouchersController < ApplicationController
   
   
   def redeem_voucher
-    @voucher.update_attribute(:redeemed_at, Time.now())
+
+    voucherRecipient = Voucher.find_or_create_by(userid: current_user.id, party_id: @voucher.party_id, package_id: @voucher.package_id)
+
+    if voucherRecipient.new_record?
+      voucherRecipient.save!
+    else
+      @voucher.update_attribute(:redeemed_at, Time.now())
+    end
+
     flash[:success] = 'Voucher was successfully redeemed.'
     redirect_to vouchers_url
   end
