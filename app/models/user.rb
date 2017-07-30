@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      parties =  Party.where(whoCreatedLocation: "customer_venue")
+      parties =  Party.where("whoCreatedLocation = customer_venue")
 
       parties.try(:each) do |party|
         pending_parties.concat(party)
