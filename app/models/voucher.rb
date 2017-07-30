@@ -31,7 +31,7 @@ class Voucher < ActiveRecord::Base
 
     reservedPartyIDs = reservations.map(&:party_id)
 
-    where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ? AND redeemed_at IS) ", nil, current_user.id, reservedPartyIDs, current_user.id, nil)
+    where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ? AND redeemed_at IS ? ) ", nil, current_user.id, reservedPartyIDs, current_user.id, nil)
 
   end
 
