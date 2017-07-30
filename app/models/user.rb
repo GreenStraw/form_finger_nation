@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
 
   def get_pending_parties
     
-    venues =  Venue.where(id: Roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    venues =  Venue.where(id: Role.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
     pending_parties  = []
 
