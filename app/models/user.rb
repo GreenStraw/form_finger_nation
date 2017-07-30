@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
       parties =  Party.where(whoCreatedLocation: "customer_venue")
 
       parties.try(:each) do |party|
-        pending_parties.concat(venue.party)
+        pending_parties.concat(party)
       end
 
     elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
