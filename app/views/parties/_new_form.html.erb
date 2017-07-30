@@ -53,17 +53,18 @@
     <div class="form-group">
       <%#= check_box_tag "new_venue" %> Create New Venue
     </div> -->
+
+   <div class="form-group">
+        <h6>Location of Party</h6>
+        <label class="radio-inline is_venue">
+          <%= f.radio_button :whoCreatedLocation, 'customer_venue', :checked => true, id: 'isAtVenue_radio_button'%> Venue
+        </label>
+        <label class="radio-inline is_venue">
+          <%= f.radio_button :whoCreatedLocation, 'customer_house', id: 'isAtVenue_radio_button' %> House
+        </label>
+    </div>
     <div class='new_venue' id='venue-create'>
       <%= f.fields_for :venue_attributes do |v| %>
-        <div class="form-group">
-            <h6>Location of Party</h6>
-            <label class="radio-inline is_venue">
-              <%= f.radio_button :whoCreatedLocation, 'customer_venue', :checked => true, id: 'isAtVenue_radio_button'%> Venue
-            </label>
-            <label class="radio-inline is_venue">
-              <%= f.radio_button :whoCreatedLocation, 'customer_house', id: 'isAtVenue_radio_button' %> House
-            </label>
-        </div>
         <div class="form-group" id="bussiness_name">
           <h6>Venue Name</h6>
           <%= v.text_field :name, class: "form-control", :required => :false %>
