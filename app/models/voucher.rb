@@ -27,7 +27,12 @@ class Voucher < ActiveRecord::Base
 
   def self.redeemable(current_user)
 
-    where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ?) ", nil, current_user.id, current_user.party_reservations.where(user_id: current_user.id).map(&:party_id), current_user.id)
+    reservations = current_user.party_reservations.where(user_id: current_user.id)
+
+    reservedPartyIDs = reservations.map(&:party_id)
+    #reservedPartyOrganizers = reservation.map(&:)
+
+    where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ?) ", nil, current_user.id, reservedPartyIDs, current_user.id)
 
   end
 
