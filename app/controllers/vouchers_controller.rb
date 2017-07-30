@@ -62,8 +62,11 @@ class VouchersController < ApplicationController
   
   def redeem_voucher
 
-    voucherRecipient = Voucher.find(user_id: current_user.id, party_id: @voucher.party_id, package_id: @voucher.package_id)
+    voucherRecipient = Voucher.find_by(user_id: current_user.id, party_id: @voucher.party_id, package_id: @voucher.package_id)
     
+    # find_by(:user_id  => current_user.id, :favoritable_type => "Team", :favoriter_id => @user.id, :favoriter_type => "User")
+
+
     if !voucherRecipient.present?
       voucherRecipient.assign_attributes(:redeemed_at, Time.now())
       voucherRecipient.save!
