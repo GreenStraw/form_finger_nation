@@ -28,23 +28,17 @@ class Voucher < ActiveRecord::Base
   def self.redeemable(current_user)
 
     reservations = current_user.party_reservations.where(user_id: current_user.id)
-
     reservedPartyIDs = reservations.map(&:party_id)
 
-    creatorOfParties = where("redeemed_at IS ?", nil)
+    creatorParty = where("redeemed_at IS ? AND user_id = ?", nil, current_user.id)
 
-    redeemableVouchers = []
+    if creatorParty.present?
+      return creatorParty
+    else
 
-    creatorOfParties.try(:each) do |voucher|
-        if reservedPartyIDs.include? voucher.party_id && voucher.user_id != current_user.id
-          redeemableVouchers.concat(voucher)
-        end
+      where("party_id IN (?) AND user_id != ? AND redeemed_at IS ?", reservedPartyIDs, current_user.id, nil)
+    
     end
-
-    return redeemableVouchers
-
-    #where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ? ) ", nil, current_user.id, reservedPartyIDs, current_user.id)
-
   end
 
   def self.redeemed(current_user)
