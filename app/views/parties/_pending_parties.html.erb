@@ -31,7 +31,7 @@
             <%= party_pending.sponsor if party_pending.present? %>
             <ul class="list-inline ">
               <li><%= party_pending.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-              <li><%#= party_pending.venue.address.city_state rescue "" %></li>
+              <li><%= party_pending.venue.address.city_state rescue "" %></li>
             </ul>
           </div> <!-- END caption -->
 
@@ -55,8 +55,10 @@
 
             <div class="inline-block edit-card-text">
               
-              <%= link_to "Party Packages", "venues/154/edit", class: "prt_rsvp" %>
-
+              <% if current_user.admin? %>
+                <%= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
+              <% end %>
+              
                 <span class="prt_rsvp"> | </span>
                 <span id="rsvparty-<%= party_pending.id %>">
                   <% if party_pending.verified? %>
