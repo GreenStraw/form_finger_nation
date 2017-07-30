@@ -61,7 +61,7 @@
               <% end %>
 
               
-              <% if current_user.admin? || current_user.has_role?(:manager) || current_user.has_role?(:venue_manager)%>
+              <% if current_user.admin? || current_user.has_role?(:manager, :any) || current_user.has_role?(:venue_manager, :any)%>
                 <span id="rsvparty-<%= party_pending.id %>">
                   <% if party_pending.verified? %>
                     <%= link_to( "Verified", unverify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
