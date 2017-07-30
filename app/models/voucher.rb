@@ -31,7 +31,7 @@ class Voucher < ActiveRecord::Base
 
     reservedPartyIDs = reservations.map(&:party_id)
 
-    creatorOfParties = where("redeemed_at IS ? AND user_id != ?", nil, current_user.id)
+    creatorOfParties = where("redeemed_at IS ?", nil)
 
     redeemableVouchers = []
 
