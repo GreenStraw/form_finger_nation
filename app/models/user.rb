@@ -107,12 +107,8 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      parties =  Party.where("whoCreatedLocation = customer_venue")
-
-      parties.try(:each) do |party|
-        pending_parties.concat(party)
-      end
-
+      pending_parties =  Party.where("whoCreatedLocation = customer_venue")
+      
     elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
 
       venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
