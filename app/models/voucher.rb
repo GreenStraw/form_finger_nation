@@ -31,7 +31,19 @@ class Voucher < ActiveRecord::Base
 
     reservedPartyIDs = reservations.map(&:party_id)
 
-    where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ? AND redeemed_at IS ? ) ", nil, current_user.id, reservedPartyIDs, current_user.id, nil)
+    creatorOfParties = where("redeemed_at IS ? AND user_id = ?", nil, current_user.id)
+
+    redeemableVouchers = []
+
+    creatorOfParties.try(:each) do |voucher|
+        if reservedPartyIDs.include? voucher.party_id && voucher.user_id != current_user.id
+          redeemableVouchers.concat(voucher)
+        end
+    end
+
+    return redeemableVouchers
+    
+    #where("(redeemed_at IS ? AND user_id = ? ) OR (party_id IN (?) AND user_id != ? ) ", nil, current_user.id, reservedPartyIDs, current_user.id)
 
   end
 
