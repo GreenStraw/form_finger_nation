@@ -36,9 +36,20 @@ class Voucher < ActiveRecord::Base
       return creatorParty
     else
 
-      where("party_id IN (?) AND user_id != ? AND redeemed_at IS ?", reservedPartyIDs, current_user.id, nil)
+      redeemedableVouchers = [] 
+      potentialVouchers = where("user_id != ? AND redeemed_at IS ?", current_user.id, nil)
+    
+      potentialVouchers.try(:each) do |voucher|
+
+        if reservedPartyIDs.include? voucher.party_id
+          redeemedableVouchers.concat(voucher)
+        end
+      end
+
+      return redeemedableVouchers
     
     end
+
   end
 
   def self.redeemed(current_user)
