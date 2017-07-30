@@ -62,9 +62,7 @@ class VouchersController < ApplicationController
   
   def redeem_voucher
 
-    voucherRecipient = Voucher.find_by(user_id: current_user.id, party_id: @voucher.party_id, package_id: @voucher.package_id)
-    
-    # find_by(:user_id  => current_user.id, :favoritable_type => "Team", :favoriter_id => @user.id, :favoriter_type => "User")
+    voucherRecipient = Voucher.find_by(:user_id  => current_user.id, :party_id => @voucher.party_id, :package_id => @voucher.package_id)
 
 
     if !voucherRecipient.present?
