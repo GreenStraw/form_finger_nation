@@ -181,7 +181,7 @@ class PartiesController < ApplicationController
     if @party = Party.create(party_params)
 
       if current_user.managed_venues.any?
-        @party.update_attribute(:whoCreatedLocation, "venue_venue")
+        @party.update_attribute(:who_created_location, "venue_venue")
       end
 
       # to_date = params[:party][:scheduled_for]
@@ -312,7 +312,7 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :whoCreatedLocation, venue_attributes: [:name, :description,  address_attributes: [:street1, :street2, :city, :state, :zip]])
+      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :who_created_location, venue_attributes: [:name, :description,  address_attributes: [:street1, :street2, :city, :state, :zip]])
     end
 
     def sort_parties_geographically(parties)
