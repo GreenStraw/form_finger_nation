@@ -36,9 +36,8 @@ class Voucher < ActiveRecord::Base
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
 
-      reservedPartyIDs.joins("LEFT OUTER JOIN vouchers ON party_reservations.party_id = vouchers.party_id").where("party_reservations.user_id IS NULL")
-
-      return reservedPartyIDs
+      where("user_id IS ? AND party_id = ?", nil, reservedPartyIDs)
+      
       #redeemedableVouchers = [] 
           
       #reservedPartyIDs.try(:each) do |reserved_party|
