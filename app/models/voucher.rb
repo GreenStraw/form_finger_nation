@@ -36,21 +36,22 @@ class Voucher < ActiveRecord::Base
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
 
-      where(party_id: reservedPartyIDs)
+      reserved_vouchers = where(party_id: reservedPartyIDs)
       
-      #redeemedableVouchers = [] 
-          
-      #reservedPartyIDs.try(:each) do |reserved_party|
+      if reserved_vouchers.present?
 
-      #  redeemedVouchers = where("redeemed_at IS NOT ? AND user_id = ?, party_id = ?", nil, current_user.id)
+        user_voucher = reserved_vouchers.where(user_id:  current_user.id, redeemed_at: nil)
 
+        if !user_voucher.present?
 
-      #  organizer_id = Party.where("organizer_id = ?", reserved_party).map(&:organizer_id).first
+            newRecipient = Voucher.new
+            newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => reserved_vouchers.first.party_id, :package_id => reserved_vouchers.first.package_id)
 
-      #  redeemedableVouchers.concat(where("user_id = ? AND party_id = ?", organizer_id, reserved_party))
-      #end
+            return newRecipient
 
-      #return redeemedableVouchers
+        end
+
+      end
     
     end
 
