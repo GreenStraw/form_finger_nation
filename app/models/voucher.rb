@@ -33,6 +33,8 @@ class Voucher < ActiveRecord::Base
       return creatorParty
     else
 
+      voucher = []
+
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
 
@@ -46,8 +48,9 @@ class Voucher < ActiveRecord::Base
 
             newRecipient = Voucher.new
             newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => reserved_vouchers.first.party_id, :package_id => reserved_vouchers.first.package_id)
-
-            return newRecipient
+            voucher.concat(newRecipient)
+            
+            return voucher
 
         end
 
