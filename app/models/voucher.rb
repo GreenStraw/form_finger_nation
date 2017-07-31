@@ -35,16 +35,23 @@ class Voucher < ActiveRecord::Base
 
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
-      
-      redeemedableVouchers = [] 
-      
-      #potentialVouchers = where("user_id != ? AND redeemed_at IS ?", current_user.id, nil)
-    
-      reservedPartyIDs.try(:each) do |reserved_party|
-        redeemedableVouchers.concat(where("user_id != ? AND redeemed_at IS ? AND party_id = ?", current_user.id, nil, reserved_party))
-      end
 
-      return redeemedableVouchers
+      reservedPartyIDs.joins("LEFT OUTER JOIN vouchers ON party_reservations.party_id = vouchers.party_id").where("party_reservations.user_id IS NULL")
+
+      return reservedPartyIDs
+      #redeemedableVouchers = [] 
+          
+      #reservedPartyIDs.try(:each) do |reserved_party|
+
+      #  redeemedVouchers = where("redeemed_at IS NOT ? AND user_id = ?, party_id = ?", nil, current_user.id)
+
+
+      #  organizer_id = Party.where("organizer_id = ?", reserved_party).map(&:organizer_id).first
+
+      #  redeemedableVouchers.concat(where("user_id = ? AND party_id = ?", organizer_id, reserved_party))
+      #end
+
+      #return redeemedableVouchers
     
     end
 
