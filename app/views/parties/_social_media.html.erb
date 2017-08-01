@@ -7,10 +7,10 @@
       <a href="javascript:void(0);" 
       title=<%= party.name %> >
         <i>
-          <% if accepted.verified? %>
-              <%= link_to( "Verified", unverify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+          <% if party.verified? %>
+              <%= link_to( "Verified", unverify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
             <% else %>
-              <%= link_to("Verify", verify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+              <%= link_to("Verify", verify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
             <% end %>
         </i>
       </a>
