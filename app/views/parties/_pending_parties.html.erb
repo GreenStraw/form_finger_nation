@@ -48,8 +48,8 @@
           <div class="bottom">
 
             <div class="inline-block">
-              <% if party_pending.present? %>
-                <%= render partial: 'social_media', locals: {party: party_pending.party} %>
+              <% if party_pending %>
+                <%= render partial: 'social_media', locals: {party: party_pending} %>
               <% end %>
             </div>
 

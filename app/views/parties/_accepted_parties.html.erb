@@ -48,8 +48,8 @@
           <div class="bottom">
 
             <div class="inline-block">
-              <% if accepted.present? %>
-                <%= render partial: 'social_media', locals: {party: accepted.party} %>
+              <% if accepted %>
+                <%= render partial: 'social_media', locals: {party: accepted} %>
               <% end %>
             </div>
 
