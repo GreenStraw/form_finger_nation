@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("who_created_location = 'customer_venue'")
+      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = false")
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
@@ -123,6 +123,32 @@ class User < ActiveRecord::Base
 
     end
 
+    return pending_parties
+
+  end
+
+
+  def get_accepted_parties
+    
+    pending_parties = []
+
+    if self.admin?
+
+      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = true")
+
+      #parties.try(:each) do |party|
+      #  pending_parties.concat(party)
+      #end
+
+    elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
+
+      venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+
+      venues.try(:each) do |venue|
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
+      end
+
+    end
 
     return pending_parties
 

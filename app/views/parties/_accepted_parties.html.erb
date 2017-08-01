@@ -1,0 +1,84 @@
+<% c = 0 %>
+<% @accepted_parties.each do |accepted| %>
+
+<% if accepted.organizer_id != current_user.id %>
+    <% if c % 3 == 0 %>
+      <div class=" ">
+    <% end %>
+    <% c = c + 1 %>
+    <div class="col-sm-6 col-md-4 add_rsvp_party">  
+      <div class="card">
+
+        <div class="padding">
+
+          <div class="caption">
+            <%= link_to accepted do %>
+              <h3> <%= accepted.name rescue "" %> </h3>
+              <% if Party.exists?(accepted.id) %>
+                <% if accepted.verified %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= accepted.id %>">
+                <% else %>
+                  <div class="verifie_caption" id="rsvparty-verified-<%= accepted.id %>" style="display:none">    
+                <% end %>
+                    <div class="image-holder">
+                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+                    </div>
+                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
+                  </div>
+              <% end %>
+            <% end %>
+            <br>
+            <%= accepted.sponsor if accepted.present? %>
+            <ul class="list-inline ">
+              <li><%= accepted.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+              <li><%= accepted.venue.address.city_state rescue "" %></li>
+            </ul>
+          </div> <!-- END caption -->
+
+          <% if if accepted.present?  %>
+            <% if !accepted.description.nil? %>
+              <div class="party_desc">
+                <p><%= accepted.description.truncate(40) rescue "" %></p>
+              </div>
+            <% end %>
+          <% end %>
+
+          </div> <!-- END padding -->
+
+          <div class="bottom">
+
+            <div class="inline-block">
+              <% if accepted.present? %>
+                <%= render partial: 'social_media', locals: {party: accepted_parties} %>
+              <% end %>
+            </div>
+
+            <div class="inline-block edit-card-text">
+              
+              <% if current_user.admin? %>
+                <%= link_to "Party Packages", "venues/#{accepted.venue.id}/edit", class: "prt_rsvp" %>
+                <span class="prt_rsvp"> | </span>
+              <% end %>
+
+              
+              <% if current_user.admin? || current_user.has_role?(:manager, :any) || current_user.has_role?(:venue_manager, :any)%>
+                <span id="rsvparty-<%= accepted.id %>">
+                  <% if accepted.verified? %>
+                    <%= link_to( "Verified", unverify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% else %>
+                    <%= link_to("Verify", verify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+                  <% end %>
+                </span>
+              <% end %>
+
+            </div>
+
+          </div>
+      </div>
+    </div>
+    <% if c % 3 == 0 || @accepted_parties.count == c %>
+      </div>
+    <% end %>
+
+  <% end %>
+<% end %>

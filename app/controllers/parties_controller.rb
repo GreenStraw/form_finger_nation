@@ -13,6 +13,7 @@ class PartiesController < ApplicationController
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
     @pending_parties = @user.get_pending_parties
+    @accepted_parties = @user.get_accepted_parties
     # if @created_parties.blank?
     #   redirect_to cant_find_parties_path
     # end
