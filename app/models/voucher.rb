@@ -40,16 +40,16 @@ class Voucher < ActiveRecord::Base
 
       grouped_reserved_vouchers = where(party_id: reservedPartyIDs).group_by{|v| [v.party_id, v.package_id] }
 
-      grouped_reserved_vouchers.try(:each) do |rv|
+      grouped_reserved_vouchers.try(:each) do |(partyid, pkgid) , rv|
 
-          user_redeemed_voucher = where("user_id = ? AND redeemed_at IS NOT ? AND party_id = ? AND package_id = ?",  current_user.id, nil, rv.first.inspect, rv.first.inspect)
+          user_redeemed_voucher = where("user_id = ? AND redeemed_at IS NOT ? AND party_id = ? AND package_id = ?",  current_user.id, nil, partyid, pkgid)
 
           if !user_redeemed_voucher.present?
 
-              #voucher_copy = where("party_id = ? AND package_id = ?", rv.first.inspect, rv.first.inspect).first
-
-              rv.assign_attributes(:user_id  => current_user.id)
-              voucher << rv
+              voucher_copy = where("party_id = ? AND package_id = ?", partyid, pkgid).first
+              voucher_copy.assign_attributes(:user_id  => current_user.id)
+              voucher << voucher_copy
+          
           end
 
       end
