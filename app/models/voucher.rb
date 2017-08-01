@@ -46,10 +46,12 @@ class Voucher < ActiveRecord::Base
 
         #if !user_voucher.present?
 
-            newRecipient = Voucher.new
-            newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => reserved_vouchers.first.party_id, :package_id => reserved_vouchers.first.package_id)
-            #voucher.concat(newRecipient)
-
+            #newRecipient = Voucher.new
+            #newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => reserved_vouchers.first.party_id, :package_id => reserved_vouchers.first.package_id)
+            
+            newRecipient = { "user_id"  => current_user.id, "party_id" => reserved_vouchers.first.party_id, "package_id" => reserved_vouchers.first.package_id }
+            voucher.concat(newRecipient)
+            
             return newRecipient
 
         #end
