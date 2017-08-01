@@ -47,7 +47,7 @@ class Voucher < ActiveRecord::Base
           if !user_redeemed_voucher.present?
 
               voucher_copy = where("party_id = ? AND package_id = ?", partyid, pkgid).first
-              voucher_copy.assign_attributes(:user_id  => current_user.id)
+              voucher_copy.assign_attributes(:user_id  => current_user.id, :redeemed_at => nil)
               voucher << voucher_copy
           
           end
@@ -60,8 +60,9 @@ class Voucher < ActiveRecord::Base
 
   end
 
-  def self.redeemed(current_user)
-    where("redeemed_at IS NOT ? AND user_id = ?", nil, current_user.id)
+  def self.redeemed
+    #where("redeemed_at IS NOT ? AND user_id = ?", nil, current_user.id)
+    where("redeemed_at IS NOT ?", nil)
   end
 
 
