@@ -36,9 +36,9 @@ class Voucher < ActiveRecord::Base
       voucher = []
 
       reservations = current_user.party_reservations.where(user_id: current_user.id)
-      reservedPartyIDs = reservations.map(&:party_id)
+      #reservedPartyIDs = reservations.map(&:party_id)
 
-      grouped_reserved_vouchers = where(party_id: reservedPartyIDs).group_by{|v| v.party_id. v.package_id}
+      grouped_reserved_vouchers = where(party_id: reservations).group_by{|v| v.party_id. v.package_id}
 
       grouped_reserved_vouchers.try(:each) do |rv|
 
