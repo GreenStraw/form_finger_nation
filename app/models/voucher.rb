@@ -42,15 +42,14 @@ class Voucher < ActiveRecord::Base
       
       if reserved_vouchers.present?
 
-        #user_voucher = reserved_vouchers.where(user_id:  current_user.id, redeemed_at: nil)
-
         reserved_vouchers.try(:each) do |rv|
 
-            #newRecipient = Voucher.new
-            rv.assign_attributes(:user_id  => current_user.id)
-            
-            #newRecipient = { "user_id"  => current_user.id, "party_id" => rv.party_id, "package_id" => rv.package_id }
-            voucher << rv
+            user_voucher = where("user_id = ? AND redeemed_at IS NOT = ? AND party_id = ? ",  current_user.id, nil, rv.party_id)
+
+            if !user_voucher.present?
+                rv.assign_attributes(:user_id  => current_user.id)
+                voucher << rv
+            end
 
         end
 
