@@ -28,7 +28,7 @@ class Package < ActiveRecord::Base
   end
 
     def total_purchased
-      vouchers.count.to_s
+      vouchers.where("redeemed_at IS NOT ?", nil).count.to_s
     end
 end
 
