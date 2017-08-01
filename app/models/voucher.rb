@@ -60,8 +60,10 @@ class Voucher < ActiveRecord::Base
 
   end
 
-  def self.redeemed(current_user)
-    where("redeemed_at IS NOT ? AND user_id = ?", nil, current_user.id)
+  def self.redeemed
+    redeem = where("redeemed_at IS NOT NULL")
+    return redeem
+    #where("redeemed_at IS NOT ? AND user_id = ?", nil, current_user.id)
   end
 
 
