@@ -46,8 +46,8 @@ class Voucher < ActiveRecord::Base
 
         reserved_vouchers.try(:each) do |rv|
 
-            newRecipient = Voucher.new
-            newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => rv.party_id, :package_id => rv.package_id)
+            #newRecipient = Voucher.new
+            rv.assign_attributes(:user_id  => current_user.id)
             
             #newRecipient = { "user_id"  => current_user.id, "party_id" => rv.party_id, "package_id" => rv.package_id }
             voucher << newRecipient
