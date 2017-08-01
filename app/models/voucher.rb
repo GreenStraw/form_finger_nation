@@ -50,7 +50,7 @@ class Voucher < ActiveRecord::Base
             rv.assign_attributes(:user_id  => current_user.id)
             
             #newRecipient = { "user_id"  => current_user.id, "party_id" => rv.party_id, "package_id" => rv.package_id }
-            voucher << newRecipient
+            voucher << rv
 
         end
 
