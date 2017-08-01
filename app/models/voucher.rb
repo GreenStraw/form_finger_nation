@@ -44,17 +44,21 @@ class Voucher < ActiveRecord::Base
 
         user_voucher = reserved_vouchers.where(user_id:  current_user.id, redeemed_at: nil)
 
-        #if !user_voucher.present?
+        user_voucher.try(:each) do |v|
 
             #newRecipient = Voucher.new
             #newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => reserved_vouchers.first.party_id, :package_id => reserved_vouchers.first.package_id)
             
-            newRecipient = { "user_id"  => current_user.id, "party_id" => reserved_vouchers.first.party_id, "package_id" => reserved_vouchers.first.package_id }
+            newRecipient = { "user_id"  => current_user.id, "party_id" => v.party_id, "package_id" => v.package_id }
             voucher.concat(newRecipient)
-            
-            return newRecipient
 
-        #end
+        end
+
+            return voucher
+
+      else
+
+        []
 
       end
     
