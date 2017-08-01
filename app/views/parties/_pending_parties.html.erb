@@ -35,7 +35,7 @@
             </ul>
           </div> <!-- END caption -->
 
-          <% if party_pending  %>
+          <% if party_pending.present? %>
             <% if !party_pending.description.nil? %>
               <div class="party_desc">
                 <p><%= party_pending.description.truncate(40) rescue "" %></p>
@@ -49,7 +49,7 @@
 
             <div class="inline-block">
               <% if party_pending.present? %>
-                <%= render partial: 'social_media', locals: {party: party_pending} %>
+                <%= render partial: 'social_media', locals: {party: party_pending.party} %>
               <% end %>
             </div>
 
