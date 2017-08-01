@@ -38,12 +38,11 @@ class Voucher < ActiveRecord::Base
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
 
-      reserved_vouchers = where(party_id: reservedPartyIDs).group(:party_id)
-      #grouped_reserved_vouchers = reserved_vouchers.group_by(&:party_id)
-      
-      reserved_vouchers.try(:each) do |rv|
+      grouped_reserved_vouchers = where(party_id: reservedPartyIDs).group_by(&:party_id, &:package_id)
 
-          user_redeemed_voucher = where("user_id = ? AND redeemed_at IS NOT ? AND party_id = ? ",  current_user.id, nil, rv.first.party_id)
+      grouped_reserved_vouchers.try(:each) do |rv|
+
+          user_redeemed_voucher = where("user_id = ? AND redeemed_at IS NOT ? AND party_id = ? AND package_id = ?",  current_user.id, nil, rv.first.party_id, rv.first.package_id)
 
           if !user_redeemed_voucher.present?
               rv.assign_attributes(:user_id  => current_user.id)
