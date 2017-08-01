@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
       venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
       venues.try(:each) do |venue|
-        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ?', self.id, false) )
       end
 
     end
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
       venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
       venues.try(:each) do |venue|
-        pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', self.id) )
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ?', self.id, true) )
       end
 
     end
