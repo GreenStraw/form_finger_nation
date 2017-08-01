@@ -27,21 +27,32 @@ $(document).ready(function() {
 
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("accepted_parties").className += " hidden_p";
       document.getElementById("p_heading").innerHTML = "RSVPs";
 
 
-    } else if (str == "Pending") {
+    } else if (str == "Waiting") {
       h_str = str;
 
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
-      document.getElementById("p_heading").innerHTML = "Pending Parties";
+      document.getElementById("accepted_parties").className += " hidden_p";
+      document.getElementById("p_heading").innerHTML = "Verify Waiting";
+
+    } else if (str == "Accepted") {
+      h_str = str;
+
+      document.getElementById("create_parties").className += " hidden_p";
+      document.getElementById("rsvp_party").className += " hidden_p";
+      document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("p_heading").innerHTML = "Accepted";
 
     }
     else {
 
       document.getElementById("pending_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
+      document.getElementById("accepted_parties").className += " hidden_p";
       document.getElementById("p_heading").innerHTML = "Created Parties";
     }
 
