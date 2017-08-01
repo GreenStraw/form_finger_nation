@@ -1,7 +1,24 @@
 <div class="social-media">
   <a style="margin: 0 10px 0 10px" title=<%= party.name %> href="http://www.foamfingernation.com/parties/"<%=party.friendly_url%> class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
 
+
+  <% if current_user.admin? || current_user.has_role?(:manager, :any) || current_user.has_role?(:venue_manager, :any)%>
+
+      <a href="javascript:void(0);" 
+      title=<%= party.name %> >
+        <i>
+          <% if accepted.verified? %>
+              <%= link_to( "Verified", unverify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+            <% else %>
+              <%= link_to("Verify", verify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+            <% end %>
+        </i>
+      </a>
+  <% end %>
+
+
   <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.foamfingernation.com/parties/"<%=party.friendly_url%> title=<%= party.name %> target="_blank" class="btn btn-green btn-circle btn-facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+
 </div>
 
 
