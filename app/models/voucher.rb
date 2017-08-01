@@ -38,11 +38,11 @@ class Voucher < ActiveRecord::Base
       reservations = current_user.party_reservations.where(user_id: current_user.id)
       reservedPartyIDs = reservations.map(&:party_id)
 
-      reserved_vouchers = where(party_id: reservedPartyIDs)
+      reserved_vouchers = where(party_id: reservedPartyIDs).group_by(&:party_id)
       
       if reserved_vouchers.present?
 
-        user_voucher = reserved_vouchers.where(user_id:  current_user.id, redeemed_at: nil)
+        #user_voucher = reserved_vouchers.where(user_id:  current_user.id, redeemed_at: nil)
 
         reserved_vouchers.try(:each) do |rv|
 
