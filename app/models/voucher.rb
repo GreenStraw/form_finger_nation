@@ -45,6 +45,9 @@ class Voucher < ActiveRecord::Base
           user_redeemed_voucher = where("user_id = ? AND redeemed_at IS NOT ? AND party_id = ? AND package_id = ?",  current_user.id, nil, rv.first.inspect, rv.first.inspect)
 
           if !user_redeemed_voucher.present?
+
+              #voucher_copy = where("party_id = ? AND package_id = ?", rv.first.inspect, rv.first.inspect).first
+
               rv.assign_attributes(:user_id  => current_user.id)
               voucher << rv
           end
