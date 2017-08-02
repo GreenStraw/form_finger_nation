@@ -83,6 +83,12 @@ body {overflow-x: hidden}
             </div>
           </div>
 
+        <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-3">
+                <p><%= @party.description %></p>
+              </div>
+        </div>
+
           <div class="col-md-12 col-md-12 col-sm-12 row">
             <h2><%= @party.venue.name %></h2>
             <ul class="list-unstyled address">
@@ -119,25 +125,6 @@ body {overflow-x: hidden}
           <% end %>
           Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
         </div>
-        
-        <div class="row">
-              <!--                 <%# if @party.verified %>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                  <div class="verifie_caption">
-                    <div class="image-holder">
-                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png">
-                    </div>
-                    <strong class="title"><em>Verified</em></strong>
-                  </div>
-                </div>
-                <%# end %> -->
-              
-              <div class="col-md-6 col-sm-6 col-xs-3">
-                <p><%= @party.description %></p>
-              </div>
-            </div>
-            <br>
-            <p>
       </div>
     </div>
   </div>
