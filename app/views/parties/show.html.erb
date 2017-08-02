@@ -12,6 +12,8 @@ body {overflow-x: hidden}
     <% end %>
   }
 </style>
+
+
 <div id="page-content-wrapper">
   <div class="container-fluid">
     <div class="sport_header row">
@@ -19,6 +21,8 @@ body {overflow-x: hidden}
         <!--
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
         -->
+
+
         <div class="sport_caption pull-right verified party_caption_banner">
             <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
             <span>
@@ -31,31 +35,35 @@ body {overflow-x: hidden}
         
         <div>
           <div class="clearfix"></div>
-          <% if @party.verified %>
-            <div class="verifie_box">
+          <%# if @party.verified %>
+            <!--div class="verifie_box">
               <strong class="title"><em>Verified</em></strong>
-            </div>
-          <% end %>
+            </div-->
+          <%# end %>
           <div class="clearfix"></div>
-          <% if @party.sponsor.nil? %>
+
+          <%# if @party.sponsor.nil? %>
+          <!-- 
           <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Become a Sponsor</button>
           <br>
-          <% else %>
+          <%# else %>
           <h4> Sponsored By <%= @party.sponsor %></h4>
-          <% end %>
-          <h4><%= @party.venue.name %></h4>
+          <%# end %>
+          -->
+
+          <!--h4><%#= @party.venue.name %></h4-->
           <%#= facebook_button :title=> 'Alternate Title', description: "foam finger nation" %>
-          <h5><%= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
-            <%= @party.party_reservations.count.to_s%> RSVP'd
-          </h5>
-          <% if reservations_include?(@party, current_user) %>
-          <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
-          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
-          <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
-          <% else %>
-          <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
-          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-          <% end %>
+          <!--h5><%#= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
+            <%#= @party.party_reservations.count.to_s%> RSVP'd
+          </h5-->
+          <%# if reservations_include?(@party, current_user) %>
+          <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+          <%#= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
+          <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+          <%# else %>
+          <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+          <%#= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+          <%# end %>
         </div>
         
       </div>
@@ -99,17 +107,19 @@ body {overflow-x: hidden}
               <!-- <a style="margin: 0 20px 0 0 " id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a> -->
             </div>
 
-
-            <div class="map_holder">
-              <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-              <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
-              <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
-              <div id="map" style='width: 100%; height: 200px;'></div>
-              <% end %>
-              Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
-            </div>
           </div>
+        </div> <!-- end follow -->
+
+
+        <div class="map_holder">
+          <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+          <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
+          <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
+          <div id="map" style='width: 100%; height: 200px;'></div>
+          <% end %>
+          Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
         </div>
+        
         <div class="row">
               <!--                 <%# if @party.verified %>
                 <div class="col-md-2 col-sm-3 col-xs-6">
