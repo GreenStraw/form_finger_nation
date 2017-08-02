@@ -119,6 +119,8 @@
             <div class="product_area col-md-12">
               
               <div class="row" id = "parties">
+
+              <% if current_user.parties.length > 0 %>
                 <span id="create_parties">
                   <div class="col-md-12">
                     <h3>Created Parties</h3>
@@ -126,24 +128,37 @@
                   <%= render "created_parties" %>
                 </span>
                 <div class="clearfix"></div>
+                <% end %>
+
+                <% if current_user.party_reservations.length > 0 %>
                 <span id="rsvp_party">
                   <div class="col-md-12">
                     <h3>RSVP Parties</h3>
                   </div>
                   <%= render "rsvp_parties" %>
                 </span>
+                <% end %>
+
+                <% if current_user.get_pending_parties.length > 0 %>
                 <span id="pending_parties">
                   <div class="col-md-12">
                     <h3>Verify Waiting</h3>
                   </div>
                   <%= render "pending_parties" %>
                 </span>
+                <% end %>
+
+                <% if current_user.get_accepted_parties.length > 0 %>
+
                 <span id="accepted_parties">
                   <div class="col-md-12">
                     <h3>Accepted Parties</h3>
                   </div>
                   <%= render "accepted_parties" %>
                 </span>
+                <% end %>
+
+
               </div>
               <!-- 
               <div class="row hidden_p" id="wparties">
