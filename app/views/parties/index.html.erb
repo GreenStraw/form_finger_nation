@@ -148,7 +148,6 @@
                   <% end %>
                   <%= render "pending_parties" %>
                 </span>
-                <% end %>
 
                 <span id="accepted_parties">
                   <% if current_user.get_accepted_parties.length > 0 %>
@@ -160,11 +159,6 @@
                 </span>
 
               </div>
-              <!-- 
-              <div class="row hidden_p" id="wparties">
-                <%#= render "created_parties" %>
-                <%#= render "rsvp_parties" %>
-              </div> -->
 
             </div>
           </div>
