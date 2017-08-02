@@ -66,18 +66,15 @@ body {overflow-x: hidden}
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
         <div class="follow companylisting ">
-          <!--div class="col-md-7 col-sm-6 col-xs-12">
+          <div class="col-md-7 col-sm-6 col-xs-12">
             <div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
               <br>
               <%= if @party.party_packages.any? 
                 render :partial => "available_packages" 
                 end %>
-                <div class="col-md-6" style="margin: 20px 0 0 10px">
-                <a target="_blank" href="http://shareasale.com/r.cfm?b=537702&amp;u=1144786&amp;m=7124&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/7124/All_Leagues_180x150.jpg" border="0" alt="Shop for Official Game Day Gear at Fanatics!" /></a>
-              </div>
             </div>
-            </p>
-          </div-->
+          </div>
+
           <div class="col-md-12 col-md-12 col-sm-12 row">
             <h2><%= @party.venue.name %></h2>
             <ul class="list-unstyled address">
