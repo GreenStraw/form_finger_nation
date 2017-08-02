@@ -90,27 +90,29 @@ body {overflow-x: hidden}
 
           <div class="col-lg-6 col-md-12 col-sm-12">
                 
-                <h2><%= @party.name rescue "" %></h2>
-
-                <% if !@party.description.nil? %>
-                    <p><%= @party.description rescue "" %></p>
-                <% end %>
-
-                <h1>@Venue</h1>
-                <h2><%= @party.venue.name %></h2>
-                <h3>Party Vouchers</h3>
-                
-                <div style="margin: 0 0 45px 0">
-                  <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a style="float: right;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                      <i class="fa fa-twitter"></i>
+                </a>
                   
-                  <a title="send to Facebook" 
-                    href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
-                    target="_blank">
-                    <span>
-                      <i class="fa fa-facebook"></i> 
-                    </span>
-                  </a>
+                <a style="float: right;" title="send to Facebook" 
+                  href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                  target="_blank">
+                  <span>
+                    <i class="fa fa-facebook"></i> 
+                  </span>
+                </a>
 
+                <div style="width: 85%; display: inline-block;">
+                  <h2><%= @party.name rescue "" %></h2>
+
+                  <% if !@party.description.nil? %>
+                      <p><%= @party.description rescue "" %></p>
+                  <% end %>
+                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing</p>
+
+                  <h2>Venue</h2>
+                  <h3><%= @party.venue.name %></h3>
+                  <h3>Party Vouchers</h3>
                 </div>
 
           </div>
