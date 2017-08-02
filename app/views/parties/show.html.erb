@@ -74,57 +74,57 @@ body {overflow-x: hidden}
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
         <div class="follow companylisting ">
-          <div class="col-md-7 col-sm-6 col-xs-12">
+          <!--div class="col-md-7 col-sm-6 col-xs-12">
             <div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
               <br>
               <%= if @party.party_packages.any? 
                 render :partial => "available_packages" 
                 end %>
             </div>
-          </div>
+          </div-->
 
-        <div class="row">
+        <!--div class="row">
               <div class="col-md-6 col-sm-6 col-xs-3">
                 <p><%= @party.description %></p>
               </div>
-        </div>
+        </div-->
 
-          <div class="col-md-12 col-md-12 col-sm-12 row">
-            <h2><%= @party.venue.name %></h2>
-            <ul class="list-unstyled address">
-              <li><%= @party.venue.address.street_address %></li>
-              <li><%= @party.venue.address.city_state %></li>
-              <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
-            </ul>
-            <p style="margin-bottom: 30px;"><%= @party.venue.description %></p>
+          <div class="col-lg-6 col-md-12 col-sm-12">
+                <h2><%= @party.venue.name %></h2>
+                <ul class="list-unstyled address">
+                  <li><%= @party.venue.address.street_address %></li>
+                  <li><%= @party.venue.address.city_state %></li>
+                  <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
+                </ul>
+                <p style="margin-bottom: 30px;"><%= @party.venue.description %></p>
 
-            <div style="margin: 0 0 45px 0">
-              <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
-              
-              <a title="send to Facebook" 
-                href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
-                target="_blank">
-                <span>
-                  <i class="fa fa-facebook"></i> 
-                </span>
-              </a>
-
-
-              <!-- <a style="margin: 0 20px 0 0 " id = "fbtn" href="#" class="btn btn-green btn-circle"><i class="fa fa-facebook"></i></a> -->
-            </div>
+                <div style="margin: 0 0 45px 0">
+                  <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+                  
+                  <a title="send to Facebook" 
+                    href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                    target="_blank">
+                    <span>
+                      <i class="fa fa-facebook"></i> 
+                    </span>
+                  </a>
+                  
+                </div>
 
           </div>
+
+
+          <div class="col-lg-6 col-md-12 col-sm-12 map_holder">
+                <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
+                <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
+                <div id="map" style='width: 100%; height: 200px;'></div>
+                <% end %>
+                Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
+          </div>
+
         </div> <!-- end follow -->
-
-
-        <div class="map_holder">
-          <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-          <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
-          <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
-          <div id="map" style='width: 100%; height: 200px;'></div>
-          <% end %>
-          Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
-        </div>
+      
       </div>
     </div>
   </div>
