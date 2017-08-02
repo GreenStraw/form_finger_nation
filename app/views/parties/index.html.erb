@@ -76,38 +76,46 @@
                   <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
                 </div>
               </div>
+
+              <!--
               <ul class="nav nav-pills">
                 <div class="col-md-12 col-sm-12">
                   <li role="presentation" class=""><a href="/teams"><h4>My Teams</h4></a></li>
                 </div>
                 <div id="all-parties">
-                  <% @teams.try(:each) do |team| %>
+                  <%# @teams.try(:each) do |team| %>
                   <div class="col-md-3 col-sm-6">
                     <li role="presentation">
-                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
+                      <div class="image-holder" style="width: 25px; background: url(<%#= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
-                      <%= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %>
+                      <%#= link_to team.name, get_team_parties_parties_path(team: team.id), remote: true %>
                     </li>
                   </div>
-                  <% end %>
+                  <%# end %>
                 </div>
                 <div id="teams-rsvp" style="display:none;">
-                  <% @teams.try(:each) do |team| %>
+                  <%# @teams.try(:each) do |team| %>
                     <div class="col-md-3 col-sm-6">
                       <li role="presentation">
-                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
+                      <div class="image-holder" style="width: 25px; background: url(<%#= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
 
-                      <%= link_to team.name, get_team_rsvp_parties_parties_path(team: team.id), remote: true %>
+                      <%#= link_to team.name, get_team_rsvp_parties_parties_path(team: team.id), remote: true %>
 
 
                       </li>
                     </div>
-                  <% end %>
+                  <%# end %>
                 </div>
               </ul>
+              -->
+
             </div>
             <div class="clearfix"></div>
+
+            <div class="col-md-12 text-center footer">Can't find what you're looking for?<strong><%= link_to "Create your own watch party", cant_find_parties_path %></strong>
+            </div>
+
             <div class="product_area col-md-12">
               
               <div class="row" id = "parties">
@@ -142,7 +150,7 @@
                 <%#= render "created_parties" %>
                 <%#= render "rsvp_parties" %>
               </div> -->
-              <div class="col-md-12 text-center footer">Can't find what you're looking for? <strong><%= link_to "Create your own watch party", cant_find_parties_path %></strong></div>
+
             </div>
           </div>
         </div>
