@@ -120,44 +120,44 @@
               
               <div class="row" id = "parties">
 
-              <% if current_user.parties.length > 0 %>
+             
                 <span id="create_parties">
+                  <% if current_user.parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Created Parties</h3>
                   </div>
+                  <% end %>
                   <%= render "created_parties" %>
                 </span>
                 <div class="clearfix"></div>
-                <% end %>
 
-                <% if current_user.party_reservations.length > 0 %>
                 <span id="rsvp_party">
+                  <% if current_user.party_reservations.length > 0 %>
                   <div class="col-md-12">
                     <h3>RSVP Parties</h3>
                   </div>
+                  <% end %>
                   <%= render "rsvp_parties" %>
                 </span>
-                <% end %>
-
-                <% if current_user.get_pending_parties.length > 0 %>
+                
                 <span id="pending_parties">
+                  <% if current_user.get_pending_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Verify Waiting</h3>
                   </div>
+                  <% end %>
                   <%= render "pending_parties" %>
                 </span>
                 <% end %>
 
-                <% if current_user.get_accepted_parties.length > 0 %>
-
                 <span id="accepted_parties">
+                  <% if current_user.get_accepted_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Accepted Parties</h3>
                   </div>
+                  <% end %>
                   <%= render "accepted_parties" %>
                 </span>
-                <% end %>
-
 
               </div>
               <!-- 
