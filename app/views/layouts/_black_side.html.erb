@@ -9,6 +9,8 @@
         <% end %>
       </div>
     </li>
+
+
     <% if current_user %>
       <li class="profile-area">
         <div class="col-md-4 col-sm-4 col-xs-4">
@@ -52,10 +54,17 @@
           </ul>
         </div>
       </li>
+
+
       <li>
         <!-- <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%#= request.location.city rescue ''  %> <%#= request.location.region_name rescue ''  %></span>  <small>(change)</small></a> -->
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= current_user.address.city rescue '' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small></a>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref">
+          <i class="fa fa-map-marker"></i>
+          <span id="NewlocUp"><%= current_user.address.city rescue '' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small>
+        </a>
       </li>
+
+
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
         <!-- <a href="#wparties" class="w_parties"> --><%= link_to '<i class="fa fa-desktop"></i>Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
@@ -63,9 +72,12 @@
           <li><%= link_to 'My Parties', get_parties_parties_path, remote: true, class:"my_party"%></li>
           <li><a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs</a></li>
           <li><a href="#Waiting" class="my_party">Verify Waiting</a></li>
-          <li><a href="#Accepted" class="my_party">Accepted</a></li>
+          <li><a href="#Accepted" class="my_party">Accepted</a>  <%= current_user.get_accepted_parties.length %> </li>
         </ul>
       </li>
+
+
+
       <li>
         <% css1_class = controller.controller_name == 'teams' || current_page?( user_root_path ) ? "active_p" : "" %>
         <!-- <img src="images/hand_icon.png"> -->
@@ -118,6 +130,8 @@
   </ul>
   
 </div>
+
+
 <% if current_user %>
   <%= render partial: '/layouts/location' %>
 <% end %>
