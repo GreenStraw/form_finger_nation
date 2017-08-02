@@ -92,7 +92,7 @@ body {overflow-x: hidden}
                 
                 <div style="float: right;" class="map_holder">
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                  <div id="map" style='width: 100%; height: 250px;'></div>
+                  <div id="map" style='width: 600px; height: 250px;'></div>
                   <% end %>
                   Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
                 </div>
@@ -109,7 +109,7 @@ body {overflow-x: hidden}
                   </span>
                 </a>
 
-                <div style="width: 85%; display: inline-block;">
+                <div>
                   <h2><%= @party.name rescue "" %></h2>
 
                   <% if !@party.description.nil? %>
@@ -121,6 +121,19 @@ body {overflow-x: hidden}
                   <h3><%= @party.venue.name %></h3>
                   <h3>Party Vouchers</h3>
                 </div>
+
+
+
+
+                <%= render partial: 'card_package', locals: {} %>
+
+
+
+
+
+
+
+
 
           </div>
 
