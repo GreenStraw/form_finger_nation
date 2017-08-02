@@ -27,7 +27,6 @@ body {overflow-x: hidden}
             <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
             <span>
               Party
-              <%#= @party.name%>
               <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
             </span>
         </div>
@@ -90,14 +89,17 @@ body {overflow-x: hidden}
         </div-->
 
           <div class="col-lg-6 col-md-12 col-sm-12">
-                <h2><%= @party.venue.name %></h2>
-                <ul class="list-unstyled address">
-                  <li><%= @party.venue.address.street_address %></li>
-                  <li><%= @party.venue.address.city_state %></li>
-                  <li><%= link_to  @party.venue.website,  @party.venue.website if  @party.venue.website %></li>
-                </ul>
-                <p style="margin-bottom: 30px;"><%= @party.venue.description %></p>
+                
+                <h2><%= @party.name rescue "" %></h2>
 
+                <% if !@party.description.nil? %>
+                    <p><%= @party.description rescue "" %></p>
+                <% end %>
+
+                <h1>@Venue</h1>
+                <h2><%= @party.venue.name %></h2>
+                <h3>Party Vouchers</h3>
+                
                 <div style="margin: 0 0 45px 0">
                   <a style="margin: 0 20px 0 0" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
                   
@@ -108,7 +110,7 @@ body {overflow-x: hidden}
                       <i class="fa fa-facebook"></i> 
                     </span>
                   </a>
-                  
+
                 </div>
 
           </div>
@@ -118,7 +120,7 @@ body {overflow-x: hidden}
                 <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                 <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
                 <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
-                <div id="map" style='width: 100%; height: 200px;'></div>
+                <div id="map" style='width: 100%; height: 250px;'></div>
                 <% end %>
                 Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
           </div>
