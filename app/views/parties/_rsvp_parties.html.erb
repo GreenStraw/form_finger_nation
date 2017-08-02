@@ -11,47 +11,11 @@
 
         <div class="padding">
 
-          <div class="cancle_icon">
-            <%= link_to '<i class="fa fa-times"></i>'.html_safe, cancel_reservation_party_path(party_reservation), data: { confirm: 'Are you sure?' } %>
-          </div>
-
-          <div class="holder">
-            <%= image_tag(party_reservation.party.image_url, class: "img-responsive center") unless party_reservation.party.nil? || party_reservation.party.image_url.nil? %>
-          </div>
-
-          <div class="caption">
-            <%= link_to party_reservation.party do %>
-              <h3> <%= party_reservation.party.name rescue "" %> </h3>
-              <% if Party.exists?(party_reservation.party_id) %>
-                <% if party_reservation.party.verified %>
-                  <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>">
-                <% else %>
-                  <div class="verifie_caption" id="rsvparty-verified-<%= party_reservation.party.id %>" style="display:none">    
-                <% end %>
-                    <div class="image-holder">
-                      <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
-                    </div>
-                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
-                  </div>
-              <% end %>
+            <% if party_reservation %>
+              <%= render partial: 'card', locals: {party: party_reservation} %>
             <% end %>
-            <br>
-            <%= party_reservation.party.sponsor if party_reservation.party.present? %>
-            <ul class="list-inline ">
-              <li><%= party_reservation.party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-              <li><%= party_reservation.party.venue.address.city_state rescue "" %></li>
-            </ul>
-          </div> <!-- END caption -->
-
-          <% if party_reservation.party  %>
-            <% if !party_reservation.party.description.nil? %>
-              <div class="party_desc">
-                <p><%= party_reservation.party.description.truncate(40) rescue "" %></p>
-              </div>
-            <% end %>
-          <% end %>
-
-          </div> <!-- END padding -->
+            
+        </div> <!-- END padding -->
 
           <div class="bottom">
 
