@@ -10,47 +10,11 @@
 
         <div class="padding">
 
-          <div class="cancle_icon">
-          <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
-          </div>
-
-          <div class="holder">
-            <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
-          </div>
-
-          <div class="caption">
-            <%= link_to party do %>
-              <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+            <% if party %>
+              <%= render partial: 'card', locals: {party: party} %>
             <% end %>
-            <!-- /////////////////////////check for verification///////////////// -->
-            <% if party.verified %>
-              <div class="verifie_caption" id="party-verified-<%= party.id %>">
-            <% else %>
-              <div class="verifie_caption" id="party-verified-<%= party.id %>" style="display:none">    
-            <% end %>
-                  <div class="image-holder">
-                    <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
-                  </div>
-                <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
-              </div>
-            <!-- /////////////////////////////////end//////////////////////////// -->
-            <br>
-            <%= party.sponsor %>
-
-            <ul class="list-inline">
-              <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
-              <li><%= party.venue.address.city_state %></li>
-            </ul>
-          </div> <!-- END caption -->
-
-          
-          <% if !party.description.nil? %>
-            <div class="party_desc">
-              <p><%= party.description.truncate(40)  %></p>
-            </div>
-          <% end %>
-
-          </div> <!-- END padding -->
+            
+        </div> <!-- END padding -->
 
 
           <div class="bottom">
