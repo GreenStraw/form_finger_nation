@@ -11,29 +11,13 @@
 
         <div class="padding">
 
-          <div class="caption">
-            <%= link_to accepted do %>
-              <h3> <%= accepted.name rescue "" %> </h3>
+            <% if accepted %>
+              <%= render partial: 'card', locals: {party: accepted} %>
             <% end %>
-            <br/>
-            <%= accepted.sponsor if accepted.present? %>
-            <ul class="list-inline ">
-              <li><%= accepted.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-              <li><%= accepted.venue.address.city_state rescue "" %></li>
-            </ul>
-          </div> <!-- END caption -->
 
-          <% if accepted.present?  %>
-            <% if !accepted.description.nil? %>
-              <div class="party_desc">
-                <p><%= accepted.description.truncate(40) rescue "" %></p>
-              </div>
-            <% end %>
-          <% end %>
+        </div> <!-- END padding -->
 
-          </div> <!-- END padding -->
-
-          <div class="bottom">
+        <div class="bottom">
 
             <div class="inline-block">
               <% if accepted %>
@@ -41,7 +25,7 @@
               <% end %>
             </div>
 
-          </div>
+        </div> <!-- END bottom -->
       </div>
     </div>
     <% if c % 3 == 0 || @accepted_parties.count == c %>
