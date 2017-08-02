@@ -1,12 +1,12 @@
 
 
-  <!--div class="cancle_icon">
-    <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div-->
+  <div class="cancle_icon">
+    <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
 
-  <!--div class="holder">
-    <%#= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
-  </div-->
+  <div class="holder">
+    <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
+  </div>
   
   <div class="caption">
     <%= link_to party do %>
