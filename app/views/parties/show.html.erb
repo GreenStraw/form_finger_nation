@@ -128,7 +128,7 @@ body {overflow-x: hidden}
                   <% end %>
                 </div>
 
-                <%= if @party.party_packages.any? %>
+                <% if @party.party_packages.any? %>
                   <%= render partial: 'card_package', locals: {packages: @party.packages} %>
                 <% end %>
 
