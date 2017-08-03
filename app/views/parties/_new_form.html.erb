@@ -112,8 +112,8 @@
       <div class="col-md-12">
         <div class="form-group date_area">
           <%= f.label :scheduled_for, "Date" %><br>
-          <%= f.datetime_select :scheduled_for,{ampm: true} ,{class: ""}%>
-          <%= f.text_field :scheduled_for, class: "form-control", id: "datepicker" %>
+          <%#= f.datetime_select :scheduled_for,{ampm: true} ,{class: ""}%>
+          <%#= f.text_field :scheduled_for, class: "form-control", id: "datepicker" %>
         </div>
       </div>
       <div class="col-md-6">
@@ -147,8 +147,6 @@
     <div class="form-group">
       <label for="exampleInputName12">Choose maximum number of available RSVPs  </label>
       <%= f.text_field :max_rsvp, class: "form-control max-rsvps" %>
-
-      <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
     </div>  
     <div class="form-group">
       <%= f.label :team, "Party Team" %><br>
