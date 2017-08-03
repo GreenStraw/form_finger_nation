@@ -82,24 +82,17 @@ body {overflow-x: hidden}
             </div>
           </div-->
 
-        <!--div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-3">
-                <p><%= @party.description %></p>
-              </div>
-        </div-->
-
           <div class="col-lg-12 col-md-12 col-sm-12" style="    padding-top: 1%;
-    padding-left: 1.5%;">
+            padding-left: 1.5%;">
                 
                 <div style="float: right;" class="map_holder">
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                   <div id="map" style='width: 750px;
-    height: 250px;
-    position: relative;
-    float: right;
-    overflow: hidden;'></div>
+                      height: 250px;
+                      position: relative;
+                      float: right;
+                      overflow: hidden;'></div>
                   <% end %>
-
                 </div>
 
                 <div>
@@ -109,9 +102,7 @@ body {overflow-x: hidden}
                       <p><%= @party.description rescue "" %></p>
                   <% end %>
 
-
-                  <div style="    padding-top: 20px;
-    padding-bottom: 20px;">
+                  <div style="padding-top: 20px;padding-bottom: 20px;">
                         <a style="    margin-right: 25px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                               <i class="fa fa-twitter"></i>
                         </a>
@@ -123,31 +114,23 @@ body {overflow-x: hidden}
                             <i class="fa fa-facebook"></i> 
                           </span>
                         </a>
-                    </div>
+                  </div>
 
                   <h2>Venue</h2>
                   <p><%= @party.venue.name %></p>
-
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <p><%= @party.venue.address.street_address %></p>
                     <p><%= @party.venue.address.city_state %></p>
                   <% end %>
 
-                  <h2>Party Vouchers</h2>
+                  <%= if @party.party_packages.any? %>
+                    <h2>Party Vouchers</h2>
+                  <% end %>
                 </div>
 
-
-
-
-                <%= render partial: 'card_package', locals: {} %>
-
-
-
-
-
-
-
-
+                <%= if @party.party_packages.any? %>
+                  <%= render partial: 'card_package', locals: {packages: @party.packages} %>
+                <% end %>
 
           </div>
 
