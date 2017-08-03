@@ -88,26 +88,29 @@ body {overflow-x: hidden}
               </div>
         </div-->
 
-          <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12" style="    padding-top: 1%;
+    padding-left: 1.5%;">
                 
                 <div style="float: right;" class="map_holder">
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                   <div id="map" style='width: 600px; height: 250px;'></div>
                   <% end %>
                   Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
-                </div>
 
-                <a style="float: right;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
-                      <i class="fa fa-twitter"></i>
-                </a>
-                  
-                <a style="float: right;" title="send to Facebook" 
-                  href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
-                  target="_blank">
-                  <span>
-                    <i class="fa fa-facebook"></i> 
-                  </span>
-                </a>
+                  <div style="float: right;">
+                        <a style="display:block;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                              <i class="fa fa-twitter"></i>
+                        </a>
+                          
+                        <a style="display:block;" title="send to Facebook" 
+                          href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                          target="_blank">
+                          <span>
+                            <i class="fa fa-facebook"></i> 
+                          </span>
+                        </a>
+                    </div>
+                </div>
 
                 <div>
                   <h2><%= @party.name rescue "" %></h2>
