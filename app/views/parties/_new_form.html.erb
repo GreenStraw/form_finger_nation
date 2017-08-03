@@ -113,14 +113,15 @@
         <div class="form-group date_area">
           <%= f.label :scheduled_for, "Date" %><br>
           <%= f.datetime_select :scheduled_for,{ampm: true} ,{class: ""}%>
+          <%= f.text_field :scheduled_for, class: "form-control", id: "datepicker" %>
         </div>
       </div>
-      <!-- <div class="col-md-6">
+      <div class="col-md-6">
         <div class="form-group">
           <label>Time </label>
-          <%#= text_field_tag "time_slide" , '' ,class: "form-control datepicker", :required => true %> 
+          <%= text_field_tag "time_slide" , '' ,class: "form-control datepicker", :required => true %> 
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="row">
       <div class="col-md-4">
@@ -231,6 +232,8 @@
         value: 0,
         text: 'Other'
     }));
+
+    $( "#datepicker" ).datepicker();
 
     $("#party_venue_id").on('change', function() {
 
