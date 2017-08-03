@@ -135,7 +135,7 @@ body {overflow-x: hidden}
 
           </div>
 
-          <%= render partial: 'card_package', locals: {packages: @party.packages} %>
+          <%= render partial: 'card_package', locals: {packages: @party} %>
 
           <!--div class="col-lg-6 col-md-12 col-sm-12 map_holder">
                 <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
