@@ -145,7 +145,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <label for="exampleInputName12">Choose maximum number of available RSVPs  </label>
-      <%= f.text_field :max_rsvp, class: "form-control" %>
+      <%= f.text_field :max_rsvp, class: "form-control max-rsvps" %>
 
       <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
     </div>  
@@ -161,12 +161,10 @@
     <div class="form-group">
       <%= f.hidden_field :organizer_id, value: current_user.id %>
     </div>
-    <div class="form-group">
-      <label for="exampleInputName12">Tags  </label>
-      <%= f.text_field :tags, class: "form-control" %>
-
-      <!-- <input type="text" class="form-control" id="exampleInputName12"> -->
-    </div>
+    <!--div class="form-group">
+      <label for="exampleInputName12">Tags</label>
+      <%#= f.text_field :tags, class: "form-control" %>
+    </div-->
     <div class="form-group radio_create">
       <h6><label for="exampleInputName13">Party Type  </label></h6>
       <label class="radio-inline">
@@ -213,7 +211,6 @@
     $(".is_venue .iCheck-helper, .is_venue").click(function() {
       var isAtVenue_radio_button = $('input[id=isAtVenue_radio_button]');
       var checkedValue = isAtVenue_radio_button.filter(':checked').val();
-      console.log("Radio Value : "+checkedValue);
 
       if(checkedValue == "customer_venue")
       {
@@ -234,6 +231,15 @@
         value: 0,
         text: 'Other'
     }));
+
+    $("#party_venue_id").on('change', function() {
+
+      if ($(this).val() == "Other")
+      {
+        $("#venue-create").hide();
+      }
+
+    });
 
   });
  
