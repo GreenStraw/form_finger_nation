@@ -91,25 +91,16 @@ body {overflow-x: hidden}
           <div class="col-lg-12 col-md-12 col-sm-12" style="    padding-top: 1%;
     padding-left: 1.5%;">
                 
-                <div style="float: right;" class="map_holder">
+                <div style="    float: right;
+    width: 600px;" class="map_holder">
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                  <div id="map" style='width: 600px; height: 250px;'></div>
+                  <div id="map" style='    width: 565px;
+    height: 250px;
+    position: relative;
+    float: right;
+    overflow: hidden;'></div>
                   <% end %>
-                  Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
 
-                  <div style="float: right;">
-                        <a style="display:block;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
-                              <i class="fa fa-twitter"></i>
-                        </a>
-                          
-                        <a style="display:block;" title="send to Facebook" 
-                          href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
-                          target="_blank">
-                          <span>
-                            <i class="fa fa-facebook"></i> 
-                          </span>
-                        </a>
-                    </div>
                 </div>
 
                 <div>
@@ -118,7 +109,21 @@ body {overflow-x: hidden}
                   <% if !@party.description.nil? %>
                       <p><%= @party.description rescue "" %></p>
                   <% end %>
-                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing</p>
+
+
+                  <div>
+                        <a title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                              <i class="fa fa-twitter"></i>
+                        </a>
+                          
+                        <a title="send to Facebook" 
+                          href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                          target="_blank">
+                          <span>
+                            <i class="fa fa-facebook"></i> 
+                          </span>
+                        </a>
+                    </div>
 
                   <h2>Venue</h2>
                   <h3><%= @party.venue.name %></h3>
