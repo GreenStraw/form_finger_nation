@@ -85,14 +85,13 @@ body {overflow-x: hidden}
           <div class="col-lg-12 col-md-12 col-sm-12" style="    padding-top: 1%;
             padding-left: 1.5%;">
                 
-                <div style="float: right; width: 750px;" class="map_holder">
-
-                  <div style="padding-top: 20px;padding-bottom: 20px; float: left; width: 15%;">
-                        <a style="    margin-right: 25px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                <div style="float: right; width: 750px;" class="map_holder desktop">
+                  <div style="padding-top: 20px;padding-bottom: 20px; float: left; width: 10%;">
+                        <a style="display:block; margin-bottom: 20px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                               <i class="fa fa-twitter"></i>
                         </a>
                           
-                        <a style="margin-right: 25px; float: right;" title="send to Facebook" 
+                        <a style="display: block; margin-bottom: 20px;" title="send to Facebook" 
                           href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
                           target="_blank">
                           <span>
@@ -102,14 +101,13 @@ body {overflow-x: hidden}
                   </div>
 
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                  <div id="map" style='
-                      height: 250px;
-                      position: relative;
-                      float: right;
-                      overflow: hidden; width: 85%;'></div>
+                    <div id="map" style='
+                        height: 250px;
+                        position: relative;
+                        float: right;
+                        overflow: hidden; width: 90%;'>  
+                    </div>
                   <% end %>
-
-
                 </div>
 
                 <div>
@@ -120,17 +118,44 @@ body {overflow-x: hidden}
                   <% end %>
 
 
+                  <div style="padding-top: 20px;padding-bottom: 20px;" class="mobile">
+                        <a style="    margin-right: 25px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                              <i class="fa fa-twitter"></i>
+                        </a>
+                          
+                        <a style="    margin-right: 25px;" title="send to Facebook" 
+                          href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                          target="_blank">
+                          <span>
+                            <i class="fa fa-facebook"></i> 
+                          </span>
+                        </a>
+                  </div>
+
                   <h2>Venue</h2>
-                  <p><%= @party.venue.name %></p>
+                  <p style="margin:0; font-size: 12px;"><%= @party.venue.name %></p>
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                    <p><%= @party.venue.address.street_address %></p>
-                    <p><%= @party.venue.address.city_state %></p>
+                    <p style="margin:0; font-size: 12px;"><%= @party.venue.address.street_address %></p>
+                    <p style="margin:0; font-size: 12px;"><%= @party.venue.address.city_state %></p>
                   <% end %>
 
                   <% if @party.party_packages.any? %>
                     <h2>Party Vouchers</h2>
                   <% end %>
                 </div>
+
+
+                  <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                    <div style="width: 100%;" class="map_holder mobile">
+
+                        <div id="map" style='
+                        height: 250px;
+                        position: relative;
+                        float: right;
+                        overflow: hidden; width: 90%;'>  
+                        </div>
+                    </div>
+                  <% end %>
 
 
                 <% if @party.party_packages.any? %>
