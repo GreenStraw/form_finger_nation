@@ -226,7 +226,11 @@ class PartiesController < ApplicationController
   end
 
   def verify
-    @party.update_attribute(:verified, true)
+
+    #default to grab first venue, but later we'll change when user can own multiple
+    venue = current_user.managed_venues.first
+
+    @party.update_attribute(:verified, true, :venue_id, venue.id)
     respond_with @party
   end
 

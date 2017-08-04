@@ -26,11 +26,17 @@ class Venue < ActiveRecord::Base
   end
 
   def upcoming_parties
-    self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+
+    #managed_venues = Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    #managed_venues.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("parties.venue_id IS NULL")
+
+    #assigned_party_managers = 
+
+    self.parties.where('scheduled_for >= ? && verified = ?', Time.now, true).order(:scheduled_for)
   end
 
   def past_parties
-    self.parties.where('scheduled_for < ?', Time.now).order(:scheduled_for)
+    self.parties.where('scheduled_for < ? && verified = ?', Time.now, true).order(:scheduled_for)
   end
 
   def name_and_address
