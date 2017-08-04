@@ -202,15 +202,17 @@ ul
   color: #000;
   background-color: #a8d039;
   border-color: #a8d039;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .btn-green:hover,
 .btn-green:focus,
-.btn-green.focus,
 .btn-green:active,
-.btn-green.active{
   color: #000;
   background-color: #a8d039;
   border-color: #a8d039;
+}
+.btn-green:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);  
 }
 .prt_rsvp{
   color: #a8d039 !important;
@@ -1517,6 +1519,10 @@ input[type=radio].css-checkbox + label.css-label {
 }
 }
 @media(max-width:990px) {
+
+  .desktop {display:none;}
+  .mobile {display:block;}
+
   .checkout.btn.btn-green{
     float: none;
     margin-top: 5px;
@@ -1541,9 +1547,6 @@ input[type=radio].css-checkbox + label.css-label {
 
 }
 @media(max-width:480px) {
-
-  .desktop {display:none;}
-  .mobile {display:block;}
 
   .signup_box .adjust_left {
     margin-left: 0;

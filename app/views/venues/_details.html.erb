@@ -1,15 +1,64 @@
-<div class='row'>
-  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
+
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+	<div class='row'>
+	  <div style="float: right;">
+	  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
+	  </div>
+
+	  <h2><%= @venue.name.upcase %></h2>
+
+	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.street %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.city_state %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= @venue.phone %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= mail_to @venue.email %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= link_to 'Visit Website', @venue.website if @venue.website %></p>
+
+	</div>
 </div>
-<div class='row'>
-  <h2><%= @venue.name.upcase %></h2>
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+	<div style="margin: 0 auto; width: 100%;">
+		<div style="background-color: #f9f9f9;
+            width: 300px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+            height: 180px;
+            color: #000;
+            position: relative;
+            display: inline-block;">
+
+            <div class="padding" style="padding: 1%;">
+
+                  <div class="holder" style="float: left; padding: 10px;">
+                    <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
+                    style="max-width: 95% !important;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;">
+                  </div>
+                  
+                  <div class="caption">
+                    <a href="/parties/dallas-home">
+                      <h3> Dallas Homecoming </h3>
+                    </a>    
+                    <br/>
+                    
+                    <p style="padding-left: 10px; margin: 0;">
+                      Chicken served with a side of fried
+                    </p>
+                  </div> <!-- END caption -->
+              </div> <!-- END padding -->
+
+              <div class="bottom">
+                <div class="inline-block" style="    bottom: 0;
+            position: absolute;
+            padding: 15px;">
+                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+                </div>
+                <span style="bottom: 0;
+            position: absolute;">$5</span>
+              </div> <!-- END Bottom -->
+        </div>
+    </div>
 </div>
-<div class='row'>
-  <strong>Address:</strong>
-  <%= @venue.address.street %><br>
-  <%= @venue.address.city_state %><br>
-  <%= @venue.phone %>
-  <%= mail_to @venue.email %>
-  <%= link_to 'Visit Website', @venue.website if @venue.website %>
-</div>
-<br>
