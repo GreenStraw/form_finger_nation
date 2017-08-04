@@ -182,7 +182,11 @@ class PartiesController < ApplicationController
     if @party = Party.create(party_params)
 
       if current_user.managed_venues.any?
-        @party.update_attribute(:who_created_location, "venue_venue", :verified, true)
+        @party.update_attribute(:who_created_location, "venue_venue")
+        @party.assign_attributes(:verified, true)
+
+      else
+        @party.assign_attributes(:verified, false)
       end
 
       # to_date = params[:party][:scheduled_for]
