@@ -135,6 +135,8 @@ body {overflow-x: hidden}
 
           </div>
 
+          <div> <%= @party.packages %> </div>
+
           <%= render partial: 'card_package', locals: {packages: @party} %>
 
           <!--div class="col-lg-6 col-md-12 col-sm-12 map_holder">
