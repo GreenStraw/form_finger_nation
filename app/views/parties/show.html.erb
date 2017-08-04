@@ -82,8 +82,7 @@ body {overflow-x: hidden}
             </div>
           </div-->
 
-          <div class="col-lg-12 col-md-12 col-sm-12" style="    padding-top: 1%;
-            padding-left: 1.5%;">
+          <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
                 
                 <div style="float: right; width: 750px;" class="map_holder desktop">
                   <div style="padding-top: 20px;padding-bottom: 20px; float: left; width: 10%;">
@@ -130,6 +129,23 @@ body {overflow-x: hidden}
                             <i class="fa fa-facebook"></i> 
                           </span>
                         </a>
+                  </div>
+
+                  <div>
+                      <% if @party.organizer.full_name.present? %>
+                          <p>Hosted By <%= @party.organizer.full_name %></p>
+                      <% else %>
+                          <p>Hosted By <%= @party.organizer.username %></p>
+                      <% end %>
+
+                      <%# if reservations_include?(@party, current_user) %>
+                          <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
+                          <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+                          <% else %>
+                          <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                      <% end %>
                   </div>
 
                   <h2>Venue</h2>
