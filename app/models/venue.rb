@@ -32,11 +32,11 @@ class Venue < ActiveRecord::Base
 
     #assigned_party_managers = 
 
-    self.parties.where('scheduled_for >= ? && verified = ?', Time.now, true).order(:scheduled_for)
+    self.parties.where('scheduled_for >= ? && verified = ?', Time.now, "true").order(:scheduled_for)
   end
 
   def past_parties
-    self.parties.where('scheduled_for < ? && verified = ?', Time.now, true).order(:scheduled_for)
+    self.parties.where('scheduled_for < ? && verified = ?', Time.now, "true").order(:scheduled_for)
   end
 
   def name_and_address
