@@ -130,14 +130,10 @@ body {overflow-x: hidden}
 
 
                 <% if @party.party_packages.any? %>
-                  
+                  <%= render partial: 'card_package', locals: {packages: @party.packages} %>
                 <% end %>
 
           </div>
-
-          <div> <%= @party.packages.inspect %> </div>
-
-          <%= render partial: 'card_package', locals: {packages: @party.packages} %>
 
         </div> <!-- end follow -->
       
