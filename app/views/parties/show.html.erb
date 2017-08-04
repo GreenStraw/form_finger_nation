@@ -138,7 +138,7 @@ body {overflow-x: hidden}
                           <p>Hosted By <%= @party.organizer.username %></p>
                       <% end %>
 
-                      <%# if reservations_include?(@party, current_user) %>
+                      <% if reservations_include?(@party, current_user) %>
                           <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
                           <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
                           <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
