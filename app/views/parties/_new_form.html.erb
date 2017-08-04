@@ -111,7 +111,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group date_area">
-          <%= f.label :scheduled_for, "Date" %><br>
+          <%= f.label :scheduled_for, "Date" %><br/>
           <%#= f.datetime_select :scheduled_for,{ampm: true} ,{class: ""}%>
           <%#= f.text_field :scheduled_for, class: "form-control", id: "datepicker" %>
         </div>
@@ -231,13 +231,15 @@
         text: 'Other'
     }));
 
-    $( "#datepicker" ).datepicker();
+    //$( "#datepicker" ).datepicker();
 
     $("#party_venue_id").on('change', function() {
 
-      if ($(this).val() == "Other")
+      if ($(this).val() != "0")
       {
         $("#venue-create").hide();
+      } else {
+        $("#venue-create").show();
       }
 
     });
