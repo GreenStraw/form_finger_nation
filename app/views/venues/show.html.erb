@@ -3,8 +3,8 @@
     <div class="sport_header  row">
       <div class="col-md-12">
         <!--div class="sport_caption pull-right">
-          <img src='<%#= asset_path 'white_foam_finger_icon.png' %>'/>
-          <span>Venue <%#= @venue.name %></span>
+          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+          <span>Venue <%= @venue.name %></span>
         </div-->
         <div class="map_holder">
             <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
