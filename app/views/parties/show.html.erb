@@ -135,18 +135,9 @@ body {overflow-x: hidden}
 
           </div>
 
-          <div> <%= @party.packages %> </div>
+          <div> <%= @party.packages.inspect %> </div>
 
-          <%= render partial: 'card_package', locals: {packages: @party} %>
-
-          <!--div class="col-lg-6 col-md-12 col-sm-12 map_holder">
-                <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                <!-- <a class="tweet btn" title="<%=@party.name %>" href="http://ffn-staging.com/parties/<%= @party.friendly_url%>" target="_blank"> Twitter</a> -->
-                <!-- <button id = "fbtn" class="btn btn-green">facebook</button> -->
-                <div id="map" style='width: 100%; height: 250px;'></div>
-                <% end %>
-                Created By <%= @party.organizer.full_name %> (<%= link_to @party.organizer.username, "/user/#{@party.organizer.id}" %>)
-          </div-->
+          <%= render partial: 'card_package', locals: {packages: @party.packages} %>
 
         </div> <!-- end follow -->
       
