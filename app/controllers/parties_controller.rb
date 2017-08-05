@@ -199,13 +199,15 @@ class PartiesController < ApplicationController
       params[:party][:verified] = true
     end
 
-    params[:party]["scheduled_for(1i)"] = "2017"
-    params[:party]["scheduled_for(2i)"] = "8"
-    params[:party]["scheduled_for(3i)"] = "8"
-    params[:party]["scheduled_for(4i)"] = "13"
-    params[:party]["scheduled_for(5i)"] = "30"
+    #params[:party]["scheduled_for(1i)"] = "2017"
+    #params[:party]["scheduled_for(2i)"] = "8"
+    #params[:party]["scheduled_for(3i)"] = "8"
+    #params[:party]["scheduled_for(4i)"] = "13"
+    #params[:party]["scheduled_for(5i)"] = "30"
     
     if @party = Party.create(party_params)
+
+      @party.scheduled_for("2017-09-08 13:30")
 
       flash[:notice] = 'Party was successfully created.'
       @party.save(:validate => false)
