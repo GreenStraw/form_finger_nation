@@ -163,6 +163,9 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
+    to_date = "2017-08-08"
+    to_date.gsub("-", '/')
+    @test = to_date.to_s << ' 04:05:06'
     respond_with @party
   end
 
@@ -195,6 +198,8 @@ class PartiesController < ApplicationController
     to_date = party_params[:scheduled_for]
     to_date.gsub("-", '/')
     date_s = to_date.to_s << ' 04:05:06'
+
+
     party_params[:scheduled_for] = DateTime.parse(date_s) # DateTime.parse(date_s) # DateTime.parse(date_s)
 
     
