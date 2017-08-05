@@ -179,34 +179,34 @@ class PartiesController < ApplicationController
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
 
-    add_missing_items = false
-
     #party_params[:who_created_location] = "customer_house" || party_params[:who_created_location] = "customer_venue" && party_params[:id] = "new_venue"
 
-    if current_user.managed_venues.any?
+    party_params[:verified] = false # default verified to false
+
+    if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       party_params[:who_created_location] = "venue_venue"
-      party_params[:verified] = true
-    else
-      party_params[:verified] = false
     end
 
     if party_params[:who_created_location] = "venue_venue" || party_params[:who_created_location] = "customer_venue" && party_params[:id] != "new_venue"
       party_params.delete(:venue_attributes)
-    end  
+      party_params[:verified] = true
+    end
+
+    to_date = party_params[:scheduled_for]
+    date_s = to_date.to_s << ' ' << '13:00' << ':00'
+    party_params[:scheduled_for] = DateTime.parse(date_s)
+
+    # to_date = params[:party][:scheduled_for]
+    # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
+    # params[:party][:scheduled_for] = ''
+    # @party.scheduled_for = DateTime.parse(date_s)
 
     if @party = Party.create(party_params)
 
-      # to_date = params[:party][:scheduled_for]
-      # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
-      # params[:party][:scheduled_for] = ''
       flash[:notice] = 'Party was successfully created.'
-      # @party.scheduled_for = DateTime.parse(date_s)
-
-
       @party.save(:validate => false)
       current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
       respond_with @party, location: party_path(@party)
-
 
     else
       render new_party_path
