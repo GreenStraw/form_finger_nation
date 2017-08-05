@@ -188,25 +188,25 @@ class PartiesController < ApplicationController
 
     #party_params[:who_created_location] = "customer_house" || party_params[:who_created_location] = "customer_venue" && party_params[:id] = "new_venue"
 
-    party_params[:verified] = true # default verified to false
+    params[:party][:verified] = false # default verified to false
 
     if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
-      party_params[:who_created_location] = "venue_venue"
+      params[:party][:who_created_location] = "venue_venue"
     end
 
-    if party_params[:who_created_location] = "venue_venue" || party_params[:who_created_location] = "customer_venue" && party_params[:id] != "new_venue"
-      party_params.delete(:venue_attributes)
-      party_params[:verified] = true
+    if params[:party][:who_created_location] = "venue_venue" || params[:party][:who_created_location] = "customer_venue" && params[:party][:id] != "new_venue"
+      params[:party].delete(:venue_attributes)
+      params[:party][:verified] = true
     end
 
 
-    party_params[:scheduled_for] = "2017-08-08 13:30"
+    params[:party][:scheduled_for] = "2017-08-08 13:30"
 
-    party_params["scheduled_for(1i)"] = "2017"
-    party_params["scheduled_for(2i)"] = "8"
-    party_params["scheduled_for(3i)"] = "8"
-    party_params["scheduled_for(4i)"] = "13"
-    party_params["scheduled_for(5i)"] = "30"
+    #params[:party][:scheduled_for]["scheduled_for(1i)"] = "2017"
+    #party_params["scheduled_for(2i)"] = "8"
+    #party_params["scheduled_for(3i)"] = "8"
+    #party_params["scheduled_for(4i)"] = "13"
+    #party_params["scheduled_for(5i)"] = "30"
     
     if @party = Party.create(party_params)
 
