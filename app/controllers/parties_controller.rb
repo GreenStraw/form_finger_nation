@@ -197,11 +197,16 @@ class PartiesController < ApplicationController
       party_params[:verified] = true
     end
 
-    to_date = party_params[:scheduled_for]
-    to_date = to_date.gsub("-", '/')
-    date_s = to_date.to_s << ' 04:05'
-    
-    party_params[:scheduled_for] = DateTime.new(2012, 1, 15).strftime('%s') # DateTime.parse(date_s) # DateTime.parse(date_s)
+    to_date = ""
+    Time.use_zone("Central Time (US & Canada)") do
+      to_date = Time.zone.parse("2016-03-05 10:00")
+    end
+
+    #to_date = party_params[:scheduled_for]
+    #to_date = to_date.gsub("-", '/')
+    #date_s = to_date.to_s << ' 04:05'
+
+    party_params[:scheduled_for] = to_date
 
     
 
