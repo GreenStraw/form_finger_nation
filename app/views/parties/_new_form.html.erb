@@ -215,8 +215,18 @@
 
       if(checkedValue == "customer_venue")
       {
-        $("#venue-select").show();
-        $("#bussiness_name").hide();
+        
+        if ($("#party_venue_id").val() != "new_venue")
+        {
+          $("#venue-create").hide();
+          $("#bussiness_name").hide();
+          $("#venue-select").show();
+        } else {
+          $("#venue-create").show();
+          $("#bussiness_name").show();
+          $("#venue-select").hide();
+        }
+
         /*
         $("#firstName").hide();
         $("#lastName").hide();
@@ -227,12 +237,13 @@
       } else if(checkedValue == "customer_house") {
         $("#bussiness_name").hide();
         $("#venue-select").hide();
+        $("#venue-create").show();
       }
     });
 
     $('#party_venue_id').prepend($('<option>', {
-        value: 0,
-        text: 'Other'
+        value: 'new_venue',
+        text: "I do not see venue"
     }));
 
     //$( "#datepicker" ).datepicker();
@@ -240,7 +251,7 @@
 
     $("#party_venue_id").on('change', function() {
 
-      if ($(this).val() != "0")
+      if ($(this).val() != "new_venue")
       {
         $("#venue-create").hide();
         $("#bussiness_name").hide();
