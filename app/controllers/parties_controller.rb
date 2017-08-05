@@ -194,7 +194,7 @@ class PartiesController < ApplicationController
 
     to_date = party_params[:scheduled_for]
     date_s = to_date.to_s << ' ' << '13:00' << ':00'
-    party_params[:scheduled_for] = DateTime.parse(date_s)
+    party_params[:scheduled_for] = DateTime.parse(date_s) # DateTime.parse(date_s)
 
     # to_date = params[:party][:scheduled_for]
     # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
