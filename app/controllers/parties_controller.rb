@@ -204,7 +204,7 @@ class PartiesController < ApplicationController
       to_date = Time.zone.parse("2016/03/05 10:00")
     end
 
-    party_params[:scheduled_for] = to_date
+    party_params[:scheduled_for] = '2012-01-01T00:00:00.32323'.to_datetime
 
     if @party = Party.create(party_params)
 
