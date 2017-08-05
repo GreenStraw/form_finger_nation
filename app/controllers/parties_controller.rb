@@ -163,10 +163,12 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
-    to_date = "2017-08-08"
-    to_date = to_date.gsub("-", '/')
-    to_date = to_date.to_s << ' 04:05'
-    @test = Time.parse(to_date)
+    to_date = ""
+    Time.use_zone("Central Time (US & Canada)") do
+      to_date = Time.zone.parse("2016-03-05 10:00")
+    end
+
+    @test = to_date
     
     respond_with @party
   end
@@ -199,24 +201,10 @@ class PartiesController < ApplicationController
 
     to_date = ""
     Time.use_zone("Central Time (US & Canada)") do
-      to_date = Time.zone.parse("2016-03-05 10:00")
+      to_date = Time.zone.parse("2016/03/05 10:00")
     end
 
-    #to_date = party_params[:scheduled_for]
-    #to_date = to_date.gsub("-", '/')
-    #date_s = to_date.to_s << ' 04:05'
-
     party_params[:scheduled_for] = to_date
-
-    
-
-    #Date.strftime(date_s, "%Y-%m-%d %H:%M:%S %Z")
-    #Date.strptime(updated,"%a, %d %m %Y %H:%M:%S %Z")
-
-    # to_date = params[:party][:scheduled_for]
-    # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
-    # params[:party][:scheduled_for] = ''
-    # @party.scheduled_for = DateTime.parse(date_s)
 
     if @party = Party.create(party_params)
 
