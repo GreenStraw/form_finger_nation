@@ -206,7 +206,7 @@ class PartiesController < ApplicationController
 
     #to_date = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
 
-    party_params[:scheduled_for] = Date.new(2014, 2, 11)
+    #party_params[:scheduled_for] = Date.new(2014, 2, 11)
 
     party_params["scheduled_for(1i)"] = "2017"
     party_params["scheduled_for(2i)"] = "8"
@@ -214,8 +214,6 @@ class PartiesController < ApplicationController
     party_params["scheduled_for(4i)"] = "13"
     party_params["scheduled_for(5i)"] = "29"
     
-    #"scheduled_for(1i)"=>"2017", "scheduled_for(2i)"=>"8", "scheduled_for(3i)"=>"5", "scheduled_for(4i)"=>"13", "scheduled_for(5i)"=>"29"
-
     if @party = Party.create(party_params)
 
       flash[:notice] = 'Party was successfully created.'
