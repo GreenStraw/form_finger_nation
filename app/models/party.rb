@@ -57,12 +57,12 @@ class Party < ActiveRecord::Base
     attributes[:name].blank? || attributes[:address_attributes].blank? || attributes[:address_attributes][:zip].blank? || attributes[:address_attributes][:street1].blank? || attributes[:address_attributes][:city].blank? || attributes[:address_attributes][:state].blank?
   end
 
-  def scheduled_for=(value)
-    if value.is_a?(String)
-      value = value.to_i
-    end
-    self[:scheduled_for] = Time.at(value).to_datetime
-  end
+  #def scheduled_for=(value)
+  #  if value.is_a?(String)
+  #    value = value.to_i
+  #  end
+  #  self[:scheduled_for] = Time.at(value).to_datetime
+  #end
 
   def completed_purchases
     vouchers.where('transaction_id IS NOT NULL')
