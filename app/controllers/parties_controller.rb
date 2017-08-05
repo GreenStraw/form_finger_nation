@@ -168,7 +168,7 @@ class PartiesController < ApplicationController
       to_date = Time.zone.parse("2016-03-05 10:00")
     end
 
-    @test = to_date
+    @test = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
     
     respond_with @party
   end
@@ -204,7 +204,9 @@ class PartiesController < ApplicationController
       to_date = Time.zone.parse("2016/03/05 10:00")
     end
 
-    party_params[:scheduled_for] = '2012-01-01T00:00:00.32323'.to_datetime
+    to_date = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
+
+    party_params[:scheduled_for] = to_date
 
     if @party = Party.create(party_params)
 
