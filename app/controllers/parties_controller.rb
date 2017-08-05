@@ -194,7 +194,10 @@ class PartiesController < ApplicationController
 
     to_date = party_params[:scheduled_for]
     date_s = to_date.to_s << ' ' << '13:00' << ':00'
-    party_params[:scheduled_for] = DateTime.parse(date_s) # DateTime.parse(date_s)
+    party_params[:scheduled_for] = Date.strftime(date_s, "%Y-%m-%d %H:%M:%S %Z") # DateTime.parse(date_s) # DateTime.parse(date_s)
+
+    #Date.strftime(date_s, "%Y-%m-%d %H:%M:%S %Z")
+    #Date.strptime(updated,"%a, %d %m %Y %H:%M:%S %Z")
 
     # to_date = params[:party][:scheduled_for]
     # date_s = to_date.to_s << ' ' << params[:party][:hid_time] << ':00'
