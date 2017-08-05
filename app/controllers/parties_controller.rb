@@ -193,8 +193,9 @@ class PartiesController < ApplicationController
     end
 
     to_date = party_params[:scheduled_for]
-    date_s = to_date.to_s << 'T' << '04:05:06' << '+07:00'
-    party_params[:scheduled_for] = DateTime.strptime(date_s, '%Y-%m-%dT%H:%M:%S%z') # DateTime.parse(date_s) # DateTime.parse(date_s)
+    to_date.gsub("-", '/')
+    date_s = to_date.to_s << ' 04:05:06'
+    party_params[:scheduled_for] = DateTime.parse(date_s) # DateTime.parse(date_s) # DateTime.parse(date_s)
 
     
 
