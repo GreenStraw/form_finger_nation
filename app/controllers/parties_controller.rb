@@ -206,13 +206,13 @@ class PartiesController < ApplicationController
 
     #to_date = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
 
-    #party_params[:scheduled_for] = Date.new(2014, 2, 11)
+    party_params[:scheduled_for] = "2017-08-08 13:30"
 
     party_params["scheduled_for(1i)"] = "2017"
     party_params["scheduled_for(2i)"] = "8"
     party_params["scheduled_for(3i)"] = "8"
     party_params["scheduled_for(4i)"] = "13"
-    party_params["scheduled_for(5i)"] = "29"
+    party_params["scheduled_for(5i)"] = "30"
     
     if @party = Party.create(party_params)
 
