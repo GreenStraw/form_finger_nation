@@ -204,10 +204,14 @@ class PartiesController < ApplicationController
     #params[:party]["scheduled_for(3i)"] = "8"
     #params[:party]["scheduled_for(4i)"] = "13"
     #params[:party]["scheduled_for(5i)"] = "30"
+
+    selected_date = params[:party]["scheduled_for"].split('-')
     
     if @party = Party.create(party_params)
 
-      @party[:scheduled_for] = Time.local(2017, 9, 8, 13, 30) #@party.scheduled_for="2017-09-08 13:30"
+      if selected_date.length=3
+        @party[:scheduled_for] = Time.local(selected_date[0], selected_date[1], selected_date[3], 13, 30) #@party.scheduled_for="2017-09-08 13:30"
+      end
 
       flash[:notice] = 'Party was successfully created.'
       @party.save(:validate => false)
