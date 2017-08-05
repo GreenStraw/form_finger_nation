@@ -162,14 +162,7 @@ class PartiesController < ApplicationController
   end
 
   # GET /parties/new
-  def new
-    to_date = ""
-    Time.use_zone("Central Time (US & Canada)") do
-      to_date = Time.zone.parse("2016-03-05 10:00")
-    end
-
-    @test = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
-    
+  def new    
     respond_with @party
   end
 
