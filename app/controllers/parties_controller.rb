@@ -206,7 +206,7 @@ class PartiesController < ApplicationController
 
     #to_date = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
 
-    party_params[:scheduled_for] = '1999-01-08 04:05:06'
+    party_params[:scheduled_for] = Date.new(2014, 2, 11)
 
     if @party = Party.create(party_params)
 
