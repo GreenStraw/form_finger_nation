@@ -207,7 +207,7 @@ class PartiesController < ApplicationController
     
     if @party = Party.create(party_params)
 
-      @party.scheduled_for="2017-09-08 13:30"
+      @party[:scheduled_for] = Time.local(2017, 9, 8, 13, 30) #@party.scheduled_for="2017-09-08 13:30"
 
       flash[:notice] = 'Party was successfully created.'
       @party.save(:validate => false)
