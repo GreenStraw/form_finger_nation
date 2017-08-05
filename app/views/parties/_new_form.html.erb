@@ -74,13 +74,13 @@
       <%= f.fields_for :venue_attributes do |v| %>
         <div class="form-group" id="bussiness_name">
           <h6>Venue Name</h6>
-          <%= v.text_field :name, class: "form-control", :required => :false %>
+          <%= v.text_field :name, class: "form-control" %>
         </div>
         <%= v.fields_for :address_attributes do |a| %>
           
           <div class="form-group">
             <%= a.label :street1, "Address street1" %><br>
-            <%= a.text_field :street1, class: "form-control", :required => :false %>
+            <%= a.text_field :street1, class: "form-control" %>
           </div>
           <div class="form-group">
             <%= a.label :street2, "Address street2" %><br>
@@ -91,13 +91,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= a.label :city %>
-                <%= a.text_field :city, class: "form-control", :required => :false %>
+                <%= a.text_field :city, class: "form-control" %>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <%= a.label :state %>
-                <%= a.text_field :state, class: "form-control", :required => :false %>
+                <%= a.text_field :state, class: "form-control" %>
               </div>
             </div>
             <div class="col-md-3">
@@ -220,12 +220,12 @@
         {
           $("#venue-create").hide();
           $("#bussiness_name").hide();
-          $("#venue-select").show();
         } else {
           $("#venue-create").show();
           $("#bussiness_name").show();
-          $("#venue-select").hide();
         }
+
+        $("#venue-select").show();
 
         /*
         $("#firstName").hide();
