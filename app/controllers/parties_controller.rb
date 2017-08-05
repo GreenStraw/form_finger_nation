@@ -164,7 +164,7 @@ class PartiesController < ApplicationController
   # GET /parties/new
   def new
     to_date = "2017-08-08"
-    to_date.gsub("-", '/')
+    to_date = to_date.gsub("-", '/')
     @test = to_date.to_s << ' 04:05:06'
     respond_with @party
   end
