@@ -190,7 +190,7 @@ class PartiesController < ApplicationController
 
     params[:party][:verified] = false # default verified to false
 
-    if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
+    if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       params[:party][:who_created_location] = "venue_venue"
     end
 
@@ -200,13 +200,13 @@ class PartiesController < ApplicationController
     end
 
 
-    params[:party][:scheduled_for] = "2017-08-08 13:30"
+    #params[:party][:scheduled_for] = "2017-08-08 13:30"
 
-    #params[:party][:scheduled_for]["scheduled_for(1i)"] = "2017"
-    #party_params["scheduled_for(2i)"] = "8"
-    #party_params["scheduled_for(3i)"] = "8"
-    #party_params["scheduled_for(4i)"] = "13"
-    #party_params["scheduled_for(5i)"] = "30"
+    params[:party]["scheduled_for(1i)"] = "2017"
+    params[:party]["scheduled_for(2i)"] = "8"
+    params[:party]["scheduled_for(3i)"] = "8"
+    params[:party]["scheduled_for(4i)"] = "13"
+    params[:party]["scheduled_for(5i)"] = "30"
     
     if @party = Party.create(party_params)
 
