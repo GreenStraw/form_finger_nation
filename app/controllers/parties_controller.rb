@@ -211,8 +211,8 @@ class PartiesController < ApplicationController
     party_params["scheduled_for(1i)"] = "2017"
     party_params["scheduled_for(2i)"] = "8"
     party_params["scheduled_for(3i)"] = "8"
-    party_params["scheduled_for(4i)"] = Time.at(13).to_datetime
-    party_params["scheduled_for(5i)"] = Time.at(30).to_datetime
+    party_params["scheduled_for(4i)"] = "15"
+    party_params["scheduled_for(5i)"] = "30"
     
     #"scheduled_for(1i)"=>"2017", "scheduled_for(2i)"=>"8", "scheduled_for(3i)"=>"5", "scheduled_for(4i)"=>"13", "scheduled_for(5i)"=>"29"
 
