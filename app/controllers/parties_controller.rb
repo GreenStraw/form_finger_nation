@@ -184,10 +184,10 @@ class PartiesController < ApplicationController
     #party_params[:who_created_location] = "customer_house" || party_params[:who_created_location] = "customer_venue" && party_params[:id] = "new_venue"
 
     if current_user.managed_venues.any?
-      party_params.update_attribute(:who_created_location, "venue_venue")
-      party_params.assign_attributes(:verified, true)
+      party_params[:who_created_location] = "venue_venue"
+      party_params[:verified] = true
     else
-      party_params.assign_attributes(:verified, false)
+      party_params[:verified] = false
     end
 
     if party_params[:who_created_location] = "venue_venue" || party_params[:who_created_location] = "customer_venue" && party_params[:id] != "new_venue"
