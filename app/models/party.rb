@@ -30,7 +30,7 @@ class Party < ActiveRecord::Base
   belongs_to :venue
 
   accepts_nested_attributes_for :address
-  accepts_nested_attributes_for :venue #, :reject_if => :no_new_venue
+  accepts_nested_attributes_for :venue, :reject_if => :no_new_venue
 
   attr_accessor :user_ids, :emails
 
