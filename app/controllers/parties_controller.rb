@@ -190,7 +190,7 @@ class PartiesController < ApplicationController
 
     party_params[:verified] = false # default verified to false
 
-    if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
+    if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       party_params[:who_created_location] = "venue_venue"
     end
 
@@ -199,12 +199,6 @@ class PartiesController < ApplicationController
       party_params[:verified] = true
     end
 
-    to_date = ""
-    Time.use_zone("Central Time (US & Canada)") do
-      to_date = Time.zone.parse("2016/03/05 10:00")
-    end
-
-    #to_date = DateTime.strptime('08/05/2017','%m/%d/%Y').strftime("%Y-%m-%d")
 
     party_params[:scheduled_for] = "2017-08-08 13:30"
 
