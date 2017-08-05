@@ -188,19 +188,19 @@ class PartiesController < ApplicationController
 
     #party_params[:who_created_location] = "customer_house" || party_params[:who_created_location] = "customer_venue" && party_params[:id] = "new_venue"
 
-    party_params["verified"] = false # default verified to false
+    party_params.verified = false # default verified to false
 
     if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
-      party_params["who_created_location"] = "venue_venue"
+      party_params.who_created_location = "venue_venue"
     end
 
-    if party_params["who_created_location"] = "venue_venue" || party_params[:who_created_location] = "customer_venue" && party_params[:id] != "new_venue"
+    if party_params.who_created_location = "venue_venue" || party_params[:who_created_location] = "customer_venue" && party_params[:id] != "new_venue"
       party_params.delete("venue_attributes")
-      party_params["verified"] = true
+      party_params.verified = true
     end
 
 
-    party_params["scheduled_for"] = "2017-08-08 13:30"
+    party_params.scheduled_for = "2017-08-08 13:30"
 
     party_params["scheduled_for(1i)"] = "2017"
     party_params["scheduled_for(2i)"] = "8"
