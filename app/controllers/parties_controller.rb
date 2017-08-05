@@ -206,7 +206,7 @@ class PartiesController < ApplicationController
     params[:party]["scheduled_for(2i)"] = "8"
     params[:party]["scheduled_for(3i)"] = "8"
     params[:party]["scheduled_for(4i)"] = "18"
-    params[:party]["scheduled_for(5i)"] = "30")
+    params[:party]["scheduled_for(5i)"] = "30"
     
     if @party = Party.create(party_params)
 
