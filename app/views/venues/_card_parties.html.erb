@@ -1,94 +1,62 @@
 
-	<div style="margin: 0 auto; width: 100%;">
+<div style="margin: 0 auto; width: 100%;">
 
-	  	<h2 style="text-align: center;        display: block;
-    float: left;">Upcoming Parties</h2> 
+    <h2 style="text-align: center; display: block;">Upcoming Parties</h2> 
 
-		<div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-                display: inline-block; top: 50px;">
+    <% parties.each do |party| %>
 
-            <div class="padding" style="padding: 1%;">
+      		<div style="
+                  cursor: pointer;
+                  color: #000;
+                  position: relative;
+                  top: 50px;
+                  float: left;">
 
-                  <div class="holder" style="float: left; padding: 10px;">
-                    <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                    style="max-width: 95% !important;
-            height: 55px;
-            border-radius: 50%;
-            overflow: hidden;">
+
+                  <div class="card">
+
+                    <div class="padding">
+
+                        <div class="holder">
+                            <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
+                          </div>
+                          
+                          <div class="caption">
+                            <%= link_to party do %>
+                              <h3> <%= party.name rescue "" %> </h3>
+                            <% end %>
+                            <br/>
+                            <%= party.sponsor if party.present? %>
+
+
+                            <ul class="list-inline ">
+                              <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+                              <li><%= party.venue.address.city_state rescue "" %></li>
+                            </ul>
+                          </div> <!-- END caption -->
+
+                          <% if party.present?  %>
+                            <% if !party.description.nil? %>
+                              <div class="party_desc">
+                                <p><%= party.description.truncate(40) rescue "" %></p>
+                              </div>
+                            <% end %>
+                          <% end %>
+
+                    </div> <!-- END padding -->
+
+                    <div class="bottom">
+                        <div class="inline-block">
+
+                          <a style="margin: 0 10px 0 10px" title=<%= party.name %> href="http://www.foamfingernation.com/parties/"<%=party.friendly_url%> class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.foamfingernation.com/parties/"<%=party.friendly_url%> title=<%= party.name %> target="_blank" class="btn btn-green btn-circle btn-facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+
+                        </div>
+                    </div> <!-- END bottom -->
                   </div>
-                  
-                  <div class="caption">
-                    <a href="/parties/dallas-home">
-                      <h3> Dallas Homecoming </h3>
-                    </a>    
-                    <br/>
-                    
-                    <p style="padding-left: 10px; margin: 0;">
-                      Chicken served with a side of fried
-                    </p>
-                  </div> <!-- END caption -->
-              </div> <!-- END padding -->
+          </div>
 
-              <div class="bottom">
-                <div class="inline-block" style="    bottom: 0;
-            position: absolute;
-            padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div>
-                <span style="bottom: 0;
-            position: absolute;     right: 0;
-    padding: 20px;">$5</span>
-              </div> <!-- END Bottom -->
-        </div>
+      <% end %>
 
-        		<div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-                display: inline-block; top: 50px;">
-
-            <div class="padding" style="padding: 1%;">
-
-                  <div class="holder" style="float: left; padding: 10px;">
-                    <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                    style="max-width: 95% !important;
-            height: 55px;
-            border-radius: 50%;
-            overflow: hidden;">
-                  </div>
-                  
-                  <div class="caption">
-                    <a href="/parties/dallas-home">
-                      <h3> Dallas Homecoming </h3>
-                    </a>    
-                    <br/>
-                    
-                    <p style="padding-left: 10px; margin: 0;">
-                      Chicken served with a side of fried
-                    </p>
-                  </div> <!-- END caption -->
-              </div> <!-- END padding -->
-
-              <div class="bottom">
-                <div class="inline-block" style="    bottom: 0;
-            position: absolute;
-            padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div>
-                <span style="bottom: 0;
-            position: absolute;     right: 0;
-    padding: 20px;">$5</span>
-              </div> <!-- END Bottom -->
-        </div>
-
-
-    </div>
+</div>
