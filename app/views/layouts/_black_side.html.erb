@@ -71,7 +71,7 @@
         <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
           <li>
             <% if current_user.parties.length > 0 %>
-                  <%= link_to 'My Parties #{current_user.parties.length}', get_parties_parties_path, remote: true, class:"my_party"%>
+                  <%= link_to "My Parties #{current_user.parties.length}", get_parties_parties_path, remote: true, class:"my_party"%>
             <% else %>
                   <span>My Parties 0</span>
             <% end %>
@@ -116,17 +116,19 @@
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
       </li>
 
+    <% css1_class = controller.controller_name == 'venues' || current_page?( venues_path ) ? "active_p" : "" %>
 	  <% if current_user.managed_venues.any? %>
-	  <li>
-        <% css1_class = controller.controller_name == 'venues' || current_page?( venues_path ) ? "active_p" : "" %>
-		<% if current_user.admin? %>
-				<%= link_to '<i class="fa fa-hand-o-up"></i>Manage Venues'.html_safe, venues_path, class: "#{css1_class}" %>
-		<% else  %>
-				<%= link_to '<i class="fa fa-hand-o-up"></i>My Venues'.html_safe, venues_path, class: "#{css1_class}" %>
-		<% end %>
-	  </li>
-	   <% end %>
-	  
+      <li>
+        <%= link_to '<i class="fa fa-hand-o-up"></i>My Venues'.html_safe, venues_path, class: "#{css1_class}" %>
+      </li>
+    <% end %>
+
+    <% if current_user.admin? %>
+    <li>
+        <%= link_to '<i class="fa fa-hand-o-up"></i>Manage Venues'.html_safe, venues_path, class: "#{css1_class}" %>
+    </li>
+    <% end %>
+    
       <div class="clearfix"></div>
       <%= link_to( t("Create a Watch Party", :default => "Create Watch Party"), new_party_path, class: "btn btn-green btn-default" ) %>
 
