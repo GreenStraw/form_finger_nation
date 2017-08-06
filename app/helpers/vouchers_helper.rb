@@ -8,19 +8,19 @@ module VouchersHelper
 
   	venues =  Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
-    pending_parties  = []
+    venue_assigned_parties  = []
 
     venues.try(:each) do |venue|
 
       if current_user.admin?
-        pending_parties.concat(venue.parties.map {|party| [party.name, party.id]})
+        venue_assigned_parties.concat(venue.parties.map {|party| [party.name, party.id]})
       else
-        #pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id).map {|party| [party.name, "party_identifier"=> [party.id, party.organizer_id] ]} )
-      	pending_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id).map {|party| [party.name, party.id ]} )
+        # venue_assigned_parties.concat(venue.parties.where('parties.organizer_id != ? ', current_user.id).map {|party| [party.name, party.id ]} )
+      	venue_assigned_parties.concat(venue.parties.map {|party| [party.name, party.id ]} )
       end
     end
 
-    return pending_parties
+    return venue_assigned_parties
 
   end
 end

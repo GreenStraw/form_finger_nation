@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     if self.admin?
       v = Venue.all
       # pull parties that are recently created and not assigned to venue - paties.venue_id is null
-      v.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("(parties.venue_id IS NULL AND parties.who_created_location='venue_house') OR venues.created_by='admin' ")
+      v.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("(parties.venue_id IS NULL AND parties.who_created_location!='venue_house') OR venues.created_by='admin' ")
     elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
       v = Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
       v.joins("LEFT OUTER JOIN parties ON parties.venue_id = venues.id").where("(parties.venue_id IS NULL AND parties.who_created_location='venue_house') OR venues.created_by='admin' ")
@@ -103,6 +103,8 @@ class User < ActiveRecord::Base
       []
     end
   end
+
+  
 
   def get_party_reservations
       parties = Party.where(organizer_id: self.id)
