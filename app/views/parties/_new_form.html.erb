@@ -118,7 +118,7 @@
           <%= f.text_field :scheduled_for, class: "form-control datepicker" %>
 
           <%= f.label :scheduled_time %><br>
-          <%= f.collection_select  :scheduled_time, :value, :text, {} ,class: "form-control" %>
+          <%= f.select :scheduled_time, @test, {} ,class: "form-control", :multiple => true %>
           <%= @test.inspect %>
         </div>
       </div>
