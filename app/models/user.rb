@@ -79,6 +79,8 @@ class User < ActiveRecord::Base
     self.has_role?(:admin)
   end
 
+
+
   def managed_venues
     if self.admin?
       v = Venue.all
@@ -99,6 +101,13 @@ class User < ActiveRecord::Base
     else
       []
     end
+  end
+
+  def get_party_reservations
+
+      #party_reservation.party.organizer_id != current_user.id
+      self.party_reservations.parties.where('parties.organizer_id != ? ', self.id)
+
   end
 
   def get_pending_parties

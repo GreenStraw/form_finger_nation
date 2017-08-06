@@ -78,8 +78,8 @@
           </li>
 
           <li>
-            <% if current_user.party_reservations.length > 0 %>
-                  <a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs (<%= current_user.party_reservations.length %>)</a>
+            <% if current_user.get_party_reservations.length > 0 %>
+                  <a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs (<%= current_user.get_party_reservations.length %>)</a>
             <% else %>
                   <span>RSVPs 0</span>
             <% end %>
