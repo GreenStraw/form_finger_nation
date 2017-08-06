@@ -114,11 +114,11 @@
       <div class="col-md-12">
         <div class="form-group date_area">
           <%= f.label :scheduled_for, "Date & Time" %><br/>
-          <%#= f.datetime_select :scheduled_for,{ampm: true} ,{class: "datepicker"}%>
-          <%= f.text_field :scheduled_for, class: "form-control datepicker" %>
+          <%= f.datetime_select :scheduled_for,{ampm: true} ,{class: "datepicker"}%>
+          <%#= f.text_field :scheduled_for, class: "form-control datepicker" %>
 
           <%#= f.label :scheduled_time %><br>
-          <%= f.select 'party[scheduled_for(4i)]', timeOfParty, {} , {:multiple => true, class: "form-control"} %>
+          <%#= f.select 'party[scheduled_for(4i)]', timeOfParty, {} , {:multiple => true, class: "form-control"} %>
           <%#= select_tag 'party[scheduled_time]', options_from_collection_for_select(timeOfParty, value:, text:), include_blank: false, class: 'select2 form-control' %>
         </div>
       </div>
