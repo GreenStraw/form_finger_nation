@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
       #self.party_reservations.parties.where('parties.organizer_id = ? ', self.id)
 
       parties = Party.where(organizer_id: self.id)
-      parties.joins(:party_reservations).where("party_reservations.party_id = party.id")
+      parties.joins(:party_reservations).where("party_reservations.party_id = parties.id")
 
   end
 
