@@ -34,16 +34,23 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
-  def self.party_exist?(current_user)
-      #party = Party.where(venue_id: venue_id)
+  def partiesAssignedToVenue(current_user)
+    
+    venues = []
+    venue_assigned_parties  = []
 
-      party = current_user.get_pending_parties
+    if current_user.admin?
+      venues =  Venue.all
+    else
+      venues =  Venue.where(id: current_user.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
+    end
 
-      if (party.length > 0)
-        return true
-      else
-        return false
-      end
+    venues.try(:each) do |venue|
+      venue_assigned_parties.concat(venue.parties.map {|party| [party.name, party.id]})
+    end
+
+    return venue_assigned_parties
+  
   end
 
   def venue_exists

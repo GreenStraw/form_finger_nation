@@ -51,7 +51,7 @@ class VenuesController < ApplicationController
       @flag = true
     end
 
-    @party_exist = Party.party_exist?(current_user)
+    @assigned_parties = Party.partiesAssignedToVenue(current_user)
   end
 
   # POST /venues
