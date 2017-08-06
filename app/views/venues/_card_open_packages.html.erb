@@ -1,4 +1,6 @@
-<% packages.each do |package| %>
+<% @venue.packages.each do |package| %>
+
+  <% if !package.for_everyone? %>
 
         <div style="background-color: #f9f9f9;
             width: 300px;
@@ -43,5 +45,7 @@
     padding: 20px;">$5</span>
               </div> <!-- END Bottom -->
         </div>
+
+  <% end %>
 
 <% end %>

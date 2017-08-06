@@ -20,7 +20,11 @@
         </div>
         <div class="follow">
           <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
-            <%#= render partial: 'card_open_packages' %>
+
+            <div style="float: right; width: 750px;" class="desktop">
+                <%= render partial: 'card_open_packages' %>
+            </div>
+
             <%= render partial: 'details' %>
 
             <% if @venue.upcoming_parties.any? %>
