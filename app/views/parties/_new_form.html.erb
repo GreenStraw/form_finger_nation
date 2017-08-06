@@ -56,19 +56,17 @@
       <%#= check_box_tag "new_venue" %> Create New Venue
     </div> -->
 
-   <div class="form-group">
-        <h6>Location of Party</h6>
-        <label class="radio-inline is_venue">
-          <%= f.radio_button :who_created_location, 'customer_venue', :checked => true, id: 'isAtVenue_radio_button'%> Venue
-        </label>
-        <label class="radio-inline is_venue">
-          <%= f.radio_button :who_created_location, 'customer_house', id: 'isAtVenue_radio_button' %> House
-        </label>
-    </div>
-
-    <p> <%= @test %>
-
     <% if !(current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)) %>
+
+       <div class="form-group">
+            <h6>Location of Party</h6>
+            <label class="radio-inline is_venue">
+              <%= f.radio_button :who_created_location, 'customer_venue', :checked => true, id: 'isAtVenue_radio_button'%> Venue
+            </label>
+            <label class="radio-inline is_venue">
+              <%= f.radio_button :who_created_location, 'customer_house', id: 'isAtVenue_radio_button' %> House
+            </label>
+        </div>
         <div class="form-group" id='venue-select'>
               <%= f.label :venue %><br>
               <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
