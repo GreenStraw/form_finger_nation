@@ -10,8 +10,8 @@ module PartiesHelper
   end
   def timeOfParty
    [{value: "5",  text: "05" },
-    {:value: "8",  :text: "08" },
-    {:value: "11", :text: "11" },
-    {:value: "2",  :text: "02" }].map {|d| d}
+    {value: "8",  text: "08" },
+    {value: "11", text: "11" },
+    {value: "2",  text: "02" }].map {|d| d}
   end
 end
