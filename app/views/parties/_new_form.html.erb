@@ -118,7 +118,7 @@
           <%= f.text_field :scheduled_for, class: "form-control datepicker" %>
 
           <%= f.label :scheduled_time %><br>
-          <%= f.select :scheduled_time, timeOfParty, {} ,class: "form-control" %>
+          <%= f.select :scheduled_time, @test, {} ,class: "form-control" %>
           <%= @test.inspect %>
         </div>
       </div>
