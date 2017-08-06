@@ -34,7 +34,7 @@ class Party < ActiveRecord::Base
 
   attr_accessor :user_ids, :emails
 
-  def partiesAssignedToVenue(current_user)
+  def self.partiesAssignedToVenue(current_user)
     
     venues = []
     venue_assigned_parties  = []
