@@ -67,8 +67,8 @@
     </div>
 
     <p> <%= @test %>
-    
-    <% if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+
+    <% if !(current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)) %>
         <div class="form-group" id='venue-select'>
               <%= f.label :venue %><br>
               <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
