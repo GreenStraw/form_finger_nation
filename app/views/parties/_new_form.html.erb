@@ -119,7 +119,7 @@
 
           <%#= f.label :scheduled_time %><br>
           <%#= f.select :scheduled_time, timeOfParty, {} ,class: "form-control" %>
-          <%= select_tag 'party[scheduled_time]', options_from_collection_for_select(timeOfParty, :value, :text), include_blank: false, class: 'select2 form-control' %>
+          <%= select_tag 'party[scheduled_time]', options_from_collection_for_select(timeOfParty, 'value', 'text'), include_blank: false, class: 'select2 form-control' %>
         </div>
       </div>
       <!--div class="col-md-6">
