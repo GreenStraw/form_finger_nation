@@ -73,7 +73,7 @@
                   <li>
                     <%= link_to "My Watch Parties", parties_path %>
                   </li>
-                  <% if user_signed_in? && current_user.managed_venues.any? %>
+                  <% if user_signed_in? && current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
                   <li>
                     <%= link_to "My Venues", venues_path %>
                   </li>
