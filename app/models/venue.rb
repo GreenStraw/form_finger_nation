@@ -27,7 +27,7 @@ class Venue < ActiveRecord::Base
 
   def upcoming_parties
     #self.parties.where('scheduled_for >= ?', Time.now).order(:scheduled_for)
-    self.parties.where('scheduled_for >= ? && verified = ?', Time.now, 1)
+    self.parties.where('scheduled_for >= ? && verified = ?', Time.now, '1')
     #.order(:scheduled_for)
   end
 
