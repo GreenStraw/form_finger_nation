@@ -165,7 +165,7 @@ class PartiesController < ApplicationController
   def new
 
     @test = current_user.managed_venues.first[:id]
-    
+
     respond_with @party
   end
 
@@ -202,12 +202,12 @@ class PartiesController < ApplicationController
     #params[:party]["scheduled_for(4i)"] = "13"
     #params[:party]["scheduled_for(5i)"] = "30"
 
-    selected_date = params[:party]["scheduled_for"].split('-')
+    #selected_date = params[:party]["scheduled_for"].split('-')
     
     if @party = Party.create(party_params)
 
       #if selected_date.count=3
-        @party[:scheduled_for] = Time.local(selected_date[0].to_i, selected_date[1].to_i, selected_date[2].to_i, 13, 30) #@party.scheduled_for="2017-09-08 13:30"
+      #  @party[:scheduled_for] = Time.local(selected_date[0].to_i, selected_date[1].to_i, selected_date[2].to_i, 13, 30) #@party.scheduled_for="2017-09-08 13:30"
       #end
 
       flash[:notice] = 'Party was successfully created.'
