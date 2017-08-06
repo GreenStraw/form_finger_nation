@@ -104,13 +104,8 @@ class User < ActiveRecord::Base
   end
 
   def get_party_reservations
-
-      #party_reservation.party.organizer_id != current_user.id
-      #self.party_reservations.parties.where('parties.organizer_id = ? ', self.id)
-
       parties = Party.where(organizer_id: self.id)
-      parties.joins(:party_reservations).where("party_reservations.party_id = parties.id")
-
+      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
   end
 
   def get_pending_parties

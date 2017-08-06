@@ -9,7 +9,7 @@ class PartiesController < ApplicationController
   def index
     $c = 0
     @user = current_user
-    @rvs_parties = @user.party_reservations
+    @rvs_parties = @user.get_party_reservations
     @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
     @pending_parties = @user.get_pending_parties
