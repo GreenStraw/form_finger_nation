@@ -117,8 +117,8 @@
           <%#= f.datetime_select :scheduled_for,{ampm: true} ,{class: "datepicker"}%>
           <%= f.text_field :scheduled_for, class: "form-control datepicker" %>
 
-          <%= f.label 'scheduled_time' %><br>
-          <%= f.select 'scheduled_time', @test, {} , {class: "form-control", :multiple => true} %>
+          <%= f.label :scheduled_time %><br>
+          <%= f.select :scheduled_time, timeOfParty, {} ,class: "form-control" %>
           <%= @test.inspect %>
         </div>
       </div>

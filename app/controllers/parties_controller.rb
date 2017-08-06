@@ -164,10 +164,10 @@ class PartiesController < ApplicationController
   # GET /parties/new
   def new
 
-    @test = [{:scheduled_time => "5",  :text => "05" }, {:scheduled_time => "6", :text => "06" }, {:scheduled_time => "7", :text => "07" }, 
-    {:scheduled_time => "8",  :text => "08" }, {:scheduled_time => "9", :text => "09" }, {:scheduled_time => "10",:text => "10" },
-    {:scheduled_time => "11", :text => "11" }, {:scheduled_time => "12",:text => "12" }, {:scheduled_time => "1", :text => "01" },
-    {:scheduled_time => "2",  :text => "02" }, {:scheduled_time => "3", :text => "03" }, {:scheduled_time => "4", :text => "04" } ].map {|d| [d[:scheduled_time] , d[:text]]}
+    @test = [{:value => "5",  :text => "05" }, {:value => "6", :text => "06" }, {:value => "7", :text => "07" }, 
+    {:value => "8",  :text => "08" }, {:value => "9", :text => "09" }, {:value => "10",:text => "10" },
+    {:value => "11", :text => "11" }, {:value => "12",:text => "12" }, {:value => "1", :text => "01" },
+    {:value => "2",  :text => "02" }, {:value => "3", :text => "03" }, {:value => "4", :text => "04" } ].map {|d| [d[:value]  , d[:text]]}
 
 
     respond_with @party
