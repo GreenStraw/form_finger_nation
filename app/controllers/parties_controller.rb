@@ -163,6 +163,9 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
+
+    @test = current_user.managed_venues.first[:id]
+    
     respond_with @party
   end
 
@@ -185,6 +188,7 @@ class PartiesController < ApplicationController
 
     if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       params[:party][:who_created_location] = "venue_venue"
+      params[:party][:venue_id] = current_user.managed_venues.first[:id]
     end
 
     if params[:party][:who_created_location] = "venue_venue" || params[:party][:who_created_location] = "customer_venue" && params[:party][:id] != "new_venue"

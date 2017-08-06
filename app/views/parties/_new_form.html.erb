@@ -65,51 +65,58 @@
           <%= f.radio_button :who_created_location, 'customer_house', id: 'isAtVenue_radio_button' %> House
         </label>
     </div>
-    <div class="form-group" id='venue-select'>
-          <%= f.label :venue %><br>
-          <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
-          <%#= f.select :venue_attributes, venue_selects, {} ,class: "form-control" %>
-    </div>
-    <div class='new_venue' id='venue-create'>
-      <%= f.fields_for :venue_attributes do |v| %>
-        <div class="form-group" id="bussiness_name">
-          <h6>Venue Name</h6>
-          <%= v.text_field :name, class: "form-control" %>
-        </div>
-        <%= v.fields_for :address_attributes do |a| %>
-          
-          <div class="form-group">
-            <%= a.label :street1, "Address street1" %><br>
-            <%= a.text_field :street1, class: "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= a.label :street2, "Address street2" %><br>
-            <%= a.text_field :street2, class: "form-control" %>
-          </div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= a.label :city %>
-                <%= a.text_field :city, class: "form-control" %>
-              </div>
+    <p> <%= @test %>
+    
+    <% if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+        <div class="form-group" id='venue-select'>
+              <%= f.label :venue %><br>
+              <%= select_tag 'party[venue_id]', options_from_collection_for_select(Venue.order("name ASC"), 'id', 'name_and_address', @party.venue_id), include_blank: false, class: 'select2 form-control' %>
+              <%#= f.select :venue_attributes, venue_selects, {} ,class: "form-control" %>
+        </div>
+        <div class='new_venue' id='venue-create'>
+          <%= f.fields_for :venue_attributes do |v| %>
+            <div class="form-group" id="bussiness_name">
+              <h6>Venue Name</h6>
+              <%= v.text_field :name, class: "form-control" %>
             </div>
-            <div class="col-md-3">
+            <%= v.fields_for :address_attributes do |a| %>
+              
               <div class="form-group">
-                <%= a.label :state %>
-                <%= a.text_field :state, class: "form-control" %>
+                <%= a.label :street1, "Address street1" %><br>
+                <%= a.text_field :street1, class: "form-control" %>
               </div>
-            </div>
-            <div class="col-md-3">
               <div class="form-group">
-                <%= a.label :zip, "Zip Code" %>
-                <%= a.text_field :zip, class: "form-control"  %>
+                <%= a.label :street2, "Address street2" %><br>
+                <%= a.text_field :street2, class: "form-control" %>
               </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <%= a.label :city %>
+                    <%= a.text_field :city, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= a.label :state %>
+                    <%= a.text_field :state, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= a.label :zip, "Zip Code" %>
+                    <%= a.text_field :zip, class: "form-control"  %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    <% end %>
+
+
     <div class="row">
       <div class="col-md-12">
         <div class="form-group date_area">
