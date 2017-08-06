@@ -124,7 +124,7 @@
 
              
                 <span id="create_parties">
-                  <% if current_user.parties.length > 0 %>
+                  <% if @created_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Created Parties</h3>
                   </div>
@@ -134,7 +134,7 @@
                 <div class="clearfix"></div>
 
                 <span id="rsvp_party">
-                  <% if current_user.party_reservations.length > 0 %>
+                  <% if @rvs_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>RSVP Parties</h3>
                   </div>
@@ -143,7 +143,7 @@
                 </span>
                 
                 <span id="pending_parties">
-                  <% if current_user.get_pending_parties.length > 0 %>
+                  <% if @pending_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Verify Waiting</h3>
                   </div>
@@ -152,7 +152,7 @@
                 </span>
 
                 <span id="accepted_parties">
-                  <% if current_user.get_accepted_parties.length > 0 %>
+                  <% if @accepted_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Accepted Parties</h3>
                   </div>
