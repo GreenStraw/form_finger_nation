@@ -106,7 +106,10 @@ class User < ActiveRecord::Base
   def get_party_reservations
 
       #party_reservation.party.organizer_id != current_user.id
-      self.party_reservations.parties.where('parties.organizer_id = ? ', self.id)
+      #self.party_reservations.parties.where('parties.organizer_id = ? ', self.id)
+
+      parties = Party.where(organizer_id: self.id)
+      parties.joins(:party_reservations).where("party_reservations.party_id = party.id")
 
   end
 
