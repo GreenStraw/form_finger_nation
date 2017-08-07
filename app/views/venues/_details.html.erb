@@ -2,12 +2,15 @@
   <div style="padding: 3%;">
 
   	<% if !@venue.image_url.blank? %>
-	  	<%= image_tag(@venue.image_url) %>
+	  	<%= image_tag(@venue.image_url), style: "float: right; right: 40%; position: relative;" %>
 	<% else %>
 		<img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
 		style="max-width: 95% !important;
 		height: 55px;
 		border-radius: 50%;
+		float: right;
+		right: 40%;
+		position: relative;
 		overflow: hidden;">
     <% end %>
 
