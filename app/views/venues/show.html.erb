@@ -24,6 +24,12 @@
             <!--h2 style="text-align: center;"-->
               <%= link_to 'Edit', edit_venue_path(@venue), class: "btn btn-green btn-default" %>
             <!--/h2-->
+            <div class="col-md-12 text-center footer">
+                <strong>
+                    <!--a href="/parties/cant_find">Edit My Venue Settings</a-->
+                    <%= link_to 'Edit My Venue Settings', edit_venue_path(@venue) %>
+                </strong>
+            </div>
           <% end %>
 
           <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 1%; padding-left: 3%;">

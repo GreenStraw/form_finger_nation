@@ -4,11 +4,11 @@ body {overflow-x: hidden}
     <% if @party.banner.present? %>
       background: url(<%= asset_path "#{@party.banner_url}" %>) no-repeat center center;
       background-size: cover;
-      height: 468px;
+      height: 400px;
     <% else %>
       background: url(<%= asset_path 'sports_banner.png' %>) no-repeat center center;
       background-size: cover;
-      height: 468px;
+      height: 400px;
     <% end %>
   }
 </style>
