@@ -34,7 +34,7 @@
                 
               <div class="inline-block" style="bottom: 0; position: absolute; padding: 15px;">
                 <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                  <#% unless package.voucher.redeemed_at.blank? %>
+                  <%# unless package.voucher.redeemed_at.blank? %>
                     <!--a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a-->
                   <%# else %>
                     <%#= link_to "Redeem", redeem_voucher_path(package.voucher.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>

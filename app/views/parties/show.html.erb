@@ -167,17 +167,17 @@ body {overflow-x: hidden}
                     </div>
                   <% end %>
 
-                  <%# if @party.party_packages.any? %>
+                  <% if @party_packages.any? %>
                     <h2>Party Vouchers</h2>
                   <%# end %>
                 </div>
 
 
-                <%# if @party.party_packages.any? %>
+                <% if @party_packages.any? %>
                   <%= render partial: 'card_package', locals: {packages: @party_packages} %>
                   <%= @party.venue.inspect %>
                   <%= @party.inspect %>
-                <%# end %>
+                <% end %>
 
           </div>
 
