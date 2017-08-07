@@ -164,9 +164,6 @@ class PartiesController < ApplicationController
 
   # GET /parties/new
   def new
-
-    @test = current_user.managed_venues.first[:id]
-
     respond_with @party
   end
 
