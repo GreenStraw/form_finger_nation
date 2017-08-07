@@ -1,23 +1,15 @@
 
-<h2 style="text-align: center; display: block; margin: 0 auto;">Specials</h2> 
+<h2 class="right-header-packages">Specials</h2> 
 
 <% packages.each do |package| %>
 
   <% if !package.for_everyone? %>
 
-        <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
+        <div class="card-packages">
 
-            <div class="padding" style="padding: 1%;">
+            <div class="padding">
 
-                  <div class="holder" style="float: left; padding: 10px;">
+                  <div class="holder">
 
                     <% if !package.image_url.nil? %>
 
@@ -25,39 +17,35 @@
 
                     <% else %>
 
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
 
                     <% end %>
                   </div>
                   
                   <div class="caption">
-                    <a href="/parties/dallas-home">
                       <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
+
+                      <br/>
                     
-                    <p style="padding-left: 10px; margin: 0;">
+                    <p class="description">
                       <%= package.description.truncate(40) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
-              </div> <!-- END padding -->
+            </div> <!-- END padding -->
 
-              <div class="bottom">
+            <div class="bottom">
                 
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
                     padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
 
-                <span style="bottom: 0;
+              <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
+
+            </div> <!-- END Bottom -->
         </div>
 
 
@@ -65,19 +53,11 @@
 
 
 
-        <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
+        <div class="card-packages">
 
-            <div class="padding" style="padding: 1%;">
+            <div class="padding">
 
-                  <div class="holder" style="float: left; padding: 10px;">
+                  <div class="holder">
 
                     <% if !package.image_url.nil? %>
 
@@ -85,104 +65,35 @@
 
                     <% else %>
 
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
 
                     <% end %>
                   </div>
                   
                   <div class="caption">
-                    <a href="/parties/dallas-home">
                       <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
+
+                      <br/>
                     
-                    <p style="padding-left: 10px; margin: 0;">
+                    <p class="description">
                       <%= package.description.truncate(40) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
-              </div> <!-- END padding -->
+            </div> <!-- END padding -->
 
-              <div class="bottom">
+            <div class="bottom">
                 
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
                     padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
 
-                <span style="bottom: 0;
+              <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
-        </div>
 
-
-
-
-
-
-
-
-
-
-
-                <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
-
-            <div class="padding" style="padding: 1%;">
-
-                  <div class="holder" style="float: left; padding: 10px;">
-
-                    <% if !package.image_url.nil? %>
-
-                      <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
-
-                    <% else %>
-
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
-
-                    <% end %>
-                  </div>
-                  
-                  <div class="caption">
-                    <a href="/parties/dallas-home">
-                      <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
-                    
-                    <p style="padding-left: 10px; margin: 0;">
-                      <%= package.description.truncate(40) rescue "" %>
-                    </p>
-                  </div> <!-- END caption -->
-              </div> <!-- END padding -->
-
-              <div class="bottom">
-                
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
-                    padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
-
-                <span style="bottom: 0;
-                    position: absolute; right: 0;
-                    padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
+            </div> <!-- END Bottom -->
         </div>
 
 
@@ -197,24 +108,11 @@
 
 
 
+        <div class="card-packages">
 
+            <div class="padding">
 
-
-
-
-                <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
-
-            <div class="padding" style="padding: 1%;">
-
-                  <div class="holder" style="float: left; padding: 10px;">
+                  <div class="holder">
 
                     <% if !package.image_url.nil? %>
 
@@ -222,39 +120,81 @@
 
                     <% else %>
 
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
 
                     <% end %>
                   </div>
                   
                   <div class="caption">
-                    <a href="/parties/dallas-home">
                       <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
+
+                      <br/>
                     
-                    <p style="padding-left: 10px; margin: 0;">
+                    <p class="description">
                       <%= package.description.truncate(40) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
-              </div> <!-- END padding -->
+            </div> <!-- END padding -->
 
-              <div class="bottom">
+            <div class="bottom">
                 
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
                     padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
 
-                <span style="bottom: 0;
+              <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
+
+            </div> <!-- END Bottom -->
+        </div>
+
+
+
+
+        <div class="card-packages">
+
+            <div class="padding">
+
+                  <div class="holder">
+
+                    <% if !package.image_url.nil? %>
+
+                      <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
+
+                    <% else %>
+
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
+
+                    <% end %>
+                  </div>
+                  
+                  <div class="caption">
+                      <h3> <%= package.name %> </h3>
+
+                      <br/>
+                    
+                    <p class="description">
+                      <%= package.description.truncate(40) rescue "" %>
+                    </p>
+                  </div> <!-- END caption -->
+            </div> <!-- END padding -->
+
+            <div class="bottom">
+                
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
+                    padding: 15px; ">
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
+
+              <span style="bottom: 0;
+                    position: absolute; right: 0;
+                    padding: 20px;">$<%= package.price %></span>
+
+            </div> <!-- END Bottom -->
         </div>
 
 
@@ -265,19 +205,11 @@
 
 
 
-                <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
+        <div class="card-packages">
 
-            <div class="padding" style="padding: 1%;">
+            <div class="padding">
 
-                  <div class="holder" style="float: left; padding: 10px;">
+                  <div class="holder">
 
                     <% if !package.image_url.nil? %>
 
@@ -285,39 +217,35 @@
 
                     <% else %>
 
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
 
                     <% end %>
                   </div>
                   
                   <div class="caption">
-                    <a href="/parties/dallas-home">
                       <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
+
+                      <br/>
                     
-                    <p style="padding-left: 10px; margin: 0;">
+                    <p class="description">
                       <%= package.description.truncate(40) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
-              </div> <!-- END padding -->
+            </div> <!-- END padding -->
 
-              <div class="bottom">
+            <div class="bottom">
                 
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
                     padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
 
-                <span style="bottom: 0;
+              <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
+
+            </div> <!-- END Bottom -->
         </div>
 
 
@@ -329,22 +257,11 @@
 
 
 
+        <div class="card-packages">
 
+            <div class="padding">
 
-
-                <div style="background-color: #f9f9f9;
-            width: 300px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-            height: 180px;
-            color: #000;
-            position: relative;
-            margin: 0 auto; margin-top: 2%;
-            margin-bottom: 5%;">
-
-            <div class="padding" style="padding: 1%;">
-
-                  <div class="holder" style="float: left; padding: 10px;">
+                  <div class="holder">
 
                     <% if !package.image_url.nil? %>
 
@@ -352,40 +269,89 @@
 
                     <% else %>
 
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-                      style="max-width: 95% !important;
-                      height: 55px;
-                      border-radius: 50%;
-                      overflow: hidden;">
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
 
                     <% end %>
                   </div>
                   
                   <div class="caption">
-                    <a href="/parties/dallas-home">
                       <h3> <%= package.name %> </h3>
-                    </a>    
-                    <br/>
+
+                      <br/>
                     
-                    <p style="padding-left: 10px; margin: 0;">
+                    <p class="description">
                       <%= package.description.truncate(40) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
-              </div> <!-- END padding -->
+            </div> <!-- END padding -->
 
-              <div class="bottom">
+            <div class="bottom">
                 
-                <!--div class="inline-block" style="    bottom: 0;
-                    position: absolute;
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
                     padding: 15px; ">
-                  <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                </div-->
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
 
-                <span style="bottom: 0;
+              <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
-              </div> <!-- END Bottom -->
+
+            </div> <!-- END Bottom -->
         </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="card-packages">
+
+            <div class="padding">
+
+                  <div class="holder">
+
+                    <% if !package.image_url.nil? %>
+
+                      <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
+
+                    <% else %>
+
+                      <img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png">
+
+                    <% end %>
+                  </div>
+                  
+                  <div class="caption">
+                      <h3> <%= package.name %> </h3>
+
+                      <br/>
+                    
+                    <p class="description">
+                      <%= package.description.truncate(40) rescue "" %>
+                    </p>
+                  </div> <!-- END caption -->
+            </div> <!-- END padding -->
+
+            <div class="bottom">
+                
+              <!--div class="inline-block" style="    bottom: 0;
+                  position: absolute;
+                    padding: 15px; ">
+                <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
+              </div-->
+
+              <span style="bottom: 0;
+                    position: absolute; right: 0;
+                    padding: 20px;">$<%= package.price %></span>
+
+            </div> <!-- END Bottom -->
+        </div>
+
   <% end %>
 
 <% end %>
