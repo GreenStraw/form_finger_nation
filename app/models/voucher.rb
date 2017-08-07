@@ -60,6 +60,10 @@ class Voucher < ActiveRecord::Base
 
   end
 
+  def self.redeemStatus(package_id, user_id, party_id)
+      where("package_id = ? AND user_id = ? AND party_id = ?", package_id, user_id, party_id)
+  end
+
   def self.redeemed
     #where("redeemed_at IS NOT ? AND user_id = ?", nil, current_user.id)
     where("redeemed_at IS NOT ?", nil)
