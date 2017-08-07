@@ -21,9 +21,9 @@
         <div>
 
           <% if current_user.present? && current_user.can?(:edit, @venue) %>
-            <h2 style="text-align: center;">
-              <%= link_to 'Edit', edit_venue_path(@venue) %>
-            </h2>
+            <!--h2 style="text-align: center;"-->
+              <%= link_to 'Edit', edit_venue_path(@venue), class: "btn btn-green btn-default" %>
+            <!--/h2-->
           <% end %>
 
           <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
