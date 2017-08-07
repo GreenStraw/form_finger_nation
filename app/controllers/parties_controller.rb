@@ -158,6 +158,7 @@ class PartiesController < ApplicationController
 
   # GET /parties/1
   def show
+    @party_packages = Party.getPartyPackages(@party.venue.id)
     @map_markers = Party.build_markers([@party])
   end
 

@@ -53,6 +53,10 @@ class Party < ActiveRecord::Base
   
   end
 
+  def self.getPartyPackages(venue_id)
+      Package.where("venue_id = ?", venue_id).where(:for_everyone =>  false)
+  end
+
   def venue_exists
     venue = Venue.where(id: venue_id)
     if (self.venue.present? && !self.venue.new_record?) && venue.blank?
