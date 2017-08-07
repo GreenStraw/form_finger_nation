@@ -53,7 +53,7 @@
             <% else %>
 			
               <div class="col-sm-9" style="margin-bottom: 20px;">
-                <h5 class=''>You currently have no Vouchers</h5>
+                <h2 class=''>You currently have no Vouchers</h2>
               </div>
 			  
 			  <% if current_user.requested_role != "Sports Fan" %>
@@ -79,8 +79,8 @@
               <% @history_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
-            <% else %>
-              <h5 class='text-muted'>No Redeemed Vouchers</h5>
+            <%# else %>
+              <!--h5 class='text-muted'>No Redeemed Vouchers</h5-->
             <% end %>
           </ul>
         </div>
