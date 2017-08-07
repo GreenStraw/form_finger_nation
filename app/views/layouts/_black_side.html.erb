@@ -85,6 +85,7 @@
             <% end %>
           </li>
 
+          <% if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
           <li>
             <% if current_user.get_pending_parties.length > 0 %>
                   <a href="#Waiting" class="my_party">Verify Waiting (<%= current_user.get_pending_parties.length %>)</a>
@@ -100,6 +101,7 @@
                   <span>Accepted 0</span>
             <% end %>
           </li>
+          <% end %>
         </ul>
       </li>
 
