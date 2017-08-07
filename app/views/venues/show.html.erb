@@ -21,9 +21,9 @@
         <div>
 
           <% if current_user.present? && current_user.can?(:edit, @venue) %>
-            <p style="text-align: center;">
+            <h2 style="text-align: center;">
               <%= link_to 'Edit', edit_venue_path(@venue) %>
-            </p>
+            </h2>
           <% end %>
 
           <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
@@ -38,7 +38,15 @@
 
           <div class="col-lg-6 col-md-6 col-sm-12">
 
-            <div class="desktop">
+            <div>
+                <div style="height: 100vh;
+    border-left: solid #d7d7d7;
+    border-width: 0.075em;
+    margin-right: 2px;
+    margin-top: 50px;
+    display: inline-block;
+    position: relative;
+    float: left;" class="desktop"></div>
                 <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
             </div>
 

@@ -155,12 +155,6 @@ body {overflow-x: hidden}
                     <p style="margin:0; font-size: 12px;"><%= @party.venue.address.city_state %></p>
                   <% end %>
 
-                  <% if @party.party_packages.any? %>
-                    <h2>Party Vouchers</h2>
-                  <% end %>
-                </div>
-
-
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <div style="width: 100%;" class="map_holder mobile">
 
@@ -173,10 +167,15 @@ body {overflow-x: hidden}
                     </div>
                   <% end %>
 
+                  <%# if @party.party_packages.any? %>
+                    <h2>Party Vouchers</h2>
+                  <%# end %>
+                </div>
 
-                <% if @party.party_packages.any? %>
+
+                <%# if @party.party_packages.any? %>
                   <%= render partial: 'card_package', locals: {packages: @party.packages} %>
-                <% end %>
+                <%# end %>
 
           </div>
 
