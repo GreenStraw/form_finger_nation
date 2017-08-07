@@ -18,7 +18,7 @@
         <div id='notice'>
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
-        <div class="follow">
+        <div>
 
           <% if current_user.present? && current_user.can?(:edit, @venue) %>
             <p style="text-align: center;">
@@ -26,12 +26,7 @@
             </p>
           <% end %>
 
-          <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
-
-            <div style="float: right; width: 750px;" class="desktop">
-                <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
-            </div>
-
+          <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
             <%= render partial: 'details' %>
 
             <% if @venue.upcoming_parties.any? %>
@@ -39,6 +34,13 @@
             <% else %>
                   <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
             <% end %>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <div class="desktop">
+                <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
+            </div>
 
           </div>
         </div>
