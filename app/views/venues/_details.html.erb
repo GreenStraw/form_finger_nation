@@ -1,6 +1,16 @@
 <div>
   <div style="padding: 3%;">
-	  <%= image_tag(@venue.image_url) unless @venue.image_url.blank? %>
+
+  	<% if !@venue.image_url.blank? %>
+	  	<%= image_tag(@venue.image_url) %>
+	<% else %>
+		<img alt="Placeholder" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
+		style="max-width: 95% !important;
+		height: 55px;
+		border-radius: 50%;
+		overflow: hidden;">
+    <% end %>
+
 	  <h2><%= @venue.name.upcase %></h2>
 
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.street %></p>
