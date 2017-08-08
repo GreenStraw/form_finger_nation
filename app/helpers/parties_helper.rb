@@ -8,6 +8,9 @@ module PartiesHelper
   def reservations_include?(party, user)
     user.party_reservations.where(user_id: user.id, party_id: party.id).first.blank? ? false : true
   end
+  def voucher_redeem_include?(party, user, venue)
+    Voucher.where(user_id: user.id, party_id: party.id, venue_id: venue.id).first.blank? ? false : true
+  end
   def timeOfParty
    [{:value => "5",  :text => "05" }, {:value => "6", :text => "06" }, {:value => "7", :text => "07" }, 
     {:value => "8",  :text => "08" }, {:value => "9", :text => "09" }, {:value => "10",:text => "10" },

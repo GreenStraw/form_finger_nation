@@ -29,13 +29,10 @@ class VouchersController < ApplicationController
   # POST /vouchers
   def create
 
-    #normalize_voucher_params = { :user_id => voucher_params["party_identifier"][1], :party_id => voucher_params["party_identifier"][0], :package_id =>  voucher_params["package_id"]  }
-
     @voucher = Voucher.new(voucher_params)
 
-    party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id).first
-
-    @voucher.update_attribute(:user_id, party_organizer_id)
+    #party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id).first
+    #@voucher.update_attribute(:user_id, party_organizer_id)
 
     if @voucher.save
       redirect_to @voucher, notice: 'Voucher was successfully created.'
