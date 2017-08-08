@@ -52,16 +52,8 @@
 			
               <div class="col-sm-9" style="margin-bottom: 20px;">
               <br/><br/>
-                <h2 class=''>You currently have no Vouchers</h2>
+                <h2 class=''>You currently have no vouchers to redeem</h2>
               </div>
-			  
-			  <% if current_user.requested_role != "Sports Fan" %>
-          <!-- 
-				  <div class="col-sm-4">
-					<%= link_to "Create Voucher", new_voucher_path, class: "btn btn-green btn-default" %>
-				  </div>
-          -->
-			  <% end %>
 			  
               <div class="col-sm-4">
                 <%= link_to "Find a Watch Party", search_parties_path, class: "btn btn-green btn-default" %>

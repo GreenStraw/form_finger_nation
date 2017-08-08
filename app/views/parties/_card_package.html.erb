@@ -39,7 +39,6 @@
                       <% if voucher.nil? %>
                         <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
                       <% else %>
-                        <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeem</a>
                         <%= link_to "Redeem", redeem_voucher_path(voucher.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
                       <% end %>
                   </div>
