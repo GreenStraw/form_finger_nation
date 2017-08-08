@@ -43,8 +43,6 @@
           </div>
         </div>
         <div class="row sp_contents" id="redeemable">
-        <br>
-        <br>
           <ul class="list-group">
             <% if @redeemable_vouchers.any? && current_user.requested_role != "Venue" %>
               <% @redeemable_vouchers.each do |voucher| %>
@@ -53,6 +51,7 @@
             <% else %>
 			
               <div class="col-sm-9" style="margin-bottom: 20px;">
+              <br/><br/>
                 <h2 class=''>You currently have no Vouchers</h2>
               </div>
 			  
