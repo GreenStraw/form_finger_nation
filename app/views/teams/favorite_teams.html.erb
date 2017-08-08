@@ -23,6 +23,11 @@
           <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
         </div>
         <div class="follow">
+            <div class="col-md-12 text-center footer">
+                <strong>
+                    <%= link_to 'See All Teams', teams_path %>
+                </strong>
+            </div>
 					<div class="panel-body">
 					  <% @teams.each do |team| %>
 					  <table class="table">
