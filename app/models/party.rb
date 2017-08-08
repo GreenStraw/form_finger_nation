@@ -53,8 +53,22 @@ class Party < ActiveRecord::Base
   
   end
 
-  def self.getPartyPackages(venue_id)
-      Package.where("venue_id = ?", venue_id).where(:for_everyone =>  false)
+  def self.getPartyPackages(venue_id, party_id)
+
+      venue_packages = Package.where("venue_id = ?", venue_id).where(:for_everyone =>  false)
+
+      party_vouchers = Voucher.where(package_id: venue_packages.map(&:id), party_id: party_id)
+
+      party_packages = [] #array that will be sent with package object
+
+      party_vouchers.try(:each) do |voucher|
+
+        party_packages.concat(venue_packages.where("id = ?", voucher.package_id))
+     
+      end
+
+     return party_packages
+
   end
 
   def venue_exists
