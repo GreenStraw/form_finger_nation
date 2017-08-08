@@ -187,11 +187,13 @@ class PartiesController < ApplicationController
     if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       params[:party][:who_created_location] = "venue_venue"
       params[:party][:venue_id] = current_user.managed_venues.first[:id]
+      params[:party][:verified] = true
+      params[:party].delete(:venue_attributes)
     end
 
-    if params[:party][:who_created_location] = "venue_venue" || params[:party][:who_created_location] = "customer_venue" && params[:party][:id] != "new_venue"
+    if params[:party][:who_created_location] = "customer_venue" && params[:party][:venue_id] != "new_venue"
+      params[:party][:venue_id] = current_user.managed_venues.first[:id]
       params[:party].delete(:venue_attributes)
-      params[:party][:verified] = true
     end
 
     #params[:party]["scheduled_for(1i)"] = "2017"
