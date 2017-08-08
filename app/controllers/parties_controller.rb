@@ -182,10 +182,10 @@ class PartiesController < ApplicationController
     
     params[:party][:verified] = false # default verified to false
 
-    if params[:who_created_location] = true
-      params[:who_created_location] = "customer_venue"
+    if params[:party][:who_created_location].to_s = "customer_venue"
+      params[:party][:who_created_location] = "customer_venue"
     else
-      params[:who_created_location] = "customer_house"
+      params[:party][:who_created_location] = "customer_house"
     end
 
     if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
