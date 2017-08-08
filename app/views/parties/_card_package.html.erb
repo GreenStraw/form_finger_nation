@@ -35,7 +35,7 @@
               <% if reservations_include?(party, user) %>
                   <div class="inline-block" style="bottom: 0; position: absolute; padding: 15px;">
                       <% voucher = voucher_redeem_include(party, user, package) %>
-                      <% if !voucher.nil? %>
+                      <% if voucher.nil? %>
                         <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
                       <% else %>
                         <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeem</a>
