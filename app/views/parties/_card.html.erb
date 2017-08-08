@@ -1,7 +1,12 @@
 
 
   <div class="cancle_icon">
-    <%= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% if accepted.verified? %>
+        <img src="http://www.foamfingernation.com/assets/images/vendor/verified_logo.png" title="party verified">
+      <%# else %>
+        <%#= link_to("Verify", verify_party_path(accepted), class: "prt_rsvp", remote: true, method: :put)%>
+    <% end %>
   </div>
 
   <div class="holder">
