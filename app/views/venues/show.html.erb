@@ -37,7 +37,9 @@
             <% if @venue.upcoming_parties.any? %>
                   <%= render partial: 'card_parties', locals: {parties: @venue.upcoming_parties} %>
             <% else %>
-                  <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>
+                  <h2>
+                    <%= link_to 'No upcoming parties at this venue, click here to create one!', new_party_path %>  
+                  </h2>
             <% end %>
           </div>
 

@@ -11,6 +11,8 @@
 
                   <div class="holder">
 
+                    <h2> <%= package.image_url %>
+                    
                     <% if !package.image_url.nil? %>
 
                       <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
@@ -41,9 +43,11 @@
                 <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
               </div-->
 
-              <span style="bottom: 0;
+              <% if package.price > 0 %>
+                    <span style="bottom: 0;
                     position: absolute; right: 0;
                     padding: 20px;">$<%= package.price %></span>
+              <% end %>
 
             </div> <!-- END Bottom -->
         </div>

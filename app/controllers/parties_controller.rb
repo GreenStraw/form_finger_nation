@@ -179,10 +179,14 @@ class PartiesController < ApplicationController
   def create
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
-
-    #party_params[:who_created_location] = "customer_house" || party_params[:who_created_location] = "customer_venue" && party_params[:id] = "new_venue"
-
+    
     params[:party][:verified] = false # default verified to false
+
+    if params[:who_created_location] = true
+      params[:who_created_location] = "customer_venue"
+    else
+      params[:who_created_location] = "customer_house"
+    end
 
     if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       params[:party][:who_created_location] = "venue_venue"
