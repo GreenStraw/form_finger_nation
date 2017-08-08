@@ -34,7 +34,7 @@
                 
               <div class="inline-block" style="bottom: 0; position: absolute; padding: 15px;">
                 <a class="btn btn-green btn-default" href="/parties/search">Redeem</a>
-                  <% unless voucher_redeem_include?(party, user, party.venue) %>
+                  <% unless voucher_redeem_include?(party, user, package) %>
                     <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
                   <% else %>
                     <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeem</a>
