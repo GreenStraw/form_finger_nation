@@ -71,7 +71,7 @@
         <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
           <li>
             <% if current_user.parties.length > 0 %>
-                  <%= link_to "My Parties #{current_user.parties.length}", get_parties_parties_path, remote: true, class:"my_party"%>
+                  (<%= link_to "My Parties #{current_user.parties.length}", get_parties_parties_path, remote: true, class:"my_party"%>)
             <% else %>
                   <span>My Parties 0</span>
             <% end %>
