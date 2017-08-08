@@ -112,11 +112,14 @@
         <!-- <img src="images/hand_icon.png"> -->
         <%= link_to '<i class="fa fa-hand-o-up"></i>Your Teams'.html_safe, favorite_teams_teams_path, class: "#{css1_class}" %>
       </li>
-      <li>
-        <% css1_class = controller.controller_name == 'vouchers' || current_page?( vouchers_path ) ? "active_p" : "" %>
 
-        <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
-      </li>
+      <% if !(current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)) %>
+            <li>
+              <% css1_class = controller.controller_name == 'vouchers' || current_page?( vouchers_path ) ? "active_p" : "" %>
+
+              <%= link_to '<i class="fa fa-hand-o-up"></i>Your Vouchers'.html_safe, vouchers_path, class: "#{css1_class}" %>
+            </li>
+      <% end %>
 
     <% css1_class = controller.controller_name == 'venues' || current_page?( venues_path ) ? "active_p" : "" %>
 	  <% if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
