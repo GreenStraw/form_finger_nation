@@ -36,7 +36,7 @@
                 
                   <% voucher = voucher_redeem_include(party, user, package) %>
 
-                  <% if voucher.any? %>
+                  <% if !voucher.nil? %>
                     <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
                   <% else %>
                     <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeem</a>
