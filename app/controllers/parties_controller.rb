@@ -192,6 +192,7 @@ class PartiesController < ApplicationController
     end
 
     if params[:party][:who_created_location] = "customer_venue" && params[:party][:venue_id] != "new_venue"
+      #params[:party][:venue_id] = current_user.managed_venues.first[:id]
       params[:party].delete(:venue_attributes)
     end
 
