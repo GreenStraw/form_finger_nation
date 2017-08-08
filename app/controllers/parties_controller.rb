@@ -182,7 +182,7 @@ class PartiesController < ApplicationController
     
     params[:party][:verified] = false # default verified to false
 
-    if params[:party][:who_created_location].to_s = "customer_venue"
+    if params[:party][:who_created_location] = "customer_venue"
       params[:party][:who_created_location] = "customer_venue"
     else
       params[:party][:who_created_location] = "customer_house"
