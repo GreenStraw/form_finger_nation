@@ -182,11 +182,11 @@ class PartiesController < ApplicationController
     
     params[:party][:verified] = false # default verified to false
 
-    if params[:party][:who_created_location] = "customer_venue"
-      params[:party][:who_created_location] = "customer_venue"
-    else
-      params[:party][:who_created_location] = "customer_house"
-    end
+    #if params[:party][:who_created_location] = "customer_venue"
+    #  params[:party][:who_created_location] = "customer_venue"
+    #else
+    #  params[:party][:who_created_location] = "customer_house"
+    #end
 
     if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       params[:party][:who_created_location] = "venue_venue"
@@ -195,7 +195,7 @@ class PartiesController < ApplicationController
       params[:party].delete(:venue_attributes)
     end
 
-    if params[:party][:who_created_location] = "customer_venue" && params[:party][:venue_id] != "new_venue"
+    if params[:party][:who_created_location] == "customer_venue" && params[:party][:venue_id] != "new_venue"
       #params[:party][:venue_id] = current_user.managed_venues.first[:id]
       params[:party].delete(:venue_attributes)
     end
