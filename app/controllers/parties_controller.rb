@@ -182,7 +182,7 @@ class PartiesController < ApplicationController
     
     # default database columns
     params[:party][:verified] = false
-    params[:venue_attributes][:created_by] = nil
+    params[:party][:venue_attributes][:created_by] = nil
 
     if current_user.admin?
 
@@ -344,7 +344,7 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :scheduled_time, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :who_created_location, venue_attributes: [:name, :description,  address_attributes: [:street1, :street2, :city, :state, :zip]])
+      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :scheduled_time, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :who_created_location, venue_attributes: [:name, :description, :created_by, address_attributes: [:street1, :street2, :city, :state, :zip]])
     end
 
     def sort_parties_geographically(parties)
