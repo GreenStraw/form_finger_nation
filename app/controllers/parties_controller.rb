@@ -180,23 +180,26 @@ class PartiesController < ApplicationController
     # to_date = DateTime.strptime(params[:party][:scheduled_for],'%m/%d/%Y').strftime("%Y-%m-%d")
     # render new_party_path
     
-    params[:party][:verified] = false # default verified to false
+    # default database columns
+    params[:party][:verified] = false
+    params[:venue_attributes][:created_by] = nil
 
-    #if params[:party][:who_created_location] = "customer_venue"
-    #  params[:party][:who_created_location] = "customer_venue"
-    #else
-    #  params[:party][:who_created_location] = "customer_house"
-    #end
+    if current_user.admin?
 
-    if current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
+      params[:party][:verified] = true
+
+      if params[:party][:venue_id] == "new_venue"
+        params[:venue_attributes][:created_by] = "admin"     
+      end
+
+    elsif current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
+      
       params[:party][:who_created_location] = "venue_venue"
-      params[:party][:venue_id] = current_user.managed_venues.first[:id]
+      params[:party][:venue_id] = current_user.managed_venues.first[:id] #grab the one venue that user owns
       params[:party][:verified] = true
       params[:party].delete(:venue_attributes)
-    end
-
-    if params[:party][:who_created_location] == "customer_venue" && params[:party][:venue_id] != "new_venue"
-      #params[:party][:venue_id] = current_user.managed_venues.first[:id]
+   
+    elsif params[:party][:who_created_location] == "customer_venue" && params[:party][:venue_id] != "new_venue"
       params[:party].delete(:venue_attributes)
     end
 
