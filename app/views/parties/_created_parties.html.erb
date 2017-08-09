@@ -1,19 +1,23 @@
 <% c = 0 %>
 <% if @created_parties.present? %>
   <% @created_parties.try(:each) do |party| %>
+    
     <% if c % 3 == 0 %>
       <div class=" ">
     <% end %>
+    
     <% c = c + 1 %>
-    <div class="col-sm-6 col-md-4">  
+    
+
+    <!--div class="col-sm-6 col-md-4"-->  
       <div class="card">
 
         <div class="padding">
+          
+          <% if party %>
+            <%= render partial: 'card', locals: {party: party} %>
+          <% end %>
 
-            <% if party %>
-              <%= render partial: 'card', locals: {party: party} %>
-            <% end %>
-            
         </div> <!-- END padding -->
 
 
@@ -56,10 +60,14 @@
 
           </div>
       </div>
-    </div>
+
+    <!--/div-->
+
+
     <% if c % 3 == 0 || @created_parties.count == c %>
       </div>
     <% end %>
+
 <% end %>
 
 <% end %>

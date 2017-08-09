@@ -2,11 +2,14 @@
 <% @pending_parties.each do |party_pending| %>
 
 <% if party_pending.organizer_id != current_user.id %>
+    
     <% if c % 3 == 0 %>
       <div class=" ">
     <% end %>
+    
     <% c = c + 1 %>
-    <div class="col-sm-6 col-md-4 add_rsvp_party">  
+
+    <!--div class="col-sm-6 col-md-4 add_rsvp_party"-->  
       <div class="card">
 
         <div class="padding">
@@ -47,7 +50,10 @@
 
           </div>
       </div>
-    </div>
+
+    <!--/div-->
+
+
     <% if c % 3 == 0 || @pending_parties.count == c %>
       </div>
     <% end %>
