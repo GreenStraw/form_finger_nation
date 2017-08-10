@@ -5,7 +5,7 @@
 
       <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
 
-      <%= link_to "Party Packages", party, class: "prt_rsvp" %>
+      <%#= link_to "Party Packages", party, class: "prt_rsvp" %>
 
     
   <% if current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue)%>
