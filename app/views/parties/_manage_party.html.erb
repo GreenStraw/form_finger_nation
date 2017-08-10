@@ -8,25 +8,16 @@
       <%= link_to "Party Packages", party, class: "prt_rsvp" %>
 
     
-  <% if current_user.admin? || current_user.has_role?(:manager, party) || current_user.has_role?(:venue_manager, party)%>
+  <% if current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue)%>
 
-      <!--
-      <a href="javascript:void(0);" 
-         title=<%= party.name %> >
-      -->    
-          <% if party.verified? %>
-              <%= link_to( "Verified", unverify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
-          <% else %>
-              <%= link_to("Verify", verify_party_path(party), class: "prt_rsvp", remote: true, method: :put)%>
-          <% end %>
+          <%= link_to( "Verified", unverify_party_path(party), class: "#{party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
+
+          <%= link_to("Verify", verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
+
 
           <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
 
           <%#= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
-
-      <!--
-      </a>
-      -->
 
   <% end %>
 
