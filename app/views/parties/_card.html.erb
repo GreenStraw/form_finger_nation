@@ -10,7 +10,7 @@
   </div>
 
   <div class="holder">
-    <% unless party.image_url.nil? %>
+    <% unless party.image_url %>
       <p> <%= party.image_url %> </p>
     <% else %>
       <p> no </p>
