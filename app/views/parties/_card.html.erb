@@ -10,7 +10,13 @@
   </div>
 
   <div class="holder">
-    <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
+     test<%= asset_path('placeholder.png') %>
+
+    <% !party.image_url.nil? %>
+      <%= image_tag(party.image_url, class: "img-responsive center") %>
+    <% else %>
+      <img src="/assets/placeholder.png" title="party verified" alt="verified" class="img-responsive center">
+    <% end %>
   </div>
   
   <div class="caption">
