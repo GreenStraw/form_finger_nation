@@ -49,7 +49,7 @@ class Team < ActiveRecord::Base
     self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end
 
-  def team_upcoming_parties(ip_zipcode, database_zipcode)
+  def self.team_upcoming_parties(ip_zipcode, database_zipcode)
 
     localParties = []
     
