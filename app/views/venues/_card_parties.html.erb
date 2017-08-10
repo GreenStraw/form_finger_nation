@@ -11,9 +11,9 @@
 
                         <div class="holder">
                             <% if !party.image_url.blank? %>
-                              <%= image_tag(party.image_url, class: "img-responsive center", title: "venue image") %>
+                              <%= image_tag(party.image_url, class: "img-responsive center") %>
                             <% else %>
-                              <img src='<%= asset_path 'placeholder.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
+                              <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="verified" class="img-responsive center"/>
                             <% end %>
                           </div>
                           
