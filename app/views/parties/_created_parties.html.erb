@@ -23,14 +23,14 @@
 
           <div class="bottom">
 
-            <div class="inline-block">
+            <div class="float-left">
               <% if party.present? %>
                 <%= render partial: 'social_media', locals: {party: party} %>
               <% end %>
             </div>
 
             <% if party.present? %>
-              <div class="inline-block edit-card-text" style="margin-left: 10px;">
+              <div class="float-left edit-card-text" style="margin-left: 10px;">
                   <%= render partial: 'manage_party', locals: {party: party} %>
               </div>
             <% end %>

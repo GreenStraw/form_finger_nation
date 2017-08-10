@@ -22,12 +22,19 @@
 
           <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
 
-          <%= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
+          <%#= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
 
       <!--
       </a>
       -->
 
   <% end %>
+
+  <% if current_user.admin? %>
+          <%= link_to "Party Packages", "venues/#{party_pending.venue.id}/edit", class: "prt_rsvp" %>
+  <% end %>
+
+  <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
+
 
 </div>

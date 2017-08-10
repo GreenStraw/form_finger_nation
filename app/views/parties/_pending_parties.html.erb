@@ -22,31 +22,17 @@
 
           <div class="bottom">
 
-            <div class="inline-block">
+            <div class="float-left">
               <% if party_pending %>
                 <%= render partial: 'social_media', locals: {party: party_pending} %>
               <% end %>
             </div>
 
-            <div class="inline-block edit-card-text">
-              
-              <% if current_user.admin? %>
-                <%= link_to "Party Packages", "venues/#{party_pending.venue.id}/edit", class: "prt_rsvp" %>
-                <span class="prt_rsvp"> | </span>
-              <% end %>
-
-              
-              <% if current_user.admin? || current_user.has_role?(:manager, :any) || current_user.has_role?(:venue_manager, :any)%>
-                <span id="rsvparty-<%= party_pending.id %>">
-                  <% if party_pending.verified? %>
-                    <%= link_to( "Verified", unverify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
-                  <% else %>
-                    <%= link_to("Verify", verify_party_path(party_pending), class: "prt_rsvp", remote: true, method: :put)%>
-                  <% end %>
-                </span>
-              <% end %>
-
-            </div>
+            <% if party_pending %>
+              <div class="float-left edit-card-text" style="margin-left: 10px;">
+                  <%= render partial: 'manage_party', locals: {party: party_pending} %>
+              </div>
+            <% end %>
 
           </div>
       </div>

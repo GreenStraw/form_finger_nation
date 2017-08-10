@@ -14,7 +14,7 @@
 
         <div class="padding">
 
-            <% if party_reservation %>
+            <% if party_reservation.party.present? %>
               <%= render partial: 'card', locals: {party: party_reservation.party} %>
             <% end %>
             
@@ -22,35 +22,17 @@
 
           <div class="bottom">
 
-            <div class="inline-block">
+            <div class="float-left">
               <% if party_reservation.party.present? %>
                 <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
               <% end %>
             </div>
 
-            <div class="inline-block edit-card-text">
-              <% if party_reservation.party  %>
-                <% if reservations_include?(party_reservation.party, current_user) %>
-                  <%= link_to "unRSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-                <% else %>
-                  <%= link_to "RSVP", party_rsvp_path(party_reservation.party), class: "prt_rsvp" %>
-                <% end %>
-              <% end %>
-
-              <span class="prt_rsvp"> | </span>
-              
-              <%= link_to "Party Packages", party_reservation.party, class: "prt_rsvp" %>
-              <% if current_user.id == 36 ||  current_user.id == 1 %>
-                <span class="prt_rsvp"> | </span>
-                <span id="rsvparty-<%= party_reservation.party.id %>">
-                  <% if party_reservation.party.verified? %>
-                    <%= link_to( "Verified", unverify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
-                  <% else %>
-                    <%= link_to("Verify", verify_party_path(party_reservation.party), class: "prt_rsvp", remote: true, method: :put)%>
-                  <% end %>
-                </span>
-              <% end %>
-            </div>
+            <% if party_reservation.party.present? %>
+              <div class="float-left edit-card-text" style="margin-left: 10px;">
+                  <%= render partial: 'manage_party', locals: {party: party_reservation.party} %>
+              </div>
+            <% end %>
 
 
             
