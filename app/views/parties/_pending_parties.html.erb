@@ -14,7 +14,7 @@
 
         <div class="padding">
 
-            <% if party_pending %>
+            <% if party_pending.present? %>
               <%= render partial: 'card', locals: {party: party_pending} %>
             <% end %>
             
@@ -23,12 +23,12 @@
           <div class="bottom">
 
             <div class="float-left">
-              <% if party_pending %>
+              <% if party_pending.present? %>
                 <%= render partial: 'social_media', locals: {party: party_pending} %>
               <% end %>
             </div>
 
-            <% if party_pending %>
+            <% if party_pending.present? %>
               <div class="float-left edit-card-text" style="margin-left: 10px;">
                   <%= render partial: 'manage_party', locals: {party: party_pending} %>
               </div>
