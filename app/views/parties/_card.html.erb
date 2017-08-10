@@ -10,7 +10,11 @@
   </div>
 
   <div class="holder">
-    <p><%= party.image_url %></p>
+    <% unless party.image_url.nil? %>
+      <p> yay </p>
+    <% else %>
+      <p> no </p>
+    <% end %>
 
     <% if !party.image_url.nil? %>
       <%= image_tag(party.image_url, class: "img-responsive center") %>
