@@ -51,8 +51,22 @@ class Team < ActiveRecord::Base
 
   def team_upcoming_parties(ip_zipcode, database_zipcode)
 
-    self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+    localParties = []
     
+    team_parties = self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
+    
+    team_parties.try(:each) do |party|
+
+      if party.venue.address.zip == database_zipcode || party.venue.address.zip == ip_zipcode
+
+        localParties.concat(party)
+
+      end
+
+    end
+
+    return localParties
+
   end
 
   private
