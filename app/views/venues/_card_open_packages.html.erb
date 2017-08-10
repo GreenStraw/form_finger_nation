@@ -13,7 +13,7 @@
                     
                     <% if !package.image_url.blank? %>
 
-                      <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
+                      <%= image_tag(package.image_url.thumb, class: "img-responsive center", title: "package image") %>
 
                     <% else %>
                       
