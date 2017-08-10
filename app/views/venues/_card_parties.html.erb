@@ -34,7 +34,7 @@
                           <% if party.present?  %>
                             <% if !party.description.nil? %>
                               <div class="party_desc">
-                                <p><%= party.description.truncate(100) rescue "" %></p>
+                                <p><%= party.description.truncate(70) rescue "" %></p>
                               </div>
                             <% end %>
                           <% end %>
@@ -43,7 +43,7 @@
                     </div> <!-- END padding -->
 
                     <div class="bottom">
-                        <div class="inline-block">
+                        <div class="float-left">
 
                           <a style="margin: 0 10px 0 10px" 
                               title=<%= party.name %> 
