@@ -10,7 +10,7 @@
   </div>
 
   <div class="holder">
-    <p><%= party.image_url.inspect %></p>
+    <p><%= party.image_url %></p>
 
     <% if !party.image_url.nil? %>
       <%= image_tag(party.image_url, class: "img-responsive center") %>
