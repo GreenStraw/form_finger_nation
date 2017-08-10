@@ -1,5 +1,5 @@
 
-
+<%= link_to party do %>
   <div class="cancle_icon">
     <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% if party.verified? %>
@@ -17,9 +17,7 @@
   </div>
   
   <div class="caption">
-    <%= link_to party do %>
-      <h3> <%= party.name rescue "" %> </h3>
-    <% end %>
+    <h3> <%= party.name rescue "" %> </h3>
     <br/>
     <%= party.sponsor if party.present? %>
 
@@ -37,3 +35,4 @@
       </div>
     <% end %>
   <% end %>
+<% end %>
