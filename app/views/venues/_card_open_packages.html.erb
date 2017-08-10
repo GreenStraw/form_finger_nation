@@ -11,13 +11,13 @@
 
                   <div class="holder">
                     
-                    <% if !package.image_url.nil? %>
+                    <% if !package.image_url.blank? %>
 
                       <%= image_tag(package.image_url.thumb, class: "img-responsive center") %>
 
                     <% else %>
-
-                      <img alt="Placeholder" class="img-responsive center" src="/assets/beer-flat.png">
+                      
+                      <img src='<%= asset_path 'beer-flat.png' %>' title="package image" alt="verified" class="img-responsive center"/>
 
                     <% end %>
                   </div>
