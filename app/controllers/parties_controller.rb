@@ -182,14 +182,13 @@ class PartiesController < ApplicationController
     
     # default database columns
     params[:party][:verified] = false
-    params[:party][:venue_attributes][:created_by] = nil
 
     if current_user.admin?
 
       params[:party][:verified] = true
 
       if params[:party][:venue_id] == "new_venue"
-        params[:venue_attributes][:created_by] = "admin"     
+        params[:party][:venue_attributes][:created_by] = "admin"     
       end
 
     elsif current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
@@ -197,10 +196,11 @@ class PartiesController < ApplicationController
       params[:party][:who_created_location] = "venue_venue"
       params[:party][:venue_id] = current_user.managed_venues.first[:id] #grab the one venue that user owns
       params[:party][:verified] = true
-      params[:party].delete(:venue_attributes)
    
-    elsif params[:party][:who_created_location] == "customer_venue" && params[:party][:venue_id] != "new_venue"
-      params[:party].delete(:venue_attributes)
+    elsif (params[:party][:who_created_location] == "customer_venue" ||
+           params[:party][:who_created_location] == "customer_house") &&  params[:party][:venue_id] == "new_venue"
+      
+          params[:party][:venue_attributes][:created_by] = nil
     end
 
     #params[:party]["scheduled_for(1i)"] = "2017"
