@@ -148,8 +148,10 @@ body {overflow-x: hidden}
                       <% end %>
                   </div>
 
-                  <h2>Venue</h2>
-                  <p style="margin:0; font-size: 12px;"><%= @party.venue.name %></p>
+                  <% if @party.who_created_location != "customer_house" %>
+                    <h2>Venue</h2>
+                    <p style="margin:0; font-size: 12px;"><%= @party.venue.name %></p>
+                  <% end %>
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <p style="margin:0; font-size: 12px;"><%= @party.venue.address.street_address %></p>
                     <p style="margin:0; font-size: 12px;"><%= @party.venue.address.city_state %></p>
