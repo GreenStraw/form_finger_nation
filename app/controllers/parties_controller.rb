@@ -216,13 +216,13 @@ class PartiesController < ApplicationController
       
         if params[:party][:who_created_location] == "customer_house"
          
-         params[:party].delete(:venue_id)
+         #params[:party].delete(:venue_id)
          params[:party][:venue_attributes][:name] = "sport fan house"
          params[:party][:venue_attributes][:created_by] = nil  
 
         elsif params[:party][:venue_id] == "new_venue"
           
-          params[:party].delete(:venue_id)
+          #params[:party].delete(:venue_id)
           params[:party][:who_created_location] = "customer_venue"
           params[:party][:venue_attributes][:created_by] = nil
 
