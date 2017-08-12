@@ -187,20 +187,48 @@ class PartiesController < ApplicationController
 
       params[:party][:verified] = true
 
-      if params[:party][:venue_id] == "new_venue"
+      if params[:party][:who_created_location] == "customer_house"
+         
+         params[:party][:who_created_location] = "admin_house"
+         params[:party].delete(:venue_id)
+         params[:party][:venue_attributes][:created_by] = "admin"  
+
+      elsif params[:party][:venue_id] == "new_venue"
+        
+        params[:party].delete(:venue_id)
+        params[:party][:who_created_location] = "admin_venue"
         params[:party][:venue_attributes][:created_by] = "admin"     
+      
+      else
+        params[:party].delete(:venue_attributes)
       end
 
     elsif current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)
       
+   
+      params[:party][:verified] = true
       params[:party][:who_created_location] = "venue_venue"
       params[:party][:venue_id] = current_user.managed_venues.first[:id] #grab the one venue that user owns
-      params[:party][:verified] = true
    
-    elsif (params[:party][:who_created_location] == "customer_venue" ||
-           params[:party][:who_created_location] == "customer_house") &&  params[:party][:venue_id] == "new_venue"
+
+    else
       
+        if params[:party][:who_created_location] == "customer_house"
+         
+         params[:party].delete(:venue_id)
+         params[:party][:venue_attributes][:created_by] = nil  
+
+        elsif params[:party][:venue_id] == "new_venue"
+          
+          params[:party].delete(:venue_id)
+          params[:party][:who_created_location] = "customer_venue"
           params[:party][:venue_attributes][:created_by] = nil
+
+        else
+          params[:party].delete(:venue_attributes)
+
+        end
+
     end
 
     #params[:party]["scheduled_for(1i)"] = "2017"
@@ -219,7 +247,9 @@ class PartiesController < ApplicationController
 
       flash[:notice] = 'Party was successfully created.'
       @party.save(:validate => false)
+      
       current_user.party_reservations.create(party_id: @party.id, email: current_user.email)
+
       respond_with @party, location: party_path(@party)
 
     else
