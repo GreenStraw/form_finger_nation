@@ -22,7 +22,7 @@
   <% end %>
 
   <% if current_user.admin? %>
-          <%= link_to "Party Packages", "venues/#{party_pending.venue.id}/edit", class: "prt_rsvp" %>
+          <%= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
   <% end %>
 
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
