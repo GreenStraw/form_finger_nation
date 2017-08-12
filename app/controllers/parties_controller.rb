@@ -202,6 +202,7 @@ class PartiesController < ApplicationController
         params[:party][:venue_attributes][:created_by] = "admin"     
       
       else
+        params[:party][:who_created_location] = "admin_venue"
         params[:party].delete(:venue_attributes)
       end
 
