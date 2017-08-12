@@ -191,6 +191,7 @@ class PartiesController < ApplicationController
          
          params[:party][:who_created_location] = "admin_house"
          #params[:party].delete(:venue_id)
+         params[:party][:invite_type] = "private"
          params[:party][:venue_attributes][:name] = "sport fan house"
          params[:party][:venue_attributes][:created_by] = "admin"  
 
@@ -217,6 +218,7 @@ class PartiesController < ApplicationController
         if params[:party][:who_created_location] == "customer_house"
          
          #params[:party].delete(:venue_id)
+         params[:party][:invite_type] = "private"
          params[:party][:venue_attributes][:name] = "sport fan house"
          params[:party][:venue_attributes][:created_by] = nil  
 
