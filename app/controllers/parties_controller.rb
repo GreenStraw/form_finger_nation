@@ -226,8 +226,8 @@ class PartiesController < ApplicationController
           params[:party][:who_created_location] = "customer_venue"
           params[:party][:venue_attributes][:created_by] = nil
 
-        else
-          params[:party].delete(:venue_attributes)
+        #else
+          #params[:party].delete(:venue_attributes)
 
         end
 
