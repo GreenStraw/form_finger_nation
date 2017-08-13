@@ -1,9 +1,10 @@
 
-<div class='manage' >
+<div class='manage'>
 
       <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
 
-      <% if from=='rsvp' %>
+      <% if from=='rsvp' &&
+            !( current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
         <%= link_to party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
           <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
         <% end %>
@@ -18,7 +19,8 @@
       <%#= link_to "Party Packages", party, class: "prt_rsvp" %>
 
     
-  <% if current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue)%>
+  <% if from=='verify_pending' && 
+        ( current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
           <%#= link_to ( "Verified", unverify_party_path(party), class: "#{party.verified? ? '' : 'hidden_p'}", remote: true, method: :put) %>
 
@@ -40,18 +42,30 @@
 
   <% end %>
 
-  <% if current_user.admin? %>
+  <% if (from=='verify_pending' || from=='create') && 
+        current_user.admin? %>
       <%#= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
 
       <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
-          <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
+          <img src='<%= asset_path 'icon-packages.png' %>' title="Assign to Vendor" alt="assign to vendor" class="img-responsive center"/>
       <% end %>
   <% end %>
 
-  <% if current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) %>
+  <% if (from=='accepted' || from=='create') &&
+        ( current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
     <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
-        <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="Edit Package" alt="edit package" class="img-responsive center"/>
     <% end %>
+  <% end %>
+
+
+  <% if (from=='create' || from=='rsvp') &&
+            !( current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
+       
+      <%= link_to party, class: "prt_rsvp" do %>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="See Packages" alt="see packages" class="img-responsive center"/>
+      <% end %>
+
   <% end %>
 
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
