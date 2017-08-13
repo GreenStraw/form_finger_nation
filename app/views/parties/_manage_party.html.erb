@@ -1,7 +1,11 @@
 
 <div>
 
-      <%= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+      <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
+
+      <%= link_to party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
+        <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+      <% end %>
 
       <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
 
