@@ -30,7 +30,7 @@
 
             <% if party_pending.present? %>
               <div class="float-left edit-card-text" style="margin-left: 10px;">
-                  <%= render partial: 'manage_party', locals: {party: party_pending} %>
+                  <%= render partial: 'manage_party', locals: {party: party_pending, from: 'verify_pending'} %>
               </div>
             <% end %>
 

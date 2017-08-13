@@ -30,7 +30,7 @@
 
             <% if party_reservation.party.present? %>
               <div class="float-left edit-card-text" style="margin-left: 10px;">
-                  <%= render partial: 'manage_party', locals: {party: party_reservation.party} %>
+                  <%= render partial: 'manage_party', locals: {party: party_reservation.party, from: 'rsvp'} %>
               </div>
             <% end %>
 
