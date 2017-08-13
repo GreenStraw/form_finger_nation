@@ -1,14 +1,16 @@
 
-<div class='manage'>
+<div class='manage' >
 
       <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
 
-      <%= link_to party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
-        <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
-      <% end %>
+      <% if from=='rsvp' %>
+        <%= link_to party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
+          <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+        <% end %>
 
-      <%= link_to party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
-        <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+        <%= link_to party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+          <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+        <% end %>
       <% end %>
 
       <%#= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
@@ -34,11 +36,6 @@
 
           <%#= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
 
-
-          <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
-              <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
-          <% end %>
-
           <%#= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
 
   <% end %>
@@ -49,6 +46,12 @@
       <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
           <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
       <% end %>
+  <% end %>
+
+  <% if current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) %>
+    <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
+    <% end %>
   <% end %>
 
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
