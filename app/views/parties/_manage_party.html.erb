@@ -7,26 +7,48 @@
         <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
       <% end %>
 
-      <%= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
+      <%= link_to party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+        <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+      <% end %>
+
+      <%#= link_to "RSVP", party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' %>
 
       <%#= link_to "Party Packages", party, class: "prt_rsvp" %>
 
     
   <% if current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue)%>
 
-          <%= link_to( "Verified", unverify_party_path(party), class: "#{party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
+          <%#= link_to ( "Verified", unverify_party_path(party), class: "#{party.verified? ? '' : 'hidden_p'}", remote: true, method: :put) %>
 
-          <%= link_to("Verify", verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
+          <%= link_to unverify_party_path(party), class: "#{party.verified? ? '' : 'hidden_p'}", remote: true, method: :put do %>
+              <img src='<%= asset_path 'icon-unverify.png' %>' title="unverify" alt="unverify" class="img-responsive center"/>
+          <% end %>
 
 
-          <%= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+          <%#= link_to("Verify", verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
+
+          <%= link_to verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put do %>
+              <img src='<%= asset_path 'icon-verify.png' %>' title="verify" alt="verify" class="img-responsive center"/>
+          <% end %>
+
+
+          <%#= link_to "Create Package", new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" %>
+
+
+          <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
+              <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
+          <% end %>
 
           <%#= link_to "Edit", edit_party_path(party), class: "prt_rsvp" %>
 
   <% end %>
 
   <% if current_user.admin? %>
-          <%= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
+      <%#= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
+
+      <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
+          <img src='<%= asset_path 'icon-packages.png' %>' title="packages" alt="packages" class="img-responsive center"/>
+      <% end %>
   <% end %>
 
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
