@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
       
         parties.try(:each) do |party|
 
-          if venue_ids.include? party.venue.id
+          if venue_ids.include?(party.venue.id)
             team_parties_in_area.concat(party)
           end
 
