@@ -27,11 +27,11 @@ class Voucher < ActiveRecord::Base
 
   def self.redeemable(current_user)
 
-    creatorParty = where("redeemed_at IS ? AND user_id = ?", nil, current_user.id)
+    #creatorParty = where("redeemed_at IS ? AND user_id = ?", nil, current_user.id)
 
-    if creatorParty.present?
-      return creatorParty
-    else
+    #if creatorParty.present?
+    #  return creatorParty
+    #else
 
       voucher = []
 
@@ -52,7 +52,7 @@ class Voucher < ActiveRecord::Base
           
           end
 
-      end
+      #end
 
       return voucher
     

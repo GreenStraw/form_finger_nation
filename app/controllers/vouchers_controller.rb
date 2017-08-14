@@ -31,8 +31,10 @@ class VouchersController < ApplicationController
 
     @voucher = Voucher.new(voucher_params)
 
-    party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id).first
-    @voucher.update_attribute(:user_id, party_organizer_id)
+    #party_organizer_id = Party.where('parties.id = ? ', @voucher[:party_id]).map(&:organizer_id).first
+    #@voucher.update_attribute(:user_id, party_organizer_id)
+
+    @voucher.update_attribute(:user_id, current_user.id)
 
     if @voucher.save
       redirect_to @voucher, notice: 'Voucher was successfully created.'
