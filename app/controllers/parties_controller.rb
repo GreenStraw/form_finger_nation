@@ -185,23 +185,24 @@ class PartiesController < ApplicationController
 
     if current_user.admin?
 
-      params[:party][:verified] = true
-
       if params[:party][:who_created_location] == "customer_house"
          
          params[:party][:who_created_location] = "admin_house"
          #params[:party].delete(:venue_id)
          params[:party][:invite_type] = "private"
          params[:party][:venue_attributes][:name] = "sport fan house"
-         params[:party][:venue_attributes][:created_by] = "admin"  
 
       elsif params[:party][:venue_id] == "new_venue"
+
+        params[:party][:verified] = true
         
         #params[:party].delete(:venue_id)
         params[:party][:who_created_location] = "admin_venue"
         params[:party][:venue_attributes][:created_by] = "admin"     
       
       else
+
+        params[:party][:verified] = true
         params[:party][:who_created_location] = "admin_venue"
         params[:party].delete(:venue_attributes)
       end
