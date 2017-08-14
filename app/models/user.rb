@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def confirm!
-    self.update_attribute(:confirmed_at, DateTime.now)
+    self.update_attribute(:confirmed_at, DateTime.now.new_offset('+05:00'))
   end
 
   def confirmed?
