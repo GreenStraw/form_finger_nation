@@ -150,3 +150,29 @@ body {overflow-x: hidden}
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 </script>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+      //var party_package_id = $(this).data('partyPackageId');
+
+      var data = {lat:"40.71",lon:"-100.23"};
+      
+      $.ajax({
+          method: 'POST',
+          url: "/teams/parties_in_area",
+          dataType: "json",
+          cache: false,
+          data : data,
+          success: function(response) {
+
+            console.log('success');
+
+          }
+
+        });
+
+  });
+
+</script>
