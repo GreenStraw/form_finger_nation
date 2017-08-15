@@ -57,6 +57,7 @@ Baseapp::Application.routes.draw do
     end
     collection do
       get 'search'
+      get 'parties_in_area'
       get 'favorite_teams'
       get 'cant_find'
       get 'homesearch'

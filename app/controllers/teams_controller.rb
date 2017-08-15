@@ -49,10 +49,22 @@ class TeamsController < ApplicationController
       redirect_to cant_find_teams_path
     end
   end
+
+  def parties_in_area
+    lat = params[:lat] || 0
+    lon = params[:lon] || 0
+
+    @teams_within_area = Team.geo_search(la, lon, 50, @team.id)
+
+    respond_to do |format|
+      format.js
+      format.json { render json: {parties_near_me: @teams_within_area} }  # respond with the created JSON object
+    end
+
+  end
+
   # GET /teams/1
   def show
-
-    @teams_within_area = Team.geo_search(40.71 ,-100.23,50,@team.id)
 
     @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|
       marker.lat team.address.latitude
