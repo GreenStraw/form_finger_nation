@@ -69,8 +69,7 @@ class Team < ActiveRecord::Base
 
   end
 
-  def self.geo_search(lon, lat, radius, team_id)
-
+  def self.geo_search(lat, lon, radius, team_id)
 
     parties = Party.where(team_id: team_id)
     team_parties_in_area = []
@@ -78,28 +77,26 @@ class Team < ActiveRecord::Base
     if parties.any?
 
       rad = radius || 50
-      lat = 40.71
-      lon = -100.23
+
       addresses = Address.class_within_radius_of('Venue', lat, lon, radius)
       
-      #if addresses.any?
-      #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
+      if addresses.any?
+        venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
 
-      #  parties.try(:each) do |party|
+        parties.try(:each) do |party|
 
-      #    if venue_ids.include?(party.venue.id)
-      #      team_parties_in_area.concat(party)
-      #    end
+          if venue_ids.include?(party.venue.id)
+            team_parties_in_area.concat(party)
+          end
 
-      #  end
+        end
 
-      # end
+      end
 
     end
     
-    return addresses || []
-    #venues = venue_addresses_in_radius.map(&:addressable).compact
-    #@parties = venues.map(&:upcoming_parties).flatten.uniq
+    return team_parties_in_area || []
+
   end
 
   private
