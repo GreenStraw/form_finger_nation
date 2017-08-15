@@ -64,7 +64,7 @@ class TeamsController < ApplicationController
 
     else
 
-      return render json: {}, status: 409
+      return render json: {"TEST:""123"}, status: 409
 
     end
 
