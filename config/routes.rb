@@ -55,13 +55,13 @@ Baseapp::Application.routes.draw do
       put 'remove_host'
       put 'add_admin'
       put 'remove_admin'
+      post 'parties_in_area'
     end
     collection do
       get 'search'
       get 'favorite_teams'
       get 'cant_find'
       get 'homesearch'
-      post 'parties_in_area'
     end
   end
   resources :venues do
