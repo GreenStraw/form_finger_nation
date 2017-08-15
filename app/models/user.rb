@@ -93,6 +93,7 @@ class User < ActiveRecord::Base
 
     parties = Party.where(team_id: team_id)
     team_parties_in_area = []
+    addresses = []
 
     if parties.any?
 
@@ -115,7 +116,7 @@ class User < ActiveRecord::Base
 
     end
 
-    return team_parties_in_area || []
+    return addresses
   end
 
   def managed_venues
