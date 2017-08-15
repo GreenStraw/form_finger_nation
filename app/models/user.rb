@@ -100,7 +100,17 @@ class User < ActiveRecord::Base
       rad = radius || 20
       addresses = Address.near(loc, rad).to_a
       
+      if addresses.any?
 
+        venue_ids = addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id))
+      
+        parties.try(:each) do |party|
+
+
+
+        end
+
+      end
 
     end
 
