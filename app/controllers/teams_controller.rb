@@ -54,11 +54,13 @@ class TeamsController < ApplicationController
     lat = params[:lat] || 0
     lon = params[:lon] || 0
 
-    @teams_within_area = Team.geo_search(la, lon, 50, @team.id)
+    if !lat.nil? && !lon.nil?
+      @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
 
-    respond_to do |format|
-      format.js
-      format.json { render json: {parties_near_me: @teams_within_area} }  # respond with the created JSON object
+      respond_to do |format|
+        format.js
+        format.json { render json: {parties_near_me: @teams_within_area} }  # respond with the created JSON object
+      end
     end
 
   end
