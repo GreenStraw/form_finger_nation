@@ -102,6 +102,15 @@ class User < ActiveRecord::Base
       
       if addresses.any?
         venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
+
+        parties.try(:each) do |party|
+
+          if venue_ids.include?(party.venue.id)
+            team_parties_in_area.concat(party)
+          end
+
+        end
+        
       end
 
     end
