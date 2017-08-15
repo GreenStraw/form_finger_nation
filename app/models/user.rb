@@ -94,26 +94,7 @@ class User < ActiveRecord::Base
     parties = Party.where(team_id: team_id)
     team_parties_in_area = []
 
-    if parties.any?
 
-      loc = search_location
-      rad = radius || 20
-      addresses = Address.near(loc, rad).to_a
-      
-      if addresses.any?
-        venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
-
-        parties.try(:each) do |party|
-
-          if venue_ids.include?(party.venue.id)
-            team_parties_in_area.concat(party)
-          end
-
-        end
-        
-      end
-
-    end
 
     return team_parties_in_area || []
   end
