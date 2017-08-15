@@ -94,7 +94,15 @@ class User < ActiveRecord::Base
     parties = Party.where(team_id: team_id)
     team_parties_in_area = []
 
+    if parties.any?
 
+      loc = search_location
+      rad = radius || 20
+      addresses = Address.near(loc, rad).to_a
+      
+
+
+    end
 
     return team_parties_in_area || []
   end
