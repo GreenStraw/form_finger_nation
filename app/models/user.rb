@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
 
       loc = search_location
       rad = radius || 20
-      addresses = Address.near([40.71, -100.23], 20)
+      addresses = Address.near(loc, rad, 20)
       
       #if addresses.any?
       #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
