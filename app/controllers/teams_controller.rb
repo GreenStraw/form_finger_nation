@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   def show
 
-    @teams_within_area = current_user.venues_in_the_area_by_team("Austin, Tx", 30, 337)
+    @teams_within_area = @team.class_within_radius_of(0,0,30,@team.id)
 
 
     #@my_local_team_parties = Team.team_upcoming_parties(request.location.zip_code ,current_user.address.zip)
