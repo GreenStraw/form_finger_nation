@@ -160,7 +160,7 @@ body {overflow-x: hidden}
       var data = {lat:"40.71",lon:"-100.23"};
       
       $.ajax({
-          method: 'POST',
+          type: 'PUT',
           url: "/teams/parties_in_area",
           dataType: "json",
           cache: false,

@@ -59,8 +59,13 @@ class TeamsController < ApplicationController
 
       respond_to do |format|
         format.js
-        format.json { render json: {parties_near_me: @teams_within_area} }  # respond with the created JSON object
+        format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
       end
+
+    else
+
+      return render json: {}, status: 409
+
     end
 
   end

@@ -54,10 +54,10 @@ Baseapp::Application.routes.draw do
       put 'remove_host'
       put 'add_admin'
       put 'remove_admin'
+      put 'parties_in_area'
     end
     collection do
       get 'search'
-      get 'parties_in_area'
       get 'favorite_teams'
       get 'cant_find'
       get 'homesearch'
