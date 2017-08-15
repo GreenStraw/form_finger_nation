@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
 
     end
 
-    return addresses || []
+    return team_parties_in_area || []
   end
 
   def managed_venues
