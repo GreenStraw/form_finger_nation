@@ -15,6 +15,8 @@ Geocoder.configure(
   # set default units to kilometers:
   :units => :mi,
 
+  :use_https => true,
+
   # caching (see below for details):
   :cache => Rails.cache
   # :cache_prefix => "..."
