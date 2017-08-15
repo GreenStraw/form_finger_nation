@@ -79,6 +79,16 @@ class User < ActiveRecord::Base
     self.has_role?(:admin)
   end
 
+  def venues_in_the_area(search_location, radius)
+    loc = search_location
+    rad = radius || 20
+    addresses = Address.near(loc, rad).to_a
+    if addresses.any?
+      venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
+    end
+    return venue_ids || []
+  end
+
 
 
   def managed_venues
