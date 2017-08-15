@@ -51,8 +51,8 @@ class TeamsController < ApplicationController
   end
 
   def parties_in_area
-    lat = params[:lat] || 0
-    lon = params[:lon] || 0
+    lat = params[:lat]
+    lon = params[:lon]
 
     if !lat.nil? && !lon.nil?
       @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
