@@ -104,11 +104,7 @@ class User < ActiveRecord::Base
 
         venue_ids = addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id))
       
-        parties.try(:each) do |party|
 
-
-
-        end
 
       end
 
