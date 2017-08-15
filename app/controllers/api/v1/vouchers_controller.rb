@@ -27,7 +27,7 @@ class Api::V1::VouchersController < Api::V1::BaseController
     elsif @voucher.transaction_id.nil?
       @voucher.errors.add(:base, 'is not valid (no transaction id)')
     else
-      @voucher.update_attribute(:redeemed_at, DateTime.now.new_offset('+05:00'))
+      @voucher.update_attribute(:redeemed_at, DateTime.now)
     end
     respond_with @voucher, :location=>api_v1_vouchers_path
   end

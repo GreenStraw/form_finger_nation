@@ -46,14 +46,14 @@ class Team < ActiveRecord::Base
   end
 
   def upcoming_parties
-    self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).order(:scheduled_for)
+    self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
   end
 
   def self.team_upcoming_parties(ip_zipcode, database_zipcode)
 
     localParties = []
     
-    team_parties = self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).order(:scheduled_for)
+    team_parties = self.parties.where('scheduled_for > ?', Time.now).order(:scheduled_for)
     
     team_parties.try(:each) do |party|
 
