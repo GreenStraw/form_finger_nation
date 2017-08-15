@@ -98,20 +98,20 @@ class User < ActiveRecord::Base
 
       loc = search_location
       rad = radius || 20
-      addresses = Address.near([40.71, -100.23], 20).to_a
+      addresses = Address.near([40.71, -100.23], 20)
       
-      if addresses.any?
-        venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
+      #if addresses.any?
+      #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
 
-        parties.try(:each) do |party|
+      #  parties.try(:each) do |party|
 
-          if venue_ids.include?(party.venue.id)
-            team_parties_in_area.concat(party)
-          end
+      #    if venue_ids.include?(party.venue.id)
+      #      team_parties_in_area.concat(party)
+      #    end
 
-        end
-        
-      end
+      #  end
+
+      # end
 
     end
 
