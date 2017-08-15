@@ -33,6 +33,8 @@ body {overflow-x: hidden}
                 <li><%= @team.address.city_state %></li>
                 <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
               </ul>
+
+              <div> <%= @teams_within_area %></div>
             </div>
 
 

@@ -51,6 +51,10 @@ class TeamsController < ApplicationController
   end
   # GET /teams/1
   def show
+
+    @teams_within_area = current_user.venues_in_the_area_by_team("Austin, Tx", 30, 337)
+
+
     #@my_local_team_parties = Team.team_upcoming_parties(request.location.zip_code ,current_user.address.zip)
     @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|
       marker.lat team.address.latitude
