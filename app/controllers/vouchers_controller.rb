@@ -66,11 +66,11 @@ class VouchersController < ApplicationController
     if !recipient.present?
 
       newRecipient = Voucher.new
-      newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => @voucher.party_id, :package_id => @voucher.package_id, :redeemed_at => Time.now())
+      newRecipient.assign_attributes(:user_id  => current_user.id, :party_id => @voucher.party_id, :package_id => @voucher.package_id, :redeemed_at => DateTime.now.new_offset('+05:00'))
       newRecipient.save!
     
     else
-      @voucher.update_attribute(:redeemed_at, Time.now())
+      @voucher.update_attribute(:redeemed_at, DateTime.now.new_offset('+05:00'))
     end
 
     flash[:success] = 'Voucher was successfully redeemed.'
