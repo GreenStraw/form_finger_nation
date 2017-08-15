@@ -52,10 +52,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   def show
 
-    @teams_within_area = Team.geo_search(0,0,30,@team.id)
+    @teams_within_area = Team.geo_search(0,0,50,@team.id)
 
-
-    #@my_local_team_parties = Team.team_upcoming_parties(request.location.zip_code ,current_user.address.zip)
     @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|
       marker.lat team.address.latitude
       marker.lng team.address.longitude

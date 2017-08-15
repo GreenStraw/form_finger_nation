@@ -77,10 +77,10 @@ class Team < ActiveRecord::Base
 
     if parties.any?
 
-      rad = radius || 20
-      lon = 40.71
-      lat = -100.23
-      addresses = Address.class_within_radius_of('Venue', lon, lat, radius)
+      rad = radius || 50
+      lat = 40.71
+      lon = -100.23
+      addresses = Address.class_within_radius_of('Venue', lat, lon, radius)
       
       #if addresses.any?
       #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
