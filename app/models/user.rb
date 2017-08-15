@@ -89,7 +89,23 @@ class User < ActiveRecord::Base
     return venue_ids || []
   end
 
+  def venues_in_the_area_by_team(search_location, radius, team_id)
 
+    parties = Party.where(team_id: team_id)
+    team_parties_in_area = []
+
+    if parties.any?
+
+      loc = search_location
+      rad = radius || 20
+      addresses = Address.near(loc, rad).to_a
+      
+
+
+    end
+
+    return team_parties_in_area || []
+  end
 
   def managed_venues
     if self.admin?
