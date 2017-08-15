@@ -15,7 +15,7 @@ Baseapp::Application.routes.draw do
   get 'user/:id' => 'account#user', :as => 'user'
   patch 'user/:id' => 'account#update_profile_picture', :as => 'update_profile_picture'
   put 'user/user_loc' => 'account#user_loc'
-  put 'teams/parties_in_area' => "teams#parties_in_area", :as => 'parties_in_area'
+  post 'teams/parties_in_area' => "teams#parties_in_area", :as => 'parties_in_area'
 
   resources :vouchers
   resources :packages, except: [:new, :create] do
