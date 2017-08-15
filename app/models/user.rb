@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
 
       loc = search_location
       rad = radius || 20
-      addresses = Address.near([40.71, -100.23], 20).to_a
+      addresses = Address.near([40.71, -100.23], 20)
       
       #if addresses.any?
       #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
 
     end
 
-    return team_parties_in_area || []
+    return addresses || []
   end
 
   def managed_venues
