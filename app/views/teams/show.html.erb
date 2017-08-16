@@ -23,7 +23,7 @@ body {overflow-x: hidden}
           </div>
         </div>
       </div>
-      <div class="main-area team_show_page">
+      <div class="main-area team_show_page" data-team-id='<%= @team.id %>'>
         <div class="row">
           <div class="follow companylisting">
             <div class="col-md-12 col-sm-12">
@@ -157,11 +157,13 @@ body {overflow-x: hidden}
 
       //var party_package_id = $(this).data('partyPackageId');
 
+      var teamId = $('.team_show_page').attr("data-team-id");
+
       var data = {lat:"40.71",lon:"-100.23",'ajax': true};
       
       $.ajax({
-          type: 'PUT',
-          url: "/teams/parties_in_area",
+          type: 'POST',
+          url: "/teams/" + teamId + "/parties_in_area",
           dataType: "json",
           cache: false,
           data : data,
