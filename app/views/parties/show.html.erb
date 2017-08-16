@@ -76,7 +76,7 @@ body {overflow-x: hidden}
           <!--div class="col-md-7 col-sm-6 col-xs-12">
             <div id="available-packages" class="col-md-12 col-sm-12 col-xs-12">
               <br>
-              <%= if @party.party_packages.any? 
+              <%#= if @party.party_packages.any? 
                 render :partial => "available_packages" 
                 end %>
             </div>
@@ -110,10 +110,10 @@ body {overflow-x: hidden}
                 </div>
 
                 <div>
-                  <h2><%= @party.name rescue "" %></h2>
+                  <h2 class="bottom-space-2x"><%= @party.name rescue "" %></h2>
 
                   <% if !@party.description.nil? %>
-                      <p><%= @party.description rescue "" %></p>
+                      <p class="bottom-space-2x"><%= @party.description rescue "" %></p>
                   <% end %>
 
 
@@ -132,27 +132,56 @@ body {overflow-x: hidden}
                   </div>
 
                   <div>
+
+                  <div class="bottom-space-1x" style="text-align: center;"> 
+
+                      <% if current_user && current_user.image_url.present? %>
+                        <%= image_tag current_user.image_url, class: "img-responsive" %>
+                      <% else %>
+                        <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+                      <% end %>
+
                       <% if @party.organizer.full_name.present? %>
                           <p>Hosted By <%= @party.organizer.full_name %></p>
                       <% else %>
                           <p>Hosted By <%= @party.organizer.username %></p>
                       <% end %>
 
+                  </div>
+
                       <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
-                          <%= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
-                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%> <br>
-                          <%= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+
+
+                          <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+                          <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+
+                          <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
+                            <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+                          <% end %>
+
                           <% else %>
-                          <%= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
-                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                            <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+
+                            <%= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+                              <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+                            <% end %>
+
+
+        
                       <% end %>
+
+
+                    <div class="bottom-space-1x">
+                      <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                    </div>
+
                   </div>
 
                   <% if !(@party.who_created_location == "customer_house" || @party.who_created_location == "admin_house") %>
-                    <h2>Venue</h2>
+                    <h2 class="bottom-space-1x">Venue</h2>
                     <p style="margin:0; font-size: 12px;"><%= @party.venue.name %></p>
                   <% else %>
-                    <h2>Location</h2>
+                    <h2 class="bottom-space-1x">Location</h2>
                   <% end %>
 
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
