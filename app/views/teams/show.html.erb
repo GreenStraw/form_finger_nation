@@ -155,11 +155,13 @@ body {overflow-x: hidden}
 
   $(document).ready(function() {
 
-      //var party_package_id = $(this).data('partyPackageId');
-
+      var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
       var teamId = $('.team_show_page').attr("data-team-id");
 
-      var data = {lat:"40.71",lon:"-100.23",'ajax': true};
+      var data = {
+                    "overrideAddress": overrideAddress,
+                    'ajax': true
+                  };
       
       $.ajax({
           type: 'POST',
@@ -168,8 +170,6 @@ body {overflow-x: hidden}
           cache: false,
           data : data,
           success: function(response) {
-
-            console.log('success');
 
           }
 

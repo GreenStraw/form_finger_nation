@@ -51,8 +51,23 @@ class TeamsController < ApplicationController
   end
 
   def parties_in_area
-    lat = params[:lat]
-    lon = params[:lon]
+
+    lat = nil
+    lon = nil
+
+    overrideAddress = params[:overrideAddress]
+
+    if overrideAddress.nil || overrideAddress.to_s == 'false'
+
+        lat = current_user.address.latitude   ||  request.location.latitude  || nil
+        lon = current_user.address.longitude  ||  request.location.longitude || nil
+
+    else
+
+        lat = request.location.latitude  || nil
+        lon = request.location.longitude || nil
+
+    end
 
     if !lat.nil? && !lon.nil?
       @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
@@ -64,9 +79,10 @@ class TeamsController < ApplicationController
 
     else
 
-      return render json: {TEST:"123"}, status: 409
+      return render json: {}, status: 409
 
     end
+
 
   end
 

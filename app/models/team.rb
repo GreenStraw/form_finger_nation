@@ -49,29 +49,9 @@ class Team < ActiveRecord::Base
     self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).order(:scheduled_for)
   end
 
-  def self.team_upcoming_parties(ip_zipcode, database_zipcode)
-
-    localParties = []
-    
-    team_parties = self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).order(:scheduled_for)
-    
-    team_parties.try(:each) do |party|
-
-      if party.venue.address.zip == database_zipcode || party.venue.address.zip == ip_zipcode
-
-        localParties.concat(party)
-
-      end
-
-    end
-
-    return localParties
-
-  end
-
   def self.geo_search(lat, lon, radius, team_id)
 
-    parties = Party.where(team_id: team_id)
+    parties = Party.where("team_id = ? && scheduled_for >= ?", team_id, DateTime.now.new_offset('-05:00'))
     team_parties_in_area = []
 
     if parties.any?

@@ -56,12 +56,19 @@
       </li>
 
       <li>
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" ><i class="fa fa-map-marker"></i><span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %></span>  <small>(change)</small></a>
-
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref">
-          <i class="fa fa-map-marker"></i>
-          <span id="NewlocUp"><%= current_user.address.city rescue '' %> <%= current_user.address.state rescue '' %></span>  <small>(change)</small>
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" >
+            <i class="fa fa-map-marker"></i>
+            <span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %></span>  
+            <small>(change)</small>
         </a>
+
+        <!--
+        <a href="#" data-toggle="modal" data-target="#loc" id="locHref">
+            <i class="fa fa-map-marker"></i>
+            <span id="NewlocUp"><%#= current_user.address.city rescue '' %> <%#= current_user.address.state rescue '' %></span>  
+            <small>(change)</small>
+        </a>
+        -->
       </li>
 
 
