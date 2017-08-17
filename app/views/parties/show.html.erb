@@ -100,7 +100,7 @@ body {overflow-x: hidden}
                   </div>
 
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                    <div id="map" style='
+                    <div class="map" style='
                         height: 250px;
                         position: relative;
                         float: right;
@@ -211,8 +211,7 @@ body {overflow-x: hidden}
 
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <div style="width: 100%;" class="map_holder mobile">
-
-                        <div id="map" style='
+                        <div class="map" style='
                         height: 250px;
                         position: relative;
                         float: right;
@@ -275,7 +274,7 @@ body {overflow-x: hidden}
 </div>
 <script type="text/javascript">
   handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  handler.buildMap({ provider: {}, internal: {class: 'map'}}, function(){
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
