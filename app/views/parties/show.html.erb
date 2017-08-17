@@ -133,27 +133,30 @@ body {overflow-x: hidden}
 
                   <div class="bottom-space-2x">
 
-                      <div class="bottom-space-1x" style="text-align: center;"> 
+                      <div class="bottom-space-1x"> 
 
                           <% if current_user && current_user.image_url.present? %>
-                            <%= image_tag current_user.image_url, class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;" %>
+                            <%= image_tag current_user.image_url, class: "img-responsive", style: "width: 50px; display: inline-block;" %>
                           <% else %>
-                            <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;"%>
+                            <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "width: 50px; display: inline-block;"%>
                           <% end %>
 
                           <% if @party.organizer.full_name.present? %>
-                              <p style="float: left; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
                           <% else %>
-                              <p style="float: left; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
                           <% end %>
 
                       </div>
 
-                      <div style="clear: both;"></div>
+                      <div style="display: block;">
+
+                          <% if @party.verified? %>
+                              <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; display: inline-block;"/>
+                          <% end %>
 
                           <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                            <div class="bottom-space-2x" style="float: left;">
 
                               <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
                               <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
@@ -165,14 +168,14 @@ body {overflow-x: hidden}
                               <%# end %>
 
                               <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
-                                <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;"/>
+                                <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
                               <% end %>
 
                           <% else %>
                               <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
 
                               <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
-                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;"/>
+                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
                               <% end %>
 
                               <%#= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{@party.id}", class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
@@ -181,9 +184,10 @@ body {overflow-x: hidden}
                                 -->
                               <%# end %>
 
-                            </div>
             
                           <% end %>
+
+                        </div>
 
                   </div>
 
