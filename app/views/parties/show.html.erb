@@ -158,14 +158,20 @@ body {overflow-x: hidden}
                               <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
                               <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
 
-                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{@party.id}" do %>
+                              <%#= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{@party.id}" do %>
+                                <!--
+                                <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;"/>
+                                -->
+                              <%# end %>
+
+                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
                                 <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;"/>
                               <% end %>
 
                           <% else %>
                               <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
 
-                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}" , id: "rsvp#{@party.id}" do %>
+                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
                                 <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;"/>
                               <% end %>
 
@@ -179,11 +185,10 @@ body {overflow-x: hidden}
             
                           <% end %>
 
+                  </div>
 
-                        <div class="bottom-space-1x" style="clear:both;">
+                  <div class="bottom-space-1x" style="clear:both;">
                           <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-                        </div>
-
                   </div>
 
                   <div style="clear: both;"></div>
