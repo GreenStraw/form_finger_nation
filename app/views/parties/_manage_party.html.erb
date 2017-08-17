@@ -1,5 +1,9 @@
 
-<div class='manage'>
+<div class='manage' style="margin-left: 10px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    bottom: 0;">
 
       <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
 
@@ -71,7 +75,7 @@
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
 
   <% if party.verified? %>
-    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
+    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive"/>
   <% end %>
 
 

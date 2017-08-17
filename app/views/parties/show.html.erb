@@ -165,9 +165,15 @@ body {overflow-x: hidden}
                           <% else %>
                               <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
 
-                              <%= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{@party.id}", class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
-                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;"/>
+                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}" , id: "rsvp#{@party.id}" do %>
+                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;"/>
                               <% end %>
+
+                              <%#= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{@party.id}", class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+                                <!--
+                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;"/>
+                                -->
+                              <%# end %>
 
                             </div>
             
