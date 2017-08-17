@@ -131,49 +131,51 @@ body {overflow-x: hidden}
                         </a>
                   </div>
 
-                  <div>
+                  <div class="bottom-space-2x">
 
-                  <div class="bottom-space-1x" style="text-align: center;"> 
+                      <div class="bottom-space-1x" style="text-align: center;"> 
 
-                      <% if current_user && current_user.image_url.present? %>
-                        <%= image_tag current_user.image_url, class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;" %>
-                      <% else %>
-                        <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;"%>
-                      <% end %>
-
-                      <% if @party.organizer.full_name.present? %>
-                          <p>Hosted By <%= @party.organizer.full_name %></p>
-                      <% else %>
-                          <p>Hosted By <%= @party.organizer.username %></p>
-                      <% end %>
-
-                  </div>
-
-                      <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
-
-
-                          <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
-                          <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
-
-                          <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{@party.id}" do %>
-                            <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
+                          <% if current_user && current_user.image_url.present? %>
+                            <%= image_tag current_user.image_url, class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;" %>
+                          <% else %>
+                            <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;"%>
                           <% end %>
 
+                          <% if @party.organizer.full_name.present? %>
+                              <p style="width: 50px; float: left; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
                           <% else %>
-                            <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+                              <p style="width: 50px; float: left; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
+                          <% end %>
 
-                            <%= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{@party.id}", class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
-                              <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center"/>
-                            <% end %>
+                      </div>
+
+                      <div style="clear: both;"></div>
+
+                          <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
 
-        
-                      <% end %>
+                              <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
+                              <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
+
+                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp #{reservations_include?(@party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{@party.id}" remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+                                <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="float:left; width: 65px;"/>
+                              <% end %>
+
+                              <% else %>
+                                <%#= link_to "RSVP", party_rsvp_path(@party), class: "btn btn-green btn-default" %>
+
+                                <%= link_to party_rsvp_path({id: @party.id , flag: 'modall'}), id: "rsvp#{@party.id}", class: "prt_rsvp #{reservations_include?(@party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
+                                  <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="float:left; width: 65px;"/>
+                                <% end %>
 
 
-                    <div class="bottom-space-1x">
-                      <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-                    </div>
+            
+                          <% end %>
+
+
+                        <div class="bottom-space-1x" style="clear:both;">
+                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                        </div>
 
                   </div>
 
