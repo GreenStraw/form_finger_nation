@@ -70,5 +70,9 @@
 
   <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
 
+  <% if party.verified? %>
+    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
+  <% end %>
+
 
 </div>
