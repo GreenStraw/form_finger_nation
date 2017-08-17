@@ -54,6 +54,9 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  attr_accessible :current_latitude
+  attr_accessible :current_longitude
+
   def self.admins
     User.with_role(:admin)
   end
