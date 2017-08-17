@@ -67,6 +67,9 @@ class TeamsController < ApplicationController
         lat = request.location.latitude  || nil
         lon = request.location.longitude || nil
 
+        current_user.current_latitude = lat
+        current_user.current_longitude = lon
+
     end
 
     if !lat.nil? && !lon.nil?

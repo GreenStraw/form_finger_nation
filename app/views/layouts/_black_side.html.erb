@@ -58,7 +58,8 @@
       <li>
         <a href="#" data-toggle="modal" data-target="#loc" id="locHref" >
             <i class="fa fa-map-marker"></i>
-            <span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %></span>  
+            <span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %> </span>
+            <span> <%= current_user.current_latitude %></span>  
             <small>(change)</small>
         </a>
 
