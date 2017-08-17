@@ -212,10 +212,9 @@ body {overflow-x: hidden}
                   <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                     <div style="width: 100%;" class="map_holder mobile">
                         <div id="map-mobile" style='
-                        height: 250px;
+                        height: 165px;
                         position: relative;
-                        float: right;
-                        overflow: hidden; width: 90%;'>  
+                        overflow: hidden;width: 100%; margin: 0 auto;'>  
                         </div>
                     </div>
                   <% end %>
