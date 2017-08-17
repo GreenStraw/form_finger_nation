@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   rolify
   after_create :ensure_address
   after_create :setCurrentLocation
-  
+
   mount_uploader :image_url, ImageUploader
   mount_uploader :banner, BannerUploader
 
@@ -303,8 +303,8 @@ class User < ActiveRecord::Base
   end
   
   def setCurrentLocation
-    self.current_longitude = nil
-    self.current_latitude = nil
+    current_longitude = nil
+    current_latitude = nil
   end
 
 end
