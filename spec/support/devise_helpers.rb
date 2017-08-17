@@ -21,10 +21,7 @@ module DeviseHelpers
   end
 
   def current_user
-    @current_user.current_latitude = nil
-    @current_user.current_longitude = nil
-
-    return @current_user
+    @current_user
   end
 
   def should_deny_access
