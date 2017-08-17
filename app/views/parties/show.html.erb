@@ -136,9 +136,9 @@ body {overflow-x: hidden}
                   <div class="bottom-space-1x" style="text-align: center;"> 
 
                       <% if current_user && current_user.image_url.present? %>
-                        <%= image_tag current_user.image_url, class: "img-responsive" %>
+                        <%= image_tag current_user.image_url, class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;" %>
                       <% else %>
-                        <%= image_tag "vendor/no_image.png", class: "img-responsive"%>
+                        <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "width: 50px; float: left; margin-left: 2%;"%>
                       <% end %>
 
                       <% if @party.organizer.full_name.present? %>
