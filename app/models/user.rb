@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   REQUESTED_ROLES = ['Sports Fan', 'Alumni Group', 'Venue']
 
-  attr_accessor :current_password, :access_token
+  attr_accessor :current_password, :access_token, :current_latitude, :current_longitude
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
