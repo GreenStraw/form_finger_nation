@@ -31,7 +31,7 @@
   </div> <!-- END caption -->
 
   <% if party.present?  %>
-    <% if !party.description.nil? %>
+    <% if !party.description.blank? %>
       <div class="party_desc">
         <p><%= party.description.truncate(70) rescue "" %></p>
       </div>

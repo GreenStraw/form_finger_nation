@@ -112,7 +112,7 @@ body {overflow-x: hidden}
                 <div>
                   <h2 class="bottom-space-2x"><%= @party.name rescue "" %></h2>
 
-                  <% if !@party.description.nil? %>
+                  <% if !@party.description.blank? %>
                       <p class="bottom-space-2x"><%= @party.description rescue "" %></p>
                   <% end %>
 
