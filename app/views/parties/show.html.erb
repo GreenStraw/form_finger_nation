@@ -142,9 +142,9 @@ body {overflow-x: hidden}
                           <% end %>
 
                           <% if @party.organizer.full_name.present? %>
-                              <p style="width: 50px; float: left; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
+                              <p style="float: left; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
                           <% else %>
-                              <p style="width: 50px; float: left; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
+                              <p style="float: left; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
                           <% end %>
 
                       </div>
@@ -153,6 +153,7 @@ body {overflow-x: hidden}
 
                           <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
+                            <div class="bottom-space-2x" style="float: left;">
 
                               <%#= link_to "Already going", "#", class: "btn  btn-default btn_black" %>
                               <%#= link_to "cancel RSVP", party_rsvp_path(@party), class: "col_black" %>
@@ -168,7 +169,7 @@ body {overflow-x: hidden}
                                   <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="float:left; width: 65px;"/>
                                 <% end %>
 
-
+                            </div>
             
                           <% end %>
 
