@@ -260,7 +260,6 @@ class User < ActiveRecord::Base
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
     if authorization.user.blank?
       user = current_user.nil? ? User.where('email = ?', auth.info.email).first : current_user
-      user.current_longitude = "what"
       if user.blank?
         # For this need access permission for email,user_about_me and home_town
         user = User.new
