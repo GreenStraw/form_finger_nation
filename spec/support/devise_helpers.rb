@@ -4,6 +4,12 @@ module DeviseHelpers
     if role.nil?
       request.env['warden'].stub(:authenticate!).and_throw(:warden, {:scope => :user})
       controller.stub :current_user => nil
+    else
+      @current_user = user = Fabricate(:user)
+      @current_user.add_role role
+      sign_in @current_user
+      request.env['warden'].stub :authenticate! => @current_user
+      controller.stub :current_user => @current_user
     end
   end
 

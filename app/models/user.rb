@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   extend Enumerize
   rolify
   after_create :ensure_address
-  after_create :setCurrentLocation
 
   mount_uploader :image_url, ImageUploader
   mount_uploader :banner, BannerUploader
@@ -302,7 +301,7 @@ class User < ActiveRecord::Base
     create_address if address.nil?
   end
   
-  def setCurrentLocation
+  def initialize
     current_longitude = nil
     current_latitude = nil
   end
