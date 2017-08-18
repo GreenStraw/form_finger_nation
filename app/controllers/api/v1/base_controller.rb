@@ -7,7 +7,6 @@ class Api::V1::BaseController < ApplicationController
   respond_to :json
 
 
-
   private
 
   def validate_token
