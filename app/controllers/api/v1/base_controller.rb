@@ -14,7 +14,7 @@ class Api::V1::BaseController < ApplicationController
 
     user.current_latitude = nil
 
-    return user
+    return nil
   end
 
   private
