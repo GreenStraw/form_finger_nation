@@ -21,10 +21,7 @@ module DeviseHelpers
   end
 
   def current_user
-    #@current_user
 
-          @current_user.add("test", "1234")
-    return @current_user
   end
 
   def should_deny_access
