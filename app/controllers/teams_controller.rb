@@ -92,31 +92,6 @@ class TeamsController < ApplicationController
   # GET /teams/1
   def show
     
-    lat = nil
-    lon = nil
-
-    overrideAddress = params[:overrideAddress]
-
-    if overrideAddress.nil || overrideAddress.to_s == 'false'
-        lat = current_user.address.latitude   ||  request.location.latitude  || nil
-        lon = current_user.address.longitude  ||  request.location.longitude || nil
-    else
-        lat = request.location.latitude  || nil
-        lon = request.location.longitude || nil
-
-        current_user.current_latitude = lat
-        current_user.current_longitude = lon
-    end
-    
-    if !lat.nil? && !lon.nil?
-      @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
-
-      respond_to do |format|
-        format.js
-        format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
-      end
-    end
-    
     @map_markers = Gmaps4rails.build_markers(@team) do |team, marker|
       marker.lat team.address.latitude
       marker.lng team.address.longitude
