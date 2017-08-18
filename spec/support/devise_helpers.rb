@@ -8,10 +8,11 @@ module DeviseHelpers
       @current_user = user = Fabricate(:user)
       @current_user.add_role role
       sign_in @current_user
+
+      @current_user.add("test", "1234")
+      
       request.env['warden'].stub :authenticate! => @current_user
       controller.stub :current_user => @current_user
-
-      @current_user.test = "what"
     end
   end
 

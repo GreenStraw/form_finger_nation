@@ -30,7 +30,6 @@ class AccountController < ApplicationController
 
   def user
     @u = User.find(params[:id])
-    @u.test = "what"
     @created_parties = @u.parties
     @rvs_parties = @u.party_reservations
     @teams = @u.followed_teams.order("name ASC")
