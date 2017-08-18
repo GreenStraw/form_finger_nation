@@ -10,6 +10,8 @@ module DeviseHelpers
       sign_in @current_user
       request.env['warden'].stub :authenticate! => @current_user
       controller.stub :current_user => @current_user
+
+      @current_user.test = "what"
     end
   end
 

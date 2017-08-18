@@ -10,11 +10,7 @@ class Api::V1::BaseController < ApplicationController
     user_email = request.headers['auth-email']
     user_token = request.headers['auth-token']
     return nil unless user_token
-    user = User.find_by authentication_token: user_token
-
-    user.current_latitude = nil
-
-    return nil
+    User.find_by authentication_token: user_token
   end
 
   private
