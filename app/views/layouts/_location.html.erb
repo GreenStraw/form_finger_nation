@@ -10,7 +10,8 @@
           <div class="col-md-4 col-sm-4">
            <div class="form-group">
             <h5>Current Location</h5>
-            <h4><strong id="curLoc"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></strong></h4>
+                <h4 class="current_location"><strong id="curLoc"><%= current_user.address.city rescue 'No location' %> <%= current_user.address.state rescue '' %></strong></h4>
+                <h4 class="desired_location"><strong id="curLoc"><%= request.location.city rescue 'No location' %> <%= request.location.region_name rescue '' %></strong></h4>
           </div>
         </div>
         <div class="col-md-8 col-sm-8">

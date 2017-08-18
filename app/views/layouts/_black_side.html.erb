@@ -56,20 +56,17 @@
       </li>
 
       <li>
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref" >
+        <a href="#" data-toggle="modal" data-target="#loc" class="current_location">
             <i class="fa fa-map-marker"></i>
             <span id="NewlocUp"><%= request.location.city rescue ''  %> <%= request.location.region_name rescue ''  %> </span>
-            <span> <%= current_user.inspect %></span>  
             <small>(change)</small>
         </a>
 
-        <!--
-        <a href="#" data-toggle="modal" data-target="#loc" id="locHref">
+        <a href="#" data-toggle="modal" data-target="#loc" class="desired_location">
             <i class="fa fa-map-marker"></i>
-            <span id="NewlocUp"><%#= current_user.address.city rescue '' %> <%#= current_user.address.state rescue '' %></span>  
+            <span id="NewlocUp"><%= current_user.address.city rescue '' %> <%= current_user.address.state rescue '' %></span>  
             <small>(change)</small>
         </a>
-        -->
       </li>
 
 
@@ -182,3 +179,22 @@
 <% if current_user %>
   <%= render partial: '/layouts/location' %>
 <% end %>
+
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+      var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
+      
+      if(!overrideAddress) {
+        $('#current_location').show();
+        $('#desired_location').hide();
+      } else {
+        $('#current_location').hide();
+        $('#desired_location').show();
+      }
+
+  });
+
+</script>
