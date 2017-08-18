@@ -188,11 +188,11 @@
       var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
       
       if(!overrideAddress) {
-        $('#current_location').show();
-        $('#desired_location').hide();
+        $('.current_location').css({"display":"inline-block"});
+        $('.desired_location').css({"display":"none"});
       } else {
-        $('#current_location').hide();
-        $('#desired_location').show();
+        $('.current_location').css({"display":"none"});
+        $('.desired_location').css({"display":"inline-block"});
       }
 
   });
