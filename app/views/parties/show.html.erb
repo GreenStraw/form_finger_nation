@@ -97,7 +97,7 @@ body {overflow-x: hidden}
                         <% end %>
 
                         <% if !@party.image_url.blank? %>
-                            <%= image_tag(@party.image_url, class: "img-responsive center", title: "party") %>
+                            <%= image_tag(@party.image_url, class: "img-responsive center", title: "party", style: "border-radius: 100%;") %>
                         <% else %>
                           <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center"/>
                         <% end %>
@@ -151,6 +151,8 @@ body {overflow-x: hidden}
 
                         <% if !@party.description.blank? %>
                           <p class="bottom-space-2x"><%= @party.description rescue "Come out for some fun!" %></p>
+                        <% else %>
+                          <p class="bottom-space-2x">Come out for some fun!</p>
                         <% end %>
 
                       </div>
@@ -206,17 +208,6 @@ body {overflow-x: hidden}
                     </div>
                   </div>
 
-
-                  <div class="packages">
-                    <% if @party_packages.any? %>
-                      <h2>Party Vouchers</h2>
-                    <% end %>
-
-                    <% if @party_packages.any? %>
-                       <%= render partial: 'card_package', locals: {packages: @party_packages, party: @party, user: current_user} %>
-                    <% end %>
-                  </div>
-
               </div>
 
               <div class="col-lg-6 col-md-12 col-sm-12">
@@ -231,25 +222,31 @@ body {overflow-x: hidden}
                     <% end %>
                   </div>
 
-                  <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
+                  <div style="text-align: center" class="top-space-1x">
+                      <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
-                      <div style="text-align: center" class="top-space-1x">
+                            <div style="height: 90px; position: relative;">
+                              <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
+                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;">RSVP'd 100</span>
+                            </div>
 
-                        <div style="height: 90px; position: relative;">
-                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
-                          <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;">RSVP'd 100</span>
-                        </div>
+                            <p style="font-size: 18px; color: #a8d039;">50 spots left</p>
 
-                        <p style="font-size: 18px; color: #a8d039;">50 spots left</p>
+                        <% else %>
 
+                            <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
+
+                      <% end %>
+                  </div>
+
+                  <% if @party_packages.any? %>
+                      <div class="packages">
+                        <h2>Party Vouchers</h2>
+                        
+                        <% if @party_packages.any? %>
+                           <%= render partial: 'card_package', locals: {packages: @party_packages, party: @party, user: current_user} %>
+                        <% end %>
                       </div>
-
-                    <% else %>
-
-                      <div style="text-align: center" class="top-space-1x">
-                        <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
-                      </div>
-
                   <% end %>
 
               </div>
