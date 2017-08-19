@@ -147,7 +147,10 @@ $(document).ready(function() {
                 $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
               
                       
-            }
+          },
+          error: function() {
+              $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
+          }
         });
 
   });
@@ -159,7 +162,7 @@ $(document).ready(function() {
 
               "<div class='padding'>" +
                 "<div class='holder'>" +
-                    "<img alt='Placeholder' class='img-responsive center' src='"+ (party.image_url && party.image_url.thumb || "") +"'>" +
+                    "<img alt='Placeholder' class='img-responsive center' src='"+ (party.image_url && party.image_url.thumb && party.image_url.thumb.url|| "") +"'>" +
                 "</div>" +
       
                 "<div class='caption'>" +
