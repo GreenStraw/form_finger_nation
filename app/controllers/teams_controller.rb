@@ -61,7 +61,12 @@ class TeamsController < ApplicationController
 
     if overrideAddress.nil
 
-      return render json: {}, status: 409
+      #return render json: {}, status: 409
+
+        respond_to do |format|
+          format.js
+          format.json { render json: {parties_near_me: overrideAddress }, status: 200  }  # respond with the created JSON object
+        end
 
     elsif overrideAddress.to_s == 'false'
 
