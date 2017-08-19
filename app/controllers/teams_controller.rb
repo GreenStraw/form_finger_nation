@@ -52,47 +52,13 @@ class TeamsController < ApplicationController
 
   def parties_in_area
 
-    lat = nil
-    lon = nil
-
-    return render json: {}, status: 200
-
     @teams_within_area = []
 
-    overrideAddress = params[:overrideAddress]
-
-
-
-    if overrideAddress.nil
-
-      #return render json: {}, status: 409
-
-        respond_to do |format|
+            respond_to do |format|
           format.js
-          format.json { render json: {parties_near_me: overrideAddress }, status: 200  }  # respond with the created JSON object
+          format.json { render json: {parties_near_me: @teams_within_area }, status: 200  }  # respond with the created JSON object
         end
 
-    elsif overrideAddress.to_s == 'false'
-
-        lat = current_user.address.latitude   ||  request.location.latitude  || nil
-        lon = current_user.address.longitude  ||  request.location.longitude || nil
-
-    else
-
-        lat = request.location.latitude  || nil
-        lon = request.location.longitude || nil
-
-    end
-
-    if !lat.nil? && !lon.nil?
-      @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
-    end
-
-    respond_to do |format|
-      format.js
-      format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
-    end
-  
   end
 
   # GET /teams/1
