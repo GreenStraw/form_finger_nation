@@ -15,14 +15,9 @@ body {overflow-x: hidden}
 
 
 <div id="page-content-wrapper">
-  <div class="container-fluid">
-    <div class="sport_header row">
-      <div class="col-md-12">
-        <!--
-          <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
-        -->
+  <div >
 
-
+    <div class="sport_header_overlay">
         <div class="sport_caption pull-right verified party_caption_banner">
             <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
             <span>
@@ -30,8 +25,14 @@ body {overflow-x: hidden}
               <%#= render_shareable :buttons=> ['twitter', 'facebook'], static_link: true,facebook:{ title: "Foam Finger Nation", send: true, url: "https://www.ffn-staging.herokuapp.com/party-63", image: @party.image_url}  %>
             </span>
         </div>
+    </div>
 
-        
+    <div class="sport_header row" style="filter: blur(3px); opacity: .75;">
+      <div class="col-md-12">
+        <!--
+          <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
+        -->
+
         <div>
           <div class="clearfix"></div>
           <%# if @party.verified %>
@@ -180,14 +181,14 @@ body {overflow-x: hidden}
 
                           <div class="col-lg-4 col-md-4 col-sm-4">
 
-                              <div style="width: 100%; margin-bottom: 20px;">
-                                <a style="display:block; float: right;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                              <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
+                                <a title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                                 <i class="fa fa-twitter"></i>
                                 </a>
                               </div>
                                 
-                              <div style="width: 100%; margin-bottom: 20px;">
-                                <a style="display: block; float: right;" title="send to Facebook" 
+                              <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
+                                <a title="send to Facebook" 
                                   href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
                                   target="_blank">
                                   <span>
@@ -232,21 +233,21 @@ body {overflow-x: hidden}
 
                   <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
-                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
+                      <div style="text-align: center" class="top-space-1x">
 
-                        <div>
-                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block"%>
-                          <span style="display:inline-block; font-size: 32px; color: #a8d039;">RSVP'd 100</span>
+                        <div style="height: 90px; position: relative;">
+                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
+                          <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;">RSVP'd 100</span>
                         </div>
-                        
+
                         <p style="font-size: 18px; color: #a8d039;">50 spots left</p>
 
                       </div>
 
                     <% else %>
 
-                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
-                        <p class="btn btn-green btn-default" style="color:#FFF">Private Party</p>
+                      <div style="text-align: center" class="top-space-1x">
+                        <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
                       </div>
 
                   <% end %>

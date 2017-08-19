@@ -720,6 +720,21 @@ ul
   margin: 15px 0 0;
 }
 /*sport_pages start*/
+
+.sport_header_overlay {
+  height: 400px; 
+  position: absolute; 
+  background-color: rgba(0, 0, 0, 0.3); 
+  z-index: 9999999; 
+  width: 100%;
+}
+.sport_header_overlay .sport_caption {
+    background-color: #a8d039;
+    margin: 295px 37px 0px 0px;
+    border-radius: 10px;
+    height: 55px;
+    width: auto;
+}
 .sport_header{
   background: url(<%= asset_path 'sports_banner.png' %>) no-repeat center center;
   -webkit-background-size: cover;
@@ -749,7 +764,6 @@ ul
     height: 55px;
     width: auto;
   }
-
 .sport_header .Voucher_caption {
   font-family: 'Fjalla One',Helvetica,Arial,sans-serif;
   background-color: white;
