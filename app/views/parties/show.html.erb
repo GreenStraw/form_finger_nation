@@ -133,10 +133,6 @@ body {overflow-x: hidden}
 
                       <div class="manage">
 
-                        <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-
-
-
                           <% if @party.verified? %>
                               <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; display: inline-block;"/>
                           <% end %>
@@ -161,26 +157,53 @@ body {overflow-x: hidden}
                     </div>
                   </div>
 
-              </div>
 
-              <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="map_holder desktop">
-                  <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                    <div id="map-desktop" style='
-                        height: 250px;
-                        position: relative;
-                        float: right;
-                        overflow: hidden; width: 90%;'>  
-                    </div>
-                  <% end %>
-                </div>
+                  <div class="packages">
+                    <% if @party_packages.any? %>
+                      <h2>Party Vouchers</h2>
+                    <% end %>
 
-                <div class="packages">
                     <% if @party_packages.any? %>
                        <%= render partial: 'card_package', locals: {packages: @party_packages, party: @party, user: current_user} %>
                     <% end %>
-                </div>
+                  </div>
+
               </div>
+
+              <div class="col-lg-6 col-md-12 col-sm-12">
+
+                  <div class="map_holder desktop">
+                    <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                      <div id="map-desktop" style='
+                          height: 250px;
+                          position: relative;
+                          float: right;
+                          overflow: hidden; width: 90%;'>  
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <% if @party.is_private? && current_user.id==@party.organizer_id %>
+                      <div style="text-align: center">
+                        <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                      </div>
+
+                    <% elsif !@party.is_private? %>
+                      <div style="text-align: center">
+                        <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
+                      </div>
+
+                    <% else %>
+
+                      <div style="text-align: center">
+                        <p class="btn btn-green btn-default" style="color:#FFF">Private Party</p>
+                      </div>
+
+                  <% end %>
+
+              </div>
+
+
 
           </div>
 
