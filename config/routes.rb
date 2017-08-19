@@ -174,7 +174,7 @@ Baseapp::Application.routes.draw do
       end
       resources :parties do
         collection do
-          get 'search'
+          #get 'search'
           get 'by_attendee'
           get 'by_organizer'
           get 'by_user_favorites'
