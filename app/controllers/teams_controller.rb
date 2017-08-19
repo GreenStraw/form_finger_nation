@@ -67,15 +67,15 @@ class TeamsController < ApplicationController
           format.json { render json: {parties_near_me: @teams_within_area } }  # respond with the created JSON object
         end
 
-    elsif overrideAddress.to_s == 'false'
+    elsif overrideAddress.to_s == 'true'
 
-        lat = current_user.address.latitude   ||  request.location.latitude  || nil
-        lon = current_user.address.longitude  ||  request.location.longitude || nil
+        lat = current_user.address.latitude   #||  request.location.latitude
+        lon = current_user.address.longitude  #||  request.location.longitude
 
     else
 
-        lat = request.location.latitude  || nil
-        lon = request.location.longitude || nil
+        lat = request.location.latitude
+        lon = request.location.longitude
 
     end
 
