@@ -27,7 +27,7 @@ body {overflow-x: hidden}
         </div>
     </div>
 
-    <div class="sport_header row" style="filter: blur(3px); opacity: .75;">
+    <div class="sport_header row" style="filter: blur(5px); opacity: .75;">
       <div class="col-md-12">
         <!--
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
@@ -222,12 +222,12 @@ body {overflow-x: hidden}
                     <% end %>
                   </div>
 
-                  <div style="text-align: center" class="top-space-1x">
+                  <div style="text-align: center" class="top-space-1x bottom-space-2x">
                       <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
                             <div style="height: 90px; position: relative;">
                               <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
-                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;">RSVP'd 100</span>
+                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;">100 people attending</span>
                             </div>
 
                             <p style="font-size: 18px; color: #a8d039;">50 spots left</p>
