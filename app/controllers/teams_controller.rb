@@ -72,19 +72,19 @@ class TeamsController < ApplicationController
 
     end
 
-    #if !lat.nil? && !lon.nil?
-    #  @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
+    if !lat.nil? && !lon.nil?
+      @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
 
-    #  respond_to do |format|
-    #    format.js
-    #    format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
-    #  end
+      respond_to do |format|
+        format.js
+        format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
+      end
 
-    #else
+    else
 
-    #  return render json: {}, status: 409
+      return render json: {}, status: 409
 
-    #end
+    end
 
 
   end
