@@ -42,64 +42,10 @@ body {overflow-x: hidden}
 
 
               <div class="col-lg-12 col-md-12 col-sm-12">
-                    <% if @team.upcoming_parties.any? %>
-                      <h3 style=" font-weight: bold;">Upcoming Watch Parties</h3>
-                        <ul class="list-unstyled verifie_list">
-                        <% @team.upcoming_parties.each do |party| %>
-                          <div class="card">
-
-                            <div class="padding">
-
-                              <div class="holder">
-                                <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
-                              </div>
-                            
-                              <div class="caption">
-                                <%= link_to party do %>
-                                  <h3> <%= party.name %></h3><span><%= party.team.name %></span>
-                                <% end %>
-                                <!-- /////////////////////////check for verification///////////////// -->
-                                <% if party.verified %>
-                                  <div class="verifie_caption">
-                                    <div class="image-holder">
-                                        <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
-                                      </div>
-                                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
-                                  </div>
-                                <% end %>
-                                <!-- /////////////////////////////////end//////////////////////////// -->
-                                <br>
-                                <%= party.sponsor %>
-
-                                <ul class="list-inline">
-                                  <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
-                                  <li><%= party.venue.name+"(#{party.venue.address.city})" %></li>
-                                </ul>
-                              </div> <!-- END caption -->
-
-                              <% if !party.description.nil? %>
-                                <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
-                              <% end %>
-
-                            </div> <!-- END padding -->
-
-                            <div class="bottom">
-                              <%# if reservations_include?(party, current_user) %>
-                                
-                              <%# else %>
-                                <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
-                              <%# end %>
-
-                              <!--span class="prt_rsvp"> | </span-->
-                              <%= link_to "Party Packages", party, class: "prt_rsvp" %>
-                            </div>
-                          </div>
-                        <% end %>
-                        </ul>
-                    <% else %>
-                      <h2>No upcoming watch parties listed</h2>
-                    <% end %>
+                <div class="parties-nearby">
+                       
                 </div>
+              </div>
 
             </div>
 
@@ -163,7 +109,7 @@ body {overflow-x: hidden}
 
 <script type="text/javascript">
 
-  $(document).ready(function() {
+$(document).ready(function() {
 
       var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
       var teamId = $('.team_show_page').attr("data-team-id");
@@ -181,10 +127,64 @@ body {overflow-x: hidden}
           data : data,
           success: function(response) {
 
-          }
+            var cards = [];
 
+            if(response && response.parties_near_me && response.parties_near_me.length > 0) {
+
+                  cards = response.parties_near_me;
+
+                  $(".parties-nearby").append("<h3>Upcoming Watch Parties</h3>");
+
+                  for(var i=0; i < cards.length; i++) {
+                      var card = buildCard(cards[i]);
+                      $(".parties-nearby").append(card);
+                  }
+
+              }
+
+
+              if (cards.length==0)
+                $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
+              
+                      
+            }
         });
 
   });
+
+
+  function buildCard(party) {
+
+    var card = "<div class='card' style='margin: 1%;'>" +
+
+              "<div class='padding'>" +
+                "<div class='holder'>" +
+                    "<img alt='Placeholder' class='img-responsive center' src='"+ (party.image_url && party.image_url.thumb || "") +"'>" +
+                "</div>" +
+      
+                "<div class='caption'>" +
+                    "<h3 class='title'>"+ (party.name || "") +"</h3>" +
+                    "<br/>" +
+      
+                    "<ul class='list-inline '>" +
+                        "<li class='time'>"+ (party.scheduled_for || "") +"</li>" +
+                        "<li class='location'>Austin, TX 78704</li>" +
+                    "</ul>" +
+                "</div>" +
+
+                "<div class='party_desc'>" + 
+                      "<p class='description'>"+ (party.description || "") +"</p>" +
+                "</div>" +
+              "</div>" +
+
+              "<div class='bottom'>" +
+                      "<div class='float-left'>" +
+              "</div>" +
+              "</div></div>";
+
+
+    return card;
+
+  }
 
 </script>
