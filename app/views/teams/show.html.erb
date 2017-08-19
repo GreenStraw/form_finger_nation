@@ -24,82 +24,86 @@ body {overflow-x: hidden}
         </div>
       </div>
       <div class="main-area team_show_page" data-team-id='<%= @team.id %>'>
+
+
         <div class="row">
           <div class="follow companylisting">
-            <div class="col-md-12 col-sm-12">
-              <h2><%= "#{@team.name}" %></h2>
-              <ul class="list-unstyled address">
-                <li><%= @team.address.street %></li>
-                <li><%= @team.address.city_state %></li>
-                <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
-              </ul>
 
-              <div> <%= @teams_within_area.inspect %></div>
-            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+
+              <div class="col-lg- col-md-12 col-sm-12">
+                  <h2><%= "#{@team.name}" %></h2>
+                  <ul class="list-unstyled address">
+                    <li><%= @team.address.street %></li>
+                    <li><%= @team.address.city_state %></li>
+                    <li><%= link_to 'Visit Website', @team.website if @team.website %></li>
+                  </ul>
+              </div>
 
 
-            <div class="col-lg-5 col-md-12 col-sm-12">
-                <% if @team.upcoming_parties.any? %>
-                  <h3 style=" font-weight: bold;">Upcoming Watch Parties</h3>
-                    <ul class="list-unstyled verifie_list">
-                    <% @team.upcoming_parties.each do |party| %>
-                      <div class="card">
+              <div class="col-lg- col-md-12 col-sm-12">
+                    <% if @team.upcoming_parties.any? %>
+                      <h3 style=" font-weight: bold;">Upcoming Watch Parties</h3>
+                        <ul class="list-unstyled verifie_list">
+                        <% @team.upcoming_parties.each do |party| %>
+                          <div class="card">
 
-                        <div class="padding">
+                            <div class="padding">
 
-                          <div class="holder">
-                            <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
-                          </div>
-                        
-                          <div class="caption">
-                            <%= link_to party do %>
-                              <h3> <%= party.name %></h3><span><%= party.team.name %></span>
-                            <% end %>
-                            <!-- /////////////////////////check for verification///////////////// -->
-                            <% if party.verified %>
-                              <div class="verifie_caption">
-                                <div class="image-holder">
-                                    <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
-                                  </div>
-                                <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
+                              <div class="holder">
+                                <%= image_tag(party.image_url, class: "img-responsive center") unless party.image_url.nil? %>
                               </div>
-                            <% end %>
-                            <!-- /////////////////////////////////end//////////////////////////// -->
-                            <br>
-                            <%= party.sponsor %>
-
-                            <ul class="list-inline">
-                              <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
-                              <li><%= party.venue.name+"(#{party.venue.address.city})" %></li>
-                            </ul>
-                          </div> <!-- END caption -->
-
-                          <% if !party.description.nil? %>
-                            <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
-                          <% end %>
-
-                        </div> <!-- END padding -->
-
-                        <div class="bottom">
-                          <%# if reservations_include?(party, current_user) %>
                             
-                          <%# else %>
-                            <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
-                          <%# end %>
+                              <div class="caption">
+                                <%= link_to party do %>
+                                  <h3> <%= party.name %></h3><span><%= party.team.name %></span>
+                                <% end %>
+                                <!-- /////////////////////////check for verification///////////////// -->
+                                <% if party.verified %>
+                                  <div class="verifie_caption">
+                                    <div class="image-holder">
+                                        <img alt="No image" class="img-responsive" src="/assets/vendor/verified_logo.png" >
+                                      </div>
+                                    <strong class="title" style="font-size:9px;"><em>Verified</em></strong>
+                                  </div>
+                                <% end %>
+                                <!-- /////////////////////////////////end//////////////////////////// -->
+                                <br>
+                                <%= party.sponsor %>
 
-                          <!--span class="prt_rsvp"> | </span-->
-                          <%= link_to "Party Packages", party, class: "prt_rsvp" %>
-                        </div>
-                      </div>
+                                <ul class="list-inline">
+                                  <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %></li>
+                                  <li><%= party.venue.name+"(#{party.venue.address.city})" %></li>
+                                </ul>
+                              </div> <!-- END caption -->
+
+                              <% if !party.description.nil? %>
+                                <div class="party_desc"><p><%= party.description.truncate(40)  %></p></div>
+                              <% end %>
+
+                            </div> <!-- END padding -->
+
+                            <div class="bottom">
+                              <%# if reservations_include?(party, current_user) %>
+                                
+                              <%# else %>
+                                <!-- <a href="#"  data-toggle="modal" data-target="#myModal" >RSVP</a> -->
+                              <%# end %>
+
+                              <!--span class="prt_rsvp"> | </span-->
+                              <%= link_to "Party Packages", party, class: "prt_rsvp" %>
+                            </div>
+                          </div>
+                        <% end %>
+                        </ul>
+                    <% else %>
+                      <h2>No upcoming watch parties listed</h2>
                     <% end %>
-                    </ul>
-                <% else %>
-                  <h2>No upcoming watch parties listed</h2>
-                <% end %>
+                </div>
+
             </div>
 
-
-            <div class="col-md-offset-1 col-lg-6 col-md-12 col-sm-12 team-twitter">
+            <div class="col-md-offset-1 col-lg-5 col-md-12 col-sm-12 team-twitter">
               <h2>
                 <span class="fa-stack fa-1x">
                   <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -110,33 +114,39 @@ body {overflow-x: hidden}
                   <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
                 <% end %>
               </div>
-            </div>
+
+
+
+
+            </div> <!-- end companylisting -->
           </div>
-            <%= link_to 'Sport', sport_path(@team.sport) %>
-            <% if current_user.present? && current_user.can?(:edit, @team) %>
-              | <%= link_to 'Edit', edit_team_path(@team) %>
-            <% end %>
+
+            <%#= link_to 'Sport', sport_path(@team.sport) %>
+            <%# if current_user.present? && current_user.can?(:edit, @team) %>
+              | <%#= link_to 'Edit', edit_team_path(@team) %>
+            <%# end %>
           </div>
         </div>
       </div>
     </div>
     
+<!--
 <div class=" ch_location myparties modal fade" id="wallModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body" id = "modalls">
         <h2>Upload Wall Photo</h2>
-        <%= form_for(@team) do |f| %>
+        <%#= form_for(@team) do |f| %>
         <label>Banner Image</label>
-        <%= f.file_field :banner, :required => true, :id => :banner_upload_field %>
-        <%= f.submit "Upload Banner" ,class: "btn btn-green pull-right"%>
+        <%#= f.file_field :banner, :required => true, :id => :banner_upload_field %>
+        <%#= f.submit "Upload Banner" ,class: "btn btn-green pull-right"%>
         <button type="button" class="btn btn-green pull-right" data-dismiss="modal" style="margin-right: 10px" >Close</button>
-        <% end %>
+        <%# end %>
       </div>
     </div>
   </div>
 </div>
-
+-->
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');
