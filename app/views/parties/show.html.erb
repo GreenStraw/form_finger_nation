@@ -91,13 +91,34 @@ body {overflow-x: hidden}
 
                       <div class="header">
 
+                        <% if @party.verified? %>
+                            <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; float:right; padding: 5%;"/>
+                        <% end %>
+
+                        <% if !@party.image_url.blank? %>
+                            <%= image_tag(@party.image_url, class: "img-responsive center", title: "party") %>
+                        <% else %>
+                          <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center"/>
+                        <% end %>
+
                         <h2 class="bottom-space-2x"><%= @party.name rescue "" %></h2>
 
-                         <% if @party.organizer.full_name.present? %>
-                            <p style="display: inline-block; margin-left: 2%;">Hosted By <%= @party.organizer.full_name %></p>
-                          <% else %>
-                            <p style="display: inline-block; margin-left: 2%;">Hosted By <%= @party.organizer.username %></p>
-                          <% end %>
+                        <div>
+
+                            <% if current_user && current_user.image_url.present? %>
+                              <%= image_tag current_user.image_url, class: "img-responsive", style: "display: inline-block; border-radius: 100%; width: 32px; height: 32px;" %>
+                            <% else %>
+                              <%= image_tag "vendor/no_image.png", class: "img-responsive", style: "display: inline-block; border-radius: 100%; width: 32px; height: 32px;"%>
+                            <% end %>
+
+
+                            <% if @party.organizer.full_name.present? %>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.full_name.capitalize.to_s %></p>
+                            <% else %>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.username.capitalize.to_s %></p>
+                            <% end %>
+
+                        </div>
 
                       </div>
 
@@ -125,32 +146,53 @@ body {overflow-x: hidden}
 
                       <div class="description">
 
+                        <h2 class="bottom-space-1x">Description</h2>
+
                         <% if !@party.description.blank? %>
-                          <p class="bottom-space-2x"><%= @party.description rescue "" %></p>
+                          <p class="bottom-space-2x"><%= @party.description rescue "Come out for some fun!" %></p>
                         <% end %>
 
                       </div>
 
                       <div class="manage">
 
-                          <% if @party.verified? %>
-                              <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; display: inline-block;"/>
-                          <% end %>
+                          <div class="col-lg-8 col-md-8 col-sm-8">
 
-                          <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
-
-                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
-                                <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                              <% if @party.verified? %>
+                                  <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; display: inline-block;"/>
                               <% end %>
 
-                          <% else %>
+                              <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                              <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
-                                <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                  <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
+                                    <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                  <% end %>
+
+                              <% else %>
+
+                                  <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
+                                    <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                  <% end %>
+
                               <% end %>
 
-                          <% end %>
+                          </div>
 
+                          <div class="col-lg-4 col-md-4 col-sm-4">
+
+                              <a style="display:block; margin-bottom: 20px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                              <i class="fa fa-twitter"></i>
+                              </a>
+                          
+                              <a style="display: block; margin-bottom: 20px;" title="send to Facebook" 
+                                href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                                target="_blank">
+                                <span>
+                                  <i class="fa fa-facebook"></i> 
+                                </span>
+                              </a>
+
+                          </div>
 
                       </div>
 
@@ -172,34 +214,29 @@ body {overflow-x: hidden}
 
               <div class="col-lg-6 col-md-12 col-sm-12">
 
-                  <div class="map_holder desktop">
-                    <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
-                      <div id="map-desktop" style='
-                          height: 250px;
-                          position: relative;
-                          float: right;
-                          overflow: hidden; width: 90%;'>  
-                      </div>
-                    <% end %>
-                  </div>
+                 <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
-                  <% if @party.is_private? && current_user.id==@party.organizer_id %>
-                      <div style="text-align: center">
-                        <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-                      </div>
-
-                    <% elsif !@party.is_private? %>
-                      <div style="text-align: center">
+                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
                         <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
                       </div>
 
                     <% else %>
 
-                      <div style="text-align: center">
+                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
                         <p class="btn btn-green btn-default" style="color:#FFF">Private Party</p>
                       </div>
 
                   <% end %>
+
+                  <div class="map_holder desktop">
+                    <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
+                      <div id="map-desktop" style='
+                          height: 250px;
+                          position: relative;
+                          overflow: hidden; width: 100%;'>  
+                      </div>
+                    <% end %>
+                  </div>
 
               </div>
 
