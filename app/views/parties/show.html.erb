@@ -27,7 +27,7 @@ body {overflow-x: hidden}
         </div>
     </div>
 
-    <div class="sport_header row" style="filter: blur(5px); opacity: .75;">
+    <div class="sport_header row" style="filter: blur(0px); opacity: .75;">
       <div class="col-md-12">
         <!--
           <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
@@ -241,7 +241,7 @@ body {overflow-x: hidden}
 
                   <% if @party_packages.any? %>
                       <div class="packages">
-                        <h2>Party Vouchers</h2>
+                        <h2 class="bottom-space-2x">Party Vouchers</h2>
                         
                         <% if @party_packages.any? %>
                            <%= render partial: 'card_package', locals: {packages: @party_packages, party: @party, user: current_user} %>

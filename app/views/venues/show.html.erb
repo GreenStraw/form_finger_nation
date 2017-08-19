@@ -31,7 +31,7 @@
             </div>
           <% end %>
 
-          <div class="col-lg-6 col-md-6 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
+          <div class="col-lg-6 col-md-6 col-sm-12 venue-info" style="padding-top: 1%; padding-left: 3%;">
             <%= render partial: 'details' %>
 
             <% if @venue.upcoming_parties.any? %>
@@ -43,21 +43,13 @@
             <% end %>
           </div>
 
-          <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="col-lg-6 col-md-6 col-sm-12" class="specials">
 
-            <div>
-                <div style="height: 100vh;
-    border-left: solid #d7d7d7;
-    border-width: 0.075em;
-    margin-right: 2px;
-    margin-top: 50px;
-    display: inline-block;
-    position: relative;
-    float: left;" class="desktop"></div>
-                <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
-            </div>
+              <div class="venue_vertical_line" class="desktop"></div>
+              <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
 
           </div>
+
         </div>
       </div>
     </div>
@@ -69,6 +61,20 @@
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
-    handler.getMap().setZoom(11)
+    handler.getMap().setZoom(25)
   });
+
+  $(document).ready(function() {
+
+    var venue_info_height = $('.venue-info').outerHeight();
+    var venue_specials = $('.specials').outerHeight();
+
+    if(venue_info_height >= venue_specials) {
+      $('.venue_vertical_line').css({"height": venue_info_height+"px"});
+    } else {
+      $('.venue_vertical_line').css({"height": venue_specials+"px"});
+    }
+
+  });
+
 </script>
