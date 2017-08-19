@@ -54,12 +54,11 @@ class TeamsController < ApplicationController
 
     lat = nil
     lon = nil
-
-    @teams_within_area = []
-
     overrideAddress = params[:overrideAddress]
 
-    if overrideAddress.nil
+    @teams_within_area = []
+    
+    if overrideAddress.nil?
 
       #return render json: {}, status: 409
 
