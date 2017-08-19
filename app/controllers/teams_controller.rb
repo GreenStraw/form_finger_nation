@@ -55,9 +55,15 @@ class TeamsController < ApplicationController
     lat = nil
     lon = nil
 
+    @teams_within_area = []
+
     overrideAddress = params[:overrideAddress]
 
-    if overrideAddress.nil || overrideAddress.to_s == 'false'
+    if overrideAddress.nil
+
+      return render json: {}, status: 409
+
+    elsif overrideAddress.to_s == 'false'
 
         lat = current_user.address.latitude   ||  request.location.latitude  || nil
         lon = current_user.address.longitude  ||  request.location.longitude || nil
@@ -66,9 +72,6 @@ class TeamsController < ApplicationController
 
         lat = request.location.latitude  || nil
         lon = request.location.longitude || nil
-
-        current_user.current_latitude = lat
-        current_user.current_longitude = lon
 
     end
 
@@ -80,10 +83,10 @@ class TeamsController < ApplicationController
         format.json { render json: {parties_near_me: @teams_within_area}, status: 200  }  # respond with the created JSON object
       end
 
-    else
+     else
 
-      return render json: {}, status: 409
-
+        return render json: {parties_near_me: @teams_within_area}, status: 200  }
+    
     end
 
 
