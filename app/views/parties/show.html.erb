@@ -92,7 +92,7 @@ body {overflow-x: hidden}
                       <div class="header">
 
                         <% if @party.verified? %>
-                            <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; float:right; padding: 5%;"/>
+                            <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 75px; float: right; position: absolute; right: 5%;"/>
                         <% end %>
 
                         <% if !@party.image_url.blank? %>
@@ -180,21 +180,27 @@ body {overflow-x: hidden}
 
                           <div class="col-lg-4 col-md-4 col-sm-4">
 
-                              <a style="display:block; margin-bottom: 20px;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
-                              <i class="fa fa-twitter"></i>
-                              </a>
-                          
-                              <a style="display: block; margin-bottom: 20px;" title="send to Facebook" 
-                                href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
-                                target="_blank">
-                                <span>
-                                  <i class="fa fa-facebook"></i> 
-                                </span>
-                              </a>
+                              <div style="width: 100%; margin-bottom: 20px;">
+                                <a style="display:block; float: right;" title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                                </a>
+                              </div>
+                                
+                              <div style="width: 100%; margin-bottom: 20px;">
+                                <a style="display: block; float: right;" title="send to Facebook" 
+                                  href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                                  target="_blank">
+                                  <span>
+                                    <i class="fa fa-facebook"></i> 
+                                  </span>
+                                </a>
+                              </div>
 
                           </div>
 
                       </div>
+
+                      <div style="clear: both;"></div>
 
                     </div>
                   </div>
@@ -214,20 +220,6 @@ body {overflow-x: hidden}
 
               <div class="col-lg-6 col-md-12 col-sm-12">
 
-                 <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
-
-                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
-                        <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default"%>
-                      </div>
-
-                    <% else %>
-
-                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
-                        <p class="btn btn-green btn-default" style="color:#FFF">Private Party</p>
-                      </div>
-
-                  <% end %>
-
                   <div class="map_holder desktop">
                     <% if @party.venue.address.latitude.present? && @party.venue.address.longitude.present?%>
                       <div id="map-desktop" style='
@@ -237,6 +229,27 @@ body {overflow-x: hidden}
                       </div>
                     <% end %>
                   </div>
+
+                  <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
+
+                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
+
+                        <div>
+                          <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block"%>
+                          <span style="display:inline-block; font-size: 32px; color: #a8d039;">RSVP'd 100</span>
+                        </div>
+                        
+                        <p style="font-size: 18px; color: #a8d039;">50 spots left</p>
+
+                      </div>
+
+                    <% else %>
+
+                      <div style="text-align: center" class="top-space-1x bottom-space-2x">
+                        <p class="btn btn-green btn-default" style="color:#FFF">Private Party</p>
+                      </div>
+
+                  <% end %>
 
               </div>
 
