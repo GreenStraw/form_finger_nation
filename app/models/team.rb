@@ -51,7 +51,7 @@ class Team < ActiveRecord::Base
 
   def self.geo_search(lat, lon, radius, team_id)
 
-    parties = Party.where("team_id = ? && scheduled_for >= ?", team_id, Time.current )
+    parties = Party.where("team_id = ?", team_id).where("scheduled_for >= ?", Time.current)
     team_parties_in_area = []
 
     if parties.any?
