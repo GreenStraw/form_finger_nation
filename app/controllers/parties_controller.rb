@@ -158,6 +158,13 @@ class PartiesController < ApplicationController
 
   # GET /parties/1
   def show
+
+    @spotsLeft = 0
+
+    if !@party.max_rsvp.blank?
+      @spotsLeft = @party.max_rsvp - @party.party_reservations.count
+    end
+
     @party_packages = Party.getPartyPackages(@party.venue.id, @party.id)
     @map_markers = Party.build_markers([@party])
   end
