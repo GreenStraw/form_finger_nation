@@ -9,6 +9,11 @@ body {overflow-x: hidden}
       background: url(<%= asset_path 'sports_banner.png' %>) no-repeat center center;
       background-size: cover;
       height: 400px;
+      -webkit-filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -o-filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+      filter: grayscale(100%); 
     <% end %>
   }
 </style>
