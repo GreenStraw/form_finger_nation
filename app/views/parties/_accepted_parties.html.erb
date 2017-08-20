@@ -23,7 +23,7 @@
 
         <div class="bottom">
 
-            <% if party.present? %>
+            <% if accepted.present? %>
               <div class="edit-card-text">
                   <%= render partial: 'manage_party', locals: {party: accepted, from: 'accepted', spotsLeft: @spotsLeft} %>
               </div>
