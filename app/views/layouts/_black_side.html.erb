@@ -117,8 +117,8 @@
 
 
           <li>
-            <% if current_user.get_pending_parties.length > 0 %>
-                  <a href="#Cancelled" class="my_party">Cancelled (<%= current_user.get_pending_parties.length %>)</a>
+            <% if current_user.get_cancelledParties.length > 0 %>
+                  <a href="#Cancelled" class="my_party">Cancelled (<%= current_user.get_cancelledParties.length %>)</a>
             <% else %>
                   <span>Cancelled 0</span>
             <% end %>
