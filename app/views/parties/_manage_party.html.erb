@@ -1,9 +1,9 @@
-<div class="top-space-2x" style="text-align: left; width: 30%;">
+<div class="top-space-2x" style="text-align: left; width: 29%; top: 15px; display: inline-block; position: relative;">
     <p><%= party.party_reservations.count.to_s %> attending</p>
     <p><%= spotsLeft %> left</p>
 </div>
 
-<div class='manage' style="width: 70%;">
+<div class='manage' style="width: 69%; display: inline-block;">
 
       <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
 

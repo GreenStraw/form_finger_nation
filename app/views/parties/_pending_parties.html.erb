@@ -29,7 +29,7 @@
             </div>
 
             <% if party_pending.present? %>
-              <div class="float-right edit-card-text">
+              <div class="edit-card-text">
                   <%= render partial: 'manage_party', locals: {party: party_pending, from: 'verify_pending', spotsLeft: @spotsLeft} %>
               </div>
             <% end %>
