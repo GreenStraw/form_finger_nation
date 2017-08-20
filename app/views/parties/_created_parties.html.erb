@@ -31,7 +31,7 @@
 
             <% if party.present? %>
               <div class="float-right edit-card-text" style="margin-left: 10px;">
-                  <%= render partial: 'manage_party', locals: {party: party, from: 'create'} %>
+                  <%= render partial: 'manage_party', locals: {party: party, from: 'create', spotsLeft: @spotsLeft} %>
               </div>
             <% end %>
 

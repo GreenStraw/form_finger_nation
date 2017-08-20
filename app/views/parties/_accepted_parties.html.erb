@@ -25,7 +25,7 @@
 
             <div class="float-left">
               <% if accepted.present? %>
-                <%= render partial: 'social_media', locals: {party: accepted, from: 'accepted'} %>
+                <%= render partial: 'social_media', locals: {party: accepted, from: 'accepted', spotsLeft: @spotsLeft} %>
               <% end %>
             </div>
 

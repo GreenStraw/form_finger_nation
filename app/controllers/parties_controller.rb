@@ -158,13 +158,6 @@ class PartiesController < ApplicationController
 
   # GET /parties/1
   def show
-
-    @spotsLeft = 0
-
-    if !@party.max_rsvp.blank?
-      @spotsLeft = @party.max_rsvp - @party.party_reservations.count
-    end
-
     @party_packages = Party.getPartyPackages(@party.venue.id, @party.id)
     @map_markers = Party.build_markers([@party])
   end
@@ -317,18 +310,25 @@ class PartiesController < ApplicationController
     end
     rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first
     if rsvp.blank?
-      current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
-      flash[:success] = "Created reservation for #{@party.name}!"
-      if @flag
-        @party_packages = @party.packages
-        # @created_parties = current_user.parties
-        respond_to do |format|
-          format.js
-          format.json { render json: {party_packages: @party_packages} }  # respond with the created JSON object
-        end
+
+      if @spotsLeft > 0
+          current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
+          flash[:success] = "Created reservation for #{@party.name}!"
+          if @flag
+            @party_packages = @party.packages
+            # @created_parties = current_user.parties
+            respond_to do |format|
+              format.js
+              format.json { render json: {party_packages: @party_packages} }  # respond with the created JSON object
+            end
+          else
+            redirect_to party_path(@party)
+          end
       else
+        flash[:success] = "Sorry, no more spots are available."
         redirect_to party_path(@party)
       end
+      
     else
       rsvp.destroy
       flash[:success] = "Deleted reservation for #{@party.name}!"
@@ -383,6 +383,11 @@ class PartiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_party
       @party = Party.find_by_friendly_url(params[:id])
+
+      @spotsLeft = 0
+      if !@party.max_rsvp.blank?
+        @spotsLeft = @party.max_rsvp - @party.party_reservations.count
+      end
     end
 
     # Only allow a trusted parameter "white list" through.

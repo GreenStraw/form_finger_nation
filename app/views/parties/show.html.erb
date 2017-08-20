@@ -161,16 +161,20 @@ body {overflow-x: hidden}
 
                           <div class="col-lg-8 col-md-8 col-sm-8">
 
-                              <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+                              <% if @spotsLeft > 0 %>
 
-                                  <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
-                                    <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
-                                  <% end %>
+                                  <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                              <% else %>
+                                      <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
+                                        <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                      <% end %>
 
-                                  <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
-                                    <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                  <% else %>
+
+                                      <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
+                                        <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
+                                      <% end %>
+
                                   <% end %>
 
                               <% end %>
@@ -223,7 +227,7 @@ body {overflow-x: hidden}
 
                             <div style="height: 90px; position: relative;">
                               <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
-                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> people attending</span>
+                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> <%= @party.party_reservations.count > 1 ? 'people attending' : 'person attending' %></span>
                             </div>
 
                             <% if @spotsLeft > 0 %>
@@ -301,14 +305,14 @@ body {overflow-x: hidden}
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
-    handler.getMap().setZoom(11)
+    handler.getMap().setZoom(13)
   });
 
   handler.buildMap({ provider: {}, internal: {id: 'map-mobile'}}, function(){
     markers = handler.addMarkers(<%=raw @map_markers.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
-    handler.getMap().setZoom(11)
+    handler.getMap().setZoom(13)
   });
   
   // $("#fbtn").click(function(){
