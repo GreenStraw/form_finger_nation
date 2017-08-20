@@ -35,7 +35,7 @@
 					  		<tr id = "<%=team.id%>">
 					  			<td>
 					    			<span>
-                      <div class="image-holder" style="width: 25px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 25px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
+                      <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
 
                       <h4 style="float:none; display: inline-block;"><%= link_to(team.name, team) %></h4>
@@ -44,9 +44,9 @@
 					  			<td > 
 					  				<a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
                       <% if favorites.include?(team) %>
-                        <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive"/>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive" style="width: 40px;"/>
                       <% else %>
-                        <img src='<%= asset_path 'like.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive"/>
+                        <img src='<%= asset_path 'like.png' %>' title="favorite team" alt="favorite team" class="img-responsive" style="width: 40px;"/>
                       <% end %>
                     <%#= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
 					  			</td>
