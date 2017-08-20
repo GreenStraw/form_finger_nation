@@ -8,9 +8,10 @@ class PartiesController < ApplicationController
   # GET /parties
   def index
     $c = 0
-    @teams = @user.followed_teams.order("name ASC")
-
     @user = current_user
+
+    @teams = @user.followed_teams.order("name ASC")
+    
     @rvs_parties        = @user.get_party_reservations
     @created_parties    = @user.get_createdParties
     @pending_parties    = @user.get_pending_parties
