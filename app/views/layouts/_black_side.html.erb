@@ -73,7 +73,7 @@
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
 
-        <%= link_to '<i class="fa fa-desktop"></i>All Active Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
+        <%= link_to '<i class="fa fa-desktop"></i>My Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
 
         <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
 

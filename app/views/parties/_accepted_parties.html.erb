@@ -23,11 +23,11 @@
 
         <div class="bottom">
 
-            <div class="edit-card-text">
-              <% if accepted.present? %>
-                <%= render partial: 'social_media', locals: {party: accepted, from: 'accepted', spotsLeft: @spotsLeft} %>
-              <% end %>
-            </div>
+            <% if party.present? %>
+              <div class="edit-card-text">
+                  <%= render partial: 'manage_party', locals: {party: accepted, from: 'accepted', spotsLeft: @spotsLeft} %>
+              </div>
+            <% end %>
 
         </div> <!-- END bottom -->
       </div>
