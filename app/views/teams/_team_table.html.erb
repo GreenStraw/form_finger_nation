@@ -60,9 +60,9 @@
                     <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'>
 
                       <% if favorites.include?(team) %>
-                        <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive" style="width: 40px;"/>
+                        <img src='<%= asset_path 'like.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive" style="width: 40px;"/>
                       <% else %>
-                        <img src='<%= asset_path 'like.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive" style="width: 40px;"/>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive" style="width: 40px;"/>
                       <% end %>
 
                     </a>
