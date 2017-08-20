@@ -161,10 +161,6 @@ body {overflow-x: hidden}
 
                           <div class="col-lg-8 col-md-8 col-sm-8">
 
-                              <% if @party.verified? %>
-                                  <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 65px; display: inline-block;"/>
-                              <% end %>
-
                               <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
                                   <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
