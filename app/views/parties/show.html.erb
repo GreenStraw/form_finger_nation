@@ -226,12 +226,12 @@ body {overflow-x: hidden}
                               <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> people attending</span>
                             </div>
 
-                            <% @spotsLeft > 0 %>
+                            <% if @spotsLeft > 0 %>
                               <p style="font-size: 18px; color: #a8d039;"><%= @spotsLeft %> spots left</p>
                             <% else %>
                               <p style="font-size: 18px; color: #a8d039;">No spots available</p>
                             <% end %>
-                            
+
                         <% else %>
 
                             <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
