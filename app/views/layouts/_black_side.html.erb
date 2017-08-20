@@ -72,25 +72,31 @@
 
       <li class="Watch_Parties">
         <% css1_class = current_page?( parties_path ) ? "active_p" : "" %>
-        <!-- <a href="#wparties" class="w_parties"> --><%= link_to '<i class="fa fa-desktop"></i>Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
+
+        <%= link_to '<i class="fa fa-desktop"></i>All Active Watch Parties'.html_safe, parties_path, class: "#{css1_class}" %>
+
         <ul class="my_Parties <%= 'hidden_p' unless current_page?( parties_path ) %>">
-          <li>
-            <% if current_user.parties.length > 0 %>
-                  <%= link_to "My Parties (#{current_user.parties.length})", get_parties_parties_path, remote: true, class:"my_party"%>
-            <% else %>
-                  <span>My Parties 0</span>
-            <% end %>
-          </li>
 
-          <li>
-            <% if current_user.get_party_reservations.length > 0 %>
-                  <a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs (<%= current_user.get_party_reservations.length %>)</a>
-            <% else %>
-                  <span>RSVPs 0</span>
-            <% end %>
-          </li>
+          <% if !current_user.admin? %>
+            <li>
+              <% if current_user.parties.length > 0 %>
+                    <%= link_to "My Parties (#{current_user.parties.length})", get_parties_parties_path, remote: true, class:"my_party"%>
+              <% else %>
+                    <span>My Parties 0</span>
+              <% end %>
+            </li>
+          <% end %>
 
-          <% if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+          <% if !(current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any)) %>
+              <li>
+                <% if current_user.get_party_reservations.length > 0 %>
+                      <a href="#RSVPs" id="rsvp_parties_link" class="my_party">RSVPs (<%= current_user.get_party_reservations.length %>)</a>
+                <% else %>
+                      <span>RSVPs 0</span>
+                <% end %>
+              </li>
+          <% end %>
+
           <li>
             <% if current_user.get_pending_parties.length > 0 %>
                   <a href="#Waiting" class="my_party">Verify Waiting (<%= current_user.get_pending_parties.length %>)</a>
@@ -99,14 +105,24 @@
             <% end %>
           </li>
 
+          <% if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+              <li>
+                <% if current_user.get_accepted_parties.length > 0 %>
+                      <a href="#Accepted" class="my_party">Accepted (<%= current_user.get_accepted_parties.length %>)</a>
+                <% else %>
+                      <span>Accepted 0</span>
+                <% end %>
+              </li>
+          <% end %>
+
+
           <li>
-            <% if current_user.get_accepted_parties.length > 0 %>
-                  <a href="#Accepted" class="my_party">Accepted (<%= current_user.get_accepted_parties.length %>)</a>
+            <% if current_user.get_pending_parties.length > 0 %>
+                  <a href="#Cancelled" class="my_party">Cancelled (<%= current_user.get_pending_parties.length %>)</a>
             <% else %>
-                  <span>Accepted 0</span>
+                  <span>Cancelled 0</span>
             <% end %>
           </li>
-          <% end %>
         </ul>
       </li>
 
