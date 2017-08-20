@@ -43,11 +43,11 @@
 					  			</td>
 					  			<td > 
 					  				<a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
-                    <%= favorites.include?(team) %>
-                      <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive"/>
-                    <% else %>
-                      <img src='<%= asset_path 'like.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive"/>
-                    <% end %>
+                      <% if favorites.include?(team) %>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive"/>
+                      <% else %>
+                        <img src='<%= asset_path 'like.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive"/>
+                      <% end %>
                     <%#= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
 					  			</td>
 					  		</tr>

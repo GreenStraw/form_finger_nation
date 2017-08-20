@@ -57,7 +57,15 @@
                   <% if user_signed_in? %>
 
                     <!-- <i class="fa subscribe-star <%#= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i> -->
-                    <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'><%= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
+                    <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'>
+
+                      <% if favorites.include?(team) %>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive"/>
+                      <% else %>
+                        <img src='<%= asset_path 'like.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive"/>
+                      <% end %>
+                    
+                    </a>
                   
                   <% end %>
                 </div>
