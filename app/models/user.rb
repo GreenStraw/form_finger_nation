@@ -146,10 +146,17 @@ class User < ActiveRecord::Base
     end
   end
 
-  
+  def get_createdParties 
+      Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+  end
+
+  def get_cancelledParties
+      parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+  end
 
   def get_party_reservations
-      parties = Party.where(organizer_id: self.id)
+      parties = Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
       parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
   end
 
@@ -159,7 +166,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = false")
+      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = false AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
@@ -170,7 +177,7 @@ class User < ActiveRecord::Base
       venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
       venues.try(:each) do |venue|
-        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ?', self.id, false) )
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ? AND is_cancelled = ?', self.id, false, false).where('parties.scheduled_for >= ?', DateTime.now.new_offset('-05:00')) )
       end
 
     end
@@ -186,7 +193,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = true")
+      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = true AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
@@ -197,7 +204,7 @@ class User < ActiveRecord::Base
       venues =  Venue.where(id: self.roles.where("name = 'venue_manager' OR  name = 'manager'").map(&:resource_id))
 
       venues.try(:each) do |venue|
-        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ?', self.id, true) )
+        pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ? AND is_cancelled = ?', self.id, true, false).where('parties.scheduled_for >= ?', DateTime.now.new_offset('-05:00')) )
       end
 
     end

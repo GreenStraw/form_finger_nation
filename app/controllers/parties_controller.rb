@@ -8,12 +8,15 @@ class PartiesController < ApplicationController
   # GET /parties
   def index
     $c = 0
-    @user = current_user
-    @rvs_parties = @user.get_party_reservations
-    @created_parties = @user.parties
     @teams = @user.followed_teams.order("name ASC")
-    @pending_parties = @user.get_pending_parties
-    @accepted_parties = @user.get_accepted_parties
+
+    @user = current_user
+    @rvs_parties        = @user.get_party_reservations
+    @created_parties    = @user.get_createdParties
+    @pending_parties    = @user.get_pending_parties
+    @accepted_parties   = @user.get_accepted_parties
+    @cancelled_parties  = @user.get_cancelledParties
+
     # if @created_parties.blank?
     #   redirect_to cant_find_parties_path
     # end
@@ -328,7 +331,7 @@ class PartiesController < ApplicationController
         flash[:success] = "Sorry, no more spots are available."
         redirect_to party_path(@party)
       end
-      
+
     else
       rsvp.destroy
       flash[:success] = "Deleted reservation for #{@party.name}!"
