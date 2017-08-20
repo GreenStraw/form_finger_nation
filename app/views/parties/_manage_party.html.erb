@@ -59,9 +59,13 @@
 
   <% if (from=='accepted' || from=='create') &&
         (current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
+
+    Cancel Here
+
     <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
         <img src='<%= asset_path 'icon-packages.png' %>' title="Edit Package" alt="edit package" class="img-responsive center" style="display: inline-block;"/>
     <% end %>
+  
   <% end %>
 
 
