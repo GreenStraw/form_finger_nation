@@ -146,18 +146,36 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_createdParties 
-      Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+  def get_createdParties
+      if !self.admin? 
+        Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+      else
+        []
+      end
   end
 
+  #todo test cancelled parties
   def get_cancelledParties
-      parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
-      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+      if self.admin?
+        parties = Party.where(is_cancelled: true).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+      elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
+        parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")        
+      else
+        parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+      end
   end
 
+  #todo test reserved parties
   def get_party_reservations
+
+    if !(self.admin? || self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)) 
       parties = Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
       parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+    else
+      []
+    end
   end
 
   def get_pending_parties
@@ -179,6 +197,10 @@ class User < ActiveRecord::Base
       venues.try(:each) do |venue|
         pending_parties.concat(venue.parties.where('parties.organizer_id != ? AND parties.verified = ? AND is_cancelled = ?', self.id, false, false).where('parties.scheduled_for >= ?', DateTime.now.new_offset('-05:00')) )
       end
+
+    else
+
+      pending_parties =  Party.where("parties.organizer_id = ? AND who_created_location = ? AND verified = ? AND is_cancelled = ?", self.id, 'customer_venue', false, false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
 
     end
 
