@@ -61,7 +61,7 @@ class AccountController < ApplicationController
     @user = current_user
     @teams = @user.followed_teams.order("name ASC")
     if @user.website == ''
-      @user.website = 'http://'
+      @user.website = 'https://'
     end
   end
 

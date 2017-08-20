@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @to = user.email + ", calvincarter.160@gmail.com, sayrooj@gmail.com, rhettlg@yahoo.com"
     @user = user
-    @url = "http://www.foamfingernation.com/login"
+    @url = "https://www.foamfingernation.com/login"
     mail(to: @to, from: '"Foam Finger Nation" <Info@foamfingernation.com>', subject: 'Welcome to Foam Finger Nation!')
   end
 

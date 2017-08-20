@@ -3,9 +3,9 @@
 <!--
 <div class="social-media">
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.foamfingernation.com/parties/"<%=party.friendly_url%> title=<%#= party.name %> target="_blank" class="btn btn-green btn-circle btn-facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.foamfingernation.com/parties/"<%=party.friendly_url%> title=<%#= party.name %> target="_blank" class="btn btn-green btn-circle btn-facebook" target="_blank"><i class="fa fa-facebook"></i></a>
 
-  <a style="margin: 0 10px 0 10px" title=<%#= party.name %> href="http://www.foamfingernation.com/parties/"<%=party.friendly_url%> class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
+  <a style="margin: 0 10px 0 10px" title=<%#= party.name %> href="https://www.foamfingernation.com/parties/"<%=party.friendly_url%> class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i></a>
 
 </div>
 
@@ -25,7 +25,7 @@
     //We get the title of the link
     var title  = escape($(this).attr('title'));
     //We trigger a new window with the Twitter dialog, in the middle of the page
-    window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+    window.open('https://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
   });
   
   

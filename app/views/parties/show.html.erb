@@ -180,14 +180,14 @@ body {overflow-x: hidden}
                           <div class="col-lg-4 col-md-4 col-sm-4">
 
                               <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
-                                <a title="<%=@party.name %>" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
+                                <a title="<%=@party.name %>" href="https://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                                 <i class="fa fa-twitter"></i>
                                 </a>
                               </div>
                                 
                               <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
                                 <a title="send to Facebook" 
-                                  href="http://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=http://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
+                                  href="https://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=https://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
                                   target="_blank">
                                   <span>
                                     <i class="fa fa-facebook"></i> 
@@ -331,8 +331,8 @@ body {overflow-x: hidden}
 </script>
 <!--   <meta property="og:title" content= "Foam Finger Nation" />
   <meta property="og:type" content= "image" />
-  <link rel="canonical" href="http://www.foamfingernation.com/parties/<%= @party.friendly_url %>">
-  <meta property="og:url" content="http://www.foamfingernation.com/parties/<%#= @party.friendly_url %>" />
+  <link rel="canonical" href="https://www.foamfingernation.com/parties/<%= @party.friendly_url %>">
+  <meta property="og:url" content="https://www.foamfingernation.com/parties/<%#= @party.friendly_url %>" />
   <meta property="og:description" content="Its party Time" />
   <meta name="description" content="Description is here" /> -->
 <!-- <div id="fb-root">
@@ -351,7 +351,7 @@ body {overflow-x: hidden}
     //We get the title of the link
     var title  = escape($(this).attr('title'));
     //We trigger a new window with the Twitter dialog, in the middle of the page
-    window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+    window.open('https://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
   });
   
   
