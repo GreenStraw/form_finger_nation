@@ -167,6 +167,10 @@
         </div>
       </div>
 
+    <% if current_user %>
+      <%= render partial: '/cancel' %>
+    <% end %>
+
 <script>
 $(document).ready(function () {
   $("#rsvp_parties_link").click(function(){

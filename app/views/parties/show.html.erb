@@ -152,37 +152,17 @@ body {overflow-x: hidden}
 
                       <div class="description">
 
-                        <h2 class="bottom-space-1x">Description</h2>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h2 class="bottom-space-1x">Description</h2>
 
-                        <% if !@party.description.blank? %>
-                          <p class="bottom-space-2x"><%= @party.description rescue "Come out for some fun!" %></p>
-                        <% else %>
-                          <p class="bottom-space-2x">Come out for some fun!</p>
-                        <% end %>
+                            <% if !@party.description.blank? %>
+                              <p class="bottom-space-2x"><%= @party.description rescue "Come out for some fun!" %></p>
+                            <% else %>
+                              <p class="bottom-space-2x">Come out for some fun!</p>
+                            <% end %>
+                        </div>
 
-                      </div>
-
-                      <div class="manage">
-
-                          <div class="col-lg-8 col-md-8 col-sm-8">
-
-                              <% if @spotsLeft > 0 %>
-
-                                  <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
-
-                                      <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF;" %>
-
-                                  <% else %>
-
-                                      <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default" %>
-
-                                  <% end %>
-
-                              <% end %>
-
-                          </div>
-
-                          <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
 
                               <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
                                 <a title="<%=@party.name %>" href="https://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
@@ -199,8 +179,25 @@ body {overflow-x: hidden}
                                   </span>
                                 </a>
                               </div>
-
                           </div>
+
+                      </div>
+
+                      <div class="manage" style="text-align: center;">
+
+                          <% if @spotsLeft > 0 %>
+
+                              <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+
+                                  <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
+
+                              <% else %>
+
+                                  <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
+
+                              <% end %>
+
+                          <% end %>
 
                       </div>
 
@@ -226,7 +223,7 @@ body {overflow-x: hidden}
                   <div style="text-align: center" class="top-space-1x bottom-space-2x">
                       <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
-                            <div style="height: 90px; position: relative;">
+                            <div style="height: 90px; position: relative; right: 25px;">
                               <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
                               <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> <%= @party.party_reservations.count > 1 ? 'people attending' : 'person attending' %></span>
                             </div>
