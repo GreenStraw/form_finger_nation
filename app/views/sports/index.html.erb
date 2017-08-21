@@ -1,15 +1,16 @@
   <div id="page-content-wrapper">
     <div class="container-fluid">
-      <div class="sport_header row">
-        <div class="col-md-12">
-        <div class="clearfix"></div>
-          <div class="sport_caption col-md-3 col-xs-8 pull-right ">
-            <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
-            <span>Sports</span>
-            <div class="clearfix"></div>
-            <%= link_to 'New Sport', new_sport_path, class: "btn btn-green" %>
-          </div>
+
+      <div class="sport_header_overlay">
+        <div class="sport_caption pull-right ">
+          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+          <span>Sports</span>
+          <div class="clearfix"></div>
+          <%= link_to 'New Sport', new_sport_path, class: "btn btn-green" %>
         </div>
+      </div>
+
+      <div class="sport_header row">
       </div>
       <div class="main-area">
         <div class="row">

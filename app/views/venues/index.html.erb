@@ -1,17 +1,18 @@
 <div id="page-content-wrapper">
   <div class="container-fluid">
-    <div class="sport_header  row">
-      <div class="col-md-12">
-        <div class="sport_caption pull-right">
-          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
-          <span>Venues</span>
-        </div>
 
-        <!-- % if current_user.can?(:create, Venue) % -->
+    <div class="sport_header_overlay">
+      <div class="sport_caption pull-right">
+        <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
+        <span>Venues</span>
+      </div>
+    </div>
+
+    <div class="sport_header  row">
+        <%# if current_user.can?(:create, Venue) %>
         <% if current_user.has_role?(:admin) %>
           <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default" %>
         <% end %>		
-      </div>
     </div>
     <div class="main-area">
       <div class="row">

@@ -1,18 +1,21 @@
 <div id="page-content-wrapper">
   <div class="container-fluid" style="padding: 0">
-      <div class="map_holder">
-            <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
+
+      <% if (@venue.address.city.present? && @venue.address.state.present?) || @venue.address.zip.present? %>
+        <div class="map_holder">
               <div id="map" style='width: 100%; height: 400px;'></div>
-            <% end %>
-      </div>
-    <!--div class="sport_header  row">
-      <div class="col-md-12">
-        <div class="sport_caption pull-right">
-          <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
-          <span>Venue <%= @venue.name %></span>
         </div>
-      </div>
-    </div-->
+      <% else %>
+        <div class="sport_header_overlay">
+          <div class="sport_caption pull-right">
+            <img src='<%#= asset_path 'white_foam_finger_icon.png' %>'/>
+            <span>Venue <%#= @venue.name %></span>
+          </div>
+        </div>
+        <div class="sport_header  row">
+        </div>
+      <% end %>
+
     <div class="main-area">
       <div class="row" style="color:black;">
         <div id='notice'>
