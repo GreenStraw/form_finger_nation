@@ -1,23 +1,42 @@
-<div class=" ch_location modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div>
-        <button type="button" class="close model_box_loc" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <h2>Reason of Cancelling</h2>
-        <div class="row">
-          <div class="col-sm-12">
-             <div class="form-group">
-              <h5>Description</h5>
-              <input type="em5il" class="form-control" id="newLocCity"  data-user-id="<%= current_user.id %>" placeholder="City" required>
+<%= form_for(@party, url: cancel_party_path, method: :post) do |f| %>
+  <% if @party.errors.any? %>
+    <div id="error_explanation">
+      <%= pluralize(@party.errors.count, "error") %> prohibited this user from being saved
+
+      <ul>
+      <% @party.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :id%>
+
+      <div class=" ch_location modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div>
+              <button type="button" class="close model_box_loc" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3">
-              <button type="button" class="btn btn-green btn-default changeLoc" data-dismiss="modal">Submit Cancellation</button>
+            <div class="modal-body">
+              <h2>Reason of Cancelling</h2>
+              <div class="row">
+                <div class="col-sm-12">
+                   <div class="form-group">
+                    <%= f.label :cancel_description, "Description" %>
+                    <%= f.text_area :cancel_description, class: "form-control ", rows: 4 %>
+                  </div>
+                  <div class="col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3">
+                    <!--
+                    <button type="button" class="btn btn-green btn-default" data-dismiss="modal">Submit Cancellation</button>
+                    -->
+                    <%= f.submit "Submit Cancellation", class: "btn btn-green btn-default" %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
+<% end %>

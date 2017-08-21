@@ -160,6 +160,26 @@ class PartiesController < ApplicationController
     end
   end
 
+  def cancel_party
+    @party = Pary.find(params[:party][:id])
+
+    unless params[:party][:cancel_description].blank?
+      params[:party][:is_cancelled] = true
+      result = @party.update_attributes(user_params)
+    #else
+    #  result = @user.update_attributes(user_params.except(:password, :password_confirmation))
+    end
+
+    if result == true
+      flash[:success] = "Cancellation has been submit"
+    else
+      flash[:warning] = "We could not update your account."
+    end
+
+    redirect_to party_path(@party)
+
+  end
+
   # GET /parties/1
   def show
     @party_packages = Party.getPartyPackages(@party.venue.id, @party.id)
@@ -396,7 +416,7 @@ class PartiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def party_params
-      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :scheduled_time, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :who_created_location, venue_attributes: [:name, :description, :created_by, address_attributes: [:street1, :street2, :city, :state, :zip]])
+      params.require(:party).permit(:banner, :name, :description, :is_private, :verified, :scheduled_for, :scheduled_time, :organizer_id, :team_id, :venue_id, :search_item, :search_location,:friendly_url ,:slug , :image_url, :max_rsvp, :business_name, :tags, :invite_type, :sponsor, :sponser_image, :is_cancelled, :cancel_description, :who_created_location, venue_attributes: [:name, :description, :created_by, address_attributes: [:street1, :street2, :city, :state, :zip]])
     end
 
     def sort_parties_geographically(parties)

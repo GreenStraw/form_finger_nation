@@ -39,7 +39,7 @@
             -->
           <%# end %>
 
-          <a href="#" data-toggle="modal" data-target="#loc" class="current_location">
+          <a href="#" data-toggle="modal" data-target="#cancel">
           Cancel Here
           </a>
 
@@ -67,7 +67,7 @@
   <% if (from=='accepted' || from=='create') &&
         (current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
-    <a href="#" data-toggle="modal" data-target="#loc" class="current_location">
+    <a href="#" data-toggle="modal" data-target="#cancel">
       Cancel Here
     </a>
 
