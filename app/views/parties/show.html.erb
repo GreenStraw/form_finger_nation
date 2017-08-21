@@ -170,15 +170,11 @@ body {overflow-x: hidden}
 
                                   <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                                      <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}" do %>
-                                        <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
-                                      <% end %>
+                                      <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF;" %>
 
                                   <% else %>
 
-                                      <%= link_to party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}" do %>
-                                        <img src='<%= asset_path 'icon-rsvp.png' %>' title="rsvp" alt="rsvp" class="img-responsive center" style="width: 65px;  display: inline-block;"/>
-                                      <% end %>
+                                      <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default" %>
 
                                   <% end %>
 
