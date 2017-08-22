@@ -42,9 +42,10 @@
             <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
         </div>
-        <div class="row sp_contents" id="redeemable">
+        <div class="row sp_contents bottom-space-2x" id="redeemable">
           <ul class="list-group">
             <% if @redeemable_vouchers.any? && current_user.requested_role != "Venue" %>
+            <h1> Current Vouchers </h1>
               <% @redeemable_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
@@ -67,6 +68,7 @@
         <div class="row sp_contents" id="history">
           <ul class="list-group">
             <% if @history_vouchers.any? %>
+            <h1> Expired Vouchers </h1>
               <% @history_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>

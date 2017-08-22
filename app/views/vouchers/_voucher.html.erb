@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-3 col-sm-2 col-xs-12 mtb25">
       <% unless voucher.redeemed_at.blank? %>
-        <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
+        <a href="#" class="btn btn-green btn-default" style="background-color: #FF0000; border-color: #FF0000;" onclick="return false;">Redeemed</a>
       <% else %>
         <%= link_to "Redeem", redeem_voucher_path(voucher.id), class: "redeem-btn btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
       <% end %>
