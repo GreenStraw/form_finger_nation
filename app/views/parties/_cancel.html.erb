@@ -48,13 +48,13 @@
 
 <script type="text/javascript">
 
+  var cancel_party = undefined;
 
-$(document).ready(function() {
+  $(document).ready(function() {
 
-      var party = undefined;
       $(".cancel-party").click(function() {
           console.log("button");
-          party = $(this).attr("data-party-id");
+          cancel_party = $(this).attr("data-party-id");
       }); 
 
   });
@@ -65,13 +65,13 @@ $(document).ready(function() {
     var description = $('.cancel_description').val();
     description = String(description).trim();
 
-    if(party && (description && description!="")) {
+    if((cancel_party&&cancel_party!="") && (description&&description!="")) {
 
       var data = {"cancel_description":description};
 
         $.ajax({
           type: 'POST',
-          url: "/parties/" + party + "/cancel_party",
+          url: "/parties/" + cancel_party + "/cancel_party",
           dataType: "json",
           cache: false,
           data : data,
