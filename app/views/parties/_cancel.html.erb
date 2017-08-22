@@ -35,7 +35,7 @@
                   </div>
                   <div class="col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3">
                     
-                    <input type="button" class="btn btn-green btn-default" data-dismiss="modal" value="Submit Cancellation" onclick="cancelParty()">
+                    <input type="button" class="btn btn-green btn-default" data-dismiss="modal" value="Submit Cancellation" onclick="cancelParty();">
                     
                     <%#= f.submit "Submit Cancellation", class: "btn btn-green btn-default" %>
                   </div>
@@ -57,31 +57,31 @@ $(document).ready(function() {
           party = $(this).attr("data-party-id");
       }); 
 
-
-      function cancelParty() {
-
-        var description = $('.cancel_description').text();
-        description = String(description).trim();
-
-        if(party && (description && description!="")) {
-
-          var data = {"cancel_description":description};
-
-            $.ajax({
-              type: 'POST',
-              url: "/parties/" + party + "/cancel_party",
-              dataType: "json",
-              cache: false,
-              data : data,
-              success: function(response) {            
-              },
-              error: function() {}
-            });
-        }
-
-      }
-
   });
+
+
+  function cancelParty() {
+
+    var description = $('.cancel_description').val();
+    description = String(description).trim();
+
+    if(party && (description && description!="")) {
+
+      var data = {"cancel_description":description};
+
+        $.ajax({
+          type: 'POST',
+          url: "/parties/" + party + "/cancel_party",
+          dataType: "json",
+          cache: false,
+          data : data,
+          success: function(response) {            
+          },
+          error: function() {}
+        });
+    }
+
+  }
 
 </script>
 
