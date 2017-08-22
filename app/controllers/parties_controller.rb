@@ -164,10 +164,9 @@ class PartiesController < ApplicationController
     
     if current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager,  @party.venue)
     
-        @party = Pary.find(params[:party][:id])
-        unless params[:party][:cancel_description].blank?
-          params[:party][:is_cancelled] = true
-          result = @party.update_attributes(user_params)
+        @party = Pary.find(params[:id])
+        unless params[:cancel_description].blank?
+          result = @party.update_attribute(:is_cancelled, true)
         #else
         #  result = @user.update_attributes(user_params.except(:password, :password_confirmation))
         end
