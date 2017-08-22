@@ -2,14 +2,16 @@
     <p>
         <span class="inline-block"><%= party.party_reservations.count.to_s %></span> 
 
-        <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="people attending" class="img-responsive center inline-block" style="margin-left: 5px;"/>
+        <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="people attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
     </p>
 
-    <p>
-        <span class="inline-block"><%= spotsLeft %></span> 
+    <% if !party.max_rsvp.blank? %>
+        <p>
+            <span class="inline-block"><%= @party.max_rsvp - @party.party_reservations.count %></span> 
 
-        <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px;"/>
-    </p>
+            <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
+        </p>
+    <% end %>
 
 </div>
 

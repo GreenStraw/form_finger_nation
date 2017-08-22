@@ -189,6 +189,11 @@ class PartiesController < ApplicationController
   def show
     @party_packages = Party.getPartyPackages(@party.venue.id, @party.id)
     @map_markers = Party.build_markers([@party])
+
+    @spotsLeft = 0
+    if !@party.max_rsvp.blank?
+      @spotsLeft = @party.max_rsvp - @party.party_reservations.count
+    end
   end
 
   # GET /parties/new
@@ -340,7 +345,12 @@ class PartiesController < ApplicationController
     rsvp = current_user.party_reservations.where(user_id: current_user.id, party_id: @party.id).first
     if rsvp.blank?
 
-      if @spotsLeft > 0
+    spotsLeft = 0
+    if !@party.max_rsvp.blank?
+      spotsLeft = @party.max_rsvp - @party.party_reservations.count
+    end
+
+      if spotsLeft > 0
           current_user.party_reservations.create( party_id: @party.id, email: current_user.email)
           flash[:success] = "Created reservation for #{@party.name}!"
           if @flag
@@ -412,11 +422,6 @@ class PartiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_party
       @party = Party.find_by_friendly_url(params[:id])
-
-      @spotsLeft = 0
-      if !@party.max_rsvp.blank?
-        @spotsLeft = @party.max_rsvp - @party.party_reservations.count
-      end
     end
 
     # Only allow a trusted parameter "white list" through.
