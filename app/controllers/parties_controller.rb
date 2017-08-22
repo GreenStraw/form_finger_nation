@@ -162,9 +162,10 @@ class PartiesController < ApplicationController
 
   def cancel_party
     
+    @party = Party.find(params[:id])
+    
     if current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager,  @party.venue)
     
-        @party = Pary.find(params[:id])
         unless params[:cancel_description].blank?
           result = @party.update_attribute(:is_cancelled, true)
         #else
