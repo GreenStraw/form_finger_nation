@@ -5,9 +5,16 @@
         <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="people attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
     </p>
 
-    <% if !party.max_rsvp.blank? %>
+    <% if !party.max_rsvp.blank?%>
+
+      <% spots = party.max_rsvp - party.party_reservations.count %>
         <p>
-            <span class="inline-block"><%= @party.max_rsvp - @party.party_reservations.count %></span> 
+
+          <% if spots > 0 %>
+            <span class="inline-block"><%= spots %></span>
+          <% else %>
+            <span class="inline-block">0</span>
+          <% end %> 
 
             <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
         </p>
