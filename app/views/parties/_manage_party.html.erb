@@ -1,11 +1,21 @@
 <div class="top-space-2x" style="text-align: left; width: 29%; top: 25px; display: inline-block; position: relative; padding-left: 5%;">
-    <p><%= party.party_reservations.count.to_s %> attending</p>
-    <p><%= spotsLeft %> left</p>
+    <p>
+        <span class="inline-block"><%= party.party_reservations.count.to_s %></span> 
+
+        <img src='<%= asset_path '/icons/user.svg' %>' title="people attending" alt="people attending" class="img-responsive center inline-block" style="margin-left: 5px;"/>
+    </p>
+
+    <p>
+        <span class="inline-block"><%= spotsLeft %></span> 
+
+        <img src='<%= asset_path '/icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px;"/>
+    </p>
+
 </div>
 
 <div class='manage' style="width: 69%; display: inline-block; width: 69%; text-align: right; padding-right: 5%;">
 
-  <a href="#" data-toggle="modal" data-target="#cancel">
+  <a href="#" data-toggle="modal" data-target="#cancel" onclick="cancelParty(party.id)">
       Cancel Here
   </a>
 

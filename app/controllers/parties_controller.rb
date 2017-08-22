@@ -161,19 +161,24 @@ class PartiesController < ApplicationController
   end
 
   def cancel_party
-    @party = Pary.find(params[:party][:id])
+    
+    if current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager,  @party.venue)
+    
+        @party = Pary.find(params[:party][:id])
+        unless params[:party][:cancel_description].blank?
+          params[:party][:is_cancelled] = true
+          result = @party.update_attributes(user_params)
+        #else
+        #  result = @user.update_attributes(user_params.except(:password, :password_confirmation))
+        end
 
-    unless params[:party][:cancel_description].blank?
-      params[:party][:is_cancelled] = true
-      result = @party.update_attributes(user_params)
-    #else
-    #  result = @user.update_attributes(user_params.except(:password, :password_confirmation))
-    end
-
-    if result == true
-      flash[:success] = "Cancellation has been submit"
+        if result == true
+          flash[:success] = "Cancellation has been submit"
+        else
+          flash[:warning] = "Sorry, you cannot cancel party at this time."
+        end
     else
-      flash[:warning] = "We could not update your account."
+        flash[:warning] = "Sorry, your account cannot cancel party at this time."
     end
 
     redirect_to party_path(@party)
