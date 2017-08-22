@@ -1,8 +1,8 @@
 <div class="top-space-2x" style="text-align: left; width: 29%; top: 25px; display: inline-block; position: relative; padding-left: 5%;">
     <p>
-        <span class="inline-block"><%= party.party_reservations.count.to_s %></span> 
+        <span class="inline-block" style="width: 20px;"><%= party.party_reservations.count.to_s %></span> 
 
-        <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="people attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
+        <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
     </p>
 
     <% if !party.max_rsvp.blank?%>
@@ -11,9 +11,9 @@
         <p>
 
           <% if spots > 0 %>
-            <span class="inline-block"><%= spots %></span>
+            <span class="inline-block" style="width: 20px;"><%= spots %></span>
           <% else %>
-            <span class="inline-block">0</span>
+            <span class="inline-block" style="width: 20px;">0</span>
           <% end %> 
 
             <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
@@ -24,7 +24,7 @@
 
 <div class='manage' style="width: 69%; display: inline-block; width: 69%; text-align: right; padding-right: 5%;">
 
-  <a href="#" data-toggle="modal" data-target="#cancel" onclick="cancelParty(party.id)">
+  <a href="#" data-toggle="modal" data-target="#cancel" class="cancel-party" data-party-id="<%= party.id %>">
       Cancel Here
   </a>
 
