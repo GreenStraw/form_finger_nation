@@ -43,4 +43,48 @@
         </div>
       </div>
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  /*
+      
+      $.ajax({
+          type: 'POST',
+          url: "/teams/" + teamId + "/parties_in_area",
+          dataType: "json",
+          cache: false,
+          data : data,
+          success: function(response) {
+
+            var cards = [];
+
+            if(response && response.parties_near_me && response.parties_near_me.length > 0) {
+
+                  cards = response.parties_near_me;
+
+                  $(".parties-nearby").append("<h3>Upcoming Watch Parties</h3>");
+
+                  for(var i=0; i < cards.length; i++) {
+                      var card = buildCard(cards[i]);
+                      $(".parties-nearby").append(card);
+                  }
+
+              }
+
+
+              if (cards.length==0)
+                $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
+              
+                      
+          },
+          error: function() {}
+        });
+
+    */
+
+  });
+
+</script>
+
 <%# end %>
