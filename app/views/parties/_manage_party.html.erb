@@ -104,7 +104,7 @@
 
 
 
-  <% if party.verified? %>
+  <% if party.verified? && from!='cancelled' %>
 
     <a href="#">
       <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="display: inline-block;"/>

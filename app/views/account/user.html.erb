@@ -125,6 +125,7 @@ body {overflow-x: hidden}
               <% if @rvs_parties.length > 0 %>
                 <h3>Parties I'm Attending</h3>
               <% end %>
+              
               <% @rvs_parties.try(:each) do |rsv| %>
                 <% party = rsv.party %>
                 <% if party.present? && party.organizer_id != current_user.id %>
