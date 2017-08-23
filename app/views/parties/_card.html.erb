@@ -21,6 +21,12 @@
 
 <% end %>
 
+<% if party.is_cancelled  %>
+      <div class="cancle_icon">
+        <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right"/>
+      </div>
+<% end %>
+
   <div class="holder">
 
     <% if !party.image_url.blank? %>
