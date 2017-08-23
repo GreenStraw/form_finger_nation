@@ -1,26 +1,31 @@
-<div class="top-space-2x" style="text-align: left; width: 29%; top: 25px; display: inline-block; position: relative; padding-left: 5%;">
-    <p>
-        <span class="inline-block" style="width: 20px;"><%= party.party_reservations.count.to_s %></span> 
 
-        <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
-    </p>
+<% if !party.is_cancelled %>
+      <div class="top-space-2x" style="text-align: left; width: 29%; left: 5%; top: 15px; display: inline-block; position: relative;">
+          <p>
+              <span class="inline-block" style="width: 20px;"><%= party.party_reservations.count.to_s %></span> 
 
-    <% if !party.max_rsvp.blank?%>
+              <img src='<%= asset_path 'icons/user.svg' %>' title="people attending" alt="attending" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
+          </p>
 
-      <% spots = party.max_rsvp - party.party_reservations.count %>
-        <p>
+          <% if !party.max_rsvp.blank?%>
 
-          <% if spots > 0 %>
-            <span class="inline-block" style="width: 20px;"><%= spots %></span>
-          <% else %>
-            <span class="inline-block" style="width: 20px;">0</span>
-          <% end %> 
+            <% spots = party.max_rsvp - party.party_reservations.count %>
+              <p>
 
-            <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
-        </p>
-    <% end %>
+                <% if spots > 0 %>
+                  <span class="inline-block" style="width: 20px;"><%= spots %></span>
+                <% else %>
+                  <span class="inline-block" style="width: 20px;">0</span>
+                <% end %> 
 
-</div>
+                  <img src='<%= asset_path 'icons/spots-available.svg' %>' title="spots available" alt="spots available" class="img-responsive center inline-block" style="margin-left: 5px; width: 18px;"/>
+              </p>
+          <% end %>
+
+      </div>
+<% end %>
+
+
 
 <div class='manage' style="width: 69%; display: inline-block; width: 69%; text-align: right; padding-right: 5%;">
 
@@ -34,11 +39,11 @@
       <% if from=='rsvp' &&
             !( current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
         <%= link_to party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" do %>
-          <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="display: inline-block;"/>
+          <img src='<%= asset_path 'icon-unrsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
         <% end %>
 
         <%= link_to party_rsvp_path({id: party.id , flag: 'modall'}), id: "rsvp#{party.id}", class: "prt_rsvp #{reservations_include?(party, current_user) ? 'hidden_p' : ''}", remote: true,"data-toggle" => "modal", 'data-target' => '#myModal' do %>
-          <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="display: inline-block;"/>
+          <img src='<%= asset_path 'icon-rsvp.png' %>' title="unrsvp" alt="unrsvp" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
         <% end %>
       <% end %>
 
@@ -58,14 +63,10 @@
             -->
           <%# end %>
 
-          <a href="#" data-toggle="modal" data-target="#cancel">
-          Cancel Here
-          </a>
-
           <%#= link_to("Verify", verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put)%>
 
           <%= link_to verify_party_path(party), class: "#{!party.verified? ? '' : 'hidden_p'}", remote: true, method: :put do %>
-              <img src='<%= asset_path 'icon-verify.png' %>' title="verify" alt="verify" class="img-responsive center" style="display: inline-block;"/>
+              <img src='<%= asset_path 'icon-verify.png' %>' title="verify" alt="verify" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
           <% end %>
 
 
@@ -79,37 +80,37 @@
       <%#= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
 
       <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
-          <img src='<%= asset_path 'icon-packages.png' %>' title="Assign to Vendor" alt="assign to vendor" class="img-responsive center" style="display: inline-block;"/>
+          <img src='<%= asset_path 'icons/add-vendor.svg' %>' title="Assign to Vendor" alt="assign to vendor" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
       <% end %>
   <% end %>
+
+
 
   <% if (from=='accepted' || from=='create') &&
         (current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
-    <a href="#" data-toggle="modal" data-target="#cancel">
-      Cancel Here
-    </a>
-
     <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
-        <img src='<%= asset_path 'icon-packages.png' %>' title="Edit Package" alt="edit package" class="img-responsive center" style="display: inline-block;"/>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="Edit Package" alt="edit package" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
     <% end %>
   
   <% end %>
+
+
 
 
   <% if (from=='create' || from=='rsvp') &&
             !( current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
        
       <%= link_to party, class: "prt_rsvp" do %>
-        <img src='<%= asset_path 'icon-packages.png' %>' title="See Packages" alt="see packages" class="img-responsive center" style="display: inline-block;"/>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="See Packages" alt="see packages" class="img-responsive center" style="display: inline-block; margin-right: 5%;"/>
       <% end %>
 
   <% end %>
 
-  <!--span id="rsvparty-<%#= party_pending.id %>"></span-->
+
 
   <% if party.verified? %>
-    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="display: inline-block;"/>
+    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="display: inline-block; margin-right: 5%;"/>
   <% end %>
 
 
