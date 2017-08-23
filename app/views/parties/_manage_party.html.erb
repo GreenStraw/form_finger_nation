@@ -29,11 +29,6 @@
 
 <div class='manage' style="width: 69%; display: inline-block; width: 69%; text-align: right; padding-right: 5%;">
 
-  <a href="#" data-toggle="modal" data-target="#cancel" class="cancel-party" data-party-id="<%= party.id %>">
-      Cancel Here
-  </a>
-
-
       <%#= link_to "unRSVP", party_rsvp_path(party), class: "prt_rsvp #{reservations_include?(party, current_user) ? '' : 'hidden_p'}" , id: "unrsvp#{party.id}" %>
 
       <% if from=='rsvp' &&
