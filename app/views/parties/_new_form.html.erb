@@ -178,7 +178,7 @@
     </div-->
     <div class="form-group radio_create">
       <h6><label for="exampleInputName13">Party Type  </label></h6>
-      <label class="radio-inline">
+      <label class="radio-inline" id="open_invite">
         <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
       </label>
       <label class="radio-inline">
@@ -259,6 +259,19 @@
 
     //$( "#datepicker" ).datepicker();
     $("#bussiness_name").hide();
+
+
+    $("#isAtVenue_radio_button").on('change', function() {
+
+       if ($(this).val() == "customer_house")
+        {
+          $('#party_invite_type_private').prop("checked", true);
+          $('#open_invite').hide();
+        } else {
+          $('#open_invite').show();
+        }
+
+    });
 
     $("#party_venue_id").on('change', function() {
 
