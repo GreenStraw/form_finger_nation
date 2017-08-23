@@ -30,18 +30,16 @@
             </div>
 					<div class="panel-body">
 					  <% @teams.each do |team| %>
-					  <table class="table">
-					  	<tbody>
-					  		<tr id = "<%=team.id%>">
-					  			<td>
+					  		<div class="col-md-12 col-md-12 col-sm-12" id = "<%=team.id%>">
+					  			<div class="col-md-6 col-md-6 col-sm-6"> 
 					    			<span>
                       <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
                       </div>
 
                       <h4 style="float:none; display: inline-block;"><%= link_to(team.name, team) %></h4>
                     </span>
-					  			</td>
-					  			<td > 
+					  			</div>
+					  			<div class="col-md-6 col-md-6 col-sm-6"> 
 					  				<a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
                       <% if favorites.include?(team) %>
                         <img src='<%= asset_path 'like.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive" style="width: 40px;"/>
@@ -49,10 +47,8 @@
                         <img src='<%= asset_path 'dislike.jpg' %>' title="favorite team" alt="favorite team" class="img-responsive" style="width: 40px;"/>
                       <% end %>
                     <%#= favorites.include?(team) ? 'Un-favorite' : 'Favorite' %></a>
-					  			</td>
-					  		</tr>
-					  	</tbody>
-					  </table>
+					  			</div>
+					  		</div>
 					  <% end %>
 					</div>
 				</div>
