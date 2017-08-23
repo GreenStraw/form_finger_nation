@@ -109,17 +109,32 @@ body {overflow-x: hidden}
 
 <script type="text/javascript">
 
-$(document).ready(function() {
+  $(document).ready(function() {
 
-      var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
-      var teamId = $('.team_show_page').attr("data-team-id");
+        getCard();
+        
+  });
 
-      var data = {
+  $(".changeLoc").click(function() {
+
+       $(".parties-nearby .card").remove();
+
+       getCard();
+
+  });
+
+
+  function getCard() {
+
+    var overrideAddress = sessionStorage.getItem('overrideAddress') || false;
+    var teamId = $('.team_show_page').attr("data-team-id");
+
+    var data = {
                     "overrideAddress": overrideAddress,
                     'ajax': true
                   };
-      
-      $.ajax({
+
+    $.ajax({
           type: 'POST',
           url: "/teams/" + teamId + "/parties_in_area",
           dataType: "json",
@@ -153,7 +168,7 @@ $(document).ready(function() {
           }
         });
 
-  });
+  }
 
 
   function buildCard(party) {
