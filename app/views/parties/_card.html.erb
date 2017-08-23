@@ -1,7 +1,7 @@
 
 <%= link_to party, class:"a-none" do %>
 
-<% if !party.is_cancelled && 
+<% if !party.is_cancelled && from!='cancelled' &&
         (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
 

@@ -16,7 +16,7 @@
         <div class="padding">
 
             <% if accepted.present? %>
-              <%= render partial: 'card', locals: {party: accepted} %>
+              <%= render partial: 'card', locals: {party: accepted, from: 'accepted'} %>
             <% end %>
 
         </div> <!-- END padding -->

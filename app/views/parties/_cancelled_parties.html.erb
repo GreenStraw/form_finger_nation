@@ -14,7 +14,7 @@
         <div class="padding">
 
             <% if cancelled.present? %>
-              <%= render partial: 'card', locals: {party: cancelled} %>
+              <%= render partial: 'card', locals: {party: cancelled, from: 'cancelled'} %>
             <% end %>
 
         </div> <!-- END padding -->

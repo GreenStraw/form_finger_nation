@@ -24,7 +24,7 @@
 
             <div class="float-left">
               <% if party_reservation.party.present? %>
-                <%= render partial: 'social_media', locals: {party: party_reservation.party} %>
+                <%= render partial: 'social_media', locals: {party: party_reservation.party, from: 'rsvp'} %>
               <% end %>
             </div>
 
