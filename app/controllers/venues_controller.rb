@@ -57,10 +57,10 @@ class VenuesController < ApplicationController
   # POST /venues
   def create
 
-    address_exist = Venue.addressExist?(@venue.address.longitude, @venue.address.latitude, @venue.address.street2)
+    #address_exist = Venue.addressExist?(@venue.address.longitude, @venue.address.latitude, @venue.address.street2)
     @venue.created_by = 'admin'
 
-    if !address_exist
+    #if !address_exist
 
       if @venue.save!
         # @user = User.find(current_user.id)
@@ -75,9 +75,9 @@ class VenuesController < ApplicationController
       else
         render :new
       end
-    else
-        redirect_to new_venue_path, notice: 'Address Already Exists'
-    end
+    #else
+    #    redirect_to new_venue_path, notice: 'Address Already Exists'
+    #end
   end
 
   # PATCH/PUT /venues/1
