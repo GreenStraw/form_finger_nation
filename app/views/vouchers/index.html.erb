@@ -45,7 +45,6 @@
         <div class="row sp_contents bottom-space-2x" id="redeemable">
           <ul class="list-group">
             <% if @redeemable_vouchers.any? && current_user.requested_role != "Venue" %>
-            <h1> Current Vouchers </h1>
               <% @redeemable_vouchers.each do |voucher| %>
                 <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
               <% end %>
@@ -65,18 +64,21 @@
             <% end %>
           </ul>
         </div>
+
+        <!--
         <div class="row sp_contents" id="history">
           <ul class="list-group">
-            <% if @history_vouchers.any? %>
+            <%# if @history_vouchers.any? %>
             <h1> Expired Vouchers </h1>
-              <% @history_vouchers.each do |voucher| %>
-                <%= render :partial => "voucher", :locals => {:voucher => voucher}   %>
-              <% end %>
+              <%# @history_vouchers.each do |voucher| %>
+                <%#= render :partial => "voucher", :locals => {:voucher => voucher}   %>
+              <%# end %>
             <%# else %>
-              <!--h5 class='text-muted'>No Redeemed Vouchers</h5-->
-            <% end %>
+              <h5 class='text-muted'>No Redeemed Vouchers</h5>
+            <%# end %>
           </ul>
         </div>
+        -->
       </div>
     </div>
   </div>
