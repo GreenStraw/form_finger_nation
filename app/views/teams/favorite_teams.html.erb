@@ -30,9 +30,9 @@
             </div>
 					<div class="panel-body">
 					  <% @teams.each do |team| %>
-					  		<div class="col-md-12 col-md-12 col-sm-12" id = "<%=team.id%>"> 
+					  		<div class="col-md-6 col-sm-6 col-xs-12" id = "<%=team.id%>"> 
 
-                  <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; display: inline-block;">
+                  <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; float:left;">
                   </div>
                   <h4><%= link_to(team.name, "teams/#{team.page_name}") %></h4>
                     <div class="star">
