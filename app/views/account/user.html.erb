@@ -66,12 +66,18 @@ body {overflow-x: hidden}
                 <img src='<%= asset_path "#{team.team_icon}" %>' title="team icon" alt="team icon" class="img-responsive" style="width: 50px; height: 50px; display: inline-block; margin-right: 25px;" />
               <% end %>
               <hr>
-              <h3>My Watch Parties</h3>
+              
+              <% if @created_parties.length > 0 %>
+                <h3>My Watch Parties</h3>
+              <% end %>
+
               <% c = 0 %>
               <% @created_parties.try(:each) do |party| %>
 
-                  <div class="card">
 
+                <% if !party.is_private || (party.is_private && party.organizer_id == current_user.id) %>
+
+                  <div class="card" style="margin: 1%;">
                     <div class="padding">
 
                         <%= link_to party, class:"a-none" do %>
@@ -108,16 +114,21 @@ body {overflow-x: hidden}
 
                     </div> <!-- END padding -->
                   </div>
+
+                <% end %>
               <% end %>
               <hr>              
               <div class="clerfix">
               </div>
               <div class="clearfix"></div>
-              <h3>Parties I'm Attending</h3>
+
+              <% if @rvs_parties.length > 0 %>
+                <h3>Parties I'm Attending</h3>
+              <% end %>
               <% @rvs_parties.try(:each) do |rsv| %>
                 <% party = rsv.party %>
                 <% if party.present? && party.organizer_id != current_user.id %>
-                    <div class="card">
+                    <div class="card" style="margin: 1%;">
 
                       <div class="padding">
 
