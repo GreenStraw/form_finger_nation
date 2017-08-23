@@ -28,6 +28,8 @@ $(document).ready(function() {
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("pending_parties").className += " hidden_p";
       document.getElementById("accepted_parties").className += " hidden_p";
+      document.getElementById("cancelled_parties").className += " hidden_p";
+
       document.getElementById("p_heading").innerHTML = "RSVPs";
 
 
@@ -37,6 +39,8 @@ $(document).ready(function() {
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
       document.getElementById("accepted_parties").className += " hidden_p";
+      document.getElementById("cancelled_parties").className += " hidden_p";
+
       document.getElementById("p_heading").innerHTML = "Verify Waiting";
 
     } else if (str == "Accepted") {
@@ -45,7 +49,19 @@ $(document).ready(function() {
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
       document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("cancelled_parties").className += " hidden_p";
+
       document.getElementById("p_heading").innerHTML = "Accepted";
+
+    } else if (str == "Cancelled") {
+      h_str = str;
+
+      document.getElementById("create_parties").className += " hidden_p";
+      document.getElementById("rsvp_party").className += " hidden_p";
+      document.getElementById("pending_parties").className += " hidden_p";
+      document.getElementById("accepted_parties").className += " Accepted";
+
+      document.getElementById("p_heading").innerHTML = "Cancelled";
 
     }
     else {
@@ -53,7 +69,9 @@ $(document).ready(function() {
       document.getElementById("pending_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
       document.getElementById("accepted_parties").className += " hidden_p";
-      document.getElementById("p_heading").innerHTML = "Created Parties";
+      document.getElementById("cancelled_parties").className += " hidden_p";
+      
+      document.getElementById("p_heading").innerHTML = "Created";
     }
 
       $(this).addClass('active_p');
