@@ -103,6 +103,9 @@
   <% end %>
 
 
+  <span class="verified-bool"><%= party.verified? %></span>
+  <span class="from"><%= from %></span>
+  <span class="no-verify-bool"><%= party.verified %></span>
 
   <% if party.verified? && from!='cancelled' %>
 
