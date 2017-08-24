@@ -85,6 +85,9 @@
 </div>
 
 <script type='text/javascript'>
+
+$('.subscribe-star').on('click', function() {
+  
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
     var sportName = $(this).data('sport-name');
@@ -134,7 +137,9 @@
       error: function(){
         //do nothing
       }
-    })
+    });
+
+});
 
 
   function displayMessage(message) {
