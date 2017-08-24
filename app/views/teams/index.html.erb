@@ -86,7 +86,7 @@
 
 <script type='text/javascript'>
 
-/*
+
   $('.subscribe-star').on('click', function() {
     
     var teamId = $(this).data('team-id');
@@ -99,8 +99,11 @@
     } else {
       url = "/teams/" + teamId + "/unsubscribe";
     };
-    // var div = $(this).closest('div').data('tab');
     var teamIdClass = '.team-' + teamId + '';
+
+
+
+/*
     $.ajax({
       url: url,
       type: 'PUT',
@@ -137,8 +140,7 @@
       }
     })
   });
-
-  */
+*/
 
 
   $('.subscribe-star').on('click', function() {
