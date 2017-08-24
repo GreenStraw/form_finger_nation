@@ -25,11 +25,6 @@ class Venue < ActiveRecord::Base
       end
   end
 
-  def self.getVenueAccountInfo(venue_id)
-    role =  object.roles.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).first
-    user = User.where(id: role.user_role.id)
-  end
-
   def upcoming_parties
     #self.parties.where('scheduled_for >= ?', Time.current).order(:scheduled_for)
     self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).where(:verified =>  true).order(:scheduled_for)
