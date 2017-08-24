@@ -33,7 +33,7 @@
                           <% if party.present?  %>
                             <% if !party.description.nil? %>
                               <div class="party_desc">
-                                <p><%= party.description.truncate(40) rescue "" %></p>
+                                <p><%= party.description.truncate(30) rescue "" %></p>
                               </div>
                             <% end %>
                           <% end %>
@@ -42,22 +42,24 @@
                     </div> <!-- END padding -->
 
                     <div class="bottom">
+
+                      <!--
                         <div class="float-left">
 
-                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.foamfingernation.com/parties/"<%=party.friendly_url%> 
-                              title=<%= party.name rescue "" %> 
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.foamfingernation.com/parties/"<%#=party.friendly_url%> 
+                              title=<%#= party.name rescue "" %> 
                               target="_blank" 
                               class="btn btn-green btn-circle btn-facebook" 
                               target="_blank"><i class="fa fa-facebook"></i>
                           </a>
 
                           <a style="margin: 0 10px 0 10px" 
-                              title=<%= party.name rescue "" %> 
-                              href="https://www.foamfingernation.com/parties/"<%=party.friendly_url%> 
+                              title=<%#= party.name rescue "" %> 
                               class=" tweet btn btn-green btn-circle" target="_blank"><i class="fa fa-twitter"></i>
                           </a>
 
                         </div>
+                      -->
                     </div> <!-- END bottom -->
                   </div>
           </div>

@@ -21,19 +21,25 @@ body {overflow-x: hidden}
     <div>
 
       <div class="sport_header_overlay">
+
+          <% if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+
+              <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
+
+          <% end %>
+
           <div class="sport_caption pull-right">
-            <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
-            <% display_name = current_user.username %>
+            <%# display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>
+            <%# display_name = current_user.username %>
               <img src='<%= asset_path 'white_foam_finger_icon.png' %>'/>
               <!-- change span to display_name if you like user actual name to render -->
               <span>Profile</span>
-            <h4 class="hidden" >800 Followers, 200 Following</h4>
-            <button type="button" class="hidden" class="btn btn-green btn-default">Follow</button> 
+            <!--h4 class="hidden" >800 Followers, 200 Following</h4-->
+            <!--button type="button" class="hidden" class="btn btn-green btn-default">Follow</button--> 
           </div>
       </div>
 
       <div class="sport_header  row">
-          <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
       </div>
 
       <div class="main-area">
@@ -108,7 +114,7 @@ body {overflow-x: hidden}
                           <% if party.present?  %>
                             <% if !party.description.blank? %>
                               <div class="party_desc">
-                                <p><%= party.description.truncate(40) rescue "" %></p>
+                                <p><%= party.description.truncate(30) rescue "" %></p>
                               </div>
                             <% end %>
                           <% end %>
@@ -168,7 +174,7 @@ body {overflow-x: hidden}
                               <% if party.present?  %>
                                 <% if !party.description.blank? %>
                                   <div class="party_desc">
-                                    <p><%= party.description.truncate(40) rescue "" %></p>
+                                    <p><%= party.description.truncate(30) rescue "" %></p>
                                   </div>
                                 <% end %>
                               <% end %>
