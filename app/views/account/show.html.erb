@@ -91,7 +91,7 @@
                               <td>Favorite Teams</td>
                               <td> 
                                 <%@user.followed_teams.try(:each) do |team| %>
-                                <%= team.name %> &nbsp
+                                <%= team.name %> &nbsp;
                                 <% end %>
                               </td>
                             </tr>

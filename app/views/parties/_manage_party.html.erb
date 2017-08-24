@@ -85,7 +85,7 @@
         (current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
     <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
-        <img src='<%= asset_path 'icon-packages.png' %>' title="Edit Package" alt="edit package" class="img-responsive center" style="display: inline-block;"/>
+        <img src='<%= asset_path 'icon-packages.png' %>' title="New Package" alt="New Package" class="img-responsive center" style="display: inline-block;"/>
     <% end %>
   
   <% end %>
@@ -101,11 +101,6 @@
       <% end %>
 
   <% end %>
-
-
-  <span class="verified-bool"><%= party.verified? %></span>
-  <span class="from"><%= from %></span>
-  <span class="no-verify-bool"><%= party.verified %></span>
 
   <% if party.verified? && from!='cancelled' %>
 

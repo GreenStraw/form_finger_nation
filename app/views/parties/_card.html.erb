@@ -41,7 +41,7 @@
   </div>
   
   <div class="caption">
-    <h3> <%= party.name rescue "" %> </h3>
+    <h4> <%= party.name.truncate(65) rescue "" %> </h4>
 
     <%= party.sponsor if party.present? %>
 
