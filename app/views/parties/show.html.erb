@@ -52,13 +52,13 @@ body {overflow-x: hidden}
           <button type="button" data-toggle="modal" data-target="#sponsorModal" class="btn btn-green">Become a Sponsor</button>
           <br>
           <%# else %>
-          <h4> Sponsored By <%= @party.sponsor %></h4>
+          <h4> Sponsored By <%#= @party.sponsor %></h4>
           <%# end %>
           -->
 
           <!--h4><%#= @party.venue.name %></h4-->
           <%#= facebook_button :title=> 'Alternate Title', description: "foam finger nation" %>
-          <!--h5><%#= @party.venue.address.street_address %> | <%= @party.scheduled_for.strftime("%I:%M %P")%> <br>
+          <!--h5><%#= @party.venue.address.street_address %> | <%#= @party.scheduled_for.strftime("%I:%M %P")%> <br>
             <%#= @party.party_reservations.count.to_s%> RSVP'd
           </h5-->
           <%# if reservations_include?(@party, current_user) %>
@@ -98,7 +98,7 @@ body {overflow-x: hidden}
                       <div class="header">
 
                         <% if @party.verified? %>
-                            <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive" style="width: 75px; float: right; position: absolute; right: 5%;"/>
+                            <img src='<%= asset_path 'icon-verified.png' %>' title="Party Verified" alt="Party Verified" class="img-responsive" style="width: 75px; float: right; position: absolute; right: 5%;"/>
                         <% end %>
 
                         <% if !@party.image_url.blank? %>
@@ -119,9 +119,9 @@ body {overflow-x: hidden}
 
 
                             <% if @party.organizer.full_name.present? %>
-                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.full_name.capitalize.to_s %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.full_name.upcase.to_s %></p>
                             <% else %>
-                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.username.capitalize.to_s %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.username.upcase.to_s %></p>
                             <% end %>
 
                         </div>
@@ -183,23 +183,28 @@ body {overflow-x: hidden}
 
                       </div>
 
-                      <div class="manage" style="text-align: center;">
 
-                          <% if @spotsLeft > 0 %>
+                      <% if !(current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue)) %>
 
-                              <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+                          <div class="manage" style="text-align: center;">
 
-                                  <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
+                              <% if @spotsLeft > 0 %>
 
-                              <% else %>
+                                  <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                                  <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
+                                      <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
+
+                                  <% else %>
+
+                                      <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
+
+                                  <% end %>
 
                               <% end %>
 
-                          <% end %>
+                          </div>
 
-                      </div>
+                      <% end %>
 
                       <div style="clear: both;"></div>
 

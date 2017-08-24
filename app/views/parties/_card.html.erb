@@ -1,62 +1,64 @@
 
 <%= link_to party, class:"a-none" do %>
 
-<% if !party.is_cancelled && from!='cancelled' &&
-        (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
+      <% if !party.is_cancelled? && from!='cancelled' &&
+              (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
 
-      <div class="cancle_icon">
-          <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <%# if party.verified? %>
-              <!--
-              <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
-              -->
-          <%# end %>
+            <div class="cancle_icon">
+                <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%# if party.verified? %>
+                    <!--
+                    <img src='<%= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
+                    -->
+                <%# end %>
 
-          <a href="#" data-toggle="modal" data-target="#cancel" style="display: block; padding-bottom: 10px;">
-            <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive"/>
-          </a>
+                <a href="#" data-toggle="modal" data-target="#cancel" style="display: block; padding-bottom: 10px;">
+                  <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive"/>
+                </a>
 
-          <%= link_to edit_party_path(party), style: "display: block; padding-bottom: 10px;" do %>
-            <img src='<%= asset_path 'icons/edit-party.svg' %>' title="edit" alt="Edit Party" class="img-responsive"/>
-          <% end %>
+                <%= link_to edit_party_path(party), style: "display: block; padding-bottom: 10px;" do %>
+                  <img src='<%= asset_path 'icons/edit-party.svg' %>' title="edit" alt="Edit Party" class="img-responsive"/>
+                <% end %>
 
+            </div>
+
+      <% end %>
+
+      <% if party.is_cancelled?  %>
+            <div class="cancle_icon">
+              <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right"/>
+            </div>
+      <% end %>
+
+      <div class="holder">
+
+        <% if !party.image_url.blank? %>
+          <%= image_tag(party.image_url, class: "img-responsive center", title: "party") %>
+        <% else %>
+          <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center"/>
+        <% end %>
       </div>
-
-<% end %>
-
-<% if party.is_cancelled  %>
-      <div class="cancle_icon">
-        <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right"/>
-      </div>
-<% end %>
-
-  <div class="holder">
-
-    <% if !party.image_url.blank? %>
-      <%= image_tag(party.image_url, class: "img-responsive center", title: "party") %>
-    <% else %>
-      <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center"/>
-    <% end %>
-  </div>
   
-  <div class="caption">
-    <h4> <%= party.name.truncate(65) rescue "" %> </h4>
+      <div class="caption">
+        <h4> <%= party.name.truncate(65) rescue "" %> </h4>
 
-    <%= party.sponsor if party.present? %>
+        <%= party.sponsor if party.present? %>
 
 
-    <ul class="list-inline ">
-      <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
-      <li><%= party.venue.address.city_state rescue "" %></li>
-    </ul>
-  </div> <!-- END caption -->
+        <ul class="list-inline ">
+          <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
+          <li><%= party.venue.address.city_state rescue "" %></li>
+        </ul>
+      </div> <!-- END caption -->
 
-  <% if party.present?  %>
-    <% if !party.description.blank? %>
-      <div class="party_desc">
-        <p><%= party.description.truncate(30) rescue "" %></p>
-      </div>
-    <% end %>
-  <% end %>
+      <% if party.present?  %>
+        <% if !party.description.blank? %>
+          <div class="party_desc">
+            <p><%= party.description.truncate(30) rescue "" %></p>
+          </div>
+        <% end %>
+      <% end %>
+
+
 <% end %>
