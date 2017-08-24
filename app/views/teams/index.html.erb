@@ -85,6 +85,8 @@
 </div>
 
 <script type='text/javascript'>
+
+/*
   $('.subscribe-star').on('click', function() {
     
     var teamId = $(this).data('team-id');
@@ -135,6 +137,53 @@
       }
     })
   });
+
+  */
+
+<script type="text/javascript">
+  $('.subscribe-star').on('click', function() {
+    var teamId = $(this).data('team-id');
+    var teamName = $(this).data('team-name');
+    var subscribed = $(this).hasClass('fastaro');
+    var url = '';
+    if (subscribed) {
+      url = "/teams/" + teamId + "/subscribe";
+    } else {
+      url = "/teams/" + teamId + "/unsubscribe";
+    };
+    // var div = $(this).closest('div').data('tab');
+    var teamIdClass = '.team-' + teamId + '';
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: {'id': teamId,
+             'ajax': true},
+      success: function() {
+
+        if ($(teamIdClass).hasClass('fastar')) {
+          var teamRow = $('#' + teamId);
+          $(teamIdClass).removeClass('fastar');
+          $(teamIdClass).addClass('fastaro');
+          //$(teamIdClass).text('Favorite');
+          teamRow.addClass('hidden');
+          displayMessage("The " + teamName + " are no longer a favorite")
+        } else {
+          var teamRow = $('div.followed.' + teamId);
+          var sportRow = $('div.followed.' + sportName);
+          sportRow.removeClass('hidden');
+          teamRow.removeClass('hidden');
+          $(teamIdClass).removeClass('fastaro');
+          $(teamIdClass).addClass('fastar');
+          //$(teamIdClass).text('Un-favorite');     
+          displayMessage("The " + teamName + " are now a favorite")
+        };
+      },
+      error: function(){
+        //do nothing
+      }
+    })
+  });
+</script>
 
   function displayMessage(message) {
     $('#alert-message-text').text(message);

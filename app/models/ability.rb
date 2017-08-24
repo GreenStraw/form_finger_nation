@@ -117,6 +117,8 @@ class Ability
         user.id == u.id
       end
 
+      can :parties_in_area, Team
+
       can [:destroy, :update, :create], Comment do |comment|
         (user.id == comment.commenter_id && comment.commenter_type == 'User') || user.has_role?(:manager, comment.commenter)
       end

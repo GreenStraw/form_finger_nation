@@ -130,6 +130,7 @@ class VenuesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_venue
       @venue = Venue.find(params[:id])
+      @manager_profile = Venue.getVenueAccountInfo(@venue.id)
     end
 
     def set_party

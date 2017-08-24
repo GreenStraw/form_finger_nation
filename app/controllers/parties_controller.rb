@@ -83,7 +83,7 @@ class PartiesController < ApplicationController
   end
 
   def get_parties
-    @created_parties =  current_user.parties
+    @created_parties =  current_user.get_createdParties
 
     respond_to do |format|
       format.js
