@@ -85,24 +85,7 @@
 </div>
 
 <script type='text/javascript'>
-
-
-  $('.subscribe-star').on('click', function() {
     
-    var teamId = $(this).data('team-id');
-    var teamName = $(this).data('team-name');
-    var sportName = $(this).data('sport-name');
-    var subscribed = $(this).hasClass('fastaro');
-    var url = '';
-    if (subscribed) {
-      url = "/teams/" + teamId + "/subscribe";
-    } else {
-      url = "/teams/" + teamId + "/unsubscribe";
-    };
-    var teamIdClass = '.team-' + teamId + '';
-
-
-
 /*
     $.ajax({
       url: url,
@@ -146,15 +129,18 @@
   $('.subscribe-star').on('click', function() {
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
+    var sportName = $(this).data('sport-name');
     var subscribed = $(this).hasClass('fastaro');
     var url = '';
+
     if (subscribed) {
       url = "/teams/" + teamId + "/subscribe";
     } else {
       url = "/teams/" + teamId + "/unsubscribe";
     };
-    // var div = $(this).closest('div').data('tab');
+    
     var teamIdClass = '.team-' + teamId + '';
+
     $.ajax({
       url: url,
       type: 'PUT',
