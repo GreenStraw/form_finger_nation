@@ -179,10 +179,10 @@
     <div class="form-group radio_create">
       <h6><label for="exampleInputName13">Party Type  </label></h6>
       <label class="radio-inline" id="open_invite">
-        <%= f.radio_button :invite_type, 'open', :checked => true %> Open Invite
+        <%= f.radio_button :invite_type, 'open', :checked => true, class: "open_invite" %> Open Invite
       </label>
       <label class="radio-inline">
-        <%= f.radio_button :invite_type, 'private' %> Invite Only
+        <%= f.radio_button :invite_type, 'private', class: "private_invite" %> Invite Only
       </label>
     </div>
   </div>
@@ -252,8 +252,8 @@
         $("#venue-select").hide();
         $("#venue-create").show();
 
-        $('#party_invite_type_private').prop("checked", true);
-          $('#open_invite').hide();
+        $('.private_invite').prop("checked", true);
+        $('#open_invite').hide();
       }
     });
 

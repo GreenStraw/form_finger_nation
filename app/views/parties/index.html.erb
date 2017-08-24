@@ -124,7 +124,7 @@
 
              
                 <span id="create_parties">
-                  <% if defined?(@created_parties) && @created_parties.is_a?(Array) && @created_parties.length > 0 %>
+                  <% if @created_parties.present? && @created_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Created Parties</h3>
                   </div>
@@ -134,7 +134,7 @@
                 <div class="clearfix"></div>
 
                 <span id="rsvp_party">
-                  <% if defined?(@rvs_parties) && @rvs_parties.is_a?(Array) &&  @rvs_parties.length > 0 %>
+                  <% if @rvs_parties.present? &&  @rvs_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>RSVP Parties</h3>
                   </div>
@@ -143,7 +143,7 @@
                 </span>
                 
                 <span id="pending_parties">
-                  <% if defined?(@pending_parties) && @pending_parties.is_a?(Array) &&  @pending_parties.length > 0 %>
+                  <% if @pending_parties.present? &&  @pending_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Verify Waiting</h3>
                   </div>
@@ -152,7 +152,7 @@
                 </span>
 
                 <span id="accepted_parties">
-                  <% if defined?(@accepted_parties) && @accepted_parties.is_a?(Array) &&  @accepted_parties.length > 0 %>
+                  <% if @accepted_parties.present? &&  @accepted_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Accepted Parties</h3>
                   </div>
@@ -161,7 +161,7 @@
                 </span>
 
                 <span id="cancelled_parties">
-                  <% if defined?(@cancelled_parties) && @cancelled_parties.is_a?(Array) &&  @cancelled_parties.length > 0 %>
+                  <% if @cancelled_parties.present? &&  @cancelled_parties.length > 0 %>
                   <div class="col-md-12">
                     <h3>Cancelled Parties</h3>
                   </div>
