@@ -92,12 +92,12 @@
       <%= f.label :email, "Email Address" %>
       <%= f.email_field :email,class: "form-control" %>
     </div>
-    <% if current_user.requested_role == "Venue" %>
-      <% address = current_user.address %>
-      <%= f.fields_for :address, address do |addr| %>
-        <%= render 'address_fields', f: addr %>
-      <% end %>
-    <% end %>
+    <%# if current_user.requested_role == "Venue" %>
+      <%# address = current_user.address %>
+      <%#= f.fields_for :address, address do |addr| %>
+        <%#= render 'address_fields', f: addr %>
+      <%# end %>
+    <%# end %>
     
     <div class="form-group textarea_profile">
       <%= f.label :about, "About Myself" %>
@@ -112,12 +112,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="<%= current_user.requested_role == "Venue" ? "col-md-12" : "col-md-8" %>">
+      <!--div class="<%= current_user.requested_role == "Venue" ? "col-md-12" : "col-md-8" %>">
         <div class="form-group">
-          <%= f.label :name %> (From Facebook)
-          <%= f.text_field :name,class: "form-control" %>
+          <%#= f.label :name %> (From Facebook)
+          <%#= f.text_field :name,class: "form-control" %>
         </div>
-      </div>
+      </div-->
       <% unless current_user.requested_role == "Venue" %>
         <div class="col-md-4">
           <div class="form-group">
@@ -144,8 +144,10 @@
       <%= link_to "Favorite more Teams", teams_path , :style => "float: right;" %>
       <div>
         <% @teams.try(:each) do |team| %>
+          <div style="display: inline-block; margin-right: 25px;">
           <span class= "team-names" style="display: inline-block;"><%= team.name %></span>
-          <img src='<%= asset_path "#{team.team_icon}" %>' title="team icon" alt="team icon" class="img-responsive" style="width: 50px; height: 50px; display: inline-block; margin-right: 25px;" />
+          <img src='<%= asset_path "#{team.team_icon}" %>' title="team icon" alt="team icon" class="img-responsive" style="width: 50px; height: 50px; display: inline-block;" />
+          </div>
         <% end %>
       </div>
   </div>

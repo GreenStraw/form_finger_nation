@@ -62,20 +62,22 @@ body {overflow-x: hidden}
               <hr>
               <h3>My Teams</h3>
               <% @teams.try(:each) do |team| %>
+                <div style="display: inline-block; margin-right: 25px;">
                 <span class= "team-names" style="display: inline-block;"><%= team.name %></span>
-                <img src='<%= asset_path "#{team.team_icon}" %>' title="team icon" alt="team icon" class="img-responsive" style="width: 50px; height: 50px; display: inline-block; margin-right: 25px;" />
+                <img src='<%= asset_path "#{team.team_icon}" %>' title="team icon" alt="team icon" class="img-responsive" style="width: 50px; height: 50px; display: inline-block;" />
+                </div>
               <% end %>
               <hr>
-              
-              <% if @created_parties.length > 0 %>
-                <h3>My Watch Parties</h3>
-              <% end %>
 
               <% c = 0 %>
               <% @created_parties.try(:each) do |party| %>
 
 
                 <% if !party.is_private || (party.is_private && party.organizer_id == current_user.id) %>
+
+                    <% if @created_parties.length > 0 && c == 0 %>
+                        <h3>My Watch Parties</h3>
+                    <% end %>
 
                   <div class="card" style="margin: 1%;">
                     <div class="padding">
@@ -116,19 +118,25 @@ body {overflow-x: hidden}
                   </div>
 
                 <% end %>
+
+                <% c = c+1 %>
+
               <% end %>
               <hr>              
               <div class="clerfix">
               </div>
               <div class="clearfix"></div>
 
-              <% if @rvs_parties.length > 0 %>
-                <h3>Parties I'm Attending</h3>
-              <% end %>
-              
+              <% c = 0 %>
               <% @rvs_parties.try(:each) do |rsv| %>
+
                 <% party = rsv.party %>
                 <% if party.present? && party.organizer_id != current_user.id %>
+
+                    <% if @rvs_parties.length > 0 && c==0 %>
+                        <h3>Parties I'm Attending</h3>
+                    <% end %>
+
                     <div class="card" style="margin: 1%;">
 
                       <div class="padding">
@@ -171,6 +179,9 @@ body {overflow-x: hidden}
 
                     </div>
                 <% end %>
+
+                <% c = c+1 %>
+                
               <% end %>
             </div>
           </div>

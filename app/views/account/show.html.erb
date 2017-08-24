@@ -47,10 +47,10 @@
                                 <td><%= @user.last_name %></td>
                               </tr>
                             <% end %>
-                            <tr>
+                            <!--tr>
                               <td>Name (From Facebook)</td>
-                              <td><%= @user.name %></td>
-                            </tr>
+                              <td><%#= @user.name %></td>
+                            </tr-->
                             <% unless current_user.requested_role == "Venue" %>
                             <tr>
                               <td>Gender</td>
