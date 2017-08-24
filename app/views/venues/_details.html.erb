@@ -1,8 +1,8 @@
 <div>
   <div style="padding: 3%;">
 
-  	<% if !current_user.image_url.blank? %>
-	  	<%= image_tag(current_user.image_url, class: "img-banner-paty", title: "venue image" ) %>
+  	<% if !@venue.image_url.blank? %>
+	  	<%= image_tag(@venue.image_url, class: "img-banner-paty", title: "venue image" ) %>
 	<% else %>
 		<img alt="Placeholder" title="venue image" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
 		style="max-width: 95% !important;
@@ -14,12 +14,12 @@
 		overflow: hidden;">
     <% end %>
 
-	  <h2><%= current_user.username.upcase rescue "" %></h2>
+	  <h2><%= @venue.name.upcase %></h2>
 
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.street rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.city_state rescue "" %></p>
-	  <p style="margin: 0; font-size: 12px;"><%= current_user.address.ph_number if current_user.address.present? && !current_user.address.ph_number.nil? %></p>
-	  <p style="margin: 0; font-size: 12px;"><%= mail_to current_user.email rescue "" %></p>
-	  <p style="margin: 0; font-size: 12px;"><%= link_to 'Visit Website', current_user.website if current_user.website %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= @venue.phone rescue "" %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= mail_to @venue.email rescue "" %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= link_to 'Visit Website', @venue.website if @venue.website %></p>
   </div>
 </div>
