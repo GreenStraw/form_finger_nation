@@ -12,11 +12,11 @@ class PartiesController < ApplicationController
 
     @teams = @user.followed_teams.order("name ASC")
     
-    @rvs_parties        = @user.get_party_reservations
-    @created_parties    = @user.get_createdParties
-    @pending_parties    = @user.get_pending_parties
-    @accepted_parties   = @user.get_accepted_parties
-    @cancelled_parties  = @user.get_cancelledParties
+    @rvs_parties        = [] #@user.get_party_reservations
+    @created_parties    = [] #@user.get_createdParties
+    @pending_parties    = [] #@user.get_pending_parties
+    @accepted_parties   = [] #@user.get_accepted_parties
+    @cancelled_parties  = [] #@user.get_cancelledParties
 
     # if @created_parties.blank?
     #   redirect_to cant_find_parties_path
@@ -163,7 +163,7 @@ class PartiesController < ApplicationController
   def cancel_party
     
     @party = Party.find(params[:id])
-    
+
     if current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager,  @party.venue)
     
         unless params[:cancel_description].blank?
