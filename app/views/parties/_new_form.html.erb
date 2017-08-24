@@ -238,6 +238,8 @@
 
         $("#venue-select").show();
 
+        $('#open_invite').show();
+
         /*
         $("#firstName").hide();
         $("#lastName").hide();
@@ -249,6 +251,9 @@
         $("#bussiness_name").hide();
         $("#venue-select").hide();
         $("#venue-create").show();
+
+        $('#party_invite_type_private').prop("checked", true);
+          $('#open_invite').hide();
       }
     });
 
@@ -260,18 +265,6 @@
     //$( "#datepicker" ).datepicker();
     $("#bussiness_name").hide();
 
-
-    $("#isAtVenue_radio_button").on('change', function() {
-
-       if ($(this).val() == "customer_house")
-        {
-          $('#party_invite_type_private').prop("checked", true);
-          $('#open_invite').hide();
-        } else {
-          $('#open_invite').show();
-        }
-
-    });
 
     $("#party_venue_id").on('change', function() {
 
