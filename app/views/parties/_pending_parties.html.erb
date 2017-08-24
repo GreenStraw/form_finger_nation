@@ -15,7 +15,7 @@
         <div class="padding">
 
             <% if party_pending.present? %>
-              <%= render partial: 'card', locals: {party: party_pending} %>
+              <%= render partial: 'card', locals: {party: party_pending, from: 'verify_pending'} %>
             <% end %>
             
         </div> <!-- END padding -->

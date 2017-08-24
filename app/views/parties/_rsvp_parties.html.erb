@@ -15,7 +15,7 @@
         <div class="padding">
 
             <% if party_reservation.party.present? %>
-              <%= render partial: 'card', locals: {party: party_reservation.party} %>
+              <%= render partial: 'card', locals: {party: party_reservation.party, from: 'rsvp'} %>
             <% end %>
             
         </div> <!-- END padding -->
