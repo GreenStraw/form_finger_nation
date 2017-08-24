@@ -111,15 +111,9 @@ $('.subscribe-star').on('click', function() {
       success: function() {
         if ($(teamIdClass).hasClass('fastar')) {
           var teamRow = $('#' + teamId);
-          //var sportRow = $('div.followed.' + sportName);
           $(teamIdClass).removeClass('fastar');
           $(teamIdClass).addClass('fastaro');
           //$(teamIdClass).text('Favorite');
-
-          //$(teamIdClass).text('Favorite');
-
-          //$(teamIdClass).append("<img src='/assets/like-3a857d540147c53af2a26030c905b3a3.jpg' title='Unfavorite Team' alt='Unfavorite Team' class='img-responsive' style='width: 40px;'/>");
-
           teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {

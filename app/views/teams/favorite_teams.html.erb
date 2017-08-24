@@ -88,12 +88,9 @@
           teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {
-          var teamRow = $('div.followed.' + teamId);
-          var sportRow = $('div.followed.' + sportName);
-          sportRow.removeClass('hidden');
-          teamRow.removeClass('hidden');
-          $(teamIdClass).removeClass('fastaro');
+          var teamRow = $('#' + teamId);
           $(teamIdClass).addClass('fastar');
+          $(teamIdClass).removeClass('fastaro');
           //$(teamIdClass).text('Un-favorite');     
           displayMessage("The " + teamName + " are now a favorite")
         };
