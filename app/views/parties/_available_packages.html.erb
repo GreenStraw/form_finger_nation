@@ -40,12 +40,12 @@
             </td>
             <td class="bottom-margined">
               <span class="parties-package-name">
-                <%= party_package.package.name %>
+                <%= party_package.package.name rescue "" %>
               </span>
             </td>
             <td class="bottom-margined">
               <span class="parties-package-price">
-                 <%= number_to_currency(party_package.package.price)%>
+                 <%= number_to_currency(party_package.package.price) unless party_package.package.price.nil? %>
               </span>
             </td>
           </tr>
@@ -70,12 +70,12 @@
             </div>
             <div class="bottom-margined">
               <span class="parties-package-name">
-                <%= party_package.package.name %>
+                <%= party_package.package.name rescue "" %>
               </span>
             </div>
             <div class="bottom-margined">
               <span class="parties-package-price">
-                 <%= number_to_currency(party_package.package.price)%>
+                 <%= number_to_currency(party_package.package.price) unless party_package.package.price.nil? %>
               </span>
             </div>
           </div>

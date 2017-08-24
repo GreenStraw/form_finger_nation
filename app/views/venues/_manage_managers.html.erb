@@ -22,8 +22,8 @@
         <% @venue.managers.each do |manager| %>
           <tr>
             <td><%= image_tag(manager.image_url.thumb) unless manager.image_url.blank? %></td>
-            <td><%= manager.username %></td>
-            <td><%= manager.address.city_state %></td>
+            <td><%= manager.username rescue "" %></td>
+            <td><%= manager.address.city_state rescue "" %></td>
             <td>
               <%= link_to(remove_manager_venue_path({user_id: manager}), remote: true, method: :put) do%>
                 <i class='fa fa-times fa-2x' style='color: red;'></i>

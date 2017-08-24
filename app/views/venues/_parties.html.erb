@@ -6,20 +6,20 @@
       </div>
       <div class='col-xs-5 pull-right'>
         <div class='row'>
-          <h4><%= party.name %></h4>
+          <h4><%= party.name rescue "" %></h4>
           <% if party.verified %>
             <div class="verifie_box">
               <strong class="title"><em>Verified</em></strong>
             </div>
           <% end %>
           <div>
-            <span class='fa fa-clock-o'/> <%= party.scheduled_for %> |
-            <span class='fa fa-user'/> <%= party.attendees.count %>
+            <span class='fa fa-clock-o'/> <%= party.scheduled_for rescue "" %> |
+            <span class='fa fa-user'/> <%= party.attendees.count rescue "" %>
           </div>
         </div>
         <div class='row'>
           <div class='pull-left'>
-            <%= party.team.name %>
+            <%= party.team.name rescue "" %>
           </div>
           <div class='pull-right'>
             <%= link_to 'MORE INFO', party_path(party), class: 'btn btn-success btn-xs' %>

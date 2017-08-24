@@ -17,7 +17,7 @@
         <tr>
           <td><%= image_tag(package.image_url.thumb) %></td>
           <td><%= link_to package.name, package_path(package) %></td>
-          <td><%= package.price %></td>
+          <td><%= package.price rescue "" %></td>
           <td>
             <% if !package.for_everyone? %>
 
