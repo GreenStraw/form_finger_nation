@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
   end
 
   def getVenueAccountInfo(venue_id)
-    role =  Roles.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).first
+    role =  Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).first
     user = User.where(id: role.id)
   end
 
