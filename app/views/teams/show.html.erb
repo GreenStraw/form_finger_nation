@@ -111,16 +111,13 @@ body {overflow-x: hidden}
 
   $(document).ready(function() {
 
-        //getCard();
+        getCard();
         
   });
 
   $(".changeLoc").click(function() {
-
        $(".parties-nearby .card").remove();
-
-       //getCard();
-
+       getCard();
   });
 
 
@@ -173,7 +170,7 @@ body {overflow-x: hidden}
 
   function buildCard(party) {
 
-    var card = "<div class='card' style='margin: 1%;'>" +
+    var card = "<a href='parties/" + (party.friendly_url || '') + "'><div class='card' style='margin: 1%;'>" +
 
               "<div class='padding'>" +
                 "<div class='holder'>" +
@@ -181,9 +178,8 @@ body {overflow-x: hidden}
                 "</div>" +
       
                 "<div class='caption'>" +
-                    "<h3 class='title'>"+ (party.name || "") +"</h3>" +
-                    "<br/>" +
-      
+                    "<h4 class='title'>"+ (party.name || "") +"</h4>" +
+                        
                     "<ul class='list-inline '>" +
                         "<li class='time'>"+ (party.scheduled_for || "") +"</li>" +
                         "<li class='location'>Austin, TX 78704</li>" +
@@ -198,7 +194,7 @@ body {overflow-x: hidden}
               "<div class='bottom'>" +
                       "<div class='float-left'>" +
               "</div>" +
-              "</div></div>";
+              "</div></div></a>";
 
 
     return card;
