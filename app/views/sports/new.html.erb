@@ -16,6 +16,8 @@
             <%= render :partial => 'layouts/flash' , :locals => { :flash => flash } %>
           </div>
           <div class="follow">
+
+            <%= @manager_profile.inspect %>
             <div class="col-md-6">
               <%= render 'form' %>
             </div>

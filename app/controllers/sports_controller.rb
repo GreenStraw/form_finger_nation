@@ -16,6 +16,7 @@ class SportsController < ApplicationController
 
   # GET /sports/new
   def new
+    @manager_profile = current_user.getVenueAccountInfo(176)
     respond_with @sport
   end
 
