@@ -18,7 +18,7 @@
 
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.street rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.city_state rescue "" %></p>
-	  <p style="margin: 0; font-size: 12px;"><%= current_user.address.ph_number if current_user.address.present? && !current_user.address.ph_number.nil %></p>
+	  <p style="margin: 0; font-size: 12px;"><%= current_user.address.ph_number if current_user.address.present? && !current_user.address.ph_number.nil? %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= mail_to current_user.email rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= link_to 'Visit Website', current_user.website if current_user.website %></p>
   </div>
