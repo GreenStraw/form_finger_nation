@@ -26,8 +26,8 @@ class Venue < ActiveRecord::Base
   end
 
   def self.getVenueAccountInfo(venue_id)
-    user_role =  User_Roles.where(role_id: Roles.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).map(&:resource_id).first ).map(&:user_id).first
-    user = User.where(id: user_role.id)
+    role =  Roles.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).first
+    user = User.where(id: role.user_role.id)
   end
 
   def upcoming_parties
