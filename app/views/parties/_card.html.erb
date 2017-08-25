@@ -1,35 +1,30 @@
 
 <%= link_to party, class:"a-none" do %>
 
+    <div class="cancle_icon">
+
       <% if !party.is_cancelled? && from!='cancelled' &&
-              (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
+        (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
+          <a href="#" data-toggle="modal" data-target="#cancel" style="display: block; padding-bottom: 10px;">
+            <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive"/>
+          </a>
 
-            <div class="cancle_icon">
-                <%#= link_to '<i class="fa fa-times"></i>'.html_safe, party, method: :delete, data: { confirm: 'Are you sure?' } %>
-                <%# if party.verified? %>
-                    <!--
-                    <img src='<%#= asset_path 'icon-verified.png' %>' title="party verified" alt="verified" class="img-responsive center"/>
-                    -->
-                <%# end %>
-
-                <a href="#" data-toggle="modal" data-target="#cancel" style="display: block; padding-bottom: 10px;">
-                  <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive"/>
-                </a>
-
-                <%= link_to edit_party_path(party), style: "display: block; padding-bottom: 10px;" do %>
-                  <img src='<%= asset_path 'icons/edit-party.svg' %>' title="edit" alt="Edit Party" class="img-responsive"/>
-                <% end %>
-
-            </div>
+          <%= link_to edit_party_path(party), style: "display: block; padding-bottom: 10px;" do %>
+            <img src='<%= asset_path 'icons/edit-party.svg' %>' title="edit" alt="Edit Party" class="img-responsive"/>
+          <% end %>
 
       <% end %>
 
-      <% if party.is_cancelled?  %>
-            <div class="cancle_icon">
+
+        <% if party.is_cancelled?  %>
               <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right"/>
-            </div>
-      <% end %>
+        <% end %>
+
+
+    </div>
+
+
 
       <div class="holder">
 

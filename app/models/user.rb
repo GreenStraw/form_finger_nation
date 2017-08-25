@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
     #user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("users_roles.*")
 
 
-    user = role.joins(:users_roles)
+    user = User.joins(role)
 
     return user
     #User.where(id: user.user_id)
