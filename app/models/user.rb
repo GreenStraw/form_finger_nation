@@ -212,10 +212,8 @@ class User < ActiveRecord::Base
     role =  Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id)
     #user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("users_roles.*")
 
+    user = User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id").merge(role)
 
-    user = User.joins(:users_roles).merge(role)
-
-    
     return user
     #User.where(id: user.user_id)
   end
