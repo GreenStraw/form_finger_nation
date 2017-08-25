@@ -88,10 +88,13 @@
 
 $('.subscribe-star').on('click', function() {
 
+
+    var sportName = $(this).data('sport-name');
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
-    var sportName = $(this).data('sport-name');
-    var subscribed = $(this).hasClass('fastaro');
+    var subscribed = $(this).hasClass('not-subscribed');
+    var teamIdClass = '.team-' + teamId;
+
     var url = '';
 
     if (subscribed) {
@@ -99,9 +102,6 @@ $('.subscribe-star').on('click', function() {
     } else {
     url = "/teams/" + teamId + "/unsubscribe";
     };
-
-
-    var teamIdClass = '.team-' + teamId + '';
     
     $.ajax({
       url: url,
@@ -109,23 +109,27 @@ $('.subscribe-star').on('click', function() {
       data: {'id': teamId,
              'ajax': true},
       success: function() {
-        if ($(teamIdClass).hasClass('fastar')) {
-          var teamRow = $('#' + teamId);
-          $(teamIdClass).removeClass('fastar');
-          $(teamIdClass).addClass('fastaro');
+
+         if ($(teamIdClass).hasClass('subscribed')) {
+          
+          $(teamIdClass).removeClass('subscribed');
+          $(teamIdClass).addClass('not-subscribed');
+
+          $(teamIdClass + ' img.like').hide();
+          $(teamIdClass + ' img.dislike').show();
+
           //$(teamIdClass).text('Favorite');
-          teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
+
         } else {
-          var teamRow = $('#' + teamId);
           //var sportRow = $('div.followed.' + sportName);
           //sportRow.removeClass('hidden');
-          teamRow.removeClass('hidden');
-          $(teamIdClass).removeClass('fastaro');
-          $(teamIdClass).addClass('fastar');
+          $(teamIdClass).addClass('subscribed');
+          $(teamIdClass).removeClass('not-subscribed');
           //$(teamIdClass).text('Un-favorite');
 
-          //$(teamIdClass).append("<img src='/assets/dislike-64c14361ef84fe99309ad1f857ec6de0.jpg' title='Favorite Team' alt='Favorite Team' class='img-responsive' style='width: 40px;'/>");
+          $(teamIdClass + ' img.like').show();
+          $(teamIdClass + ' img.dislike').hide();
 
           displayMessage("The " + teamName + " are now a favorite")
         };

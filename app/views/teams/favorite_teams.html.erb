@@ -38,7 +38,7 @@
                     <div class="star">
                       <% if user_signed_in? %>
 
-                        <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
+                        <a class="cursor subscribe-star <%= favorites.include?(team) ? 'subscribed' : 'not-subscribed' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
 
                           <% if favorites.include?(team) %>
                             <img src='<%= asset_path 'like.jpg' %>' title="unfavorite team" alt="unfavorite team" class="img-responsive" style="width: 40px;"/>
@@ -61,18 +61,24 @@
 </div>
 
 <script type="text/javascript">
+
+
 	$('.subscribe-star').on('click', function() {
+    
     var teamId = $(this).data('team-id');
     var teamName = $(this).data('team-name');
-    var subscribed = $(this).hasClass('fastaro');
+    var subscribed = $(this).hasClass('not-subscribed');
+    var teamIdClass = '.team-' + teamId;
+
     var url = '';
+
     if (subscribed) {
       url = "/teams/" + teamId + "/subscribe";
     } else {
       url = "/teams/" + teamId + "/unsubscribe";
     };
     
-    var teamIdClass = '.team-' + teamId + '';
+    
     $.ajax({
       url: url,
       type: 'PUT',
@@ -80,17 +86,18 @@
              'ajax': true},
       success: function() {
 
-        if ($(teamIdClass).hasClass('fastar')) {
+        if ($(teamIdClass).hasClass('subscribed')) {
+
+
           var teamRow = $('#' + teamId);
-          $(teamIdClass).removeClass('fastar');
-          $(teamIdClass).addClass('fastaro');
-          //$(teamIdClass).text('Favorite');
+          $(teamIdClass).removeClass('subscribed');
+          $(teamIdClass).addClass('not-subscribed');
           teamRow.addClass('hidden');
           displayMessage("The " + teamName + " are no longer a favorite")
         } else {
           var teamRow = $('#' + teamId);
-          $(teamIdClass).addClass('fastar');
-          $(teamIdClass).removeClass('fastaro');
+          $(teamIdClass).addClass('subscribed');
+          $(teamIdClass).removeClass('not-subscribed');
           //$(teamIdClass).text('Un-favorite');     
           displayMessage("The " + teamName + " are now a favorite")
         };

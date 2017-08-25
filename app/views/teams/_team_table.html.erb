@@ -56,13 +56,16 @@
                 <div data-tab="<%= tab %>" class="star">
                   <% if user_signed_in? %>
 
-                    <!-- <i class="fa subscribe-star <%#= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'></i> -->
-                    <a class="cursor subscribe-star <%= favorites.include?(team) ? 'fastar' : 'fastaro' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>' data-sport-name='<%= sport_name %>'>
+                    <!-- <i class="fa subscribe-star <%#= favorites.include?(team) ? 'fa-star' : 'fa-star-o' %> team-<%= team.id %>" data-team-id='<%#= team.id %>' data-team-name='<%#= team.name %>' data-sport-name='<%#= sport_name %>'></i> -->
+                    
+                    <a class="cursor subscribe-star <%= favorites.include?(team) ? 'subscribed' : 'not-subscribed' %> team-<%= team.id %>" data-team-id='<%= team.id %>' data-team-name='<%= team.name %>'>
 
                       <% if favorites.include?(team) %>
-                        <img src='<%= asset_path 'like.jpg' %>' title="Unfavorite Team" alt="Unfavorite Team" class="img-responsive" style="width: 40px;"/>
+                        <img src='<%= asset_path 'like.jpg' %>' title="Unfavorite Team" alt="Unfavorite Team" class="img-responsive like" style="width: 40px;"/>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="Favorite Team" alt="Favorite Team" class="img-responsive dislike" style="width: 40px; display: none;"/>
                       <% else %>
-                        <img src='<%= asset_path 'dislike.jpg' %>' title="Favorite Team" alt="Favorite Team" class="img-responsive" style="width: 40px;"/>
+                        <img src='<%= asset_path 'dislike.jpg' %>' title="Favorite Team" alt="Favorite Team" class="img-responsive dislike" style="width: 40px;"/>
+                        <img src='<%= asset_path 'like.jpg' %>' title="Unfavorite Team" alt="Unfavorite Team" class="img-responsive like" style="width: 40px; display: none;"/>
                       <% end %>
 
                     </a>
