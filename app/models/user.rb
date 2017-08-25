@@ -210,7 +210,7 @@ class User < ActiveRecord::Base
 
   def getVenueAccountInfo(venue_id)
     role =  Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id)
-    user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("SELECT *")
+    user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("roles.*, users_roles.*")
     #User.where(id: user.user_id)
   end
 
