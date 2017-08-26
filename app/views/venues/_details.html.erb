@@ -1,25 +1,27 @@
 <div>
-  <div style="padding: 3%;">
+  <div>
+	  	<% if !@venue.image_url.blank? %>
+		  	<%= image_tag(@venue.image_url, class: "img-banner-paty", title: "venue image", style: "border-radius: 100%; " ) %>
+		<% else %>
+			<img alt="Placeholder" title="venue image" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
+			style="max-width: 95% !important;
+			height: 55px;
+			border-radius: 50%;
+			float: right;
+			right: 40%;
+			position: relative;
+			overflow: hidden;">
+	    <% end %>
 
-  	<% if !@venue.image_url.blank? %>
-	  	<%= image_tag(@venue.image_url, class: "img-banner-paty", title: "venue image" ) %>
-	<% else %>
-		<img alt="Placeholder" title="venue image" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
-		style="max-width: 95% !important;
-		height: 55px;
-		border-radius: 50%;
-		float: right;
-		right: 40%;
-		position: relative;
-		overflow: hidden;">
-    <% end %>
+	    <div class="venue_vertical_line mobile" style="height: 100px; margin-top: 0;"></div>
+   </div>
 
+    <div style="left: 5%; position: relative;">
 	  <h2><%= @venue.name.upcase %></h2>
-
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.street rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.address.city_state rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= @venue.phone rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= mail_to @venue.email rescue "" %></p>
 	  <p style="margin: 0; font-size: 12px;"><%= link_to 'Visit Website', @venue.website if @venue.website %></p>
-  </div>
+	</div>
 </div>
