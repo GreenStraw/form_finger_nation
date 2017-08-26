@@ -52,6 +52,6 @@
       <% else %>
         <%= f.submit "Save", class: "btn btn-green btn-default" %>
       <% end %>
-      <%= link_to 'Back', packages_path, class: "btn btn-green btn-default" %>
+      <%= link_to 'Cancel', edit_venue_path(@party.venue), class: "btn btn-green btn-default" %>
     </div>
 <% end %>

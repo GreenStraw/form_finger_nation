@@ -47,14 +47,15 @@
             </div>
           </div>
             <span class="pull-right">
-              <%= link_to 'Back', :back, class: "btn btn-primary", id: "voucher-back-button" %>
-              <%= link_to 'Venue', venue_path(@package.venue), class: "btn btn-primary" %>
+              <%= link_to 'Back', :back, class: "btn btn-green btn-default", id: "voucher-back-button" %>
+              <%= link_to 'Venue Main Page', venue_path(@package.venue), class: "btn btn-green btn-default" %>
               <% if current_user.present? && current_user.can?(:edit, @package) %>
-                <%= link_to 'Edit', edit_package_path(@package), class: "btn btn-success" %>
-                <%= link_to 'Delete', @package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-                <% if @party_package %>
-                  <%= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: @party_package} %>
-                <% end %>
+                <%= link_to 'Edit', 'venues/#{@package.venue.id}/packages/#{@package.id}', class: "btn btn-green btn-default" %>
+                <!-- edit_venue_packages_path(@package) -->
+                <%= link_to 'Delete', @package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-green btn-default" %>
+                <%# if @party_package %>
+                  <%#= link_to "Purchase", "#", class: 'checkout btn btn-green', data: {party_package_id: @party_package} %>
+                <%# end %>
               <% end %>
             </span>
             <br><br>
@@ -73,6 +74,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    /*
     $('.checkout').click(function() {
       var party_package_id = $(this).data('partyPackageId');
       $.ajax({
@@ -92,6 +95,7 @@
           }
         });
       });
+      */
   });
 </script>
 
