@@ -48,7 +48,7 @@
 
           <% if @venue.packages.any? %>
               <div class="col-lg-6 col-md-6 col-sm-12" class="specials">
-                  <div class="venue_vertical_line" class="desktop"></div>
+                  <div class="venue_vertical_line packages" class="desktop"></div>
                   <%= render partial: 'card_open_packages', locals: {packages: @venue.packages} %>
               </div>
           <% end %>
@@ -73,9 +73,9 @@
     var venue_specials = $('.specials').outerHeight();
 
     if(venue_info_height >= venue_specials) {
-      $('.venue_vertical_line').css({"height": venue_info_height+"px"});
+      $('.venue_vertical_line.packages').css({"height": venue_info_height+"px"});
     } else {
-      $('.venue_vertical_line').css({"height": venue_specials+"px"});
+      $('.venue_vertical_line.packages').css({"height": venue_specials+"px"});
     }
 
   });

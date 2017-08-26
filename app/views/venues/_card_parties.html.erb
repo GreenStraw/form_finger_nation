@@ -33,7 +33,7 @@
                           <% if party.present?  %>
                             <% if !party.description.nil? %>
                               <div class="party_desc">
-                                <p><%= party.description.truncate(30) rescue "" %></p>
+                                <p><%= party.description.truncate(90) rescue "" %></p>
                               </div>
                             <% end %>
                           <% end %>
