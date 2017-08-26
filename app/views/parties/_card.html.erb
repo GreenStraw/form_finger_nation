@@ -1,22 +1,6 @@
 
 <%= link_to party, class:"a-none" do %>
 
-      <% if !party.is_cancelled? && from!='cancelled' &&
-              (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
-
-            <div class="cancle_icon">
-
-                <a href="#" data-toggle="modal" data-target="#cancel" style="display: block; padding-bottom: 10px;">
-                  <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive"/>
-                </a>
-
-                <a href="#{edit_party_path(party)}" style="display: block; padding-bottom: 10px;">
-                  <img src='<%= asset_path 'icons/edit-party.svg' %>' title="edit" alt="Edit Party" class="img-responsive"/>
-                </a>
-
-            </div>
-
-      <% end %>
 
       <% if party.is_cancelled?  %>
             <div class="cancle_icon">

@@ -213,6 +213,13 @@ class User < ActiveRecord::Base
     #user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("users_roles.*")
     user =  User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id")
 
+
+    User.where()
+
+    venues.try(:each) do |venue|
+
+    end
+
     return user
     #User.where(id: user.user_id)
   end
