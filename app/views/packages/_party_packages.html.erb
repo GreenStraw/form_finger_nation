@@ -17,13 +17,15 @@
         <td><%= party.venue.address.city_state %></td>
         <td>
           <% if party.packages.include?(@package) %>
-            <%= link_to(unassign_package_path(party_id: party), remote: true, method: :put) do%>
+
+
+            <%#= link_to(unassign_package_path(party_id: party), remote: true, method: :put) do%>
               <i class='fa fa-check-square-o fa-4x'></i>
-            <% end %>
+            <%# end %>
           <% else %>
-            <%= link_to(assign_package_path(party_id: party), remote: true, method: :put, id: 'assign-link') do%>
+            <%#= link_to(assign_package_path(party_id: party), remote: true, method: :put, id: 'assign-link') do%>
               <i class='fa fa-square-o fa-4x'></i>
-            <% end %>
+            <%# end %>
           <% end %>
         </td>
       </tr>
