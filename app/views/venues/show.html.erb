@@ -72,11 +72,16 @@
     var venue_info_height = $('.venue-info').outerHeight();
     var venue_specials = $('.specials').outerHeight();
 
+    var detailsImgHeight = $('img.details-img').outerHeight();
+
     if(venue_info_height >= venue_specials) {
       $('.venue_vertical_line.packages').css({"height": venue_info_height+"px"});
     } else {
       $('.venue_vertical_line.packages').css({"height": venue_specials+"px"});
     }
+
+    if(detailsImgHeight)
+      $('.venue_vertical_line.details-img').css({"height": detailsImgHeight+"px"});
 
   });
 

@@ -22,11 +22,11 @@ body {overflow-x: hidden}
 
       <div class="sport_header_overlay">
 
-          <% if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
+          <%# if current_user.admin? || current_user.has_role?(:venue_manager, :any) || current_user.has_role?(:manager, :any) %>
 
-              <button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button>
+              <!--button type="button" title="Upload Image" data-toggle="modal" data-target="#wallModal" class="btn btn-green"><i class="fa fa-upload"></i></button-->
 
-          <% end %>
+          <%# end %>
 
           <div class="sport_caption pull-right">
             <%# display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username unless current_user.requested_role == "Sports Fan" %>

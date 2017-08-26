@@ -100,7 +100,12 @@
     <%# end %>
     
     <div class="form-group textarea_profile">
-      <%= f.label :about, "About Myself" %>
+      <% unless current_user.requested_role == "Venue" %>
+        <%= f.label :about, "About Myself" %>
+      <% end %>
+      <% if current_user.requested_role == "Venue" %>
+        <%= f.label :about, "About Us" %>
+      <% end %>
       <%= f.text_area :about, class: "form-control ", rows: 4 %>
     </div>
     <div class="row">

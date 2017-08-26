@@ -1,9 +1,9 @@
 <div>
   <div>
 	  	<% if !@venue.image_url.blank? %>
-		  	<%= image_tag(@venue.image_url, class: "img-banner-paty", title: "venue image", style: "border-radius: 100%; width: 23%;" ) %>
+		  	<%= image_tag(@venue.image_url, class: "img-banner-paty details-img", title: "venue image", style: "border-radius: 100%; width: 23%;" ) %>
 		<% else %>
-			<img alt="Placeholder" title="venue image" class="img-responsive center" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
+			<img alt="Placeholder" title="venue image" class="img-responsive center details-img" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
 			style="max-width: 95% !important;
 			height: 55px;
 			border-radius: 50%;
@@ -13,7 +13,7 @@
 			overflow: hidden;">
 	    <% end %>
 
-	    <div class="venue_vertical_line mobile" style="height: 200px; margin-top: 0; left: 5%;"></div>
+	    <div class="venue_vertical_line mobile details-img" style="height: 200px; margin-top: 0; left: 5%;"></div>
    </div>
 
     <div style="left: 10%; position: relative;">
