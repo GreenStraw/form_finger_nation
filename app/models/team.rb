@@ -63,15 +63,15 @@ class Team < ActiveRecord::Base
       if addresses.any?
         venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
 
-
-
-        #@party.venue.address.street_address 
-        #@party.venue.address.city_state
-
         parties.try(:each) do |party|
 
           if venue_ids.include?(party.venue.id)
-            team_parties_in_area.concat([{:party => party, :addr_name => party.venue.address.street_address, :addr_city_state => party.venue.address.city_state}])
+            team_parties_in_area.concat([{:thumb_url => party.image_url.thumb.url, 
+              :name => party.name, 
+              :scheduled_for => party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p"), 
+              :description => party.description, 
+              :addr_name => party.venue.address.street_address, 
+              :addr_city_state => party.venue.address.city_state}])
           end
 
         end

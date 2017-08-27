@@ -174,20 +174,21 @@ body {overflow-x: hidden}
 
               "<div class='padding'>" +
                 "<div class='holder'>" +
-                    "<img alt='Placeholder' class='img-responsive center' src='"+ (party.image_url && party.image_url.thumb && party.image_url.thumb.url|| "") +"'>" +
+                    "<img alt='Placeholder' class='img-responsive center' src='"+ (image_url && image_url.thumb && image_url.thumb.url|| "") +"'>" +
                 "</div>" +
       
                 "<div class='caption'>" +
-                    "<h4 class='title'>"+ (party.name || "") +"</h4>" +
+                    "<h4 class='title'>"+ (name || "") +"</h4>" +
                         
                     "<ul class='list-inline '>" +
-                        "<li class='time'>"+ (party.scheduled_for || "") +"</li>" +
-                        "<li class='location'>Austin, TX 78704</li>" +
+                        "<li class='time'>"+ (scheduled_for || "") +"</li>" +
+                        "<li class='location'>" + addr_name + "</li>" +
+                        "<li class='location'>" + addr_city_state + "</li>" +
                     "</ul>" +
                 "</div>" +
 
                 "<div class='party_desc'>" + 
-                      "<p class='description'>"+ (party.description.substring(0,40)+"..." || "") +"</p>" +
+                      "<p class='description'>"+ (description.substring(0,40)+"..." || "") +"</p>" +
                 "</div>" +
               "</div>" +
 
