@@ -8,6 +8,8 @@
     
     <% c = c + 1 %>
     
+
+    <!--div class="col-sm-6 col-md-4"-->  
       <div class="card" style="margin: 1%;" data-party-id="<%= party.id %>">
 
         <div class="padding">
@@ -16,10 +18,16 @@
             <%= render partial: 'card', locals: {party: party, from: 'create'} %>
           <% end %>
 
-        </div>
+        </div> <!-- END padding -->
 
 
           <div class="bottom">
+
+            <!--div class="float-left">
+              <%# if party.present? %>
+                <%#= render partial: 'social_media', locals: {party: party, from: 'create'} %>
+              <%# end %>
+            </div-->
 
             <% if party.present? %>
               <div class="edit-card-text">
@@ -30,8 +38,30 @@
           </div>
       </div>
 
+    <!--/div-->
+
+
     <% if c % 3 == 0 || @created_parties.count == c %>
       </div>
     <% end %>
 
 <% end %>
+
+<div class=" ch_location myparties modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id = "modall">
+        <h2>RSVP </h2>
+        <%= render "available_packages" %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+3. The default location does not make sense (see first screenshot)
+5.  "Your teams" needs to show favorite teams. It currently goes to the "Sports" page.
+10. The "Manage Party Assignment" tab on the "Package" page needs an option to assign the package to a specific party.
+11. Whoever created the Watch Party needs to be able to cancel it.
+12. If the venue create it they should be able to verify the watch party which should be indicated in the listing of the watch party.
+13. Watch Party search should default to current location.
+14. Map currently shows blue screen on search Watch Party page. It needs an actual map. -->
