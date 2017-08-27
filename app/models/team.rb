@@ -71,7 +71,8 @@ class Team < ActiveRecord::Base
               :scheduled_for => party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p"), 
               :description => party.description, 
               :addr_name => party.venue.address.street_address, 
-              :addr_city_state => party.venue.address.city_state}])
+              :addr_city_state => party.venue.address.city_state,
+              :friendly_url => party.friendly_url}])
           end
 
         end

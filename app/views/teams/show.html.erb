@@ -174,21 +174,21 @@ body {overflow-x: hidden}
 
               "<div class='padding'>" +
                 "<div class='holder'>" +
-                    "<img alt='Placeholder' class='img-responsive center' src='"+ (thumb_url || "") +"'>" +
+                    "<img alt='Placeholder' class='img-responsive center' src='"+ (party.thumb_url || "") +"'>" +
                 "</div>" +
       
                 "<div class='caption'>" +
-                    "<h4 class='title'>"+ (name || "") +"</h4>" +
+                    "<h4 class='title'>"+ (party.name || "") +"</h4>" +
                         
                     "<ul class='list-inline '>" +
-                        "<li class='time'>"+ (scheduled_for || "") +"</li>" +
-                        "<li class='location'>" + (addr_name || "") + "</li>" +
-                        "<li class='location'>" + (addr_city_state || "") + "</li>" +
+                        "<li class='time'>"+ (party.scheduled_for || "") +"</li>" +
+                        "<li class='location'>" + (party.addr_name || "") + "</li>" +
+                        "<li class='location'>" + (party.addr_city_state || "") + "</li>" +
                     "</ul>" +
                 "</div>" +
 
                 "<div class='party_desc'>" + 
-                      "<p class='description'>"+ (description.substring(0,40)+"..." || "") +"</p>" +
+                      "<p class='description'>"+ (party.description.substring(0,40)+"..." || "") +"</p>" +
                 "</div>" +
               "</div>" +
 
