@@ -174,7 +174,7 @@ body {overflow-x: hidden}
 
               "<div class='padding'>" +
                 "<div class='holder'>" +
-                    "<img alt='Placeholder' class='img-responsive center' src='"+ (image_url && image_url.thumb && image_url.thumb.url|| "") +"'>" +
+                    "<img alt='Placeholder' class='img-responsive center' src='"+ (thumb_url || "") +"'>" +
                 "</div>" +
       
                 "<div class='caption'>" +
@@ -182,8 +182,8 @@ body {overflow-x: hidden}
                         
                     "<ul class='list-inline '>" +
                         "<li class='time'>"+ (scheduled_for || "") +"</li>" +
-                        "<li class='location'>" + addr_name + "</li>" +
-                        "<li class='location'>" + addr_city_state + "</li>" +
+                        "<li class='location'>" + (addr_name || "") + "</li>" +
+                        "<li class='location'>" + {addr_city_state || "") + "</li>" +
                     "</ul>" +
                 "</div>" +
 
