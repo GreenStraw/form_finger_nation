@@ -71,7 +71,7 @@ class Team < ActiveRecord::Base
         parties.try(:each) do |party|
 
           if venue_ids.include?(party.venue.id)
-            team_parties_in_area.concat({:party => party, :addr_name => party.venue.address.street_address, :addr_city_state => party.venue.address.city_state})
+            team_parties_in_area.concat([{:party => party, :addr_name => party.venue.address.street_address, :addr_city_state => party.venue.address.city_state}])
           end
 
         end
