@@ -148,7 +148,8 @@ class User < ActiveRecord::Base
 
   def get_createdParties
       if !self.admin? 
-        Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+        Party.where(organizer_id: self.id, is_cancelled: false)
+        #.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
       else
         []
       end
