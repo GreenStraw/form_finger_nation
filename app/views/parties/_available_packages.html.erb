@@ -4,6 +4,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    /*
     $('.checkout').click(function() {
       var party_package_id = $(this).data('partyPackageId');
       $.ajax({
@@ -15,17 +16,18 @@
             var path = window.location.protocol + "//" + window.location.host ;
             zoozStartCheckout({
               token : data.token, // Session token recieved from server
-              uniqueId : '<%= ENV['ZOOZ_UNIQUE_ID'] %>', // unique ID as registered in the developer portal
-              isSandbox : <%= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
+              uniqueId : '<%#= ENV['ZOOZ_UNIQUE_ID'] %>', // unique ID as registered in the developer portal
+              isSandbox : <%#= ENV['ZOOZ_SANDBOX'] == "true" ? true : false %>, // true = Sandbox environment
               returnUrl : path + "/zooz_transaction/" + party_package_id + "", // return page URL
               cancelUrl : path + "/zooz_transaction/" + party_package_id + "" // cancel page URL
             });
           }
         });
       });
+      */
   });
 </script>
-<hr>
+
 <h3>Available Packages</h3>
 <br>
 <% if @party %>
