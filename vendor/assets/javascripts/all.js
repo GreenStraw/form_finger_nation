@@ -59,7 +59,7 @@ $(document).ready(function() {
       document.getElementById("create_parties").className += " hidden_p";
       document.getElementById("rsvp_party").className += " hidden_p";
       document.getElementById("pending_parties").className += " hidden_p";
-      document.getElementById("accepted_parties").className += " Accepted";
+      document.getElementById("accepted_parties").className += " hidden_p";
 
       document.getElementById("p_heading").innerHTML = "Cancelled";
 
