@@ -1,15 +1,7 @@
-<% c = 0 %>
 <% @rvs_parties.each do |party_reservation| %>
 
 <% if party_reservation.party.organizer_id != current_user.id %>
     
-    <% if c % 3 == 0 %>
-      <div class=" ">
-    <% end %>
-    
-    <% c = c + 1 %>
-    
-    <!--div class="col-sm-6 col-md-4 add_rsvp_party"-->  
       <div class="card" style="margin: 1%;">
 
         <div class="padding">
@@ -38,11 +30,6 @@
             
           </div>
       </div>
-    <!--/div-->
-
-    <% if c % 3 == 0 || @rvs_parties.count == c %>
-      </div>
-    <% end %>
 
   <% end %>
 <% end %>

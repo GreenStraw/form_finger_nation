@@ -1,15 +1,5 @@
-<% c = 0 %>
-
   <% @created_parties.try(:each) do |party| %>
     
-    <% if c % 3 == 0 %>
-      <div class=" ">
-    <% end %>
-    
-    <% c = c + 1 %>
-    
-
-    <!--div class="col-sm-6 col-md-4"-->  
       <div class="card" style="margin: 1%;" data-party-id="<%= party.id %>">
 
         <div class="padding">
@@ -37,13 +27,6 @@
 
           </div>
       </div>
-
-    <!--/div-->
-
-
-    <% if c % 3 == 0 || @created_parties.count == c %>
-      </div>
-    <% end %>
 
 <% end %>
 
