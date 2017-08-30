@@ -231,7 +231,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("(who_created_location = 'customer_venue' OR who_created_location = 'venue_venue' OR who_created_location = 'admin_venue') AND verified = true AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now.new_offset('-05:00'))
+      pending_parties =  Party.where("(who_created_location = 'customer_venue' OR who_created_location = 'venue_venue' OR who_created_location = 'admin_venue') AND verified = true AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now.new_offset('+05:00'))
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
