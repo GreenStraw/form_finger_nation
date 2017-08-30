@@ -1,6 +1,6 @@
 <% @pending_parties.each do |party_pending| %>
 
-<% if party_pending.organizer_id != current_user.id %>
+<%# if party_pending.organizer_id != current_user.id %>
     
     <div class="card" style="margin: 1%;" data-party-id="<%= party_pending.id %>">
 
@@ -29,5 +29,5 @@
         </div>
     </div>
 
-  <% end %>
+  <%# end %>
 <% end %>
