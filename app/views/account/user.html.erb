@@ -106,6 +106,7 @@ body {overflow-x: hidden}
 
 
                             <ul class="list-inline ">
+                              <li><b><%= party.venue.name rescue "" %></b></li>
                               <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
                               <li><%= party.venue.address.city_state rescue "" %></li>
                             </ul>
@@ -166,6 +167,7 @@ body {overflow-x: hidden}
 
 
                                 <ul class="list-inline ">
+                                  <li><b><%= party.venue.name rescue "" %></b></li>
                                   <li><%= party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") rescue "" %></li>
                                   <li><%= party.venue.address.city_state rescue "" %></li>
                                 </ul>

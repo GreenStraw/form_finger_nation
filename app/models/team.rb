@@ -72,6 +72,7 @@ class Team < ActiveRecord::Base
               :description => party.description, 
               :addr_name => party.venue.address.street_address, 
               :addr_city_state => party.venue.address.city_state,
+              :venue_name => party.venue.name,
               :friendly_url => party.friendly_url}])
           end
 
