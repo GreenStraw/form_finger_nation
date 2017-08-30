@@ -46,12 +46,12 @@ class Team < ActiveRecord::Base
   end
 
   def upcoming_parties
-    self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).order(:scheduled_for)
+    self.parties.where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
   end
 
   def self.geo_search(lat, lon, radius, team_id)
 
-    parties = Party.where("team_id = ? AND is_cancelled = ?", team_id, false).where("scheduled_for >= ?", DateTime.now.new_offset('-05:00'))
+    parties = Party.where("team_id = ? AND is_cancelled = ?", team_id, false).where("scheduled_for >= ?", DateTime.now)
     team_parties_in_area = []
 
     if parties.any?

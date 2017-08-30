@@ -27,11 +27,11 @@ class Venue < ActiveRecord::Base
 
   def upcoming_parties
     #self.parties.where('scheduled_for >= ?', Time.current).order(:scheduled_for)
-    self.parties.where('scheduled_for >= ?', DateTime.now.new_offset('-05:00')).where(:verified =>  true).order(:scheduled_for)
+    self.parties.where('scheduled_for >= ?', DateTime.now).where(:verified =>  true).order(:scheduled_for)
   end
 
   def past_parties
-    self.parties.where('scheduled_for < ?', DateTime.now.new_offset('-05:00') ).where(:verified =>  true).order(:scheduled_for)
+    self.parties.where('scheduled_for < ?', DateTime.now).where(:verified =>  true).order(:scheduled_for)
   end
 
   def name_and_address

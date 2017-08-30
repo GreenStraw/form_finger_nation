@@ -133,14 +133,14 @@ class Party < ActiveRecord::Base
 
   def self.search(search_item)
     if search_item.blank?
-      parties = Party.where("parties.scheduled_for > ?", DateTime.now.new_offset('-05:00').beginning_of_day)
+      parties = Party.where("parties.scheduled_for > ?", DateTime.now.beginning_of_day)
       teams = Team.all
       people = User.all
     else
       search_item = "%" + search_item + "%"
       parties = Party.joins(:organizer, :team, :venue)
         .where(["parties.scheduled_for > ? AND (parties.name ILIKE ? OR parties.description ILIKE ? OR users.email ILIKE ? OR users.username ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR teams.name ILIKE ? OR teams.information ILIKE ? OR venues.name ILIKE ?)",
-               DateTime.now.new_offset('-05:00').beginning_of_day, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
+               DateTime.now.beginning_of_day, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item, search_item])
       teams = Party.joins(:team)
        .where(["teams.name ILIKE ? or teams.information ILIKE ?", search_item, search_item])
 
