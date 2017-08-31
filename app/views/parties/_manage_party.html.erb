@@ -74,6 +74,10 @@
   <% if from=='verify_pending' || from=='accepted' && current_user.admin? %>
       <%#= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
 
+      <%= link_to "parties/#{party.friendly_url}/edit", class: "prt_rsvp" do %>
+          <img src='<%= asset_path 'icons/edit-party.svg' %>' title="Edit Party" alt="Edit Party" class="img-responsive center" style="display: inline-block;"/>
+      <% end %>
+
       <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
           <img src='<%= asset_path 'icons/add-vendor.svg' %>' title="Assign to Vendor" alt="Assign to Vendor" class="img-responsive center" style="display: inline-block;"/>
       <% end %>
@@ -84,6 +88,10 @@
   <% if (from=='accepted' || from=='create') &&
         (current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue) ) %>
 
+    <%= link_to "parties/#{party.friendly_url}/edit", class: "prt_rsvp" do %>
+        <img src='<%= asset_path 'icons/edit-party.svg' %>' title="Edit Party" alt="Edit Party" class="img-responsive center" style="display: inline-block;"/>
+    <% end %>
+      
     <%= link_to new_venue_packages_path({venue_id: party.venue_id, party_id: party.id}), class: "prt_rsvp" do %>
         <img src='<%= asset_path 'icon-packages.png' %>' title="New Package" alt="New Package" class="img-responsive center" style="display: inline-block;"/>
     <% end %>
