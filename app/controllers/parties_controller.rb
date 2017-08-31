@@ -174,14 +174,18 @@ class PartiesController < ApplicationController
 
         if result == true
           flash[:success] = "Cancellation has been submit"
+
+          respond_to do |format|
+            format.js
+            format.json { render json: {status: 'success'} }  # respond with the created JSON object
+          end
+
         else
           flash[:warning] = "Sorry, you cannot cancel party at this time."
         end
     else
         flash[:warning] = "Sorry, your account cannot cancel party at this time."
     end
-
-    respond_with @party, location: party_path(@party)
 
   end
 

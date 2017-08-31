@@ -7,7 +7,7 @@
 
       <% if !party.is_cancelled? && (from=='verify_pending' || from=='accepted') && (current_user.admin? || current_user.has_role?(:manager, party.venue) || current_user.has_role?(:venue_manager, party.venue)) %>
             <div class="cancle_icon">
-              <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right cancel-party" data-party-id='<%= party.id %>' data-toggle="modal" data-target="#cancel"/>
+              <img src='<%= asset_path 'icons/cancel.svg' %>' title="cancel" alt="Cancel Party" class="img-responsive float-right cancel-party" data-party-id='<%= party.id %>' data-party-url='<%= party.friendly_url %>' data-toggle="modal" data-target="#cancel"/>
             </div>
       <% end %>
 

@@ -32,11 +32,13 @@
 <script type="text/javascript">
 
   var cancel_party = undefined;
+  var cancel_party_url = undefined;
 
   $(document).ready(function() {
 
       $(".cancel-party").click(function() {
           cancel_party = $(this).attr("data-party-id");
+          cancel_party_url = $(this).attr("data-party-url");
       }); 
 
   });
@@ -47,7 +49,7 @@
     var description = $('.cancel_description').val();
     description = String(description).trim();
 
-    if((cancel_party&&cancel_party!="") && (description&&description!="")) {
+    if((cancel_party&&cancel_party!="") && (cancel_party_url&&cancel_party_url!="") &&(description&&description!="")) {
 
       var data = {"cancel_description":description};
 
@@ -61,8 +63,8 @@
 
               console.log(response);
 
-              if(response)
-                window.location.href = response;
+              if(response.status=='success')
+                window.location.href = "/parties/" + cancel_party_url;
           },
           error: function() {}
         });
