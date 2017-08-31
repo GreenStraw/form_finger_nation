@@ -181,7 +181,7 @@ class PartiesController < ApplicationController
         flash[:warning] = "Sorry, your account cannot cancel party at this time."
     end
 
-    redirect_to party_path(@party)
+    respond_with @party, location: party_path(@party)
 
   end
 
