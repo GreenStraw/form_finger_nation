@@ -7,7 +7,7 @@
 <p>
   <%= @party.name %><br>
   Team: <%= @party.team.name %><br>
-  When: <%= @party.scheduled_for %><br>
+  When: <%= @party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p") %><br>
   Where:<br>
     <%= @party_address.street1 %> <%= @party_address.street2 %><br>
     <%= @party_address.city %>, <%= @party_address.state %> <%= @party_address.zip %><br>
@@ -15,8 +15,7 @@
 
 
 
-<p>Get your foam finger ready and remember to purchase your watch party voucher to get discounted 
-	food and drink during the game when you RSVP! Go ahead, be a fan, RSVP now, invite others, and 
+<p>Get your foam finger ready for the game. Go ahead, be a fan, RSVP now, invite others, and 
 	share on Facebook and Twitter!
 </p>
 
