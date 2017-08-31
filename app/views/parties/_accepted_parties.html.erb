@@ -1,6 +1,5 @@
 <% @accepted_parties.each do |accepted| %>
 
-<% if accepted.organizer_id != current_user.id %>
     
       <div class="card" style="margin: 1%;" data-party-id="<%= accepted.id %>">
 
@@ -23,5 +22,4 @@
         </div> <!-- END bottom -->
       </div>
  
-  <% end %>
 <% end %>

@@ -71,7 +71,7 @@
 
   <% end %>
 
-  <% if from=='verify_pending' && current_user.admin? %>
+  <% if from=='verify_pending' || from=='accepted' && current_user.admin? %>
       <%#= link_to "Party Packages", "venues/#{party.venue.id}/edit", class: "prt_rsvp" %>
 
       <%= link_to "venues/#{party.venue.id}/edit", class: "prt_rsvp" do %>
