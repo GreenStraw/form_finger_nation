@@ -120,15 +120,21 @@ body {overflow-x: hidden}
                             <% end %>
 
                             <% if @party.organizer.full_name.present? %>
-                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.full_name.upcase.to_s %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.full_name.upcase.to_s rescue ""%></p>
                             <% else %>
-                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.username.upcase.to_s %></p>
+                              <p style="display: inline-block; margin-left: 2%;">Hosted By: <%= @party.organizer.username.upcase.to_s rescue ""%></p>
                             <% end %>
 
                         </div>
 
                       </div>
 
+
+                      <% if @party.is_cancelled? %>
+                      <hr/>
+                        <h2 class="cancel bottom-space-1x" style="color:#FF0000;">Sorry party has been cancelled.</h2>
+                        <p style="margin:0; font-size: 12px;"><%= @party.cancel_description rescue "" %></p>
+                      <% end %>
 
                       <hr/>
 
@@ -138,7 +144,7 @@ body {overflow-x: hidden}
                           
                           <h2 class="bottom-space-1x">Venue</h2>
                     
-                          <p style="margin:0; font-size: 12px;"><%= @party.venue.name %></p>
+                          <p style="margin:0; font-size: 12px;"><%= @party.venue.name rescue ""%></p>
                         <% else %>
                             <h2 class="bottom-space-1x">Location</h2>
                         <% end %>
@@ -149,10 +155,6 @@ body {overflow-x: hidden}
                         <% end %>
 
                       </div>
-
-                      <% if @party.is_cancelled? %>
-                        <h2 class="cancel bottom-space-1x" style="color:#FF0000;">Sorry party has been cancelled</h2>
-                      <% end %>
                       
                       <hr/>
 
