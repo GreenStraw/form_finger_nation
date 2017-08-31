@@ -167,7 +167,7 @@ class PartiesController < ApplicationController
     if current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager,  @party.venue)
     
         unless params[:cancel_description].blank?
-          result = @party.update_attribute(:is_cancelled, true)
+          result = @party.update_attributes(:is_cancelled => true, :cancel_description => params[:cancel_description])
         #else
         #  result = @user.update_attributes(user_params.except(:password, :password_confirmation))
         end
