@@ -129,6 +129,7 @@ body {overflow-x: hidden}
 
                       </div>
 
+
                       <hr/>
 
                       <div class="venue">
@@ -149,6 +150,10 @@ body {overflow-x: hidden}
 
                       </div>
 
+                      <% if @party.is_cancelled? %>
+                        <h2 class="cancel bottom-space-1x" style="color:#FF0000;">Sorry party has been cancelled</h2>
+                      <% end %>
+                      
                       <hr/>
 
                       <div class="description">
@@ -165,6 +170,7 @@ body {overflow-x: hidden}
 
                         <div class="col-lg-4 col-md-4 col-sm-4">
 
+                          <% if !@party.is_cancelled? %>
                               <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
                                 <a title="<%=@party.name %>" href="https://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                                 <i class="fa fa-twitter"></i>
@@ -180,32 +186,35 @@ body {overflow-x: hidden}
                                   </span>
                                 </a>
                               </div>
+                            <% end %>
                           </div>
 
                       </div>
 
 
-                      <% if !(current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue)) %>
+                      <% if !@party.is_cancelled? %>
+                        <% if !(current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue)) %>
 
-                          <div class="manage" style="text-align: center;">
+                            <div class="manage" style="text-align: center;">
 
-                              <% if @spotsLeft > 0 %>
+                                <% if @spotsLeft > 0 %>
 
-                                  <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+                                    <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
 
-                                      <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
+                                        <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
 
-                                  <% else %>
+                                    <% else %>
 
-                                      <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
+                                        <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
 
-                                  <% end %>
+                                    <% end %>
 
-                              <% end %>
+                                <% end %>
 
-                          </div>
+                            </div>
 
-                      <% end %>
+                          <% end %>
+                        <% end %>
 
                       <div style="clear: both;"></div>
 
@@ -226,28 +235,30 @@ body {overflow-x: hidden}
                     <% end %>
                   </div>
 
-                  <div style="text-align: center" class="top-space-1x bottom-space-2x">
-                      <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
+                  <% if !@party.is_cancelled? %>
+                    <div style="text-align: center" class="top-space-1x bottom-space-2x">
+                        <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
 
-                            <div style="height: 90px; position: relative; right: 25px;">
-                              <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
-                              <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> <%= @party.party_reservations.count > 1 ? 'people attending' : 'person attending' %></span>
-                            </div>
+                              <div style="height: 90px; position: relative; right: 25px;">
+                                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
+                                <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> <%= @party.party_reservations.count > 1 ? 'people attending' : 'person attending' %></span>
+                              </div>
 
-                            <% if @spotsLeft > 0 %>
-                              <p style="font-size: 18px; color: #a8d039;"><%= @spotsLeft %> spots left</p>
-                            <% else %>
-                              <p style="font-size: 18px; color: #a8d039;">No spots available</p>
-                            <% end %>
+                              <% if @spotsLeft > 0 %>
+                                <p style="font-size: 18px; color: #a8d039;"><%= @spotsLeft %> spots left</p>
+                              <% else %>
+                                <p style="font-size: 18px; color: #a8d039;">No spots available</p>
+                              <% end %>
 
-                        <% else %>
+                          <% else %>
 
-                            <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
+                              <p class="btn btn-green btn-default" style="color:#FFF; background-color: #FF0000; border-color: #FF0000;">Private Party</p>
 
-                      <% end %>
-                  </div>
+                        <% end %>
+                      </div>
+                    <% end %>
 
-                  <% if @party_packages.any? %>
+                  <% if @party_packages.any? && !@party.is_cancelled? %>
                       <div class="packages">
                         <h2 class="bottom-space-2x">Party Vouchers</h2>
                         
