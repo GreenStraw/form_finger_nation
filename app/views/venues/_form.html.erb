@@ -31,7 +31,7 @@
   <% if current_user.has_role?(:admin)%>
   
     <% address = @venue.address %>
-    
+
     <%= f.fields_for :address, address do |a| %>
       <div class = "form-group">
         <%= a.label "Street1*" %><br>
@@ -60,7 +60,7 @@
     <% end %>
   
   	<div class = "form-group">
-  		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', 'email', 484), include_blank: true, prompt: 'Add Manager', class: 'form-control' %>
+  		<%= select_tag 'user_id', options_from_collection_for_select(User.order("email ASC"), 'id', 'email', @manager_profile.id), include_blank: true, prompt: 'Add Manager', class: 'form-control' %>
   	</div>
   <% end %>
   
