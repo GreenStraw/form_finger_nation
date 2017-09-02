@@ -29,6 +29,8 @@
   </div>
 
   <% if current_user.has_role?(:admin)%>
+
+    <p> <%= @test %> </p>
   
     <% address = @venue.address %>
 
