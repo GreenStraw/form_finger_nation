@@ -46,13 +46,14 @@ class Team < ActiveRecord::Base
   end
 
   def upcoming_parties
-    self.parties.where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
+    self.parties.where("is_cancelled =?", false).where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
   end
 
   def self.geo_search(lat, lon, radius, team_id)
 
     parties = Party.where("team_id = ? AND is_cancelled = ?", team_id, false).where("scheduled_for >= ?", DateTime.now)
     team_parties_in_area = []
+    team_parties_out_area = []
 
     if parties.any?
 
@@ -74,6 +75,16 @@ class Team < ActiveRecord::Base
               :addr_city_state => party.venue.address.city_state,
               :venue_name => party.venue.name,
               :friendly_url => party.friendly_url}])
+
+          else
+            team_parties_out_area.concat([{:thumb_url => party.image_url.thumb.url, 
+              :name => party.name, 
+              :scheduled_for => party.scheduled_for.strftime("%A, %d %b %Y %l:%M %p"), 
+              :description => party.description, 
+              :addr_name => party.venue.address.street_address, 
+              :addr_city_state => party.venue.address.city_state,
+              :venue_name => party.venue.name,
+              :friendly_url => party.friendly_url}])
           end
 
         end
@@ -82,7 +93,7 @@ class Team < ActiveRecord::Base
 
     end
     
-    return team_parties_in_area || []
+    return team_parties_in_area || [], team_parties_out_area || []
 
   end
 

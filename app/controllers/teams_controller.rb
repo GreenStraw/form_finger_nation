@@ -56,7 +56,8 @@ class TeamsController < ApplicationController
     lon = nil
     overrideAddress = params[:overrideAddress]
 
-    @teams_within_area = []
+    @teams_in_area = []
+    @teams_out_area = []
     
     if overrideAddress.nil?
 
@@ -64,7 +65,7 @@ class TeamsController < ApplicationController
 
         respond_to do |format|
           format.js
-          format.json { render json: {parties_near_me: @teams_within_area } }  # respond with the created JSON object
+          format.json { render json: {parties_near_me: @teams_in_area } }  # respond with the created JSON object
         end
 
     elsif overrideAddress.to_s == 'true'
@@ -80,12 +81,12 @@ class TeamsController < ApplicationController
     end
 
     if !lat.nil? && !lon.nil?
-      @teams_within_area = Team.geo_search(lat, lon, 50, @team.id)
+      @teams_in_area, @teams_out_area = Team.geo_search(lat, lon, 50, @team.id)
     end
 
     respond_to do |format|
       format.js
-      format.json { render json: {parties_near_me: @teams_within_area} }  # respond with the created JSON object
+      format.json { render json: {parties_near_me: @teams_in_area, parties_away: @teams_out_area} }  # respond with the created JSON object
     end
   
   end

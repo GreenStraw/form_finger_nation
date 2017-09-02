@@ -91,36 +91,6 @@ class User < ActiveRecord::Base
     return venue_ids || []
   end
 
-  def venues_in_the_area_by_team(search_location, radius, team_id)
-
-    parties = Party.where(team_id: team_id)
-    team_parties_in_area = []
-    addresses = []
-
-    if parties.any?
-
-      loc = search_location
-      rad = radius || 20
-      addresses = Address.near([40.71, -100.23], 20).first
-      
-      #if addresses.any?
-      #  venue_ids =  addresses.select{|a| a.addressable_type=='Venue'}.to_a.map(&:addressable_id)
-
-      #  parties.try(:each) do |party|
-
-      #    if venue_ids.include?(party.venue.id)
-      #      team_parties_in_area.concat(party)
-      #    end
-
-      #  end
-
-      # end
-
-    end
-
-    return addresses
-  end
-
   def managed_venues
     if self.admin?
       v = Venue.all
