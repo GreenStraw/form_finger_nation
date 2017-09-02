@@ -93,7 +93,7 @@ class VenuesController < ApplicationController
 
          if role.any?
             user_role = UsersRole.where("role_id =?", role.first)
-            user_role.update(:user_id, params[:user_id])
+            user_role.update_attribute(:user_id, params[:user_id])
          end
 
       end
