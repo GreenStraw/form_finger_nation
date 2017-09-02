@@ -92,8 +92,8 @@ class VenuesController < ApplicationController
          role = Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id)
 
          if role.any?
-            user_role = UsersRole.find_by_role_id(role.first.to_i)
-            user_role.update_attribute(:user_id, params[:user_id])
+            user_role = UsersRole.where("role_id =?", role.first.role_id.to_i)
+            user_role.update(:user_id, params[:user_id])
          end
 
       end
