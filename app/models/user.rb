@@ -209,19 +209,21 @@ class User < ActiveRecord::Base
   end
 
   def getVenueAccountInfo(venue_id)
-    role =  Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id)
-    #user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("users_roles.*")
-    user =  User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id")
+    #role =  Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).first
+    user_role = UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).map(&:id)).first
+    
+    user=nil
 
-
-    User.where()
-
-    venues.try(:each) do |venue|
-
+    if user_role.any?
+      user = User.where(id: user_role.user_id)
     end
+    
+    #user =  User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id")
+    #user = role.joins("INNER JOIN users_roles ON roles.id = users_roles.role_id").select("users_roles.*")
+    #User.where(id: user.user_id)
 
     return user
-    #User.where(id: user.user_id)
+
   end
 
 
