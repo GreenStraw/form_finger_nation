@@ -98,13 +98,13 @@ body {overflow-x: hidden}
                       <div class="header">
 
                         <% if @party.verified? %>
-                            <img src='<%= asset_path 'icon-verified.png' %>' title="Party Verified" alt="Party Verified" class="img-responsive" style="width: 75px; float: right; position: absolute; right: 5%;"/>
+                            <img src='<%= asset_path 'icon-verified.png' %>' title="Party Verified" alt="Party Verified" class="img-responsive party-verified" style="width: 75px; float: right; position: absolute; right: 5%;"/>
                         <% end %>
 
                         <% if !@party.image_url.blank? %>
-                            <%= image_tag(@party.image_url, class: "img-responsive center", title: "party", style: "border-radius: 100%;") %>
+                            <%= image_tag(@party.image_url, class: "img-responsive center party-card-img", title: "party", style: "border-radius: 100%;") %>
                         <% else %>
-                          <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center"/>
+                          <img src='<%= asset_path 'placeholder.png' %>' title="party" alt="party" class="img-responsive center party-card-img"/>
                         <% end %>
 
                         <h2 class="bottom-space-2x"><%= @party.name rescue "" %></h2>

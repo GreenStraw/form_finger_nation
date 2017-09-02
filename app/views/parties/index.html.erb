@@ -125,61 +125,59 @@
              
                 <div id="create_parties">
                   <% if @created_parties.present? && @created_parties.length > 0 %>
-                    <div class="col-md-12">
+                    <div class="col-md-12 top-space-2x">
                       <h3>Created Parties</h3>
                     </div>
-                  
+                  <% end %>
+
                     <%= render "created_parties" %>
                     <div class="clearfix"></div>
-                  <% end %>
                 </div>
                 
 
                 <div id="rsvp_party">
                   <% if @rvs_parties.present? &&  @rvs_parties.length > 0 %>
-                    <div class="col-md-12">
+                    <div class="col-md-12 top-space-2x">
                       <h3>RSVP Parties</h3>
                     </div>
-
-                    <%= render "rsvp_parties" %>
-                    <div class="clearfix"></div>
                   <% end %>
                   
+                    <%= render "rsvp_parties" %>
+                    <div class="clearfix"></div>
                 </div>
                 
                 <div id="pending_parties">
                   <% if @pending_parties.present? &&  @pending_parties.length > 0 %>
-                    <div class="col-md-12">
+                    <div class="col-md-12 top-space-2x">
                       <h3>Verify Waiting</h3>
                     </div>
-
-                    <%= render "pending_parties" %>
-                    <div class="clearfix"></div>
                   <% end %>
                   
+                    <%= render "pending_parties" %>
+                    <div class="clearfix"></div>
                 </div>
 
                 <div id="accepted_parties">
                   <% if @accepted_parties.present? &&  @accepted_parties.length > 0 %>
-                    <div class="col-md-12">
+                    <div class="col-md-12 top-space-2x">
                       <h3>Accepted Parties</h3>
                     </div>
-
-                    <%= render "accepted_parties" %>
-                    <div class="clearfix"></div>
                   <% end %>
                   
+                    <%= render "accepted_parties" %>
+                    <div class="clearfix"></div>
                 </div>
 
                 <div id="cancelled_parties">
                   <% if @cancelled_parties.present? &&  @cancelled_parties.length > 0 %>
-                    <div class="col-md-12">
+                    <div class="col-md-12 top-space-2x">
                       <h3>Cancelled Parties</h3>
                     </div>
 
+                  <% end %>
+
                     <%= render "cancelled_parties" %>
                     <div class="clearfix"></div>
-                  <% end %>
                   
                 </div>
 
