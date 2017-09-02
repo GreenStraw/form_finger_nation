@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
     user_role = UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", venue_id).map(&:id))
     user = ""
     if user_role.any?
-      user = User.where(id: user_role.first.user_id).first
+      user = User.where(id: user_role.first.user_id).first.id
     end
 
     #user =  User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id")
