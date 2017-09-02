@@ -42,9 +42,8 @@ body {overflow-x: hidden}
 
 
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="parties-nearby">
-                       
-                </div>
+                <div class="parties-nearby"></div>
+                <div class="parties-further-out"></div>
               </div>
 
             </div>
@@ -118,6 +117,7 @@ body {overflow-x: hidden}
 
   $(".changeLoc").click(function() {
        $(".parties-nearby .card").remove();
+       $(".parties-further-out").remove();
        getCard();
   });
 
@@ -140,16 +140,17 @@ body {overflow-x: hidden}
           data : data,
           success: function(response) {
 
-            var cards = [];
+            var cards_near_me = [];
+            var cards_further_away = [];
 
             if(response && response.parties_near_me && response.parties_near_me.length > 0) {
 
-                  cards = response.parties_near_me;
+                  cards_near_me = response.parties_near_me;
 
-                  $(".parties-nearby").append("<h3>Upcoming Watch Parties</h3>");
+                  $(".parties-nearby").append("<h3>Parties Near Me</h3>");
 
-                  for(var i=0; i < cards.length; i++) {
-                      var card = buildCard(cards[i]);
+                  for(var i=0; i < cards_near_me.length; i++) {
+                      var card = buildCard(cards_near_me[i]);
                       $(".parties-nearby").append(card);
                   }
 
@@ -157,11 +158,34 @@ body {overflow-x: hidden}
 
               }
 
+              if(response && response.parties_away && response.parties_away.length > 0) {
 
-              if (cards.length==0)
-                $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
+                  cards_further_away = response.parties_away;
+
+                  $(".parties-further-out").append("<h3>Parties Further Away</h3>");
+
+                  for(var i=0; i < cards_further_away.length; i++) {
+                      var card = buildCard(cards_further_away[i]);
+                      $(".parties-further-out").append(card);
+                  }
+
+                  $('.card').css({"top": 0, "opacity":1});
+
+              }
+
+
+              if (cards_near_me.length==0&&cards_further_away.length==0) {
+                $(".parties-nearby").append("<h2>No upcoming watch parties listed, be the first to start a treand near you!</h2>");
+
+                $(".parties-nearby").append("<a class='btn btn-green btn-default' href='/parties/new'>Create Watch Party</a>");
+
+              } else {
+                if (cards_near_me.length==0) {
+                  $(".parties-nearby").append("<h2>No upcoming watch parties nearby, be the first to start a treand near you!</h2>");
               
-                      
+                  $(".parties-nearby").append("<a class='btn btn-green btn-default' href='/parties/new'>Create Watch Party</a>");
+                }
+              }       
           },
           error: function() {
               $(".parties-nearby").append("<h2>No upcoming watch parties listed</h2>");
