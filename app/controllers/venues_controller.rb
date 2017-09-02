@@ -53,7 +53,7 @@ class VenuesController < ApplicationController
     @assigned_parties = Party.partiesAssignedToVenue(current_user)
 
     if current_user.admin? && params[:user_id].present?
-        role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
+        role = Role.where(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
         role.update_attribute(:user_id, params[:user_id])
     end
 
