@@ -86,10 +86,10 @@ class VenuesController < ApplicationController
   def update
     if @venue.update(venue_params)
 
-      if current_user.admin? && params[:user_id].present?
-        user_role = UsersRole.find_by_role_id(Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id).first)
-        user_role.update_attribute(:user_id, params[:user_id])
-      end
+      #if current_user.admin? && params[:user_id].present?
+      #  user_role = UsersRole.find_by_role_id(Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id).first)
+      #  user_role.update_attribute(:user_id, params[:user_id])
+      #end
 
       redirect_to @venue, notice: 'Venue was successfully updated.'
     else
