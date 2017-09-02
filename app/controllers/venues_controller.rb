@@ -50,8 +50,13 @@ class VenuesController < ApplicationController
       @party = Party.find(params[:party_id])
       @flag = true
     end
-
     @assigned_parties = Party.partiesAssignedToVenue(current_user)
+
+    if current_user.admin? && params[:user_id].present?
+        role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
+        role.update_attribute(:user_id, params[:user_id])
+    end
+
   end
 
   # POST /venues
@@ -64,7 +69,8 @@ class VenuesController < ApplicationController
 
       if @venue.save!
         # @user = User.find(current_user.id)
-        if !current_user.has_role?(:venue_manager, @venue)
+        #if !current_user.has_role?(:venue_manager, @venue)
+        if current_user.admin? && params[:user_id].present?
           role = Role.create(name: 'manager', resource_id: @venue.id, resource_type: "Venue")
           UsersRole.create(user_id: params[:user_id], role_id: role.id)
           # current_user.roles << role
