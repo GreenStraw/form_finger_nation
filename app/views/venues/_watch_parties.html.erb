@@ -22,9 +22,9 @@
             <td><%= party.venue.address.city_state %></td>
             <td>
               <% if party.verified? %>
-                <%= link_to(unverify_party_venue_path(party_id: party), remote: true, method: :put) do%>
+                <%#= link_to(unverify_party_venue_path(party_id: party), remote: true, method: :put) do%>
                   <i class='fa fa-check-square-o fa-4x'></i>
-                <% end %>
+                <%# end %>
               <% else %>
                 <%= link_to(verify_party_venue_path(party_id: party), remote: true, method: :put, id: 'verify-link') do%>
                   <i class='fa fa-square-o fa-4x'></i>

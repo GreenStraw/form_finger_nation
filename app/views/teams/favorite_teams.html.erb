@@ -32,9 +32,11 @@
 					  <% @teams.each do |team| %>
 					  		<div class="col-md-6 col-sm-6 col-xs-12" id = "<%=team.id%>" style="margin-bottom: 15px;"> 
 
-                  <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; float:left;">
-                  </div>
-                  <h4><%= link_to(team.name, "#{team.page_name}") %></h4>
+                  <%= link_to "teams/#{team.page_name}" do %>
+                      <div class="image-holder" style="width: 50px; background: url(<%= asset_path "#{team.team_icon}" %>); height: 50px; background-size: cover; margin-right: 10px; top: 5px; position: relative; float:left;">
+                      </div>
+                  <% end %>
+                  <h4 style="top: 5px; position: relative;"><%= link_to(team.name, "#{team.page_name}") %></h4>
                     <div class="star">
                       <% if user_signed_in? %>
 

@@ -51,7 +51,6 @@ class VenuesController < ApplicationController
       @flag = true
     end
 
-    @test = Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id).first
     @assigned_parties = Party.partiesAssignedToVenue(current_user)
   
   end

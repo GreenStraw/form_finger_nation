@@ -5,7 +5,7 @@
 
       <%# if current_user.can?(:create, Venue) %>
       <% if current_user.has_role?(:admin) %>
-          <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default", style: "margin: 5%;" %>
+          <%= link_to 'New Venue', new_venue_path, class: "btn btn-green btn-default", style: "top: 10%; position: relative; left: 5%;" %>
       <% end %>   
 
       <div class="sport_caption pull-right">
