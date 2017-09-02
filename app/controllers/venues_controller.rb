@@ -50,13 +50,14 @@ class VenuesController < ApplicationController
       @party = Party.find(params[:party_id])
       @flag = true
     end
-    @assigned_parties = Party.partiesAssignedToVenue(current_user)
 
     if current_user.admin? && params[:user_id].present?
-        UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id))
-        UsersRole.update_attribute(:user_id, params[:user_id])
+        user_role = UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id))
+        user_role.update_attribute(:user_id, params[:user_id])
     end
 
+    @assigned_parties = Party.partiesAssignedToVenue(current_user)
+  
   end
 
   # POST /venues
