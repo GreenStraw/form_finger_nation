@@ -215,7 +215,7 @@ class User < ActiveRecord::Base
     user=nil
 
     if user_role.any?
-      user = User.where(id: user_role.first.user_id)
+      user = User.where(id: user_role.first.user_id).first
     end
 
     #user =  User.joins("INNER JOIN users_roles ON user.id = users_roles.user_id")
