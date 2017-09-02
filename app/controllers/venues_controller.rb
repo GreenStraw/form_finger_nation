@@ -51,11 +51,6 @@ class VenuesController < ApplicationController
       @flag = true
     end
 
-    if current_user.admin? && params[:user_id].present?
-        user_role = UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id)).first
-        user_role.update_attribute(:user_id, params[:user_id])
-    end
-
     @assigned_parties = Party.partiesAssignedToVenue(current_user)
   
   end
@@ -90,6 +85,12 @@ class VenuesController < ApplicationController
   # PATCH/PUT /venues/1
   def update
     if @venue.update(venue_params)
+
+      if current_user.admin? && params[:user_id].present?
+        user_role = UsersRole.where(role_id: Role.where("name =? AND resource_type =? AND resource_id =?", "manager", "Venue", @venue.id).map(&:id)).first
+        user_role.update_attribute(:user_id, params[:user_id])
+      end
+
       redirect_to @venue, notice: 'Venue was successfully updated.'
     else
       render :edit
