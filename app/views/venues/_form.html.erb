@@ -30,7 +30,9 @@
 
   <% if current_user.has_role?(:admin)%>
   
-    <%= f.fields_for :address_attributes do |a| %>
+    <% address = @venue.address %>
+    
+    <%= f.fields_for :address, address do |a| %>
       <div class = "form-group">
         <%= a.label "Street1*" %><br>
         <%= a.text_field :street1, class: 'required form-control' %>
