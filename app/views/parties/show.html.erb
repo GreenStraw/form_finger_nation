@@ -160,7 +160,7 @@ body {overflow-x: hidden}
 
                       <div class="description">
 
-                        <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="col-lg-8 col-md-12 col-sm-12">
                             <h2 class="bottom-space-1x">Description</h2>
 
                             <% if !@party.description.blank? %>
@@ -170,10 +170,10 @@ body {overflow-x: hidden}
                             <% end %>
                         </div>
 
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
 
                           <% if !@party.is_cancelled? %>
-                              <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
+                              <div class="social-media-btn" style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
                                 <a title="<%=@party.name %>" href="https://www.foamfingernation.com/parties/<%= @party.friendly_url%>" class=" tweet btn btn-green btn-circle" target="_blank">
                                 <i class="fa fa-twitter"></i>
                                 </a>
