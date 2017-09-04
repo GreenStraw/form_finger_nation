@@ -201,7 +201,10 @@ body {overflow-x: hidden}
 
                                 <% if @spotsLeft > 0 %>
 
-                                    <% if reservations_include?(@party, current_user) || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+
+                                  <% if !(current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue)) %>
+
+                                    <% if reservations_include?(@party, current_user) %>
 
                                         <%= link_to "UnRSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "unrsvp#{@party.id}", class: "btn btn-green btn-default", style:"background-color: #FF0000; border-color: #FF0000; color: #FFF; min-width: 150px;" %>
 
@@ -210,6 +213,8 @@ body {overflow-x: hidden}
                                         <%= link_to "RSVP", party_rsvp_path(@party), class: "prt_rsvp" , id: "rsvp#{@party.id}", class: "btn btn-green btn-default", style:"min-width: 150px;" %>
 
                                     <% end %>
+
+                                  <% end %>
 
                                 <% end %>
 
@@ -239,10 +244,14 @@ body {overflow-x: hidden}
 
                   <% if !@party.is_cancelled? %>
                     <div style="text-align: center" class="top-space-1x bottom-space-2x">
-                        <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? %>
+                        <% if (@party.is_private? && current_user.id==@party.organizer_id) || !@party.is_private? || reservations_include?(@party, current_user) %>
 
                               <div style="height: 90px; position: relative; right: 25px;">
-                                <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
+
+                                <% if reservations_include?(@party, current_user) || current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue) %>
+                                  <%= link_to "Invite Friends", invite_friends_path(@party), class: "btn btn-green btn-default inline-block", style: "position: relative; top: 15px;"%>
+                                <% end %>
+
                                 <span style="display:inline-block; font-size: 32px; color: #a8d039; position: relative; top: 23px; left: 25px;"><%= @party.party_reservations.count.to_s %> <%= @party.party_reservations.count > 1 ? 'people attending' : 'person attending' %></span>
                               </div>
 
