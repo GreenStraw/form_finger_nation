@@ -141,8 +141,8 @@ class User < ActiveRecord::Base
   def get_party_reservations
 
     if !(self.admin? || self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)) 
-      parties = Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now)
-      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+      parties = Party.where(is_cancelled: false).where('scheduled_for >= ?', DateTime.now)
+      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id").where("party_reservations.user_id = ?", self.id)
     else
       []
     end
