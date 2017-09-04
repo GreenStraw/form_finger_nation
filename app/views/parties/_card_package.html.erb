@@ -32,11 +32,23 @@
                 
               <% if reservations_include?(party, user) && !(current_user.admin? || current_user.has_role?(:venue_manager, party.venue) || current_user.has_role?(:manager, party.venue)) %>
                   <div class="inline-block" style="bottom: 0; position: absolute; padding: 15px;">
-                      <% voucher = voucher_redeem_include(party, user, package) %>
-                      <% if voucher.any? && !voucher.first.redeemed_at.nil? %>
+                      <% myvoucher = my_voucher_redeem_include(party, user, package) %>
+
+                      <% if myvoucher.any? && !myvoucher.first.redeemed_at.nil? %>
+
                         <a href="#" class="btn btn-green btn-default" onclick="return false;">Redeemed</a>
+
+                      <% elsif myvoucher.any? && myvoucher.first.redeemed_at.nil? %>
+
+                        <%= link_to "Redeem", redeem_voucher_path(myvoucher.first.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
+                      
                       <% else %>
-                        <%= link_to "Redeem", redeem_voucher_path(voucher.first.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
+                      
+                        <% general_voucher = general_voucher_redeem_include(party, package) %>
+
+                        <% if general_voucher.any? %>
+                          <%= link_to "Redeem", redeem_voucher_path(general_voucher.first.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
+                        <% end %>
                       <% end %>
                   </div>
               <% end %>
