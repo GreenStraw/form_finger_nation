@@ -25,52 +25,57 @@ $(document).ready(function() {
       
       h_str = str;
 
-      document.getElementById("create_parties").className += " hidden_p";
-      document.getElementById("pending_parties").className += " hidden_p";
-      document.getElementById("accepted_parties").className += " hidden_p";
-      document.getElementById("cancelled_parties").className += " hidden_p";
+      document.getElementById("create_parties").addClass("hidden_p");
+      document.getElementById("pending_parties").addClass("hidden_p");
+      document.getElementById("accepted_parties").addClass("hidden_p");
+      document.getElementById("cancelled_parties").addClass("hidden_p");
 
+      document.getElementById("rsvp_party").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "RSVPs";
 
 
     } else if (str == "Waiting") {
       h_str = str;
 
-      document.getElementById("create_parties").className += " hidden_p";
-      document.getElementById("rsvp_party").className += " hidden_p";
-      document.getElementById("accepted_parties").className += " hidden_p";
-      document.getElementById("cancelled_parties").className += " hidden_p";
+      document.getElementById("create_parties").addClass("hidden_p");
+      document.getElementById("rsvp_party").addClass("hidden_p");
+      document.getElementById("accepted_parties").addClass("hidden_p");
+      document.getElementById("cancelled_parties").addClass("hidden_p");
 
+      document.getElementById("pending_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Verify Waiting";
 
     } else if (str == "Accepted") {
       h_str = str;
 
-      document.getElementById("create_parties").className += " hidden_p";
-      document.getElementById("rsvp_party").className += " hidden_p";
-      document.getElementById("pending_parties").className += " hidden_p";
-      document.getElementById("cancelled_parties").className += " hidden_p";
+      document.getElementById("create_parties").addClass("hidden_p");
+      document.getElementById("rsvp_party").addClass("hidden_p");
+      document.getElementById("pending_parties").addClass("hidden_p");
+      document.getElementById("cancelled_parties").addClass("hidden_p");
 
+      document.getElementById("accepted_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Accepted";
 
     } else if (str == "Cancelled") {
       h_str = str;
 
-      document.getElementById("create_parties").className += " hidden_p";
-      document.getElementById("rsvp_party").className += " hidden_p";
-      document.getElementById("pending_parties").className += " hidden_p";
-      document.getElementById("accepted_parties").className += " hidden_p";
+      document.getElementById("create_parties").addClass("hidden_p");
+      document.getElementById("rsvp_party").addClass("hidden_p");
+      document.getElementById("pending_parties").addClass("hidden_p");
+      document.getElementById("accepted_parties").addClass("hidden_p");
 
+      document.getElementById("cancelled_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Cancelled";
 
     }
     else {
 
-      document.getElementById("pending_parties").className += " hidden_p";
-      document.getElementById("rsvp_party").className += " hidden_p";
-      document.getElementById("accepted_parties").className += " hidden_p";
-      document.getElementById("cancelled_parties").className += " hidden_p";
+      document.getElementById("pending_parties").addClass("hidden_p");
+      document.getElementById("rsvp_party").addClass("hidden_p");
+      document.getElementById("accepted_parties").addClass("hidden_p");
+      document.getElementById("cancelled_parties").addClass("hidden_p");
       
+      document.getElementById("create_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Created";
     }
 
@@ -155,17 +160,18 @@ $(document).ready(function() {
 
   var scrolled=0;
 
-  $("#downClick").on("click" ,function(){
-                scrolled=scrolled+200;
-    console.log(scrolled);
+  $("#downClick").on("click" ,function() {
+        scrolled=scrolled+200;
+
         if (scrolled > 600 ) {
           scrolled = 600
         };
+
         $("#qs_div").animate({
                 scrollTop:  scrolled
            });
 
-      });
+  });
 
     
     $("#upClick").on("click" ,function(){
