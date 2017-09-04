@@ -25,57 +25,57 @@ $(document).ready(function() {
       
       h_str = str;
 
-      document.getElementById("create_parties").addClass("hidden_p");
-      document.getElementById("pending_parties").addClass("hidden_p");
-      document.getElementById("accepted_parties").addClass("hidden_p");
-      document.getElementById("cancelled_parties").addClass("hidden_p");
+      $("#create_parties").addClass("hidden_p");
+      $("#pending_parties").addClass("hidden_p");
+      $("#accepted_parties").addClass("hidden_p");
+      $("#cancelled_parties").addClass("hidden_p");
 
-      document.getElementById("rsvp_party").removeClass("hidden_p");
+      $("#rsvp_party").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "RSVPs";
 
 
     } else if (str == "Waiting") {
       h_str = str;
 
-      document.getElementById("create_parties").addClass("hidden_p");
-      document.getElementById("rsvp_party").addClass("hidden_p");
-      document.getElementById("accepted_parties").addClass("hidden_p");
-      document.getElementById("cancelled_parties").addClass("hidden_p");
+      $("#create_parties").addClass("hidden_p");
+      $("#rsvp_party").addClass("hidden_p");
+      $("#accepted_parties").addClass("hidden_p");
+      $("#cancelled_parties").addClass("hidden_p");
 
-      document.getElementById("pending_parties").removeClass("hidden_p");
+      $("#pending_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Verify Waiting";
 
     } else if (str == "Accepted") {
       h_str = str;
 
-      document.getElementById("create_parties").addClass("hidden_p");
-      document.getElementById("rsvp_party").addClass("hidden_p");
-      document.getElementById("pending_parties").addClass("hidden_p");
-      document.getElementById("cancelled_parties").addClass("hidden_p");
+      $("#create_parties").addClass("hidden_p");
+      $("#rsvp_party").addClass("hidden_p");
+      $("#pending_parties").addClass("hidden_p");
+      $("#cancelled_parties").addClass("hidden_p");
 
-      document.getElementById("accepted_parties").removeClass("hidden_p");
+      $("#accepted_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Accepted";
 
     } else if (str == "Cancelled") {
       h_str = str;
 
-      document.getElementById("create_parties").addClass("hidden_p");
-      document.getElementById("rsvp_party").addClass("hidden_p");
-      document.getElementById("pending_parties").addClass("hidden_p");
-      document.getElementById("accepted_parties").addClass("hidden_p");
+      $("#create_parties").addClass("hidden_p");
+      $("#rsvp_party").addClass("hidden_p");
+      $("#pending_parties").addClass("hidden_p");
+      $("#accepted_parties").addClass("hidden_p");
 
-      document.getElementById("cancelled_parties").removeClass("hidden_p");
+      $("#cancelled_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Cancelled";
 
     }
     else {
 
-      document.getElementById("pending_parties").addClass("hidden_p");
-      document.getElementById("rsvp_party").addClass("hidden_p");
-      document.getElementById("accepted_parties").addClass("hidden_p");
-      document.getElementById("cancelled_parties").addClass("hidden_p");
+      $("#pending_parties").addClass("hidden_p");
+      $("#rsvp_party").addClass("hidden_p");
+      $("#accepted_parties").addClass("hidden_p");
+      $("#cancelled_parties").addClass("hidden_p");
       
-      document.getElementById("create_parties").removeClass("hidden_p");
+      $("#create_parties").removeClass("hidden_p");
       document.getElementById("p_heading").innerHTML = "Created";
     }
 
