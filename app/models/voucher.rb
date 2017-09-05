@@ -50,7 +50,7 @@ class Voucher < ActiveRecord::Base
               voucher_copy.assign_attributes(:user_id  => current_user.id, :redeemed_at => nil)
               voucher << voucher_copy
           else
-              voucher << user_redeemed_voucher
+              voucher.concat(user_redeemed_voucher.first)
           end
 
       #end
