@@ -55,21 +55,71 @@ class Party < ActiveRecord::Base
 
   def self.getPartyPackages(venue_id, party_id)
 
-      venue_packages = Package.where("venue_id = ?", venue_id).where(:for_everyone =>  false)
+      #party_vouchers
+      #(venue_id, party_id)
 
+      venue_packages = Package.where("venue_id = ?", venue_id).where(:for_everyone =>  false)
       party_vouchers = Voucher.where(package_id: venue_packages.map(&:id), party_id: party_id)
 
       party_packages = [] #array that will be sent with package object
+      party_packages_ids = [] #keeping track of existing packages
 
       party_vouchers.try(:each) do |voucher|
 
-        party_packages.concat(venue_packages.where("id = ?", voucher.package_id))
+        if !party_packages_ids.include?(voucher.package_id)
+          party_packages.concat(venue_packages.where("id = ?", voucher.package_id))
+          party_packages_ids.concat(voucher.package_id)
+        end
      
       end
 
      return party_packages
 
+     #party_packages = [] #array that will be sent with package object
+     #party_packages_ids = [] #keeping track of existing packages
+
+     #party_vouchers.try(:each) do |voucher|
+
+     #   if !party_packages_ids.include?(voucher.package_id)
+     #     party_packages.concat(voucher)
+     #     party_packages_ids.concat(voucher.package_id)
+     #   end
+     # end
+
+     # return party_packages
   end
+
+
+ # def sort_parties_geographically(parties)
+ #   parties_location_distance = Hash.new
+    
+ #   parties.each do |team_party|
+      
+ #     rvs_party_city = team_party.venue.address.city
+      
+ #     if parties_location_distance.key?(rvs_party_city)
+ #       parties_location_distance[rvs_party_city]+=1
+ #     else
+ #       parties_location_distance[rvs_party_city] = 1
+ #     end
+
+ #   end
+
+ #   user_coor = Geocoder.coordinates(current_user.address.city)
+
+ #   parties_location_distance.each do |key,value|
+ #     party_coor = Geocoder.coordinates(key)
+ #     parties_location_distance[key] = Address.distance_of_two_locations(user_coor,party_coor)
+ #   end
+
+ 
+ #   sorted_distances = Hash[parties_location_distance.sort_by{ |k,v| v }]
+
+    #cities_list = sorted_distances.keys
+
+ #   return sorted_distances
+ # end
+
 
   def venue_exists
     venue = Venue.where(id: venue_id)
