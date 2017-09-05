@@ -1,13 +1,13 @@
 <% @rvs_parties.each do |party_reservation| %>
 
-<% if party_reservation.party.organizer_id != current_user.id %>
+<%# if party_reservation.organizer_id != current_user.id %>
     
       <div class="card" style="margin: 1%;">
 
         <div class="padding">
 
-            <% if party_reservation.party.present? %>
-              <%= render partial: 'card', locals: {party: party_reservation.party, from: 'rsvp'} %>
+            <% if party_reservation.present? %>
+              <%= render partial: 'card', locals: {party: party_reservation, from: 'rsvp'} %>
             <% end %>
             
         </div> <!-- END padding -->
@@ -15,14 +15,14 @@
           <div class="bottom">
 
             <!--div class="float-left">
-              <%# if party_reservation.party.present? %>
-                <%#= render partial: 'social_media', locals: {party: party_reservation.party, from: 'rsvp'} %>
+              <%# if party_reservation.present? %>
+                <%#= render partial: 'social_media', locals: {party: party_reservation, from: 'rsvp'} %>
               <%# end %>
             </div-->
 
-            <% if party_reservation.party.present? %>
+            <% if party_reservation.present? %>
               <div class="edit-card-text">
-                  <%= render partial: 'manage_party', locals: {party: party_reservation.party, from: 'rsvp', spotsLeft: @spotsLeft} %>
+                  <%= render partial: 'manage_party', locals: {party: party_reservation, from: 'rsvp', spotsLeft: @spotsLeft} %>
               </div>
             <% end %>
 
@@ -31,5 +31,5 @@
           </div>
       </div>
 
-  <% end %>
+  <%# end %>
 <% end %>
