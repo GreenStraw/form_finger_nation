@@ -49,8 +49,10 @@ class Voucher < ActiveRecord::Base
               voucher_copy = where("party_id = ? AND package_id = ?", partyid, pkgid).first
               voucher_copy.assign_attributes(:user_id  => current_user.id, :redeemed_at => nil)
               voucher << voucher_copy
+
           else
-              voucher.concat(user_redeemed_voucher.first)
+              voucher << user_redeemed_voucher.first
+          
           end
 
       #end
