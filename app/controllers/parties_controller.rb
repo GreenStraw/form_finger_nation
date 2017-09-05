@@ -191,7 +191,7 @@ class PartiesController < ApplicationController
 
   # GET /parties/1
   def show
-    @party_packages = Party.getPartyPackages(@party.venue.id, @party.id)
+    @party_packages = @party.vouchers.select('DISTINCT package_id') #Party.getPartyPackages(@party.venue.id, @party.id)
     @map_markers = Party.build_markers([@party])
 
     @spotsLeft = 0
