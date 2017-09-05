@@ -68,7 +68,7 @@ class Party < ActiveRecord::Base
 
         if !party_packages_ids.include?(voucher.package_id)
           party_packages.concat(venue_packages.where("id = ?", voucher.package_id))
-          party_packages_ids.concat(voucher.package_id)
+          party_packages_ids.push(voucher.package_id)
         end
      
       end
