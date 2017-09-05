@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
 
   def get_createdParties
       if !self.admin? 
-        Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now)
+        Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
       else
         []
       end
@@ -127,13 +127,13 @@ class User < ActiveRecord::Base
   #todo test cancelled parties
   def get_cancelledParties
       if self.admin?
-        parties = Party.where(is_cancelled: true).where('scheduled_for >= ?', DateTime.now)
+        parties = Party.where(is_cancelled: true).where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
       elsif self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)
         parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now)
-        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")        
+        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id").order(:scheduled_for)        
       else
         parties = Party.where(organizer_id: self.id, is_cancelled: true).where('scheduled_for >= ?', DateTime.now)
-        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+        parties.joins(:party_reservations).where("party_reservations.party_id != parties.id").order(:scheduled_for)
       end
   end
 
@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
 
     if !(self.admin? || self.has_role?(:venue_manager, :any) || self.has_role?(:manager, :any)) 
       parties = Party.where(organizer_id: self.id, is_cancelled: false).where('scheduled_for >= ?', DateTime.now)
-      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id")
+      parties.joins(:party_reservations).where("party_reservations.party_id != parties.id").order(:scheduled_for)
     else
       []
     end
@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = false AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now)
+      pending_parties =  Party.where("who_created_location = 'customer_venue' AND verified = false AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
 
     else
 
-      pending_parties =  Party.where("parties.organizer_id = ? AND who_created_location = ? AND verified = ? AND is_cancelled = ?", self.id, 'customer_venue', false, false).where('scheduled_for >= ?', DateTime.now)
+      pending_parties =  Party.where("parties.organizer_id = ? AND who_created_location = ? AND verified = ? AND is_cancelled = ?", self.id, 'customer_venue', false, false).where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
 
     end
 
@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
 
     if self.admin?
 
-      pending_parties =  Party.where("(who_created_location = 'customer_venue' OR who_created_location = 'venue_venue' OR who_created_location = 'admin_venue') AND verified = true AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now)
+      pending_parties =  Party.where("(who_created_location = 'customer_venue' OR who_created_location = 'venue_venue' OR who_created_location = 'admin_venue') AND verified = true AND is_cancelled = false").where('scheduled_for >= ?', DateTime.now).order(:scheduled_for)
 
       #parties.try(:each) do |party|
       #  pending_parties.concat(party)
