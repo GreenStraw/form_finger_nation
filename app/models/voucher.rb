@@ -35,13 +35,8 @@ class Voucher < ActiveRecord::Base
 
       voucher = []
 
-      parties = Party.where(is_cancelled: false).where('scheduled_for >= ?', DateTime.now)
-      parties.joins(:party_reservations).where("party_reservations.user_id =? ", current_user.id).order(:scheduled_for)
-
-      #reservations = current_user.party_reservations.where(user_id: current_user.id)
-      #reservedPartyIDs = reservations.map(&:party_id)
-
-      reservedPartyIDs = parties.map(&:id)
+      reservations = current_user.party_reservations.where(user_id: current_user.id)
+      reservedPartyIDs = reservations.map(&:party_id)
 
       grouped_reserved_vouchers = where(party_id: reservedPartyIDs).group_by{|v| [v.party_id, v.package_id] }
 
