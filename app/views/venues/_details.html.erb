@@ -1,9 +1,9 @@
 <div>
   <div>
 	  	<% if !@venue.image_url.blank? %>
-		  	<%= image_tag(@venue.image_url, class: "img-banner-paty details-img", title: "venue image", style: "border-radius: 100%; width: 23%;" ) %>
+		  	<%= image_tag(@venue.image_url, class: "img-banner-party details-img", title: "venue image", style: "border-radius: 100%; width: 23%;" ) %>
 		<% else %>
-			<img alt="Placeholder" title="venue image" class="img-responsive center details-img" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
+			<img alt="Placeholder" title="venue image" class="img-responsive img-banner-party details-img" src="/assets/placeholder-48fa3ed0cb9d3fdedc0b91ad30a9f61e.png" 
 			style="max-width: 95% !important;
 			height: 55px;
 			border-radius: 50%;
