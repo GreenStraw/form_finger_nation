@@ -162,7 +162,7 @@ body {overflow-x: hidden}
 
                   cards_further_away = response.parties_away;
 
-                  $(".parties-further-out").append("<h3>Parties Further Away</h3>");
+                  $(".parties-further-out").append("<h3>Parties Farther Away</h3>");
 
                   for(var i=0; i < cards_further_away.length; i++) {
                       var card = buildCard(cards_further_away[i]);
@@ -175,13 +175,13 @@ body {overflow-x: hidden}
 
 
               if (cards_near_me.length==0&&cards_further_away.length==0) {
-                $(".parties-nearby").append("<h2>No upcoming watch parties listed, be the first to start a treand near you!</h2>");
+                $(".parties-nearby").append("<h2>No upcoming watch parties listed, be the first to start a trend near you!</h2>");
 
                 $(".parties-nearby").append("<a class='btn btn-green btn-default' href='/parties/new'>Create Watch Party</a>");
 
               } else {
                 if (cards_near_me.length==0) {
-                  $(".parties-nearby").append("<h2>No upcoming watch parties nearby, be the first to start a treand near you!</h2>");
+                  $(".parties-nearby").append("<h2>No upcoming watch parties nearby, be the first to start a trend near you!</h2>");
               
                   $(".parties-nearby").append("<a class='btn btn-green btn-default' href='/parties/new'>Create Watch Party</a>");
                 }
