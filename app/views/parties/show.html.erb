@@ -88,6 +88,7 @@ body {overflow-x: hidden}
             </div>
           </div-->
 
+          <p> <%= party.voucher.inspect %>
           <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 1%; padding-left: 3%;">
                 
               <div class="col-lg-6 col-md-6 col-sm-12">
@@ -179,7 +180,7 @@ body {overflow-x: hidden}
                                 </a>
                               </div>
                                 
-                              <div style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
+                              <div class="social-media-btn" style="width: 100%; margin-bottom: 20px; display: block; text-align: right;">
                                 <a title="send to Facebook" 
                                   href="https://www.facebook.com/sharer.php?s=100&&p[title]=<%=@party.name %>&&p[summary]=<%= @party.description %>&&p[url]=https://www.foamfingernation.com/parties/<%= @party.friendly_url%>&&p[images][0]=<%= @party.image_url %>" class="btn btn-green btn-circle btn-facebook"
                                   target="_blank">
@@ -197,7 +198,7 @@ body {overflow-x: hidden}
                       <% if !@party.is_cancelled? %>
                         <% if !(current_user.admin? || current_user.has_role?(:venue_manager, @party.venue) || current_user.has_role?(:manager, @party.venue)) %>
 
-                            <div class="manage" style="text-align: center;">
+                            <div class="manage top-space-2x" style="text-align: center;">
 
                                 <% if @spotsLeft > 0 %>
 
