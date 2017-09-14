@@ -29,7 +29,7 @@
                 <% if current_user.requested_role == "Sports Fan" %>
                   <% display_name =  current_user.first_name + " " + current_user.last_name rescue current_user.username %>
                 <% else %>
-                  <% display_name = current_user.username %>
+                  <% display_name = current_user.email rescue current_user.username %>
                 <% end %>
                 <strong><a href="/user/<%= current_user.id %>"><%= display_name %></a></strong>
               </span>
