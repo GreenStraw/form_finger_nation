@@ -157,7 +157,7 @@ h3,.h3 {
   width: 300px;
   cursor: pointer;
   box-shadow: 1px 1px 1px #cfcfcf;
-  height: 180px;
+  min-height: 180px;
   color: #000;
   position: relative;
   margin: 0 auto; 
@@ -167,23 +167,49 @@ h3,.h3 {
 
 .card-package .padding {
   padding: 1%;
+  position: relative;
+  display: block;
 }
 
 .card-package .holder {
-  float: left; 
-  padding: 10px;
+  padding: 3%;
+  display: block;
 }
 
-.card-package img {
+.card-package .holder img {
   max-width: 95% !important;
   height: 55px;
   border-radius: 50%;
   overflow: hidden;
+  display: inline-block;
+  float:none;
+}
+
+.card-package .holder h3 {
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.card-package .caption {
+  position: relative;
+  margin-top: 2%;
+  padding: 3%;
 }
 
 .card-package .caption .description {
-    padding-left: 10px; 
-    margin: 0;
+  padding-left: 10px; 
+  margin: 0;
+}
+
+.card-package .bottom {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.card-package .bottom .price {
+  position: relative;
+  left: 75%;
+  padding: 20px;
 }
 
 .venue_vertical_line {

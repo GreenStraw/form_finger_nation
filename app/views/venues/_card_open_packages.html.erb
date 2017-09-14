@@ -20,15 +20,14 @@
                       <img src='<%= asset_path 'beer-flat.png' %>' title="package image" alt="package" class="img-responsive center"/>
 
                     <% end %>
+
+                    <h3> <%= package.name rescue "" %> </h3>
+
                   </div>
                   
                   <div class="caption">
-                      <h3> <%= package.name rescue "" %> </h3>
-
-                      <br/>
-                    
                     <p class="description">
-                      <%= package.description.truncate(40) rescue "" %>
+                      <%= package.description.truncate(200) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
             </div> <!-- END padding -->
@@ -48,9 +47,7 @@
               <% end %>
 
               <% if price > 0 %>
-                    <span style="bottom: 0;
-                    position: absolute; right: 0;
-                    padding: 20px;">$<%= price %></span>
+                    <span class="price">$<%= price %></span>
               <% end %>
 
             </div> <!-- END Bottom -->

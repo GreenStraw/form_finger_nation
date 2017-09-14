@@ -15,15 +15,14 @@
                       <img alt="Placeholder" class="img-responsive center" src='<%= asset_path 'beer-flat.png' %>'/>
 
                     <% end %>
+
+                    <h3> <%= package.name %> </h3>
+                    
                   </div>
                   
                   <div class="caption">
-                      <h3> <%= package.name %> </h3>
-
-                      <br/>
-                    
                     <p class="description">
-                      <%= package.description.truncate(40) rescue "" %>
+                      <%= package.description.truncate(200) rescue "" %>
                     </p>
                   </div> <!-- END caption -->
             </div> <!-- END padding -->
@@ -31,7 +30,7 @@
             <div class="bottom">
                 
               <% if reservations_include?(party, user) && !(current_user.admin? || current_user.has_role?(:venue_manager, party.venue) || current_user.has_role?(:manager, party.venue)) %>
-                  <div class="inline-block" style="bottom: 0; position: absolute; padding: 15px;">
+                  <div class="inline-block" style="padding: 15px;">
                       <% myvoucher = my_voucher_redeem_include(party, user, package) %>
 
                       <% if myvoucher.any? && !myvoucher.first.redeemed_at.nil? %>
@@ -53,9 +52,7 @@
                   </div>
               <% end %>
 
-              <span style="bottom: 0;
-                    position: absolute; right: 0;
-                    padding: 20px;">$<%= package.price %></span>
+              <span class="price inline-block">$<%= package.price %></span>
 
             </div> <!-- END Bottom -->
         </div>
