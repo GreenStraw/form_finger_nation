@@ -192,6 +192,9 @@
 
 <script>
 $(document).ready(function () {
+
+  $('.card').css({"top": 0, "opacity":1});
+
   $("#rsvp_parties_link").click(function(){
     $("#all-parties").hide();
     $("#teams-rsvp").show();
@@ -231,6 +234,10 @@ $(document).ready(function () {
 
       }
     });
+  });
+
+  $(".my_party").click(function(e) {
+    $('.card').css({"top": 0, "opacity":1});
   });
 
 </script>
