@@ -29,8 +29,9 @@
 
             <div class="bottom">
                 
+              <div class="inline-block" style="padding: 15px;">
               <% if reservations_include?(party, user) && !(current_user.admin? || current_user.has_role?(:venue_manager, party.venue) || current_user.has_role?(:manager, party.venue)) %>
-                  <div class="inline-block" style="padding: 15px;">
+                  
                       <% myvoucher = my_voucher_redeem_include(party, user, package) %>
 
                       <% if myvoucher.any? && !myvoucher.first.redeemed_at.nil? %>
@@ -49,9 +50,9 @@
                           <%= link_to "Redeem", redeem_voucher_path(general_voucher.first.id), class: "btn btn-green btn-default",  data: { confirm: 'Are you sure you want to mark this voucher redeemed? It cannot be undone!' } %>
                         <% end %>
                       <% end %>
-                  </div>
+                  
               <% end %>
-
+              </div>
               <span class="price inline-block">$<%= '%.2f' % package.price %></span>
 
             </div> <!-- END Bottom -->
