@@ -70,14 +70,14 @@ gem 'omniauth-oauth2'
 gem 'omniauth-facebook', '1.4.0' #important: 1.4.1 is broken!!!
 gem 'omniauth-twitter'
 gem 'milia',                    '~> 1.0.0'
-gem 'cancancan',                github: 'bryanrite/cancancan', branch: 'master'
-gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'cancancan', 				'~> 2.0'
+gem 'twitter-bootstrap-rails'
 gem 'therubyracer'
 gem 'less-rails'
 # =========================================================
 
 gem 'recaptcha', require: 'recaptcha/rails'
-gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'activerecord-session_store'
 gem 'will_paginate'
 
 gem 'friendly_id'
@@ -116,7 +116,7 @@ group :development do
   gem 'capistrano-bundler',     '~> 1.1.2'
   gem "better_errors"
   gem 'capistrano-rbenv'
-  gem 'capistrano-maintenance', github: "capistrano/maintenance", require: false
+  gem 'capistrano-maintenance', '~> 1.0', require: false
   gem "figaro"
 end
 
