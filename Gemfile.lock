@@ -1065,7 +1065,7 @@ DEPENDENCIES
   awesome_nested_set
   awesome_print
   aws-sdk
-  bcrypt-ruby (~> 3.1.1)
+  bcrypt-ruby
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
