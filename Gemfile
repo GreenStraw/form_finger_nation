@@ -29,7 +29,7 @@ gem 'rolify'
 gem 'enumerize', '0.6.1' # an issue in 0.7.0 causes app error when enumerized state is blank and scope and predicates flags are passed
 # we use the custom code for datatable in app/assets/javascripts/third_party
 
-gem 'bcrypt-ruby', '~> 3.0' # password encryption
+gem 'bcrypt-ruby'#, '~> 3.0' # password encryption
 
 gem 'awesome_nested_set' #, '~>3.0.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
@@ -127,6 +127,9 @@ end
 
 group :production do
   #gem 'rails_12factor', '~> 0.0' # tweaks for heroku
+  
+  # Use puma as the app server
+  gem 'puma'
 end
 
 group :doc do

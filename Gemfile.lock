@@ -893,6 +893,7 @@ GEM
       byebug (~> 9.1)
       pry (~> 0.10)
     public_suffix (3.0.0)
+    puma (3.9.1)
     qunit-rails (0.0.7)
       railties
     rack (2.0.3)
@@ -1066,7 +1067,7 @@ DEPENDENCIES
   awesome_nested_set
   awesome_print
   aws-sdk
-  bcrypt-ruby (~> 3.0)
+  bcrypt-ruby
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
@@ -1112,6 +1113,7 @@ DEPENDENCIES
   omniauth-twitter
   pg
   pry-byebug
+  puma
   qunit-rails
   rack-cors
   railroady
