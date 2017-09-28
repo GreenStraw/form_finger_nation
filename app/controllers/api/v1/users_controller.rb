@@ -1,7 +1,9 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  include Devise::Models::DatabaseAuthenticatable
-  include ActiveRecord::AttributeAssignment
-  before_filter :authenticate_user_from_token!
+
+  #TODO CALVIN include Devise::Models::DatabaseAuthenticatable
+  #TODO CALVIN include ActiveRecord::AttributeAssignment
+
+  before_action :authenticate_user_from_token!
   load_and_authorize_resource
 
   def index

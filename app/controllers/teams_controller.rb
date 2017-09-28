@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource :team, :except=>[:search, :homesearch]
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
-  skip_before_filter  :verify_authenticity_token
+  skip_before_action  :verify_authenticity_token, raise: false
   # GET /teams
   def index
     @has_favorites = user_signed_in? && current_user.followed_teams.any?

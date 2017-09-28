@@ -1,7 +1,7 @@
 class Api::V1::TeamsController < Api::V1::BaseController
   load_and_authorize_resource :user
   load_and_authorize_resource :team
-  before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
+  before_action :authenticate_user_from_token!, only: [:create, :update, :destroy, :add_host, :remove_host]
 
   def index
     if params[:date].present? && params[:date].is_a?(String) && params[:date].to_i.is_a?(Integer)

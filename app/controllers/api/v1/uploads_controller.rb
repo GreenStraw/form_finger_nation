@@ -2,7 +2,7 @@ module Api
   module V1
     class UploadsController < BaseController
 
-      before_filter :authenticate_user_from_token!
+      before_action :authenticate_user_from_token!
 
       def index
         bucket_name = 'foam-finger'

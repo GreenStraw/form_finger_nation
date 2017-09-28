@@ -20,6 +20,8 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
 
+# help migrate data from old database
+gem 'yaml_db'
 
 gem 'shareable'
 gem 'active_model_serializers' #, '~> 0.7' # json tat conforms to ember-data expectationh
@@ -72,10 +74,10 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'#, '1.4.0' #important: 1.4.1 is broken!!!
 gem 'omniauth-twitter'
-gem 'milia'#,                    '~> 1.0.0'
+gem 'milia' #gem 'milia', github: 'jekuno/milia', branch: 'issue#68'
 gem 'cancancan'#, 				'~> 2.0'
 gem 'twitter-bootstrap-rails'
-#gem 'therubyracer'
+gem 'therubyracer'
 gem 'less-rails'
 # =========================================================
 
@@ -129,7 +131,7 @@ group :production do
   #gem 'rails_12factor', '~> 0.0' # tweaks for heroku
   
   # Use puma as the app server
-  gem 'puma'
+  #gem 'puma'
 end
 
 group :doc do

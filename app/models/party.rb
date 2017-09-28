@@ -13,7 +13,7 @@ class Party < ActiveRecord::Base
   validates :scheduled_for, presence: true
   validate :venue_exists
 
-  after_update :send_notification_when_verified
+  after_commit :send_notification_when_verified
   after_create :ensure_address
 
   has_many :party_reservations, dependent: :destroy

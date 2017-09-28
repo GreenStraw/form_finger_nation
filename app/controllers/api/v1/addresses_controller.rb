@@ -1,5 +1,5 @@
 class Api::V1::AddressesController < Api::V1::BaseController
-  before_filter :authenticate_user_from_token!, except: [:create]
+  before_action :authenticate_user_from_token!, except: [:create]
   load_and_authorize_resource
 
   def index

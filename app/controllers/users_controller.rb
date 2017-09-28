@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :validate_authorization_for_user, only: [:edit, :update]
+  before_action :validate_authorization_for_user, only: [:edit, :update]
   before_action :set_user, only: [:add_admin, :remove_admin]
   respond_to :html, :js
   load_and_authorize_resource

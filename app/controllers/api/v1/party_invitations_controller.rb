@@ -1,5 +1,5 @@
 class Api::V1::PartyInvitationsController < Api::V1::BaseController
-  # before_filter :authenticate_user_from_token!
+  # before_action :authenticate_user_from_token!
 
   def index
     respond_with @party_invitations

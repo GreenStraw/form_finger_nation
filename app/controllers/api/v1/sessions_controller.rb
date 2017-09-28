@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < Devise::SessionsController
-  skip_before_action :verify_authenticity_token
-  skip_before_filter :authenticate_user_from_token!, only: [:create]
+  skip_before_action :verify_authenticity_token, raise: false
+  skip_before_action :authenticate_user_from_token!, only: [:create], raise: false
 
   def create
     unless (params[:email] && params[:password]) || params[:access_token]

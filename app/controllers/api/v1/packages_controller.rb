@@ -1,5 +1,5 @@
 class Api::V1::PackagesController < Api::V1::BaseController
-  before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
+  before_action :authenticate_user_from_token!, only: [:create, :update, :destroy]
   load_and_authorize_resource
 
   def index

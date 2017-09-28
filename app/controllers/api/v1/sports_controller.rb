@@ -1,7 +1,7 @@
 class Api::V1::SportsController < Api::V1::BaseController
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
-  before_filter :authenticate_user_from_token!, only: [:create, :update, :destroy]
+  before_action :authenticate_user_from_token!, only: [:create, :update, :destroy]
 
   def index
     respond_with @sports

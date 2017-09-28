@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_tenant!
+  skip_before_action :authenticate_tenant!, raise: false
   
   def index
     #since this is the default route, and since it isn't used, we must be here because of an error

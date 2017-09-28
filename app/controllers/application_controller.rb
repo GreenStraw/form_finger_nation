@@ -2,8 +2,14 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-
+  
   before_action :set_current_tenant
+  before_action :authenticate_tenant!, raise: false   # authenticate user and sets up tenant
+
+  ##    milia defines a default max_tenants, invalid_tenant exception handling
+  ##    but you can override these if you wish to handle directly
+  rescue_from ::Milia::Control::MaxTenantExceeded,   :with => :max_tenants
+  rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
 
   force_ssl if: :ssl_configured?
   def ssl_configured?
@@ -11,12 +17,6 @@ class ApplicationController < ActionController::Base
     # Rails.env.production?
     false
   end
-
-  ##    milia defines a default max_tenants, invalid_tenant exception handling
-  ##    but you can override these if you wish to handle directly
-  rescue_from ::Milia::Control::MaxTenantExceeded, :with => :max_tenants
-  rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
-
 
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied for #{current_user} on #{exception.action}: #{exception.subject.inspect}"
