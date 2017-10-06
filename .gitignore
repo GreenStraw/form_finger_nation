@@ -4,6 +4,7 @@ tmp
 /config/application.yml
 .DS_Store
 public/uploads
-shared/log/*.*
-shared/pids/*.*
-shared/sockets/*.*
+shared/log/*.log
+shared/pids/*.log
+shared/pids/*.state
+shared/sockets/*.log
