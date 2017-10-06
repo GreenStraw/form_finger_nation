@@ -17,11 +17,14 @@ gem 'binding_of_caller'
 gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks' # methinks turbolinks is fucking stupid and should die in a fire
+# gem 'turbolinks' # turbolinks investigate on its purpose and impact on site later
 
 # help migrate data from old database
 gem 'yaml_db'
+
+gem 'sprockets-rails', '2.3.3'
 
 gem 'shareable'
 gem 'active_model_serializers' #, '~> 0.7' # json tat conforms to ember-data expectationh
@@ -35,6 +38,9 @@ gem 'bcrypt' # password encryption
 
 gem 'awesome_nested_set' #, '~>3.0.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
+
+# digital ocean official V2 API client
+#gem 'droplet_kit'
 
 gem 'gmaps4rails'
 gem 'underscore-rails'
@@ -55,6 +61,7 @@ gem "select2-rails"
 
 # Use unicorn as the app server
 #gem 'unicorn'
+
 # whenever for managing cron jobs
 gem 'whenever'#,                 '~> 0.9.0'
 # dotenv for managing app environment confirugation
@@ -131,7 +138,7 @@ group :production do
   #gem 'rails_12factor', '~> 0.0' # tweaks for heroku
   
   # Use puma as the app server
-  #gem 'puma'
+  gem 'puma'
 end
 
 group :doc do

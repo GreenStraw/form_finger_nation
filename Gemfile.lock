@@ -873,6 +873,7 @@ GEM
       byebug (~> 9.1)
       pry (~> 0.10)
     public_suffix (3.0.0)
+    puma (3.10.0)
     qunit-rails (0.0.7)
       railties
     rack (2.0.3)
@@ -985,10 +986,10 @@ GEM
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
+    sprockets-rails (2.3.3)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (>= 2.8, < 4.0)
     sshkit (1.14.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -1101,6 +1102,7 @@ DEPENDENCIES
   omniauth-twitter
   pg
   pry-byebug
+  puma
   qunit-rails
   rack-cors
   railroady
@@ -1116,6 +1118,7 @@ DEPENDENCIES
   shoulda
   simplecov
   spork
+  sprockets-rails (= 2.3.3)
   stripe
   stripe-ruby-mock
   therubyracer

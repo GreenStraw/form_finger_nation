@@ -6,6 +6,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage :fog
 
+  #def extension_whitelist
+  #  %w(jpg jpeg gif png)
+  #end
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -17,12 +21,12 @@ class ImageUploader < CarrierWave::Uploader::Base
     # For Rails 3.1+ asset pipeline compatibility:
     # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
 
-    ActionController::Base.helpers.asset_path("placeholder.png")
+    #ActionController::Base.helpers.asset_path("placeholder.png")
   end
 
-  process :resize_to_fit => [200, 200]
+  process resize_to_fit: [200, 200]
 
   version :thumb do
-    process :resize_to_fill => [80, 80]
+    process resize_to_fill: [80, 80]
   end
 end

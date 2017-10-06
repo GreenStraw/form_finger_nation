@@ -21,7 +21,7 @@
           <td>
             <% if !package.for_everyone? %>
 
-                <% if @assigned_parties.length > 0 %>
+                <% if @assigned_parties && @assigned_parties.length > 0 %>
                       <%= link_to( "Assign to Party", "#{venue_path(package.venue)}/#{package_path(package)}/vouchers/new" ) %>
                   <% else %> 
                       No Parties Found

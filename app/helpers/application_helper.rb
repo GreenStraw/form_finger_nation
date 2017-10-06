@@ -5,35 +5,20 @@ module ApplicationHelper
   end
 
   def check_controller
-    controller_name = params[:controller]
-    action_name     = params[:action]
-    
-    # puts "-----------------\n"*2
-    # puts controller_name + "/" + action_name
-    # puts "1111111111111111111\n"*2
-                            # "sessions/new",
-                            # "registrations",
-                            # "milia/sessions",
-                            # "milia/passwords",
-                            # "devise/registrations",
-                            # "parties",
-                            # "sports",
-                            # "account",
-                            # "vouchers",
-                            # "users",
-                            # "teams"
-    
-    restrict_controllers = [
-                            "home",
+
+    controller_name = params[:controller] || ""
+    action_name     = params[:action] || ""
+
+    restrict_controllers = ["home",
                             "about",
                             "about2",
                             "how",
-                            "faq",
-                            ]
+                            "faq"]
       
     if restrict_controllers.include?(action_name.to_s)
       return false
     end
+
     return true
   end
 

@@ -2,7 +2,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-  
+
+  force_ssl if: :ssl_configured?
+
+  before_action :check_location
   before_action :set_current_tenant
   before_action :authenticate_tenant!, raise: false   # authenticate user and sets up tenant
 
@@ -11,7 +14,6 @@ class ApplicationController < ActionController::Base
   rescue_from ::Milia::Control::MaxTenantExceeded,   :with => :max_tenants
   rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
 
-  force_ssl if: :ssl_configured?
   def ssl_configured?
     # force all requests to use ssl if in produciton environment
     # Rails.env.production?
@@ -69,6 +71,10 @@ class ApplicationController < ActionController::Base
   def set_current_tenant
     @current_tenant = Tenant.first or raise "run db:seed to create first tenant record"
     Tenant.set_current_tenant(@current_tenant)
+  end
+
+  def check_location
+    @check_controller = helpers.check_controller
   end
 
   # optional callback for post-authenticate_tenant! processing

@@ -1,5 +1,4 @@
 require File.expand_path('../boot', __FILE__)
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -15,12 +14,15 @@ module Baseapp
 
     config.autoload_paths << Rails.root.join('lib')
 
-    # Adding Webfonts to the Asset Pipeline
-    config.assets.precompile << Proc.new { |path|
-      if path =~ /\.(eot|svg|ttf|woff|otf)\z/
-        true
-      end
-    }
+    # In older versions of Rails (< 4) helpers that had the same name with the controllers 
+    # were only available in their corresponding controller and views, for example the 
+    # helpers in BooksHelper were available in BooksController and /views/books/*. 
+    # This is no longer true in Rails 4 each controller will include all 
+    # helpers. If you prefer the old behavior you can still get to it by 
+    # setting inclue_all_helpers = false
+    # https://mixandgo.com/blog/the-beginners-guide-to-rails-helpers
+    # http://blog.bigbinary.com/2016/06/26/rails-add-helpers-method-to-ease-usage-of-helper-modules-in-controllers.html
+    config.action_controller.include_all_helpers = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -30,8 +32,6 @@ module Baseapp
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Central Time (US & Canada)'
     config.active_record.default_timezone = :local #:local Or :utc
-
-    config.action_controller.include_all_helpers = true
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do

@@ -1,3 +1,4 @@
+=begin
 worker_processes 3 # get more out of your free heroku hours
 timeout 30
 preload_app true
@@ -17,3 +18,4 @@ after_fork do |server, worker|
     Rails.logger.info 'Connected to ActiveRecord'
   end
 end
+=end
