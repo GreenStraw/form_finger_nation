@@ -29,9 +29,25 @@ pidfile "#{shared_dir}/pids/puma.pid"
 state_path "#{shared_dir}/pids/puma.state"
 activate_control_app
 
-on_worker_boot do
-  ActiveSupport.on_load(:active_record) do
+#on_worker_boot do
+#  ActiveSupport.on_load(:active_record) do
 	  # Valid on Rails 4.1+ using the `config/database.yml` method of setting `pool` size
-	  ActiveRecord::Base.establish_connection
+#	  ActiveRecord::Base.establish_connection
+#  end
+#end
+
+before_fork do |server, worker|
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.connection.disconnect!
+    Rails.logger.info 'Disconnected from ActiveRecord'
+  end
+
+  sleep 1
+end
+
+after_fork do |server, worker|
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.establish_connection
+    Rails.logger.info 'Connected to ActiveRecord'
   end
 end
