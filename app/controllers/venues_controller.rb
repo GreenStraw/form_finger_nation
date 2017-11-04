@@ -1,11 +1,14 @@
 class VenuesController < ApplicationController
   respond_to :html, :js
+  
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   before_action :set_party, only: [:verify_party, :unverify_party]
+  before_action :authenticate_user!
+
   load_and_authorize_resource :venue
   load_and_authorize_resource :user
   load_and_authorize_resource :party
-  before_action :authenticate_user!
+  
   
   #before_action :does_user_have_access_vendor_view
   

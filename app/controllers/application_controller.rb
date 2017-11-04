@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   ##    milia defines a default max_tenants, invalid_tenant exception handling
   ##    but you can override these if you wish to handle directly
-  rescue_from ::Milia::Control::MaxTenantExceeded,   :with => :max_tenants
-  rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
+  #rescue_from ::Milia::Control::MaxTenantExceeded,   :with => :max_tenants
+  #rescue_from ::Milia::Control::InvalidTenantAccess, :with => :invalid_tenant
 
   def ssl_configured?
     # force all requests to use ssl if in produciton environment

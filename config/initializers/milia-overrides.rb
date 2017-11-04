@@ -1,3 +1,4 @@
+=begin
 Milia::InviteMember.class_eval do
   def save_and_invite_member()
     if (
@@ -14,3 +15,4 @@ Milia::InviteMember.class_eval do
     return status
   end
 end
+=end

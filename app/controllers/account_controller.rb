@@ -1,5 +1,7 @@
 class AccountController < ApplicationController
+  
   before_action :authenticate_user!, :only => [:show]
+
   def show
     @user = current_user
   end
@@ -15,7 +17,7 @@ class AccountController < ApplicationController
 
   def create
     @account = User.new(user_params)
-    if @account.save_and_invite_member
+    if save_and_invite_member(@account)
       @account.send_welcome_email
       a_city = request.location.city.titleize rescue ''
       a_state = request.location.region_name rescue ''
@@ -73,20 +75,43 @@ class AccountController < ApplicationController
     else
       result = @user.update_attributes(user_params.except(:password, :password_confirmation))
     end
+
     if result == true && params[:user][:password].blank?
+
       flash[:success] = "Your account details have been updated."
       redirect_to account_path
+
     elsif result == true
+
       #changing the password seems to kill the session??
       flash[:success] = "Your password has been changed, please log in with your new password."
       redirect_to root_path
+
     else
+
       flash[:warning] = "We could not update your account."
       render :edit
+      
     end
+
   end
 
   private
+
+  def save_and_invite_member(account)
+    if (
+        account.email.blank?  ||
+        User.where([ "lower(email) = ?", account.email.downcase ]).first
+      )
+      account.errors.add(:email,"address has already been taken.")
+      status = nil
+    else
+      check_or_set_password()
+      status = account.save && account.errors.empty?
+    end
+
+    return status
+  end
 
   # Only allow a trusted parameter "white list" through.
   def user_params

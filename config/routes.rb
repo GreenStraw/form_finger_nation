@@ -109,22 +109,22 @@ Baseapp::Application.routes.draw do
     put   '/add_admin' => 'users#add_admin',           as: 'add_admin_user'
     put   '/remove_admin' => 'users#remove_admin',     as: 'remove_admin_user'
     # session handling
-    get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
-    post  '/login'  => 'milia/sessions#create',  as: 'user_session'
-    get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
+    #get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
+    #post  '/login'  => 'milia/sessions#create',  as: 'user_session'
+    #get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
     get 'user_root' => 'teams#index', as: :user_root
 
     scope '/account' do
       # password reset
-      get   '/password'        => 'milia/passwords#new',    as: 'new_user_password'
-      put   '/password'        => 'milia/passwords#update', as: 'user_password'
+      #get   '/password'        => 'milia/passwords#new',    as: 'new_user_password'
+      #put   '/password'        => 'milia/passwords#update', as: 'user_password'
       post  '/password'        => 'passwords#create'
-      get   '/password/change' => 'milia/passwords#edit',   as: 'edit_user_password'
+      #get   '/password/change' => 'milia/passwords#edit',   as: 'edit_user_password'
 
       # confirmation
-      get   '/confirm'        => 'milia/confirmations#show',   as: 'user_confirmation'
-      get   '/confirm/resend' => 'milia/confirmations#new',    as: 'new_user_confirmation'
-      post  '/confirm'        => 'milia/confirmations#create'
+      #get   '/confirm'        => 'milia/confirmations#show',   as: 'user_confirmation'
+      #get   '/confirm/resend' => 'milia/confirmations#new',    as: 'new_user_confirmation'
+      #post  '/confirm'        => 'milia/confirmations#create'
       put   '/confirm'        => 'confirmations#update', as: 'update_user_confirmation'
     end
   end

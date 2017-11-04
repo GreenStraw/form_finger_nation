@@ -81,7 +81,7 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'#, '1.4.0' #important: 1.4.1 is broken!!!
 gem 'omniauth-twitter'
-gem 'milia' #gem 'milia', github: 'jekuno/milia', branch: 'issue#68'
+#gem 'milia' #gem 'milia', github: 'jekuno/milia', branch: 'issue#68'
 gem 'cancancan'#, 				'~> 2.0'
 gem 'twitter-bootstrap-rails'
 gem 'therubyracer'

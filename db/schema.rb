@@ -224,22 +224,6 @@ ActiveRecord::Schema.define(version: 20170928052227) do
     t.index ["sport_id"], name: "index_teams_on_sport_id"
   end
 
-  create_table "tenants", id: :serial, force: :cascade do |t|
-    t.integer "tenant_id"
-    t.string "name", limit: 255
-    t.string "api_token", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["name"], name: "index_tenants_on_name"
-    t.index ["tenant_id"], name: "index_tenants_on_tenant_id"
-  end
-
-  create_table "tenants_users", id: false, force: :cascade do |t|
-    t.integer "tenant_id", null: false
-    t.integer "user_id", null: false
-    t.index ["tenant_id", "user_id"], name: "index_tenants_users_on_tenant_id_and_user_id"
-  end
-
   create_table "user_purchased_packages", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "package_id"
@@ -270,7 +254,6 @@ ActiveRecord::Schema.define(version: 20170928052227) do
     t.string "unlock_token", limit: 255
     t.datetime "locked_at"
     t.boolean "skip_confirm_change_password", default: false
-    t.integer "tenant_id"
     t.string "authentication_token", limit: 255
     t.string "first_name", limit: 255
     t.string "last_name", limit: 255

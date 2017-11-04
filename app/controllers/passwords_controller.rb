@@ -1,3 +1,4 @@
+=begin
 class PasswordsController < Milia::PasswordsController
   protected
 
@@ -6,3 +7,4 @@ class PasswordsController < Milia::PasswordsController
   end
 
 end  # class
+=end

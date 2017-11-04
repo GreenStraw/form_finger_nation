@@ -1,10 +1,14 @@
 class TeamsController < ApplicationController
   respond_to :html, :js
+
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  skip_before_action  :verify_authenticity_token, raise: false
+  
   load_and_authorize_resource :team, :except=>[:search, :homesearch]
   load_and_authorize_resource :user
   load_and_authorize_resource :sport
-  skip_before_action  :verify_authenticity_token, raise: false
+  
+
   # GET /teams
   def index
     @has_favorites = user_signed_in? && current_user.followed_teams.any?
