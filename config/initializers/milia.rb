@@ -1,3 +1,5 @@
+=begin
+
 # OPTIONAL: Use this as a template for changing milia configuration
 # put it in your config/initializers directory
 # values shown below are the defaults in milia
@@ -49,3 +51,5 @@ Milia.setup do |config|
   # config.whitelist_coupon_params = []
 
 end
+
+=end
