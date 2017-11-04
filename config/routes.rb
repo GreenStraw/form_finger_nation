@@ -112,7 +112,7 @@ Baseapp::Application.routes.draw do
     #get   '/login'  => 'milia/sessions#new',     as: 'new_user_session'
     #post  '/login'  => 'milia/sessions#create',  as: 'user_session'
     #get   '/logout' => 'milia/sessions#destroy', as: 'destroy_user_session'
-    get 'user_root' => 'teams#index', as: :user_root
+    get 'user_root' => 'teams#index', as: :teams
 
     scope '/account' do
       # password reset
