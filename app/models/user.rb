@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   has_many :authorizations
 
-  acts_as_universal_and_determines_account
+  #removethis_milia_function acts_as_universal_and_determines_account
   
   has_many :comments, as: :commenter
   has_many :favorites, as: :favoriter, dependent: :destroy
@@ -351,7 +351,6 @@ end
 #  unlock_token                 :string(255)
 #  locked_at                    :datetime
 #  skip_confirm_change_password :boolean          default(FALSE)
-#  tenant_id                    :integer
 #  authentication_token         :string(255)
 #  first_name                   :string(255)
 #  last_name                    :string(255)
