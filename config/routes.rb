@@ -116,15 +116,15 @@ Baseapp::Application.routes.draw do
 
     scope '/account' do
       # password reset
-      get   '/password'        => 'passwords#new',    as: 'new_user_password'
-      put   '/password'        => 'passwords#update', as: 'user_password'
+      get   '/password'        => 'devise/passwords#new',    as: 'new_user_password'
+      put   '/password'        => 'devise/passwords#update', as: 'user_password'
       post  '/password'        => 'passwords#create'
-      get   '/password/change' => 'passwords#edit',   as: 'edit_user_password'
+      get   '/password/change' => 'devise/passwords#edit',   as: 'edit_user_password'
 
       # confirmation
-      get   '/confirm'        => 'confirmations#show',   as: 'user_confirmation'
-      get   '/confirm/resend' => 'confirmations#new',    as: 'new_user_confirmation'
-      post  '/confirm'        => 'confirmations#create'
+      get   '/confirm'        => 'devise/confirmations#show',   as: 'user_confirmation'
+      get   '/confirm/resend' => 'devise/confirmations#new',    as: 'new_user_confirmation'
+      post  '/confirm'        => 'devise/confirmations#create'
       put   '/confirm'        => 'confirmations#update', as: 'update_user_confirmation'
     end
   end
