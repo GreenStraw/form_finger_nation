@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   force_ssl if: :ssl_configured?
 
   before_action :check_location
-  before_action :set_current_tenant
+  #before_action :set_current_tenant
   before_action :authenticate_tenant!, raise: false   # authenticate user and sets up tenant
 
   ##    milia defines a default max_tenants, invalid_tenant exception handling
