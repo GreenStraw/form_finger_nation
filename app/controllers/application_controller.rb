@@ -66,12 +66,14 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+=begin
   # later this actions will read from a subdomain value
   # and load the appropriate tenant record
   def set_current_tenant
     @current_tenant = Tenant.first or raise "run db:seed to create first tenant record"
     Tenant.set_current_tenant(@current_tenant)
   end
+=end
 
   def check_location
     @check_controller = helpers.check_controller
