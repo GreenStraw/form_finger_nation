@@ -1,5 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_action :authenticate_tenant!, raise: false
+  #skip_before_action :authenticate_tenant!, raise: false
 	skip_before_action :authenticate_user!, raise: false
   def all
     # puts "==============\n"*98

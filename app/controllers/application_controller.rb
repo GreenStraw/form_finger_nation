@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :check_location
   #before_action :set_current_tenant
-  before_action :authenticate_tenant!, raise: false   # authenticate user and sets up tenant
+  #before_action :authenticate_tenant!, raise: false   # authenticate user and sets up tenant
 
   ##    milia defines a default max_tenants, invalid_tenant exception handling
   ##    but you can override these if you wish to handle directly
@@ -79,6 +79,7 @@ class ApplicationController < ActionController::Base
     @check_controller = helpers.check_controller
   end
 
+=begin
   # optional callback for post-authenticate_tenant! processing
   def callback_authenticate_tenant
     @org_name = ( Tenant.current_tenant.nil?  ?
@@ -87,6 +88,7 @@ class ApplicationController < ActionController::Base
     )
     # set_environment or whatever else you need for each valid session
   end
+=end
 
   def authenticate_user_from_token!
     user_email = request.headers['auth-email'].presence
