@@ -99,15 +99,12 @@ class AccountController < ApplicationController
   private
 
   def save_and_invite_member(account)
-    if (
-        account.email.blank?  ||
-        User.where([ "lower(email) = ?", account.email.downcase ]).first
-      )
-      account.errors.add(:email,"address has already been taken.")
-      status = nil
+    if (account.email.blank?  || User.where([ "lower(email) = ?", account.email.downcase ]).first)
+        account.errors.add(:email,"address has already been taken.")
+        status = nil
     else
-      check_or_set_password()
-      status = account.save && account.errors.empty?
+        #skipmiliafunction check_or_set_password()
+        status = account.save && account.errors.empty?
     end
 
     return status
