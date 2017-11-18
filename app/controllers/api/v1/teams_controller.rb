@@ -6,7 +6,7 @@ module Api
 
       def index
         team = Team.all
-        render json: {status: 'SUCCESS', message:'Loaded articles', data:team}, status:ok
+        render json: {status: 'SUCCESS', message:'Loaded articles', data:team},status: :ok
       end
 
     end
