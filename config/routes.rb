@@ -132,71 +132,7 @@ Baseapp::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'api/v1/registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
-
-      devise_scope :api_v1_user do
-        post   '/sign_in'  => 'sessions#create'
-        delete '/sign_out' => 'sessions#destroy'
-        post '/users' => 'registrations#create'
-      end
-
-      resources :users, only: [:index, :show, :update] do
-        collection do
-          get 'search_users'
-        end
-        member do
-          put 'follow_user'
-          put 'unfollow_user'
-        end
-      end
-      resources :endorsement_requests, only: [:index, :show, :update, :create]
-      resources :sports do
-        member do
-          put 'subscribe_user'
-          put 'unsubscribe_user'
-        end
-      end
-
       resources :teams
-      
-      resources :venues do
-        member do
-          get 'packages'
-          put 'add_manager'
-          put 'remove_manager'
-        end
-      end
-      resources :parties do
-        collection do
-          #get 'search'
-          get 'by_attendee'
-          get 'by_organizer'
-          get 'by_user_favorites'
-        end
-        member do
-          put 'add_package'
-          put 'remove_package'
-          put 'rsvp'
-          put 'unrsvp'
-          post 'invite'
-        end
-      end
-      resources :vouchers, only: [:index, :show, :create, :update] do
-        collection do
-          get 'by_user'
-        end
-        member do
-          put 'redeem'
-        end
-      end
-      resources :uploads, only: [:index] do
-      end
-      resources :packages
-      resources :comments, only: [:index, :show, :create, :update]
-      resources :addresses, only: [:index, :create, :show, :update]
-      resources :party_invitations, only: [:index, :show] do
-        put 'accept', on: :member
-      end
     end
   end
 
