@@ -130,9 +130,18 @@ Baseapp::Application.routes.draw do
   end
 
 
-  namespace :api, defaults: {format: 'json'} do
+namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
+      devise_for :users, controllers: { sessions: 'api/v1/sessions', registrations: 'api/v1/registrations', confirmations: 'confirmations'}, :path_prefix => 'api/v1'
+
+      devise_scope :api_v1_user do
+        post   '/sign_in'  => 'sessions#create'
+        delete '/sign_out' => 'sessions#destroy'
+        post '/users' => 'registrations#create'
+      end
+
       resources :teams
+    
     end
   end
 
