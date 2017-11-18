@@ -1,5 +1,5 @@
 module Api
-  module v1 
+  module V1 
 
   end
 end
