@@ -1,8 +1,7 @@
 class RegistrationUserSerializer < ImageSerializer
+    
+  attributes :username, :first_name, :last_name, :email, :confirmed, :authentication_token
   
-  self.root = 'user'
-  
-  attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :authentication_token
   has_one :address
   has_many :followed_sports
   has_many :followed_teams
