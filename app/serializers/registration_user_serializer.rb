@@ -1,6 +1,8 @@
 class RegistrationUserSerializer < ImageSerializer
     
-  attributes :username, :first_name, :last_name, :email, :confirmed, :authentication_token
+  attributes :username, :first_name, :last_name, :email, :authentication_token
+
+  #removed from attributes confirmed, admin
   
   has_one :address
   has_many :followed_sports
