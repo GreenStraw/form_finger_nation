@@ -1,8 +1,8 @@
 class PartySerializer < BaseSerializer
 
-  #removed attribute purchase_total
-  
-  attributes :name, :description, :scheduled_for, :is_private, :verified, :voucher_count, :address
+  #removed attribute purchase_total,voucher_count
+
+  attributes :name, :description, :scheduled_for, :is_private, :verified, :address
   has_many :party_invitations, embed: :ids
   has_many :unregistered_attendees, embed: :ids
   has_many :attendees, embed: :ids
@@ -19,9 +19,9 @@ class PartySerializer < BaseSerializer
   #  object.completed_purchases.map(&:package).sum(&:price).to_f
   #end
 
-  def voucher_count
-    object.completed_purchases.count
-  end
+  #def voucher_count
+  #  object.completed_purchases.count
+  #end
 
   def address
     if object.is_private?
