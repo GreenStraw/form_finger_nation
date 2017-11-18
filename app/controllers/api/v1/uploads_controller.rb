@@ -1,5 +1,5 @@
 module Api
-  module V1
+  module v1
     class UploadsController < BaseController
 
       before_action :authenticate_user_from_token!
