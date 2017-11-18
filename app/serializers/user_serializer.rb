@@ -1,5 +1,8 @@
 class UserSerializer < ImageSerializer
-  attributes :username, :first_name, :last_name, :email, :admin, :confirmed, :requested_role
+
+  # removed admin, confirmed
+
+  attributes :username, :first_name, :last_name, :email, :requested_role
   has_one :address
   has_many :followed_sports, embed: :ids
   has_many :followed_teams, embed: :ids
@@ -16,13 +19,13 @@ class UserSerializer < ImageSerializer
 
   private
 
-  def confirmed
-    object.confirmed_at.present?
-  end
+  #def confirmed
+  #  object.confirmed_at.present?
+  #end
 
-  def admin
-    object.has_role?(:admin)
-  end
+  #def admin
+  #  object.has_role?(:admin)
+  #end
 
   def managed_teams
     teams = []
