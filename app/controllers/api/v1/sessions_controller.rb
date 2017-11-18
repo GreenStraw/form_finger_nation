@@ -10,12 +10,15 @@ module Api
         end
 
         if params[:access_token]
-          @user = user_from_facebook
+          @user = {} #user_from_facebook
         else
           @user = user_from_credentials
         end
+
         return invalid_credentials unless @user
-        @user.ensure_authentication_token
+        
+        #@user.ensure_authentication_token
+        
         render json: RegistrationUserSerializer.new(@user).to_json, status: 201
       end
 
