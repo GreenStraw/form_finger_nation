@@ -58,6 +58,11 @@ body {overflow-x: hidden}
                 Keep Up With Us</h2>
                 <% if @team.twitter_name.present? && @team.twitter_widget_id.present? %>
                   <a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %> data-widget-id=<%= "#{@team.twitter_widget_id}"%>><%= "Tweets by @#{@team.twitter_name}" %></a>
+	
+				<% elsif @team.twitter_name.present? %>
+					<a class="twitter-timeline" href=<%= "https://twitter.com/#{@team.twitter_name}" %>>
+						<%= "Tweets by @#{@team.twitter_name}" %>
+					</a>
                 <% end %>
             </div>
 
