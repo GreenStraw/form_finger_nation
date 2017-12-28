@@ -7,8 +7,9 @@ module Api
   
         def index
           venues = Venue.all
+          render json: {status: 'SUCCESS', data:venues},status: :ok
         end
-        
+
       end
     end
   end
