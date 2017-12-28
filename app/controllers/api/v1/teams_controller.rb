@@ -6,7 +6,20 @@ module Api
 
       def index
         team = Team.all
-        render json: {status: 'SUCCESS', message:'Loaded articles', data:team},status: :ok
+
+        render json: team, status: 201, location: [:api, team]
+
+        #respond_to do |format|
+        #  format.json { render :show, status: :created, location: @blog }
+          #format.json { render json: @blog.errors, status: :unprocessable_entity }
+        #end
+
+        #render json: {status: 'SUCCESS', message:'Loaded articles', data:team},status: :ok
+
+        #respond_to do |format|
+          #format.json { render :show, status: :created, location: @blog }
+          #format.json { render json: @blog.errors, status: :unprocessable_entity }
+        #end
       end
 
     end
