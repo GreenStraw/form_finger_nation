@@ -146,6 +146,8 @@ namespace :api, defaults: {format: 'json'} do
         end
       end
 
+      resources :venues
+
     end
   end
 
