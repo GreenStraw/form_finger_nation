@@ -141,6 +141,8 @@ namespace :api, defaults: {format: 'json'} do
       end
 
       resources :teams
+
+      get 'teams/favorite_teams' => 'teams#favorite_teams'
     
     end
   end
