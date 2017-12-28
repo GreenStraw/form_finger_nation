@@ -1,4 +1,4 @@
-class TeamSerializer < BaseSerializer
+class TeamSerializer < ActiveModel::Serializer
   attributes :name, :information, :sport_id, :college, :website, :image_url
   has_one :address
   has_many :admins, embed: :ids
