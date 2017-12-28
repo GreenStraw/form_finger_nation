@@ -139,11 +139,13 @@ namespace :api, defaults: {format: 'json'} do
         delete '/sign_out' => 'sessions#destroy'
         post '/users' => 'registrations#create'
       end
+      
+      resources :teams do
+        collection do
+          get 'favorite_teams'
+        end
+      end
 
-      resources :teams
-
-      get 'teams/favorite_teams' => 'teams#favorite_teams'
-    
     end
   end
 
