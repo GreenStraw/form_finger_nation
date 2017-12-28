@@ -17,6 +17,9 @@ Rails.application.config.assets.precompile +=
 #Rails.application.config.assets.precompile += 
 #%w(*.png *.jpg *.jpeg *.gif *.js *.css *.erb)
 
+  # Version of your assets, change this if you want to expire all your assets.
+Rails.application.config.assets.version = '1.0'
+
     # Adding Webfonts to the Asset Pipeline
 Rails.application.config.assets.precompile << Proc.new { |path|
       if path =~ /\.(eot|svg|ttf|woff|otf)\z/

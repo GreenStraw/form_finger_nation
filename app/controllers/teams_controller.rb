@@ -118,8 +118,12 @@ class TeamsController < ApplicationController
 
   # POST /teams
   def create
-    flash[:notice] = 'Team was successfully created.' if @team.save
-    respond_with @team, location: team_path(@team)
+
+    respond_to do |format|
+      if @team.save
+        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+      end
+    end
   end
 
   # PATCH/PUT /teams/1
