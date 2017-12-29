@@ -148,6 +148,7 @@ namespace :api, defaults: {format: 'json'} do
 
       resources :venues
       resources :parties
+      resources :sports
 
     end
   end
