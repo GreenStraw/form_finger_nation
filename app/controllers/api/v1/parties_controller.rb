@@ -12,6 +12,13 @@ module Api
           render json: {status: 'SUCCESS', data:parties},status: :ok
         end
 
+        def show
+          party = Party.find_by_id(params[:id])
+          party_packages = Party.getPartyPackages(party.venue.id, party.id)
+
+          render json: {status: 'SUCCESS', data:{party:party, party_packages: party_packages}},status: :ok
+        end
+
       end
     end
   end
