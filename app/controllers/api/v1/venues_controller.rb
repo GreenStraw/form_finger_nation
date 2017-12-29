@@ -10,6 +10,13 @@ module Api
           render json: {status: 'SUCCESS', data:venues},status: :ok
         end
 
+        def show
+          venue = Venue.find_by_id(params[:id])
+          latitude = venue.address.latitude
+          longitude = venue.address.longitude
+          render json: {status: 'SUCCESS', data:{venue:venue, venue_location: {longitude:longitude, latitude:latitude} } },status: :ok
+        end
+
       end
     end
   end

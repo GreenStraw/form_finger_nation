@@ -21,8 +21,12 @@ module Api
         #end
       end
 
+      def show
+        team = Team.find_by_id(params[:id])
+        render json: {status: 'SUCCESS', data:team},status: :ok
+      end
+
       def favorite_teams
-  
         current_user = User.find_by_id("481")
 
         #has_favorites = user_signed_in? && current_user.followed_teams.any?
@@ -34,7 +38,6 @@ module Api
         #else
         #    redirect_to teams_path
         end
-        
       end
 
     end
