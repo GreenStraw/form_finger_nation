@@ -12,9 +12,10 @@ module Api
 
         def show
           venue = Venue.find_by_id(params[:id])
+          venue_packages = venue.packages || []
           latitude = venue.address.latitude
           longitude = venue.address.longitude
-          render json: {status: 'SUCCESS', data:{venue:venue, venue_location: {longitude: longitude, latitude: latitude}}},status: :ok
+          render json: {status: 'SUCCESS', data:{venue:venue, venue_location: {longitude: longitude, latitude: latitude}, venue_packages: venue_packages}},status: :ok
         end
 
       end
