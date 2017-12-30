@@ -14,7 +14,7 @@ module Api
           venue = Venue.find_by_id(params[:id])
           latitude = venue.address.latitude
           longitude = venue.address.longitude
-          render json: {status: 'SUCCESS', data:{venue:venue, venue_location: {}}},status: :ok
+          render json: {status: 'SUCCESS', data:{venue:venue, venue_location: {longitude: 0, latitude: 0}}},status: :ok
         end
 
       end
