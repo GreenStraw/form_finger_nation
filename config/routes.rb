@@ -143,7 +143,7 @@ namespace :api, defaults: {format: 'json'} do
       resources :teams do
         collection do
           get 'favorite_teams'
-          post 'getTeamsPerSport'
+          post 'getTeamsBySport'
         end
       end
 
