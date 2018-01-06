@@ -41,6 +41,7 @@ module Api
       end
 
       def getTeamsBySport
+        current_user = User.find_by_id("481")
         sportId = params[:sportId]
 
         if !sportId.nil?
