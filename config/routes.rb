@@ -146,9 +146,7 @@ namespace :api, defaults: {format: 'json'} do
           post 'getTeamsBySport'
         end
       end
-
-      post 'teams/:id/parties_in_area' => "teams#parties_in_area", :as => 'parties_in_area'
-
+      
       resources :venues
       resources :parties
       resources :sports
