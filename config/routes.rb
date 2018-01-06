@@ -143,8 +143,11 @@ namespace :api, defaults: {format: 'json'} do
       resources :teams do
         collection do
           get 'favorite_teams'
+          post 'getTeamsPerSport'
         end
       end
+
+      post 'teams/:id/parties_in_area' => "teams#parties_in_area", :as => 'parties_in_area'
 
       resources :venues
       resources :parties

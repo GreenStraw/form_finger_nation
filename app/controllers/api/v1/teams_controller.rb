@@ -40,6 +40,15 @@ module Api
         end
       end
 
+      def getTeamsBySport
+        sportId = params[:sportId]
+
+        if !sportId.nil?
+          teams_by_sport = Team.find_by_sport_id(sportId)
+          render json: {status: 'SUCCESS', data:teams_by_sport},status: :ok
+        end
+      end
+
     end
   end
 end
