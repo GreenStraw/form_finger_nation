@@ -4,6 +4,8 @@ module Api
       load_and_authorize_resource :user
       load_and_authorize_resource :team
 
+      protect_from_forgery with: :null_session
+
       def index
         teams = Team.all
         #render json: team, status: 201, location: [:api, team]
