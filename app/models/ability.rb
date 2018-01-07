@@ -98,7 +98,7 @@ class Ability
       can :create, Package
       cannot [:add_admin, :remove_admin], User
       can :read, :all
-      can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe, :favorite_teams], Team
+      can [:subscribe_user, :subscribe, :unsubscribe_user, :unsubscribe, :favorite_teams, :get_teams_by_sport], Team
       can [:subscribe_user, :unsubscribe_user], Sport
       can :packages, Venue
       can :create, Venue
