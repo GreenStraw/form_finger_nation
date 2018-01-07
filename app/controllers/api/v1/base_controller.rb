@@ -1,15 +1,11 @@
 module Api
   module V1 
     class BaseController < ApplicationController
-        #skip_before_action :verify_authenticity_token, raise: false
+        skip_before_action :verify_authenticity_token, raise: false
 
         # token validation per tenant should be implemented
-        #before_action :validate_token
+        before_action :validate_token
         
-        # Prevent CSRF attacks by raising an exception.
-        # For APIs, you may want to use :null_session instead.
-        protect_from_forgery with: :null_session
-
         respond_to :json
 
         def current_user
