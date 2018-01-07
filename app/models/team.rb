@@ -41,6 +41,10 @@ class Team < ActiveRecord::Base
     ordered_teams
   end
 
+  def self.teams_by_sport(sport_id)
+    self.where("sport_id =?", sport_id)
+  end
+
   def admins
     User.with_role(:team_admin, self) || []
   end

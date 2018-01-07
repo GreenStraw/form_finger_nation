@@ -44,7 +44,7 @@ module Api
         sportId = params[:sportId]
 
         if !sportId.nil?
-          teams_by_sport = Team.find_by_sport_id(sportId)
+          teams_by_sport = Team.teams_by_sport(sportId)
           render json: {status: 'SUCCESS', data:teams_by_sport},status: :ok
         end
       end
