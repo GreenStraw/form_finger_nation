@@ -143,10 +143,10 @@ namespace :api, defaults: {format: 'json'} do
       resources :teams do
         collection do
           get 'favorite_teams'
-          post 'getTeamsBySport'
+          get 'getTeamsBySport'
         end
       end
-      
+
       resources :venues
       resources :parties
       resources :sports
