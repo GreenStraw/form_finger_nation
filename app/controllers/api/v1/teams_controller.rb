@@ -4,8 +4,6 @@ module Api
       load_and_authorize_resource :user
       load_and_authorize_resource :team
 
-      protect_from_forgery with: :null_session
-
       def index
         teams = Team.all
         #render json: team, status: 201, location: [:api, team]
@@ -42,8 +40,7 @@ module Api
         end
       end
 
-      def getTeamsBySport
-        current_user = User.find_by_id("481")
+      def get_teams_by_sport
         sportId = params[:sportId]
 
         if !sportId.nil?
