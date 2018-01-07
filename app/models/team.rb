@@ -42,7 +42,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.teams_by_sport(sport_id)
-    self.where("sport_id =?", sport_id)
+    self.where("sport_id =?", sport_id).order(:name)
   end
 
   def admins
