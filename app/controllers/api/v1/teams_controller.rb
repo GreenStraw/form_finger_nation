@@ -3,6 +3,7 @@ module Api
     class TeamsController < ApplicationController
       load_and_authorize_resource :user
       load_and_authorize_resource :team
+      load_and_authorize_resource :sport
 
       def index
         teams = Team.all
@@ -23,7 +24,7 @@ module Api
 
       def show
         team = Team.find_by_id(params[:id])
-        render json: {status: 'SUCCESS', data:team},status: :ok
+        render json: {status: 'SUCCESS', data:{team:team } },status: :ok
       end
 
       def favorite_teams
@@ -43,9 +44,12 @@ module Api
       def get_teams_by_sport
         sportId = params[:sportId]
 
-        if !sportId.nil?
-          teams_by_sport = Team.teams_by_sport(sportId)
-          render json: {status: 'SUCCESS', data:teams_by_sport},status: :ok
+        sport = Sport.find_by_id(params[:sportId])
+        
+        if sport.present? && sport.teams.any?
+          #teams_by_sport = Team.teams_by_sport(sportId)
+          teams_by_sport = sport.teams
+          render json: {status: 'SUCCESS', data: teams_by_sport },status: :ok
         end
       end
 
